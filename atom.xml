@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2013-03-09T12:09:14-08:00</updated>
+  <updated>2013-06-23T15:12:37-07:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using Go vs Ruby for web APIs]]></title>
+    <link href="http://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
+    <updated>2013-06-23T09:50:00-07:00</updated>
+    <id>http://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
+    <content type="html"><![CDATA[<p>A few days ago, I was wondering if using <a href="http://golang.org/">Go</a> would be worth it when developing new web APIs.
+I obviously knew that Go would be faster than Ruby, but I wasn&#8217;t sure
+how much faster. I also wondering about the amount of work required to
+write get a full API implemented.</p>
+
+<p>I therefore wrote the same web API in Ruby (using Rails) and in Go (at
+first using Revel and then rewriting it without a framework since Go&#8217;s
+std lib have everything one might need).
+The API spec was simple:
+* extract an authorization token contained in the request header
+* use the token to query a MySQL database
+* respond by sending back the MySQL row in json format
+* return 401 if the token isn&#8217;t value</p>
+
+<p>I didn&#8217;t try to optimize the Ruby code, nor the Go code. The idea wasn&#8217;t
+to get precise benchmark results, the goal was to get an idea of how
+much faster Go was in a real life situation. The other goal was to
+evaluate the amount of work needed to write web APIs in Go for someone
+who already knows the language.</p>
+
+<p>At the end of the day the API implemented in Go is more than 50x faster than
+the Ruby version. Interesting enough, writing the code and tests for the
+Go API was pretty close to the Ruby experience (more on that later).
+50X performance gain, including high concurrency support might be a very
+good argument to start using some Go when it makes sense.</p>
+
+<p>I documented my experiment on <a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY">Google+</a>, click the following screenshot to read more.</p>
+
+<p><a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY"><img src="http://matt.aimonetti.net/images/matt_aimonetti-golang_vs_ruby_api_exp.png" alt="Matt Aimonetti's Go vs Ruby post on Google+" /></a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Inspecting Rails 4 using Ruby 2.0]]></title>
@@ -3060,48 +3097,13 @@ testing the first betas.</p>
 <p>Here is a hello world webservice being implemented using Weasel Diesel and Sinatra:</p>
 
 <div><script src='https://gist.github.com/2300131.js?file='></script>
-<noscript><pre><code>describe_service &quot;hello_world&quot; do |service|
-  service.formats   :json
-  service.http_verb :get
-  service.disable_auth # on by default
-
-  # INPUT
-  service.param.string  :name, :default =&gt; 'World'
-
-  # OUTPUT
-  service.response do |response|
-    response.object do |obj|
-        obj.string :message, :doc =&gt; &quot;The greeting message sent back. Defaults to 'World'&quot;
-      obj.datetime :at, :doc =&gt; &quot;The timestamp of when the message was dispatched&quot;
-      end
-  end
-
-  # DOCUMENTATION
-  service.documentation do |doc|
-    doc.overall &quot;This service provides a simple hello world implementation example.&quot;
-    doc.param :name, &quot;The name of the person to greet.&quot;
-    doc.example &quot;&lt;code&gt;curl -I 'http://localhost:9292/hello_world?name=Matt'&lt;/code&gt;&quot;
- end
-
-  # ACTION/IMPLEMENTATION
-  service.implementation do
-    {:message =&gt; &quot;Hello #{params[:name]}&quot;, :at =&gt; Time.now}.to_json
-  end
-
-end</code></pre></noscript></div>
+<noscript><pre><code></code></pre></noscript></div>
 
 
 <p>Basis test validating the contract defined in the DSL and the actual output when the service is called:</p>
 
 <div><script src='https://gist.github.com/2300440.js?file='></script>
-<noscript><pre><code>class HelloWorldTest &lt; MiniTest::Unit::TestCase
-
-  def test_response
-    TestApi.get &quot;/hello_world&quot;, :name =&gt; 'Matt'
-    assert_api_response
-  end
-
-end</code></pre></noscript></div>
+<noscript><pre><code></code></pre></noscript></div>
 
 
 <p>Generated documentation:</p>
@@ -3462,57 +3464,6 @@ Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
 <p><a href="http://www.amazon.com/gp/product/0307387895/ref=as_li_ss_tl?ie=UTF8&amp;tag=merbist-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0307387895">The Road by Cormac McCarthy</a><img src="http://www.assoc-amazon.com/e/ir?t=merbist-20&amp;l=as2&amp;o=1&amp;a=0307387895" alt="" /></p>
 
 <p>suggested by <a href="https://twitter.com/#!/mrreynolds">@mrreynolds</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Developing a Curriculum]]></title>
-    <link href="http://matt.aimonetti.net/posts/2011/12/21/developing-a-curriculum/"/>
-    <updated>2011-12-21T06:57:27-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2011/12/21/developing-a-curriculum</id>
-    <content type="html"><![CDATA[<p>Recently I asked a friend of mine to give me pointers on how to develop a curriculum (he used to teach an education PHD program), after discussing his response on Twitter, people asked me to put it somewhere, so here it is:</p>
-
-<p>Process to develop a curriculum:</p>
-
-<p><strong>Purpose</strong>. <em>Know why you&#8217;re doing what you&#8217;re doing.</em></p>
-
-<ul>
-<li>You know how to do this.</li>
-</ul>
-
-
-<p><strong>Product</strong>. <em>Start with the end in mind.</em></p>
-
-<ul>
-<li><p>What does the student look like when they walk out the door at the end of the training.</p></li>
-<li><p>Usually, we break these down into <strong>Knowledge</strong>, <strong>Skills</strong>, or <strong>Attitudes</strong>.</p></li>
-<li><p>Sometimes it&#8217;s helpful to see a photograph or drawing of a someone who finished the program and just talk about what they can do that makes them successful.</p></li>
-<li><p>This &#8220;product&#8221; should be connected and help you accomplish your mission</p></li>
-</ul>
-
-
-<p><strong>Practices</strong>. <em>Then ask yourself, &#8220;How do people become like this?&#8221;</em></p>
-
-<ul>
-<li><p>If you can break down your Product into 3-5 bit-sized chunks, then see how people learn each one of those skills, gain each one of those knowledge points, and how to they gain the attitudes you want them to have.</p></li>
-<li><p>This one is much easier the more experience you have in seeing people develop the &#8220;Product.&#8221;</p></li>
-<li><p>This is also easier to determine when you understand <a href="http://en.wikipedia.org/wiki/Learning_theory_(education">Learning Theory</a>).</p></li>
-<li><p>The results from this section will result in a list of:</p>
-
-<ul>
-<li><p>       Activities or experiences</p></li>
-<li><p>       Resources. What books, website, teachers, software, etc. will help them learn more effectively and efficiently</p></li>
-<li><p>       Assessments. How you would know if the activity was helpful?</p></li>
-</ul>
-</li>
-</ul>
-
-
-<p><strong>Plans</strong>. <em>Make your plans based on the practices you&#8217;ve determined you&#8217;ve needed.</em></p>
-
-<p> </p>
-
-<p>On a related topic, Chad Fowler posted an interesting <a href="http://chadfowler.com/2011/12/21/re-thinking-software-development-education">blog post about what LivingSocial is doing to change the software development education</a>.</p>
 ]]></content>
   </entry>
   
