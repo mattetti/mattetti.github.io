@@ -1,7 +1,6 @@
 ---
 date: '2007-03-30 22:40:00'
 layout: post
-legacy_url: http://railsontherun.com/2007/03/30/migrating-legacy-app-part-1/
 slug: migrating-legacy-app-part-1
 source: railsontherun.com
 status: publish

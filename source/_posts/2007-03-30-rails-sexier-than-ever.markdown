@@ -1,7 +1,6 @@
 ---
 date: '2007-03-30 15:43:00'
 layout: post
-legacy_url: http://railsontherun.com/2007/03/30/rails-sexier-than-ever/
 slug: rails-sexier-than-ever
 source: railsontherun.com
 status: publish

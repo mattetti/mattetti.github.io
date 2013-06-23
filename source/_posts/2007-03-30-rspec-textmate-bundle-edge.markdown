@@ -1,7 +1,6 @@
 ---
 date: '2007-03-30 04:21:00'
 layout: post
-legacy_url: http://railsontherun.com/2007/03/30/rspec-textmate-bundle-edge/
 slug: rspec-textmate-bundle-edge
 source: railsontherun.com
 status: publish
