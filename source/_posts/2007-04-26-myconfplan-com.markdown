@@ -1,7 +1,6 @@
 ---
 date: '2007-04-26 10:33:00'
 layout: post
-legacy_url: http://railsontherun.com/2007/04/26/myconfplan-com/
 slug: myconfplan-com
 source: railsontherun.com
 status: publish

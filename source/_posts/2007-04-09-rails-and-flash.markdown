@@ -1,7 +1,6 @@
 ---
 date: '2007-04-09 07:41:00'
 layout: post
-legacy_url: http://railsontherun.com/2007/04/09/rails-and-flash/
 slug: rails-and-flash
 source: railsontherun.com
 status: publish
