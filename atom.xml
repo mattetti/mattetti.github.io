@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2013-06-23T15:12:37-07:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="http://mattetti.github.com/mattetti/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com/mattetti/"/>
+  <updated>2013-06-26T15:05:57-07:00</updated>
+  <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Go vs Ruby for web APIs]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
     <updated>2013-06-23T09:50:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
+    <id>http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
     <content type="html"><![CDATA[<p>A few days ago, I was wondering if using <a href="http://golang.org/">Go</a> would be worth it when developing new web APIs.
 I obviously knew that Go would be faster than Ruby, but I wasn&#8217;t sure
 how much faster. I also wondering about the amount of work required to
@@ -46,15 +46,15 @@ good argument to start using some Go when it makes sense.</p>
 
 <p>I documented my experiment on <a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY">Google+</a>, click the following screenshot to read more.</p>
 
-<p><a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY"><img src="http://matt.aimonetti.net/images/matt_aimonetti-golang_vs_ruby_api_exp.png" alt="Matt Aimonetti's Go vs Ruby post on Google+" /></a></p>
+<p><a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY"><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-golang_vs_ruby_api_exp.png" alt="Matt Aimonetti's Go vs Ruby post on Google+" /></a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Inspecting Rails 4 using Ruby 2.0]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
     <updated>2013-03-05T22:18:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
+    <id>http://mattetti.github.com/mattetti/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
     <content type="html"><![CDATA[<p>Ruby 2.0 has a cool new feature that many people talk about:
 <a href="http://ruby-doc.org/core-2.0/TracePoint.html">TracePoint</a>.</p>
 
@@ -234,9 +234,9 @@ Fowler</a> Berliner by adoption:</p>
   
   <entry>
     <title type="html"><![CDATA[OmniAuth and Google Apps]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/01/30/omniauth-and-google-apps/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/01/30/omniauth-and-google-apps/"/>
     <updated>2013-01-30T19:11:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/01/30/omniauth-and-google-apps</id>
+    <id>http://mattetti.github.com/mattetti/posts/2013/01/30/omniauth-and-google-apps</id>
     <content type="html"><![CDATA[<p>Today I struggled to get <a href="https://github.com/intridea/omniauth">OmniAuth</a> and <a href="https://developers.google.com/accounts/docs/OpenID">Google apps</a> to work properly together.
 I just wanted to add authentication to my application and restrict access to only my Google Apps domain users.
 I was hoping it would be straight forward since I could use Google&#8217;s OpenID service.</p>
@@ -432,9 +432,9 @@ you know two things:</p>
   
   <entry>
     <title type="html"><![CDATA[Real life concurrency in Go]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/11/27/real-life-concurrency-in-go/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/11/27/real-life-concurrency-in-go/"/>
     <updated>2012-11-27T10:08:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/11/27/real-life-concurrency-in-go</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/11/27/real-life-concurrency-in-go</id>
     <content type="html"><![CDATA[<p>The structure of a programming language reflects the challenges and solutions the
 designers decided to address. Each designer coming with his/her own background
 decides to tackle some specific issues in a novel way and/or often
@@ -449,7 +449,7 @@ show you the language constructs by actually writing real life code.</p>
 
 <h2>Fetching web resources concurrently</h2>
 
-<p>The following example is taken from my recent presentation <a href="http://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/">Ruby vs. the World</a>. I explored a few programming languages and
+<p>The following example is taken from my recent presentation <a href="http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/">Ruby vs. the World</a>. I explored a few programming languages and
 showed how they changed my Ruby.</p>
 
 <p>To show how <a href="http://golang.org/">Go</a> addresses concurrency, I decided to build a
@@ -740,9 +740,9 @@ with a special focus on concurrency with the unix approach.</p>
   
   <entry>
     <title type="html"><![CDATA[Engineers suck at finding the right jobs]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
     <updated>2012-11-14T18:53:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
     <content type="html"><![CDATA[<p>If you are currently a software engineer you need to realize two things:</p>
 
 <ul>
@@ -971,9 +971,9 @@ A friend gave me a Seth Godin&#8217;s book called <a href="http://www.amazon.com
 how do the efforts compare to the returns?
 Which situation are you in:</p>
 
-<p><img src="http://matt.aimonetti.net/images/dip.jpg" alt="" /></p>
+<p><img src="http://mattetti.github.com/mattetti/images/dip.jpg" alt="" /></p>
 
-<p><img src="http://matt.aimonetti.net/images/cliff-dip.jpg" alt="" /></p>
+<p><img src="http://mattetti.github.com/mattetti/images/cliff-dip.jpg" alt="" /></p>
 
 <p>Think about it. <strong>Will the effort you put into your work pay off?</strong>
 If you don&#8217;t think it will, then you should quit right away.</p>
@@ -987,7 +987,7 @@ further from the direction you set for yourself.</p>
 <p>Trust is the key element of any relationship.
 In <a href="http://www.amazon.com/gp/product/B000UCUX0K/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B000UCUX0K&amp;linkCode=as2&amp;tag=merbist-20">The Five Dysfunctions of a Team</a>, Patrick Lencioni explains that the base of management dysfunctions is absence of trust:</p>
 
-<p><img src="http://matt.aimonetti.net/images/fivedysfunctions.gif" alt="" /></p>
+<p><img src="http://mattetti.github.com/mattetti/images/fivedysfunctions.gif" alt="" /></p>
 
 <p>Turns out it&#8217;s the same thing for our careers. We need a team of people
 to help us define a vision/direction and keep us honest and accountable.</p>
@@ -1053,9 +1053,9 @@ to leave advice or feedback.</p>
   
   <entry>
     <title type="html"><![CDATA[RubyConf 2012 - Ruby vs. The World]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
     <updated>2012-11-02T20:47:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.com/">RubyConf 2012</a> in Denver, Colorado Matt
 Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
 
@@ -1067,7 +1067,7 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on [Matt&#8217;s SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/ruby-vs-the-world) and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50941f6aeb710400020019ac/aimonetti-ruby_vs_the_world_rubyconf_2012.pdf">downloaded here</a>.</p>
@@ -1087,9 +1087,9 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
   
   <entry>
     <title type="html"><![CDATA[Aloha RubyConf - mmm..mruby or why yet another Ruby implementation]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
     <updated>2012-10-09T20:14:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
     <content type="html"><![CDATA[<p>During <a href="http://aloharubyconf.com/">Aloha RubyConf 2012</a> in Honolulu, Hawaii Matt
 Aimonetti gave a talk entitled <strong>mmm..mruby or why yet another Ruby implementation</strong>.</p>
 
@@ -1105,7 +1105,7 @@ Ruby) and and revisiting Ruby.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50752712f8a4020002043005" data-ratio="1.2994923857868" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50752712f8a4020002043005" data-ratio="1.2994923857868" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on [Matt&#8217;s SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/mmmm-dot-mruby-everywhere-and-revisiting-ruby) and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50752712f8a4020002043005/mmmmruby_aloha_rubyconf.pdf">downloaded here</a>.</p>
@@ -1123,9 +1123,9 @@ Ruby) and and revisiting Ruby.</p>
   
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
     <updated>2012-10-05T15:09:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
     <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
 Aimonetti gave a talk entitled <em>Tower of
 Babel: a tour of programming languages</em>.</p>
@@ -1136,7 +1136,7 @@ Babel: a tour of programming languages</em>.</p>
 comparing programming languages isn&#8217;t as simple as drawing a table
 comparing features.</p>
 
-<p><img src="http://matt.aimonetti.net/images/matt_aimonetti_languages_table.jpg" alt="Matt Aimonetti compares programming languages" /></p>
+<p><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti_languages_table.jpg" alt="Matt Aimonetti compares programming languages" /></p>
 
 <p>In his talk, Matt shows what he likes, dislikes, the philosophy and concrete example of how to use 7 programming
 languages:</p>
@@ -1154,7 +1154,7 @@ languages:</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on <a href="https://speakerdeck.com/u/matt_aimonetti/p/tower-of-babel-a-tour-of-programming-languages">Matt&#8217;s SpeakerDeck</a> and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50662c32244a9d000202ba53/aimonetti_pulsoconf_2012.pdf">downloaded here</a>.</p>
@@ -1167,9 +1167,9 @@ languages:</p>
   
   <entry>
     <title type="html"><![CDATA[What is Scala's pattern matching]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/09/20/what-is-scala-pattern-matching/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/09/20/what-is-scala-pattern-matching/"/>
     <updated>2012-09-20T21:18:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/09/20/what-is-scala-pattern-matching</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/09/20/what-is-scala-pattern-matching</id>
     <content type="html"><![CDATA[<p><a href="http://www.scala-lang.org/">Scala</a> is a very interesting programming
 language. It has for goal to provide
 both <a href="http://en.wikipedia.org/wiki/Object-oriented_programming">Object Oriented</a> and <a href="http://en.wikipedia.org/wiki/Functional_programming">Functional Programming</a> paradigms.
@@ -1397,9 +1397,9 @@ approach based on pattern matching.</p>
   
   <entry>
     <title type="html"><![CDATA[Ruby constructs: class, module and mixin]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/07/30/ruby-class-module-mixins/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/07/30/ruby-class-module-mixins/"/>
     <updated>2012-07-30T14:46:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/07/30/ruby-class-module-mixins</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/07/30/ruby-class-module-mixins</id>
     <content type="html"><![CDATA[<p>When you first get started with the Ruby programming and you come from a different
 language, the only tricky piece is often Ruby&#8217;s approach to block/closure/anonymous functions.
 Sure the metaprogramming seems a bit odd, but you don&#8217;t have to use it.
@@ -1814,9 +1814,9 @@ allocate an instance of a class to a constant. Surpisingly simple and efficient.
   
   <entry>
     <title type="html"><![CDATA[Ruby: the differences between dup &amp; clone]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/07/28/ruby-the-differences-between-dup-and-clone/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/07/28/ruby-the-differences-between-dup-and-clone/"/>
     <updated>2012-07-28T12:20:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/07/28/ruby-the-differences-between-dup-and-clone</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/07/28/ruby-the-differences-between-dup-and-clone</id>
     <content type="html"><![CDATA[<p>Have you ever wondered what the differences are between <strong>#dup</strong> and <strong>#clone</strong> in Ruby?</p>
 
 <p>They both create a shallow copy of an object (meaning that they don&#8217;t copy the objects that might be referenced within the copied object). However, <strong>#clone</strong> does two things that <strong>#dup</strong> doesn&#8217;t:</p>
@@ -1943,9 +1943,9 @@ allocate an instance of a class to a constant. Surpisingly simple and efficient.
   
   <entry>
     <title type="html"><![CDATA[Rethinking web service development]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/06/13/rethinking-web-service-development/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development/"/>
     <updated>2012-06-13T18:19:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/06/13/rethinking-web-service-development</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development</id>
     <content type="html"><![CDATA[<p>While it&#8217;s true that there are still a lot of places where software isn&#8217;t
 leveraged and many places where software needs to evolve, software is nearly everywhere!.
 The type of software we write today needs to interact
@@ -1966,7 +1966,7 @@ and focus on communication and interaction.</p>
 
 <h2>Unlearning</h2>
 
-<p><a href="http://matt.aimonetti.net/images/matt_aimonetti-unlearn.jpeg"><img src="http://matt.aimonetti.net/images/matt_aimonetti-unlearn.jpeg"
+<p><a href="http://mattetti.github.com/mattetti/images/matt_aimonetti-unlearn.jpeg"><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-unlearn.jpeg"
   style="width:250px;display:block;margin:auto"/></a></p>
 
 <p>Many are used to doing certain
@@ -2210,7 +2210,7 @@ whatever you want. I don&#8217;t even set a default ORM for you to use since
 this choice is highly personal. I do however leave you places to set
 these things.</p>
 
-<p><a href="http://matt.aimonetti.net/images/matt_aimonetti-WeaselDiesel_doc_generation.jpeg"><img src="http://matt.aimonetti.net/images/matt_aimonetti-WeaselDiesel_doc_generation.jpeg" style="width:200px;display:block;margin:auto" title="Matt Aimonetti - WeaselDiesel documentation generation example" alt="Matt Aimonetti - WeaselDiesel documentation generation example"></a></p>
+<p><a href="http://mattetti.github.com/mattetti/images/matt_aimonetti-WeaselDiesel_doc_generation.jpeg"><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-WeaselDiesel_doc_generation.jpeg" style="width:200px;display:block;margin:auto" title="Matt Aimonetti - WeaselDiesel documentation generation example" alt="Matt Aimonetti - WeaselDiesel documentation generation example"></a></p>
 
 <p>Sinatra and my &#8220;freedom framework&#8221; might seem too free form for
 you. So I&#8217;m currently working on getting the DSL to run on top of Rails,
@@ -2302,9 +2302,9 @@ If not, why not?</p>
   
   <entry>
     <title type="html"><![CDATA[MacRuby on iOS - RubyMotion review]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/05/04/macruby-on-ios-rubymotion-review/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/05/04/macruby-on-ios-rubymotion-review/"/>
     <updated>2012-05-04T07:17:47-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/05/04/macruby-on-ios-rubymotion-review</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/05/04/macruby-on-ios-rubymotion-review</id>
     <content type="html"><![CDATA[<p>Yesterday, <a href="http://www.rubymotion.com/">RubyMotion</a> was released and let&#8217;s be honest, it is one the best alternatives to Objective-C out there (if not the best).</p>
 
 <p>RubyMotion is a commercial, proprietary fork of MacRuby that targets iOS. This is not a small achievement, MacRuby relies on Objective C&#8217;s Garbage Collector (libauto) which is not available on iOS. Static compilation and new memory management solution was required to target the iOS platform . The new runtime had to be small and efficient. Furthermore, being able to run code on iOS isn&#8217;t enough, you need tools to interact with the compiler, to debug, to packages applications etc&#8230;</p>
@@ -2441,9 +2441,9 @@ post</a>.</p>
   
   <entry>
     <title type="html"><![CDATA[Getting started with mruby]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/04/25/getting-started-with-mruby/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby/"/>
     <updated>2012-04-25T10:59:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/04/25/getting-started-with-mruby</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby</id>
     <content type="html"><![CDATA[<p>mruby is the latest Ruby implementation in an already quite long list:</p>
 
 <ul>
@@ -2503,12 +2503,12 @@ fact, this definition of Lua applies very well to mruby:</p>
 <p>This is a matter of taste and requirements. It should eventually boil
 down to the difference in the language designs.</p>
 
-<p><img src='http://matt.aimonetti.net/images/lua_logo.gif' alt='Lua logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px' class='no-caption'/></p>
+<p><img src='http://mattetti.github.com/mattetti/images/lua_logo.gif' alt='Lua logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px' class='no-caption'/></p>
 
 <blockquote><p>Lua combines simple procedural syntax with powerful data description constructs based on associative arrays and extensible semantics.</p></blockquote>
 
 <p></br>
- <img src='http://matt.aimonetti.net/images/ruby_logo.png' alt='Ruby logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px'class='no-caption' /></p>
+ <img src='http://mattetti.github.com/mattetti/images/ruby_logo.png' alt='Ruby logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px'class='no-caption' /></p>
 
 <blockquote><p>Ruby is a dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write.</p></blockquote>
 
@@ -2740,9 +2740,9 @@ of Rails in a different domain thanks to the Ruby language.</p>
   
   <entry>
     <title type="html"><![CDATA[mruby and MobiRuby]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/04/20/mruby-and-mobiruby/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby/"/>
     <updated>2012-04-20T12:32:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/04/20/mruby-and-mobiruby</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby</id>
     <content type="html"><![CDATA[<p>Today, two big Ruby news came directly from Japan:</p>
 
 <ul>
@@ -2774,7 +2774,7 @@ linked within another application.</p>
 
 <p>Hiroshi Nakamura gave a great 1 line definition of mruby:</p>
 
-<p><img src="http://matt.aimonetti.net/images/mruby_def.jpg" alt="mruby" /></p>
+<p><img src="http://mattetti.github.com/mattetti/images/mruby_def.jpg" alt="mruby" /></p>
 
 <p>mruby targets game developers (to use instead of Lua), embedded
 application developers (devices, TV, phones..) and small memory
@@ -2944,9 +2944,9 @@ testing the first betas.</p>
   
   <entry>
     <title type="html"><![CDATA[Building and implementing a Single Sign-On solution]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution/"/>
     <updated>2012-04-04T07:29:16-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution</id>
     <content type="html"><![CDATA[<p>Most modern web applications start as a monolithic code base and, as complexity increases, the once small app gets split apart into many &#8220;modules&#8221;. In other cases, engineers opt for a <a href="http://en.wikipedia.org/wiki/Service-oriented_architecture">SOA</a> design approach from the beginning. One way or another, we start running multiple separate applications that need to interact seamlessly. My goal will be to describe some of the high-level challenges and solutions found in implementing a Single-Sign-On service.</p>
 
 <h2>Authentication vs Authorization</h2>
@@ -3118,9 +3118,9 @@ testing the first betas.</p>
   
   <entry>
     <title type="html"><![CDATA[Learning from Rails' failures]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/02/29/learning-from-rails-failures/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/02/29/learning-from-rails-failures/"/>
     <updated>2012-02-29T07:48:08-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/02/29/learning-from-rails-failures</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/02/29/learning-from-rails-failures</id>
     <content type="html"><![CDATA[<p>Ruby on Rails undisputedly changed the way web frameworks are designed. Rails became a reference when it comes to leveraging conventions, easy baked in feature set and a rich ecosystem. However, I think that Rails did and still does a lot of things pretty poorly.  By writing this post, I&#8217;m not trying to denigrate Rails, there are many other people out there already doing that. My hope is that by listing what I think didn&#8217;t and still doesn&#8217;t go well, we can learn from our mistakes and improve existing solutions or create better new ones.</p>
 
 <p><a href="http://merbist.com/2012/02/29/learning-from-rails-failures/train_fail/"><img src="http://merbist.com/wp-content/uploads/2012/02/train_fail-300x188.jpg" alt="" /></a></p>
@@ -3187,9 +3187,9 @@ testing the first betas.</p>
   
   <entry>
     <title type="html"><![CDATA[Quick dive into Ruby ORM object initialization]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/02/23/quick-dive-into-ruby-orm-object-initialization/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/02/23/quick-dive-into-ruby-orm-object-initialization/"/>
     <updated>2012-02-23T09:46:49-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/02/23/quick-dive-into-ruby-orm-object-initialization</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/02/23/quick-dive-into-ruby-orm-object-initialization</id>
     <content type="html"><![CDATA[<p>Yesterday I did some quick digging into how ORM objects are initialized and the performance cost associated to that. In other words, I wanted to see what&#8217;s going on when you initialize an ActiveRecord object.</p>
 
 <p>Before I show you the benchmark numbers and you jump to conclusions, it&#8217;s important to realize that in the grand scheme of things, the performance cost we are talking is small enough that it is certainly not the main reason why your application is slow. Spoiler alert: ActiveRecord is slow but the cost of initialization isn&#8217;t by far the worse part of ActiveRecord. Also, even though this article doesn&#8217;t make activeRecord look good, and I&#8217;m not trying to diss it. It&#8217;s a decent ORM that does a great job in most cases.</p>
@@ -3275,9 +3275,9 @@ testing the first betas.</p>
   
   <entry>
     <title type="html"><![CDATA[LA RubyConf 2012 - Ruby: time to move on]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/02/04/larubyconf-2012/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012/"/>
     <updated>2012-02-04T15:09:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/02/04/larubyconf-2012</id>
+    <id>http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012</id>
     <content type="html"><![CDATA[<p>During <a href="http://larubyconf.org/">LA RubyConf 2012</a> in Los Angeles, CA Matt
 Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
 
@@ -3285,14 +3285,14 @@ Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
 
 <p>Let&#8217;s be honest, Ruby became mainstream a few years back and it isn&#8217;t the cool underground programming language it once was. It&#8217;s quite likely that your cousin&#8217;s boyfriend who&#8217;s &#8220;into computers&#8221; knows what Ruby on Rails is. There are hundreds of books, conferences, training and meetups for Rubyists. Recruiters fight to hire whoever knows how to generate a scaffolded Rails app. But now cool kids can&#8217;t stop talking about node.js, CoffeeScript, Clojure, Haskell and pushing code to the UI layer. What does it mean for the new, existing and prospecting Ruby developers? Is it time to jump ship and move on to something else?</p>
 
-<p><img src="http://matt.aimonetti.net/images/matt_aimonetti_timeToMoveOn.jpg" alt="Matt Aimonetti showing that the end result is what matters the most" /></p>
+<p><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti_timeToMoveOn.jpg" alt="Matt Aimonetti showing that the end result is what matters the most" /></p>
 
 <h2>Slides</h2>
 
 <script async class="speakerdeck-embed" data-id="4f904c27a542080022020653" data-ratio="1.299492385786802" src="http://speakerdeck.com/assets/embed.js"></script>
 
 
-<p>The slides are available on <a href="http://speakerdeck.com/u/matt_aimonetti/p/ruby-time-to-move-on">Matt&#8217;s SpeakerDeck</a> and can be <a href="http://matt.aimonetti.net/slides/matt_aimonetti-ruby_time_to_move_on.pdf">downloaded here</a>.</p>
+<p>The slides are available on <a href="http://speakerdeck.com/u/matt_aimonetti/p/ruby-time-to-move-on">Matt&#8217;s SpeakerDeck</a> and can be <a href="http://mattetti.github.com/mattetti/slides/matt_aimonetti-ruby_time_to_move_on.pdf">downloaded here</a>.</p>
 
 <h2>Video</h2>
 
@@ -3306,9 +3306,9 @@ Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
   
   <entry>
     <title type="html"><![CDATA[Books to read in 2012 - recommended to me by Twitter]]></title>
-    <link href="http://matt.aimonetti.net/posts/2011/12/30/books-to-read-in-2012-recommended-to-me-by-twitter/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2011/12/30/books-to-read-in-2012-recommended-to-me-by-twitter/"/>
     <updated>2011-12-30T15:28:13-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2011/12/30/books-to-read-in-2012-recommended-to-me-by-twitter</id>
+    <id>http://mattetti.github.com/mattetti/posts/2011/12/30/books-to-read-in-2012-recommended-to-me-by-twitter</id>
     <content type="html"><![CDATA[<p>Today, I asked on Twitter what non-technical books I should read in 2012.</p>
 
 <p>I was nicely surprised to see so many of my followers send recommendations. Here is a list of 25 books that like-minded people suggested I read. Hopefully you will find a book or two to read too. Feel free to send more recommendations via the comments.</p>

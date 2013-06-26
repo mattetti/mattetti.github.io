@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: golang | Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/articles/categories/golang/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2013-06-23T15:12:37-07:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="http://mattetti.github.com/mattetti/articles/categories/golang/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com/mattetti/"/>
+  <updated>2013-06-26T15:05:57-07:00</updated>
+  <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Go vs Ruby for web APIs]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
     <updated>2013-06-23T09:50:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
+    <id>http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
     <content type="html"><![CDATA[<p>A few days ago, I was wondering if using <a href="http://golang.org/">Go</a> would be worth it when developing new web APIs.
 I obviously knew that Go would be faster than Ruby, but I wasn't sure
 how much faster. I also wondering about the amount of work required to

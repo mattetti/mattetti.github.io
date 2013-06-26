@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Merb | Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/articles/categories/merb/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2013-06-23T15:12:37-07:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="http://mattetti.github.com/mattetti/articles/categories/merb/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com/mattetti/"/>
+  <updated>2013-06-26T15:05:57-07:00</updated>
+  <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[RailsConf 2009 - Rails 3: Stepping off of the golden path]]></title>
-    <link href="http://matt.aimonetti.net/posts/2009/05/08/railsconf-2009/"/>
+    <link href="http://mattetti.github.com/mattetti/posts/2009/05/08/railsconf-2009/"/>
     <updated>2009-05-08T12:18:18-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2009/05/08/railsconf-2009</id>
+    <id>http://mattetti.github.com/mattetti/posts/2009/05/08/railsconf-2009</id>
     <content type="html"><![CDATA[<p>During <a href="http://en.oreilly.com/rails2009/">RailsConf 2009</a> in Las Vegas, Nevada Matt
 Aimonetti gave a talk entitled <em>Rails 3: Stepping off of the golden path</em>.</p>
 
@@ -31,7 +31,7 @@ Aimonetti gave a talk entitled <em>Rails 3: Stepping off of the golden path</em>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="4f91748891b203001f01a62c" data-ratio="1.299492385786802" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="4f91748891b203001f01a62c" data-ratio="1.299492385786802" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>A PDF version can also be downloaded <a href="">here</a>.</p>
