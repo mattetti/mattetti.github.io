@@ -5,7 +5,7 @@ date: 2013-06-26 10:26
 comments: true
 categories: 
 - monitoring
-- tool
+- tools
 - tutorial
 ---
 
@@ -32,6 +32,9 @@ and I were talking my recently announced departure, I asked them how I
 could help them during the transition period. Someone mentioned creating a 
 Graphite cheatsheet. LivingSocial was nice enough to let me publicly publish this
 short guide.
+
+_For a more in depth dive into the statsd/graphite feature, look at
+[this blog post](http://blog.pkhamre.com/2012/07/24/understanding-statsd-and-graphite/)_
 
 ## Organizing metrics
 
@@ -216,6 +219,18 @@ class Stats
 end
 ```
 
+Note that the stats are organized slightly differently and will read
+like that:
+
+```
+<namespace>.<client name>.http.<http verb>.<path>.<segments>.response_time
+```
+
+The dots in the stats name will be used to create subfolders in graphite.
+By using such a segmented stats name, we will be able to use `*`
+wildcards to analyze how an old version of an API compares against a
+newer one and what clients still talk to the old APIs, compare response
+times etc..
 
 ## Monitor time spent within a response
 
@@ -317,16 +332,309 @@ each stat (and more):
 * upper_90
 * upper_95
 
+Instrumenting Redis is trivial too, here is a code sample:
+
+```ruby
+::Redis::Client.class_eval do
+ 
+  # Support older versions of Redis::Client that used the method
+  # +raw_call_command+.
+  call_method = ::Redis::Client.new.respond_to?(:call) ? :call : :raw_call_command
+ 
+  def call_with_stats_trace(*args, &blk)
+    method_name = args[0].is_a?(Array) ? args[0][0] : args[0]
+    start = Time.now
+    begin
+      call_without_stats_trace(*args, &blk)
+    ensure
+      if Thread.current[:stats_context]
+        $statsd.timing("#{Thread.current[:stats_context]}.redis.#{method_name.to_s.upcase}.query_time", 
+                         ((Time.now - start) * 1000).round, 1) rescue nil
+      end
+    end
+  end
+ 
+  alias_method :call_without_stats_trace, call_method
+  alias_method call_method, :call_with_stats_trace
+ 
+end if defined?(::Redis::Client)
+```
+
+Using Yehuda Katz' favorite Ruby feature: Alias method chain, we inject
+out instrumentation into the Redis client so we can track the time spent
+in our Redis layer.
+
+Applying the same approach, we can instrument the Ruby memcached gem:
+
+```ruby
+::Memcached.class_eval do
+ 
+  def get_with_stats_trace(keys, marshal=true)
+    start = Time.now
+    begin
+      get_without_stats_trace(keys, marshal)
+    ensure
+      if Thread.current[:stats_context]
+        type = keys.is_a?(Array) ? "multi_get" : "get"
+        $statsd.timing("#{Thread.current[:stats_context]}.memcached.#{type}.query_time", 
+                         ((Time.now - start) * 1000).round, 1) rescue nil
+      end
+    end
+  end
+ 
+  alias_method :get_without_stats_trace, :get
+  alias_method :get, :get_with_stats_trace
+ 
+end if defined?(::Memcached)
+```
 
 ## Dashboards
 
+We now have collected and organized our stats. Let's talk about how to
+use Graphite to display all this data in a valuable way.
+After all, the whole point is to be able to properly process the data.
 
+When looking at timer data series, the first thing we want to do is to
+have an overall represention. You might think that an average is what
+you are after. After all we have a mean (aka average) value, so why not
+looking at it. The problem with the mean is that it's the sum of all data
+points divided by the number of data points. It's therefore largely
+influenced by outliers.
+The median value is the number found in the center of the sorted list of
+collected data points. The problem in this case is that based on your
+data set, the median value might not well represent the real overall
+experience.
+*Median* and *mean* values have their pros and cons, but overall
+can't be too trusted as a good representation of how your system behaves. 
+Instead I prefer to use a *5-95 span* (thanks [Steve
+Akers](http://steveakers.com/) for showing me that and most of what I
+know about Graphite).
+A 5-95 span means that we take the highest number after removing the top
+5% and subtract the highest number after removing the top 95%.
 
-## Cheatsheet
+### Span
 
-Naming:
+Here is a graph showing how the graphs can be different for the same
+data based on what metric you use:
+
+![Graphite comparing median vs mean vs span](/images/graphite/graphite-median_vs_mean_vs_span.png)
+
+Of course the span graph looks much worse than the other two, but it's
+also more representative of the real user experience and therefore, more
+valuable. Here is how you would write the graphite function to get this data.
+
+Given that we are tracking the following data-series:
+`*.timers.accounts.ios.http.post.authenticate.response_time`
+
+The function to use would be:
 
 ```
- <namespace>.<instrumented section (noun)>.<target (noun)>.<action (past tense)>
+diffSeries(*.timers.accounts.ios.http.post.authenticate.response_time.upper_95,
+*.timers.accounts.ios.http.post.authenticate.response_time.upper_5)
 ```
 
+### Alias
+
+If you try that function, the graph legend will show the entire
+function, which really doesn't look great. Fear not, you can use an
+alias like I did in the graph above:
+
+```
+alias(diffSeries(*.timers.accounts.ios.http.post.authenticate.response_time.upper_95,
+*.timers.accounts.ios.http.post.authenticate.response_time.upper_5),
+"iOS authentication response time (span)")
+```
+
+Aliases are very useful, especially when you share your dashboards with
+others.
+
+### Threshold
+
+Another neat thing you might want to add to your graph is a threshold.
+A threshold is really just a reference, for instance your web service
+shouldn't be slower than 60ms server side. Let's add a threshold for
+that:
+
+```
+alias(threshold(60), "60ms threshold")
+```
+
+and here how it would look in a graph:
+
+![Graphite with a threshold](/images/graphite/graphite-median_vs_mean_vs_span-with-threshold.png)
+
+
+### Draw Null as Zero
+
+Another small but useful trick is to change the render options of a
+graph to draw null values as zero.
+Open the graph panel, click on `Render Options`, then `Line Mode` and check
+the `Draw Null as Zero` box.
+
+
+Here is a graph tracking a webservice that isn't getting a lot of
+traffic:
+
+![graphite example](/images/graphite/nulls_not_drawn_as_zero.png)
+
+You can see that the line is discontinued, that's because the API
+doesn't constantly receive traffic. If your data series gets only very
+few entries, you might not even see a line. This is why you want to
+enable the `Draw Null as Zero`.
+
+### SumSeries & Summarize or how to get RPMs
+
+By default graphite shows data at a 10s interval, but it happens that
+you want to see less granular data, and seeing the amount of requests
+per second for instance might be more interesting.
+
+Let's say we didn't use a counter for the amount of requests, but
+because we used the middleware I described earlier, we are timing all
+responses. Graphite keeps a count of the timers we used, so we can use
+this count value with a wildcard: 
+
+```
+*.timers.accounts.*.http.post.authenticate.response_time.count
+```
+
+Now if we were to render a graph for this stat, we would see a graph per
+client. Which is great when you want to compare them, but right now we
+only care about showing the total amount of requests.
+To do that, we'll use the `sumSeries` function:
+
+```
+sumSeries(*.timers.accounts.*.http.post.authenticate.response_time.count)
+```
+
+![RPMs not summarized](/images/graphite/graphite-not-summarized.png)
+
+The graph looks pretty but it's hard to understand what kind of request
+volume we are getting. This is a good place to use the `summarize`
+function:
+
+```
+sumSeries(*.timers.accounts.*.http.post.authenticate.response_time.count)
+```
+
+![RPMs summarize](/images/graphite/graphite-summarize.png)
+
+We can now see the amount of requests per minute which is obviously
+more interesting. You can also change the resolution to show per
+hour/day etc..
+
+```
+summarize(sumSeries(*.timers.accounts.*.http.post.authenticate.response_time.count), "1min")
+```
+
+
+### Timeshift
+
+A very valuable thing you can do with Graphite is compare the current
+metrics vs a different period of time. For instance, let's compare
+today's authentications vs last weeks. To do that, we use the `timeShift`
+function:
+
+
+Today's graph:
+
+```
+alias(summarize(sumSeries(*.timers.accounts.*.http.post.authenticate.response_time.count),"1min"), "today")
+```
+
+Last week's:
+```
+alias(timeShift(summarize(sumSeries(*.timers.accounts.*.http.post.authenticate.response_time.count), "1min"),"1w"), "last week")
+```
+
+Graphing both series in the same graph will give us that:
+
+![graphite timeshift example](/images/graphite/graphite-timeshift.png)
+
+Wow, it looks like like week we had an authentication peek for a few
+hours. It would be interesting to graph our promos and sales in the same
+graph to see if we can find any correlations.
+Depending on your domain, you might want to compare against different
+time slices. Just change the second timeShift argument.
+
+### As percent
+
+Another trick is to compare the percentage growth since last week.
+Let's pretend we are looking at sales or signup numbers.
+We could graph today's sales per minute vs last weeks.
+To do that, Graphite has the `asPercent` function. This function
+takes a series representing 100% and another one to compare against.
+The function call looks a bit scary so let me try to break it down over
+multiple lines:
+
+```
+asPercent( 
+  summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count),"1min")
+  ,timeShift(summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count), "1min"),"1w")
+)
+```
+
+The first argument is the summarized RPMs (requests per minute) and the
+second is last week's summarized RPMs.
+
+Here is how the graph looks like:
+
+![graphite as percent](/images/graphite/graphite-compare-as-percent.png)
+
+Based on all the data we collect, we can now graph something like that:
+
+![graphite as percent with multiple series](/images/graphite/graphite-as-percent.png)
+
+This graph is basically the same as the one above, but we used the
+overall response time as the 100% value and we graphed all the different
+monitored sections of our code base.
+
+You can now build some really advanced tools that look at trends,
+check pre and post deployments, trigger alerts, help you refactor your
+code. A good example of that is if you're having database challenges.
+You can easily track the query types and the targeted tables per API
+endpoint. You can see where you spend most of the time and who code path
+is responsible for it. You can quickly see if optimizing your index
+strategy helps or not etc...
+
+
+
+## Other tips
+
+* Share a url into campfire/irc and see a preview:
+Campfire and many other chat tools offer image preview as long as they
+detect that the url has an image extension. Unfortunately, Graphite's
+graph urls look more like that:
+
+```
+http://graphite.awesome.graphs.com/render?width=400&from=-4hours&until=-&height=400&target=summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count))&drawNullAsZero=true&title=Example&_uniq=0.11944825737737119
+```
+
+To get a preview, just append the with: `&.jpg`
+
+* Get the graph data in JSON format:
+You might want to do something fancy with the data like analysing it to
+create alerts. For that you get ask Graphite for a json representation
+of the data, simple append the url with: `&format=json`
+
+
+```json
+[{"target":
+"summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count))", 
+"datapoints": [
+  [20260.0, 137256960],[19513, 1372357020] //[...]
+ ]
+}
+]
+
+The data points are the timestamps value of each graphed point. 
+Note that you can also ask for the csv version of the data, probably
+useful if you're an excel guru.
+
+* Only show top graphs
+
+Let say that you are graphing the response time of all your APIs. The
+amount of displayed graphs can be overwhelming. To limit the displayed
+graphs, use one of the filters. For instance the `currentAbove` or
+`averageAbove` filters that can help you only display web services with
+more than X RPMs for instance. Using filters can be very useful to find
+outliers.
