@@ -9,33 +9,33 @@ categories:
 - tutorial
 ---
 
-Most engineers love to improve things. Refactoring and optimizations
-drives a lot of us. There is just a slight problem, we often do that in a vacuum.
-Before optimizing, we need to **measure**. Without a solid baseline, how
-can you say that the time you invested in making things better wasn't a
-total waste? Most refactoring is done with a solid test suite in place.
-Developers know that their code behavior didn't change while they
-cleaned things up. Performance optimization is the same thing, we need a
-good set of metrics before tweaking things.
+Engineers love to improve things. Refactoring and optimizations
+drive us. There is just a slight problem: we often do that in a vacuum.
 
-There are plenty of monitoring tools out there, they all have their pros
+Before optimizing, we need to **measure**. 
+
+Without a solid baseline, how can you say that the time you invested in making things better wasn't a total waste? 
+
+True refactoring is done with a solid test suite in place. Developers know that their code behavior didn't change while they cleaned things up. Performance optimization is the same thing: we need a good set of metrics before changing anything.
+
+There are plenty of monitoring tools out there, each with its own pros
 and cons. The point of this article isn't to argue about which one **you** should use, 
 but instead to give you the some practical knowledge about [Graphite](http://graphite.readthedocs.org/en/latest/overview.html).
 
 ![Screenshot of the Graphite UI](/images/graphite_fullscreen_800.png)
 
 Graphite is used to store and render time-series data. In other words,
-you collect metrics and Graphite allows you to create pretty graphs. 
+you collect metrics and Graphite allows you to create pretty graphs easily. 
 
-During my time at LivingSocial, I heavily relied on Graphite to
-understand trends, issues and to help me optimize performance. As my coworkers
+During my time at LivingSocial, I relied on Graphite to
+understand trends, issues and optimize performance. As my coworkers
 and I were discussing my recently announced departure, I asked them how I
 could help them during the transition period. Someone mentioned creating a 
-Graphite cheatsheet. The cheatsheet turned into something much bigger than I expect
+Graphite cheatsheet. The cheatsheet turned into something much bigger than I expected
 and LivingSocial was nice enough to let me publicly publish this
 short guide.
 
-_For a more in depth dive into the statsd/graphite feature, look at
+_For a more in depth dive into the statsd/graphite features, look at
 [this blog post](http://blog.pkhamre.com/2012/07/24/understanding-statsd-and-graphite/)_
 
 ## Organizing metrics
@@ -46,7 +46,7 @@ via the [statsd RubyGem](https://github.com/reinh/statsd).
 The gem allows developers to push recorded metrics to a statsd server
 via UDP. Using UDP instead of TCP makes the metrics collection operation
 non blocking which means that while you might theoretically lose a few samples, your
-instrumented code performance shouldn't be affected. (Read [this Etsy's
+instrumented code performance shouldn't be affected. (Read [Etsy's
 blog post](http://codeascraft.com/2011/02/15/measure-anything-measure-everything/) to know more about 
 why they chose UDP).
 
@@ -54,10 +54,8 @@ why they chose UDP).
 few ms), target your statsd server using its ip or use Ruby's [resolv](http://www.ruby-doc.org/stdlib-2.0/libdoc/resolv/rdoc/Resolv/DNS.html#method-i-getaddress)
 standard library to only do the lookup once at initialization.
 
-
 **Note**: _I'm skipping the config settings about storage retention, resolution etc.. see the
 [manual](http://graphite.readthedocs.org/en/latest/overview.html) for more info._
-
 
 ### Namespacing
 
@@ -69,7 +67,7 @@ differently.
 ### Naming metrics
 
 Properly naming your metrics is critical to avoid conflicts,
-confusing data and potentially wrong data interpretation later on.
+confusing data and potentially wrong interpretation later on.
 I like to organize metrics using the following schema:
 
 ```
@@ -84,9 +82,9 @@ accounts.authentication.password.succeeded
 accounts.authentication.password.failed
 ```
 
-I usually use nouns to define the target and past tensed verbs to define
+I use nouns to define the target and past tense verbs to define
 the action. This becomes a useful convention when you need to nest
-metrics. In the above example, let say I want to monitor the reasons for
+metrics. In the above example, let's say I want to monitor the reasons for
 the failed password authentications. Here is how I would organize the
 extra stats:
 
@@ -113,39 +111,36 @@ This should give us the same value as `accounts.authentication.password.failed`,
  so really, we should just collect the more detailed version and get rid
 of `accounts.authentication.password.failed`.
 
-Following this convention should really help your data stay clean and
+Following this naming convention should really help your data stay clean and
 easy to manage. 
-
 
 ## Counters and metrics
 
-StatsD lets you record different types of metrics as illustrated [here](https://github.com/etsy/statsd/blob/master/docs/metric_types.md).
+StatsD lets you record different types of metrics [as illustrated here](https://github.com/etsy/statsd/blob/master/docs/metric_types.md).
 
 This article will focus on the 2 main types:
 
-* counter
+* counters
 * timers
 
 Use counters for metrics when you don't care about how long the code
-your are instrumenting takes to run. Usually counters are used for dat
-that have more of a business sense . Examples include sales,
-authentication, signups etc..
+your are instrumenting takes to run. Usually counters are used for data
+that have more of a direct business value. Examples include sales,
+authentication, signups, etc.
 
 Timers are more powerful because they can be used to analyze the time
 spent in a piece of code but also be used as a counters. Most of my work
-involves timers because I care to detect system anomalies including performance 
-changes and trend modifications in the way code is being used.
+involves timers because I want to detect system anomalies including performance 
+changes and trends in the way code is being used.
 
-I usually use timers in a nested manner starting from whenever a request
-comes in the system to all the way to the time spent in the various
-datastores.
-
+I usually use timers in a nested manner, starting when a request
+comes into the system, through each of the various
+datastores, and ending with the response.
 
 ## Monitoring response time
 
 It's a well known fact that the response time of your application will
-affect the user experience and often the financial outcome of their
-visits.
+both affect the user's emotional experience and their likelihood of completing a transactin.
 However understanding where time is being spent within a request is
 hard, especially when the problems aren't obvious. Tools like
 [NewRelic](http://newrelic.com/) will often get you a good overview of 
@@ -154,15 +149,13 @@ need. For instance NewRelic aggregates and averageses the data client side
 before sending it to their servers. While this is fine in a lot of cases,
 if you care about more than averages and want more detailed metrics, you probably need
 to run your own solution such as statsd + graphite.
-It does however requires you to get your hands dirty. 
 
-Let's take a look.
-For most of my web APIs I use [wd_sinatra](https://github.com/mattetti/wd-sinatra) which
-has a `pre_dispatch_hook` method (this method is being executed before a
-request is being dispatched).
-I use this hook to set the "Stats context" in the current thread. I also
-have a function that extract the client name based on some headers.
-Don't worry if you don't use WD, I'll show how to do the same thing in a
+I build most of my web-based APIs on [wd_sinatra](https://github.com/mattetti/wd-sinatra) which
+has a `pre_dispatch_hook` method which method is executed before a
+request is dispatched.
+
+I use this hook to both set the "Stats context" in the current thread and extract the client name based on HTTP headers.
+If you don't use WD, I'll show how to do the same thing in a
 Rack middleware.
 
 ``` ruby
@@ -174,8 +167,7 @@ end
 ```
 
 Then using Sinatra's global before/after filters, we set a unique
-request id (Rails does that automatically) and start a timer that we
-stop and report in the after filter.
+request id and start a timer that we stop and report in the after filter. If we were using Rails we'd get the unique identifier generated automatically.
 
 Before filter:
 
@@ -198,11 +190,7 @@ after do
 end
 ```
 
-Note that I could/should have written a Rack middleware to do that. This is
-the approach I would recommend if you want to instrument Rails (and
-probably Sinatra).
-
-A middleware would look something like that (untested code):
+Note that this could, and probably **should**, be done in a Rack middleware like this (untested, YMMV):
 
 ```ruby
 # require whatever is needed and set statsd
@@ -243,22 +231,20 @@ like that:
 The dots in the stats name will be used to create subfolders in graphite.
 By using such a segmented stats name, we will be able to use `*`
 wildcards to analyze how an old version of an API compares against a
-newer one and what clients still talk to the old APIs, compare response
-times etc..
+newer one, which clients still talk to the old APIs, compare response
+times, etc.
 
 ## Monitor time spent within a response
 
-Now this is great, we're collecting stats regarding all our requests so
-we can see request counts, medium, median average response times. 
+We're collecting stats on every request so
+we can see request counts and median average response times. 
 But wouldn't be better if we could measure the time spent in specific
 parts of our code base and compare that to the overall time spent in the
-request? We could for instance compare the time spent in the DB vs Redis
-vs Memcached vs the framework. And what's nice is that we could do that
-per API endpoint and per API client.
+request? 
 
-In a simple website, you probably won't be extracting a client name, but
-you might decide to monitor mobile vs desktop. The principle is the
-same.
+We could, for instance, compare the time spent in the DB vs Redis
+vs Memcached vs the framework. And what's nice is that we could do that
+per API endpoint and per API client. In a simpler case, you might decide to monitor mobile vs desktop. The principle is the same.
 
 Let's hook into ActiveRecord's query generation to track the time spent
 in AR within each request:
@@ -308,13 +294,13 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |name, start, fini
 end
 ```
 
-This code might not be pretty but it works (or should work).
+This code might not be pretty but it works (_or should work_).
 We subscribe to `ActiveSupport::Notifications` for `sql.active_record`
 and we extract the info we need. Then we use the stats context set in
 the thread and report the stats by appending
 `.sql.#{table}.#{action}.query_time`
 
-The final stats entry could look like that:
+The final stats entry could look like this:
 `auth_api.ios.http.post.v1.accounts.sql.users.SELECT.query_time`
 
 * **auth_api**: the name of the monitored app
@@ -346,7 +332,7 @@ each stat (and more):
 * upper_90
 * upper_95
 
-Instrumenting Redis is trivial too, here is a code sample:
+Instrumenting Redis is easy too:
 
 ```ruby
 ::Redis::Client.class_eval do
@@ -374,11 +360,11 @@ Instrumenting Redis is trivial too, here is a code sample:
 end if defined?(::Redis::Client)
 ```
 
-Using Yehuda Katz' favorite Ruby feature: alias method chain, we inject
-out instrumentation into the Redis client so we can track the time spent
-in our Redis layer.
+Using Ruby's alias method chain, we inject
+our instrumentation into the Redis client so we can track the time spent
+there.
 
-Applying the same approach, we can instrument the Ruby memcached gem:
+Applying the same approach, we can instrument the Ruby **memcached** gem:
 
 ```ruby
 ::Memcached.class_eval do
@@ -406,35 +392,32 @@ end if defined?(::Memcached)
 
 We now have collected and organized our stats. Let's talk about how to
 use Graphite to display all this data in a valuable way.
-After all, the whole point is to be able to properly process the data.
 
-When looking at timer data series, the first thing we want to do is to
-have an overall represention. You might think that an average is what
-you are after. After all we have a mean (aka average) value, so why not
-looking at it. The problem with the mean is that it's the sum of all data
-points divided by the number of data points. It's therefore largely
-influenced by outliers.
+When looking at timer data series, the first thing we want to do is create an overall represention. Your first inclination is probably an _average_. 
+
+The problem with the mean is that it's the sum of all data
+points divided by the number of data points. It can thus be significantly affected by a small number of outliers.
+
 The median value is the number found in the center of the sorted list of
 collected data points. The problem in this case is that based on your
 data set, the median value might not well represent the real overall
 experience.
-**Median** and **mean** values have their pros and cons, but overall
-can't be really trusted as a good representation of how your system behaves. 
+
+Neither **median** nor **mean** can summarize the whole story of your system's behavior.
 Instead I prefer to use a **5-95 span** (thanks [Steve
 Akers](http://steveakers.com/) for showing me this metric and most of what I
 know about Graphite).
-A 5-95 span means that we take the highest number after removing the top
-5% and subtract the highest number after removing the top 95%.
+A 5-95 span means that we cut off the extreme outliers above 95% and below 5%.
 
 ### Span
 
-Here is a graph showing how the graphs can be different for the same
+Here is a comparison showing how the graphs can be different for the same
 data based on what metric you use:
 
 ![Graphite comparing median vs mean vs span](/images/graphite/graphite-median_vs_mean_vs_span.png)
 
 Of course the span graph looks much worse than the other two, but it's
-also more representative of the real user experience and therefore, more
+also more representative of the real user experience and thus more
 valuable. Here is how you would write the graphite function to get this data.
 
 Given that we are tracking the following data-series:
@@ -443,7 +426,7 @@ Given that we are tracking the following data-series:
 stats.timers.accounts.ios.http.post.authenticate.response_time
 ```
 
-The function to use would be:
+The function would be:
 
 ```
 diffSeries(stats.timers.accounts.ios.http.post.authenticate.response_time.upper_95,
@@ -453,7 +436,7 @@ diffSeries(stats.timers.accounts.ios.http.post.authenticate.response_time.upper_
 ### Alias
 
 If you try that function, the graph legend will show the entire
-function, which really doesn't look great. Fear not, you can use an
+function, which really doesn't look great. To simplify things, you can use an
 alias like I did in the graph above:
 
 ```
@@ -467,19 +450,16 @@ others.
 
 ### Threshold
 
-Another neat thing you might want to add to your graph is a threshold.
-A threshold is really just a reference, for instance your web service
-shouldn't be slower than 60ms server side. Let's add a threshold for
-that:
+Another neat feature you might add to your graph is a **threshold**.
+A threshold is a visual representation of expectations. Say, for example, that your web service shouldn't be slower than 60ms server side. Let's add a threshold for that:
 
 ```
 alias(threshold(60), "60ms threshold")
 ```
 
-and here how it would look in a graph:
+and here's how it would look in a graph:
 
 ![Graphite with a threshold](/images/graphite/graphite-median_vs_mean_vs_span-with-threshold.png)
-
 
 ### Draw Null as Zero
 
@@ -487,7 +467,6 @@ Another useful trick is to change the render options of a
 graph to draw null values as zero.
 Open the graph panel, click on `Render Options`, then `Line Mode` and check
 the `Draw Null as Zero` box.
-
 
 Here is a graph tracking a webservice that isn't getting a lot of
 traffic:
@@ -501,9 +480,9 @@ enable the `Draw Null as Zero`.
 
 ### SumSeries & Summarize or how to get RPMs
 
-By default graphite shows data at a 10s interval, but it happens that
-you want to see less granular data, and seeing the amount of requests
-per second for instance might be more interesting.
+By default graphite shows data at a 10 second interval. But often
+you want to see less granular data, like the quantity of requests
+per second.
 
 Let's say we didn't use a counter for the amount of requests, but
 because we used the middleware I described earlier, we are timing all
@@ -514,9 +493,8 @@ this count value with a wildcard:
 stats.timers.accounts.*.http.post.authenticate.response_time.count
 ```
 
-Now if we were to render a graph for this stat, we would see a graph per
-client. Which is great when you want to compare them, but right now we
-only care about showing the total amount of requests.
+If we were to render a graph for this stat we would see a graph per
+client. Right now we only care about showing the total amount of requests.
 To do that, we'll use the `sumSeries` function:
 
 ```
@@ -535,27 +513,21 @@ summarize(sumSeries(stats.timers.accounts.*.http.post.authenticate.response_time
 
 ![RPMs summarize](/images/graphite/graphite-summarize.png)
 
-We can now see the amount of requests per minute which is obviously
-more interesting. You can also change the resolution to show per
-hour/day etc..
-
-
+We can now see the quantity of requests per minute. You could do the same to resolve by hour, day, etc.
 
 ### Timeshift
 
-A very valuable thing you can do with Graphite is compare the current
-metric vs the same metrics in the past. For instance, let's compare
-today's amount of authentications vs last weeks'. To do that, we will use the `timeShift`
-function to graph last week's data.
+Graphite has the ability to compare a given metric across two different time spans. For instance, let's compare
+today's quantity of logins vs those from last weeks.
 
-
-Today's graph:
+To generate today's graph:
 
 ```
 alias(summarize(sumSeries(stats.timers.accounts.*.http.post.authenticate.response_time.count),"1min"), "today")
 ```
 
-Last week's:
+Then we use the `timeShift` function to get last week's data:
+
 ```
 alias(timeShift(summarize(sumSeries(stats.timers.accounts.*.http.post.authenticate.response_time.count), "1min"),"1w"), "last week")
 ```
@@ -565,18 +537,20 @@ Graphing both series in the same graph will give us that:
 ![graphite timeshift example](/images/graphite/graphite-timeshift.png)
 
 Wow, it looks like last week we had an authentication peek for a few
-hours. It would be interesting to graph our promos and sales in the same
+hours. Why? It would be interesting to graph our promos and sales in the same
 graph to see if we can find any correlations.
+
 Depending on your domain, you might want to compare against different
-time slices. Just change the second timeShift argument.
+time slices. Just change the second `timeShift` argument.
 
 ### As percent
 
-Another trick is to compare the percentage growth since last week.
-Let's pretend we are looking at sales or signup numbers.
-We could graph today's sales per minute vs last weeks.
+Another technique is to compare the percentage growth since last week.
+Let's imagine we are looking at sales or signup numbers.
+We could graph today's sales per minute vs those from last week.
+
 To do that, Graphite has the `asPercent` function. This function
-takes a series representing 100% and another one to compare against.
+takes a series representing _100%_ and second to compare against.
 The function call looks a bit scary so let me try to break it down over
 multiple lines:
 
@@ -590,7 +564,7 @@ asPercent(
 The first argument is the summarized RPMs (requests per minute) and the
 second is last week's summarized RPMs.
 
-Here is how the graph looks like:
+Here is how the graph looks:
 
 ![graphite as percent](/images/graphite/graphite-compare-as-percent.png)
 
@@ -603,21 +577,21 @@ overall response time as the 100% value and we graphed all the different
 monitored sections of our code base.
 
 You can now build some really advanced tools that look at trends,
-check pre and post deployments, trigger alerts, help you refactor your
-code. A good example of that is if you're having database challenges.
-You can easily track the query types and the targeted tables per API
-endpoint. You can see where you spend most of the time and who code path
-is responsible for it. You can quickly see if optimizing your index
-strategy helps or not etc...
+check pre- and post-deployment measurements, trigger alerts, and help you refactor your
+code. 
 
-
+Maybe you suspect that your app has a chokepoint at the database level.
+You can track the query types and the targeted tables per API
+endpoint. You can see where you spend most of the time and which code path
+is responsible for it. You can quickly see if adding indicies or other database-level techniques actually make a difference.
 
 ## Other tips
 
-* Share a url into campfire/irc and see a preview:
+### Share a url into campfire/irc and see a preview
+
 Campfire and many other chat tools offer image preview as long as they
 detect that the url has an image extension. Unfortunately, Graphite's
-graph urls look more like that:
+graph urls look more like this:
 
 ```
 http://graphite.awesome.graphs.com/render?width=400&from=-4hours&until=-&height=400&target=summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count))&drawNullAsZero=true&title=Example&_uniq=0.11944825737737119
@@ -625,10 +599,11 @@ http://graphite.awesome.graphs.com/render?width=400&from=-4hours&until=-&height=
 
 To get a preview, just append the with: `&.jpg`
 
-* Get the graph data in JSON format:
-You might want to do something fancy with the data like analysing it to
-create alerts. For that you get ask Graphite for a json representation
-of the data, simple append the url with: `&format=json`
+### Get the graph data in JSON format
+
+You might want to do something fancy with the data like 
+create alerts. For that you can ask Graphite for a json representation
+of the data by adding `&format=json` to the URL.
 
 
 ```json
@@ -642,21 +617,20 @@ of the data, simple append the url with: `&format=json`
 ]
 ```
 
-The data points are the timestamps value of each graphed point. 
-Note that you can also ask for the csv version of the data, probably
-useful if you're an excel guru.
+The data points are the timestamped value of each graphed point. 
+Note that you can also ask for the CSV version of the data then pass it on to some poor bastard using Excel.
 
-* Only show top graphs
+### Only show top graphs
 
 Let say that you are graphing the response time of all your APIs. The
-amount of displayed graphs can be overwhelming. To limit the displayed
-graphs, use one of the filters. For instance the `currentAbove` or
+amount of displayed graphs can be overwhelming. 
+
+To limit the displayed graphs, use one of the filters. For instance the `currentAbove` or
 `averageAbove` filters that can help you only display web services with
 more than X RPMs for instance. Using filters can be very useful to find
 outliers.
 
+## Get going with Graphite!
 
-Hopefully this guide will help you if you are already using Graphite or
-if you are planning on using it. I'm sure there are plenty of tricks I
-forgot to mention so feel free to use this post's comments to offer
-other useful tricks or resources.
+Hopefully this guide will help and inspire you to start using Graphite to easily collect and analyze your metrics. I'm sure there are great tricks I
+forgot to mention, please add your favorites in the comments.
