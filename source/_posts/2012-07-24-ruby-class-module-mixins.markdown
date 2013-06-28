@@ -6,6 +6,7 @@ comments: false
 categories: 
 - ruby
 - language
+- blog-post
 ---
 
 When you first get started with the Ruby programming and you come from a different

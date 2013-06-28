@@ -6,6 +6,7 @@ comments: true
 categories: 
 - Ruby
 - authentication
+- blog-post
 ---
 
 Today I struggled to get [OmniAuth](https://github.com/intridea/omniauth) and [Google apps](https://developers.google.com/accounts/docs/OpenID) to work properly together.

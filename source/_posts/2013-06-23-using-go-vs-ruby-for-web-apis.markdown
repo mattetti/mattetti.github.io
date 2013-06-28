@@ -8,6 +8,7 @@ categories:
 - golang
 - apis
 - performance 
+- blog-post
 ---
 
 A few days ago, I was wondering if using [Go](http://golang.org/) would be worth it when developing new web APIs.

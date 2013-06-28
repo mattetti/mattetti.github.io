@@ -6,6 +6,7 @@ legacy_url: http://coderwall.com/p/1zflyg
 comments: false
 categories: 
 - ruby
+- blog-post
 ---
 
 Have you ever wondered what the differences are between **#dup** and **#clone** in Ruby?

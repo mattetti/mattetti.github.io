@@ -6,6 +6,7 @@ comments: true
 categories: 
 - Go
 - Golang
+- blog-post
 ---
 
 The structure of a programming language reflects the challenges and solutions the

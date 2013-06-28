@@ -8,6 +8,7 @@ categories:
 - design
 - api
 - Popular
+- blog-post
 ---
 
 

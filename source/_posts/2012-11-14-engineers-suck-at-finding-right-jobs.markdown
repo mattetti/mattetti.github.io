@@ -7,6 +7,7 @@ categories:
 - Misc
 - Career
 - Popular
+- blog-post
 ---
 
 If you are currently a software engineer you need to realize two things:

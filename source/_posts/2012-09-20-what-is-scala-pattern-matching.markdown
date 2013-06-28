@@ -5,6 +5,7 @@ date: 2012-09-20 21:18
 comments: true
 categories: 
 - scala
+- blog-post
 ---
 
 [Scala](http://www.scala-lang.org/) is a very interesting programming

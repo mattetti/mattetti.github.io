@@ -7,6 +7,7 @@ categories:
 - monitoring
 - tools
 - tutorial
+- blog-post
 ---
 
 Engineers love to improve things. Refactoring and optimizations
@@ -632,5 +633,8 @@ outliers.
 
 ## Get going with Graphite!
 
-Hopefully this guide will help and inspire you to start using Graphite to easily collect and analyze your metrics. I'm sure there are great tricks I
-forgot to mention, please add your favorites in the comments.
+Hopefully this guide will help and inspire you to start using Graphite to easily collect and analyze your metrics. 
+I'm sure there are great tricks I forgot to mention, please add your favorites in the comments.
+
+_Thanks to [Jeff Casimir](https://twitter.com/j3) for reviewing this post
+before its publication!_

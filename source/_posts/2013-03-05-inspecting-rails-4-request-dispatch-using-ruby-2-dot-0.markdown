@@ -6,6 +6,7 @@ comments: true
 categories: 
 - ruby
 - rails
+- blog-post
 ---
 
 Ruby 2.0 has a cool new feature that many people talk about:
