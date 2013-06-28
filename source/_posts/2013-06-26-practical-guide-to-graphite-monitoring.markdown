@@ -322,7 +322,7 @@ The final stats entry could look like that:
 * **http**: the protocol used (you might want to monitor thrift, spdy etc..
 * **post**: HTTP verb
 * **v1.accounts**: the converted uri: /v1/accounts
-* **sql: the key for the SQL metrics
+* **sql**: the key for the SQL metrics
 * **users**: the table being queried
 * **SELECT**: the SQL query type
 * **query_time**: the kind of data being collected.
