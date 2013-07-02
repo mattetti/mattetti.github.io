@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Practical guide to Graphite monitoring"
+title: "Practical guide to StatsD/Graphite monitoring"
 date: 2013-06-26 10:26
 comments: true
 categories: 
@@ -8,6 +8,7 @@ categories:
 - tools
 - tutorial
 - blog-post
+- popular
 ---
 
 Engineers love to improve things. Refactoring and optimizations
