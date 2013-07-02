@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-06-28T09:42:31-07:00</updated>
+  <updated>2013-07-02T08:11:08-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,280 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Golang multipart file upload example]]></title>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example/"/>
+    <updated>2013-07-01T22:28:00-07:00</updated>
+    <id>http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example</id>
+    <content type="html"><![CDATA[<p>The Go language is one of my favorite programming languages. However,
+sometimes doing simple things can seem a bit harder than it should.
+However, most of the time, the problem is just to find out how to
+do things the easy way. While Go&#8217;s documention isn&#8217;t bad, the real key
+to finding out how to do things is often to look at the <a href="http://golang.org/src/pkg/mime/multipart/">source code</a> and
+the <a href="http://golang.org/src/pkg/mime/multipart/multipart_test.go">test suite</a>.</p>
+
+<p>I&#8217;m not yet super familiar with all the std lib packages, so when I
+wanted to test my Go web services, I wrote a few lines of code to create
+a multipart file upload function that was building the body from scratch.
+Once I was done messing with the various headers, boundary protocol etc..
+I started testing some edge cases, I found some bugs in my code.
+Looking at Go&#8217;s packages, I realized that all the tools were already
+available for me to use. I was just lacking a good example. Walking
+through the test suite I finally figured out how to write a simple
+multipart file upload example with some extra query params.</p>
+
+<p>Hopefully this example will be helpful to some of you.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">import</span> <span class="p">(</span>
+</span><span class='line'>  <span class="s">&quot;bytes&quot;</span>
+</span><span class='line'>  <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>  <span class="s">&quot;io/ioutil&quot;</span>
+</span><span class='line'>  <span class="s">&quot;mime/multipart&quot;</span>
+</span><span class='line'>  <span class="s">&quot;net/http&quot;</span>
+</span><span class='line'>  <span class="s">&quot;os&quot;</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Creates a new file upload http request with optional extra params</span>
+</span><span class='line'><span class="k">func</span> <span class="n">newfileUploadRequest</span><span class="p">(</span><span class="n">uri</span> <span class="nb">string</span><span class="p">,</span> <span class="n">params</span> <span class="k">map</span><span class="p">[</span><span class="nb">string</span><span class="p">]</span><span class="nb">string</span><span class="p">,</span> <span class="n">paramName</span><span class="p">,</span> <span class="n">path</span> <span class="nb">string</span><span class="p">)</span> <span class="p">*</span><span class="n">http</span><span class="p">.</span><span class="n">Request</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">file</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">os</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fileContents</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">ioutil</span><span class="p">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fi</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">file</span><span class="p">.</span><span class="n">Stat</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">file</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">body</span> <span class="p">:=</span> <span class="nb">new</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">Buffer</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">writer</span> <span class="p">:=</span> <span class="n">multipart</span><span class="p">.</span><span class="n">NewWriter</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">part</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">fi</span><span class="p">.</span><span class="n">Name</span><span class="p">())</span>
+</span><span class='line'>      <span class="n">part</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">fileContents</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">params</span> <span class="p">{</span>
+</span><span class='line'>          <span class="n">_</span> <span class="p">=</span> <span class="n">writer</span><span class="p">.</span><span class="n">WriteField</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">writer</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">req</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">req</span><span class="p">.</span><span class="n">Header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="p">.</span><span class="n">FormDataContentType</span><span class="p">())</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">req</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">path</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">os</span><span class="p">.</span><span class="n">Getwd</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">path</span> <span class="p">+=</span> <span class="s">&quot;/test.pdf&quot;</span>
+</span><span class='line'>  <span class="n">extraParams</span> <span class="p">:=</span> <span class="k">map</span><span class="p">[</span><span class="nb">string</span><span class="p">]</span><span class="nb">string</span><span class="p">{</span>
+</span><span class='line'>      <span class="s">&quot;title&quot;</span><span class="p">:</span>       <span class="s">&quot;My Document&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s">&quot;author&quot;</span><span class="p">:</span>      <span class="s">&quot;Matt Aimonetti&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s">&quot;description&quot;</span><span class="p">:</span> <span class="s">&quot;A document with all the Go programming language secrets&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">request</span> <span class="p">:=</span> <span class="n">newfileUploadRequest</span><span class="p">(</span><span class="s">&quot;https://google.com/upload&quot;</span><span class="p">,</span> <span class="n">extraParams</span><span class="p">,</span> <span class="s">&quot;file&quot;</span><span class="p">,</span> <span class="s">&quot;/tmp/doc.pdf&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">client</span> <span class="p">:=</span> <span class="p">&amp;</span><span class="n">http</span><span class="p">.</span><span class="n">Client</span><span class="p">{}</span>
+</span><span class='line'>  <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">client</span><span class="p">.</span><span class="n">Do</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">Header</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">var</span> <span class="n">bodyContent</span> <span class="p">[]</span><span class="nb">byte</span>
+</span><span class='line'>      <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">bodyContent</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+</span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">bodyContent</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>All the work is done in the <code>newfileUploadRequest</code> function and
+really, the <code>mime/multipart</code> package hides all the complexity of
+creating a multipart request.</p>
+
+<p>The key is to set a new <code>multipart.Writer</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">writer</span> <span class="p">:=</span> <span class="n">multipart</span><span class="p">.</span><span class="n">NewWriter</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The writer will do all the work and will write directly to our body (which itself is a buffer of bytes).</p>
+
+<p>We then create a part for the file form entry with the name of the file
+param and the name of the file (that we extracted using the <code>os</code>
+package).
+We need to add the content of the file to the file part, we use the
+<a href="http://golang.org/pkg/io/#Writer"><code>writer</code> interface</a> to do so.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">part</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">fi</span><span class="p">.</span><span class="n">Name</span><span class="p">())</span>
+</span><span class='line'><span class="n">part</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">fileContents</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>multipart.Writer</code> takes care of setting the boundary and formating
+the form data for us, nice isn&#8217;t it?!</p>
+
+<p>Then for any extra params passed as a map of string keys to string
+value, we use another function of the <code>multipart.Writer</code> type:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">writer</span><span class="p">.</span><span class="n">WriteField</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once again, the writer takes care of creating the right headers, and to
+add the passed value.</p>
+
+<p>At this point, we just need to close our writer and use our body to
+create a new request.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">writer</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+</span><span class='line'><span class="n">req</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One last thing before triggering our request, we need to set the header
+that contains the content type including the boundary being used.
+Once again, the Go lib has us covered:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">req</span><span class="p">.</span><span class="n">Header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="p">.</span><span class="n">FormDataContentType</span><span class="p">())</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As a reference, here is the generated body:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="p">--</span><span class="mi">0</span><span class="n">d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee</span>
+</span><span class='line'><span class="n">Content</span><span class="p">-</span><span class="n">Disposition</span><span class="p">:</span> <span class="n">form</span><span class="p">-</span><span class="n">data</span><span class="p">;</span> <span class="n">name</span><span class="p">=</span><span class="s">&quot;file&quot;</span><span class="p">;</span> <span class="n">filename</span><span class="p">=</span><span class="s">&quot;doc.pdf&quot;</span>
+</span><span class='line'><span class="n">Content</span><span class="p">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="p">/</span><span class="n">octet</span><span class="p">-</span><span class="n">stream</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">%</span><span class="n">PDF</span><span class="p">-</span><span class="mf">1.4</span>
+</span><span class='line'><span class="p">%</span><span class="err">????</span>
+</span><span class='line'><span class="mi">4</span> <span class="mi">0</span> <span class="n">obj</span>
+</span><span class='line'><span class="p">&lt;&lt;/</span><span class="n">Type</span> <span class="p">/</span><span class="n">Catalog</span>
+</span><span class='line'><span class="c1">// removed for example</span>
+</span><span class='line'><span class="n">trailer</span>
+</span><span class='line'><span class="p">&lt;&lt;/</span><span class="n">Size</span> <span class="mi">18</span>
+</span><span class='line'><span class="p">/</span><span class="n">Root</span> <span class="mi">4</span> <span class="mi">0</span> <span class="n">R</span>
+</span><span class='line'><span class="p">&gt;&gt;</span>
+</span><span class='line'><span class="n">startxref</span>
+</span><span class='line'><span class="mi">45054</span>
+</span><span class='line'><span class="p">%%</span><span class="n">EOF</span>
+</span><span class='line'><span class="p">--</span><span class="mi">0</span><span class="n">d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee</span>
+</span><span class='line'><span class="n">Content</span><span class="p">-</span><span class="n">Disposition</span><span class="p">:</span> <span class="n">form</span><span class="p">-</span><span class="n">data</span><span class="p">;</span> <span class="n">name</span><span class="p">=</span><span class="s">&quot;title&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">My</span> <span class="n">Document</span>
+</span><span class='line'><span class="p">--</span><span class="mi">0</span><span class="n">d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee</span>
+</span><span class='line'><span class="n">Content</span><span class="p">-</span><span class="n">Disposition</span><span class="p">:</span> <span class="n">form</span><span class="p">-</span><span class="n">data</span><span class="p">;</span> <span class="n">name</span><span class="p">=</span><span class="s">&quot;author&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Matt</span> <span class="n">Aimonetti</span>
+</span><span class='line'><span class="p">--</span><span class="mi">0</span><span class="n">d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee</span>
+</span><span class='line'><span class="n">Content</span><span class="p">-</span><span class="n">Disposition</span><span class="p">:</span> <span class="n">form</span><span class="p">-</span><span class="n">data</span><span class="p">;</span> <span class="n">name</span><span class="p">=</span><span class="s">&quot;description&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">A</span> <span class="n">document</span> <span class="n">with</span> <span class="n">all</span> <span class="n">the</span> <span class="n">Go</span> <span class="n">programming</span> <span class="n">language</span> <span class="n">secrets</span>
+</span><span class='line'><span class="p">--</span><span class="mi">0</span><span class="n">d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee</span><span class="p">--</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Golang might not be as high level as Ruby or Python, but it&#8217;s not too
+far off and it certainly comes with some great std libs.
+I know I recently caught myself writing a lot of small scripts in Go,
+something I used to do in Ruby. I think this is mainly due to the
+fact that Go is compiled, designed for concurrency, has great std libs and
+is quite easy to write.</p>
+
+<p><em>Hopefully this code sample illustrates how easy Go can be and can also
+serve as a reference point if you are looking for a way to do multipart
+upload.</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
@@ -4070,37 +4344,6 @@ testing the first betas.</p>
 <p> </p>
 
 <p><a href="https://github.com/mattetti/benchmarks/blob/master/ar_instantiate_profile.pdf?raw=true"><img src="http://img.skitch.com/20120224-8scmun9n1c9ufdnxa8rq2961bq.jpg" alt="" /></a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[LA RubyConf 2012 - Ruby: time to move on]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012/"/>
-    <updated>2012-02-04T15:09:00-08:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012</id>
-    <content type="html"><![CDATA[<p>During <a href="http://larubyconf.org/">LA RubyConf 2012</a> in Los Angeles, CA Matt
-Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
-
-<h2>Description of the talk:</h2>
-
-<p>Let&#8217;s be honest, Ruby became mainstream a few years back and it isn&#8217;t the cool underground programming language it once was. It&#8217;s quite likely that your cousin&#8217;s boyfriend who&#8217;s &#8220;into computers&#8221; knows what Ruby on Rails is. There are hundreds of books, conferences, training and meetups for Rubyists. Recruiters fight to hire whoever knows how to generate a scaffolded Rails app. But now cool kids can&#8217;t stop talking about node.js, CoffeeScript, Clojure, Haskell and pushing code to the UI layer. What does it mean for the new, existing and prospecting Ruby developers? Is it time to jump ship and move on to something else?</p>
-
-<p><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti_timeToMoveOn.jpg" alt="Matt Aimonetti showing that the end result is what matters the most" /></p>
-
-<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="4f904c27a542080022020653" data-ratio="1.299492385786802" src="http://speakerdeck.com/assets/embed.js"></script>
-
-
-<p>The slides are available on <a href="http://speakerdeck.com/u/matt_aimonetti/p/ruby-time-to-move-on">Matt&#8217;s SpeakerDeck</a> and can be <a href="http://mattetti.github.com/mattetti/slides/matt_aimonetti-ruby_time_to_move_on.pdf">downloaded here</a>.</p>
-
-<h2>Video</h2>
-
-<p><video width='640' height='360' preload='none' controls poster=' /images/matt_aimonetti_larubyconf2012_video.png'><source src='http://cdn.confreaks.com/system/assets/datas/3173/original/816-larubyconf2012-time-to-move-away-from-ruby-small.mp4' type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/></video></p>
-
-<h2>Presentation website</h2>
-
-<p>Matt&#8217;s presentation was filmed by <a href="http://confreaks.com">Confreaks</a> and posted <a href="http://confreaks.com/videos/816-larubyconf2012-time-to-move-away-from-ruby">here</a>.</p>
 ]]></content>
   </entry>
   
