@@ -8,7 +8,7 @@ categories:
 - tools
 - tutorial
 - blog-post
-- popular
+- Popular
 ---
 
 Engineers love to improve things. Refactoring and optimizations

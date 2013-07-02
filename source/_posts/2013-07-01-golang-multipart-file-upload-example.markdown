@@ -35,32 +35,45 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
 )
 
 // Creates a new file upload http request with optional extra params
-func newfileUploadRequest(uri string, params map[string]string, paramName, path string) *http.Request {
-	file, _ := os.Open(path)
-	fileContents, _ := ioutil.ReadAll(file)
-	fi, _ := file.Stat()
-  file.Close()
+func newfileUploadRequest(uri string, params map[string]string, paramName, path string) (*http.Request, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	fileContents, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+	fi, err := file.Stat()
+	if err != nil {
+		return nil, err
+	}
+	file.Close()
 
 	body := new(bytes.Buffer)
 	writer := multipart.NewWriter(body)
-	{
-		part, _ := writer.CreateFormFile(paramName, fi.Name())
-		part.Write(fileContents)
-
-		for key, val := range params {
-			_ = writer.WriteField(key, val)
-		}
+	part, err := writer.CreateFormFile(paramName, fi.Name())
+	if err != nil {
+		return nil, err
 	}
-	writer.Close()
-	req, _ := http.NewRequest("POST", uri, body)
-  req.Header.Add("Content-Type", writer.FormDataContentType())
-	return req
+	part.Write(fileContents)
+
+	for key, val := range params {
+		_ = writer.WriteField(key, val)
+	}
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return http.NewRequest("POST", uri, body)
 }
 
 func main() {
@@ -71,21 +84,26 @@ func main() {
 		"author":      "Matt Aimonetti",
 		"description": "A document with all the Go programming language secrets",
 	}
-	request := newfileUploadRequest("https://google.com/upload", extraParams, "file", "/tmp/doc.pdf")
+	request, err := newfileUploadRequest("https://google.com/upload", extraParams, "file", "/tmp/doc.pdf")
+	if err != nil {
+		log.Fatal(err)
+	}
 	client := &http.Client{}
 	resp, err := client.Do(request)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	} else {
+		var bodyContent []byte
 		fmt.Println(resp.StatusCode)
 		fmt.Println(resp.Header)
-		var bodyContent []byte
 		resp.Body.Read(bodyContent)
-    resp.Body.Close()
+		resp.Body.Close()
 		fmt.Println(bodyContent)
 	}
 }
 ```
+
+[Example's source code on GitHub](https://gist.github.com/mattetti/5914158)
 
 All the work is done in the `newfileUploadRequest` function and
 really, the `mime/multipart` package hides all the complexity of
