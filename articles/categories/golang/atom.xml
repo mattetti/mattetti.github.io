@@ -4,7 +4,7 @@
   <title><![CDATA[Category: golang | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/golang/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-07-02T08:14:29-07:00</updated>
+  <updated>2013-07-02T16:50:46-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -45,6 +45,7 @@ package main</p>
 <pre><code>"bytes"
 "fmt"
 "io/ioutil"
+"log"
 "mime/multipart"
 "net/http"
 "os"
@@ -53,32 +54,39 @@ package main</p>
 <p>)</p>
 
 <p>// Creates a new file upload http request with optional extra params
-func newfileUploadRequest(uri string, params map[string]string, paramName, path string) *http.Request {</p>
+func newfileUploadRequest(uri string, params map[string]string, paramName, path string) (*http.Request, error) {</p>
 
-<pre><code>file, _ := os.Open(path)
-fileContents, _ := ioutil.ReadAll(file)
-fi, _ := file.Stat()
-</code></pre>
-
-<p>  file.Close()</p>
-
-<pre><code>body := new(bytes.Buffer)
-writer := multipart.NewWriter(body)
-{
-    part, _ := writer.CreateFormFile(paramName, fi.Name())
-    part.Write(fileContents)
-
-    for key, val := range params {
-        _ = writer.WriteField(key, val)
-    }
+<pre><code>file, err := os.Open(path)
+if err != nil {
+    return nil, err
 }
-writer.Close()
-req, _ := http.NewRequest("POST", uri, body)
-</code></pre>
+fileContents, err := ioutil.ReadAll(file)
+if err != nil {
+    return nil, err
+}
+fi, err := file.Stat()
+if err != nil {
+    return nil, err
+}
+file.Close()
 
-<p>  req.Header.Add("Content-Type", writer.FormDataContentType())</p>
+body := new(bytes.Buffer)
+writer := multipart.NewWriter(body)
+part, err := writer.CreateFormFile(paramName, fi.Name())
+if err != nil {
+    return nil, err
+}
+part.Write(fileContents)
 
-<pre><code>return req
+for key, val := range params {
+    _ = writer.WriteField(key, val)
+}
+err = writer.Close()
+if err != nil {
+    return nil, err
+}
+
+return http.NewRequest("POST", uri, body)
 </code></pre>
 
 <p>}</p>
@@ -92,23 +100,28 @@ extraParams := map[string]string{
     "author":      "Matt Aimonetti",
     "description": "A document with all the Go programming language secrets",
 }
-request := newfileUploadRequest("https://google.com/upload", extraParams, "file", "/tmp/doc.pdf")
+request, err := newfileUploadRequest("https://google.com/upload", extraParams, "file", "/tmp/doc.pdf")
+if err != nil {
+    log.Fatal(err)
+}
 client := &amp;http.Client{}
 resp, err := client.Do(request)
 if err != nil {
-    panic(err)
+    log.Fatal(err)
 } else {
+    var bodyContent []byte
     fmt.Println(resp.StatusCode)
     fmt.Println(resp.Header)
-    var bodyContent []byte
     resp.Body.Read(bodyContent)
-resp.Body.Close()
+    resp.Body.Close()
     fmt.Println(bodyContent)
 }
 </code></pre>
 
 <p>}
 ```</p>
+
+<p><a href="https://gist.github.com/mattetti/5914158">Example's source code on GitHub</a></p>
 
 <p>All the work is done in the <code>newfileUploadRequest</code> function and
 really, the <code>mime/multipart</code> package hides all the complexity of

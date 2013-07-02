@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-07-02T08:14:29-07:00</updated>
+  <updated>2013-07-02T16:50:46-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -93,38 +93,67 @@ multipart file upload example with some extra query params.</p>
 <span class='line-number'>54</span>
 <span class='line-number'>55</span>
 <span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">import</span> <span class="p">(</span>
 </span><span class='line'>  <span class="s">&quot;bytes&quot;</span>
 </span><span class='line'>  <span class="s">&quot;fmt&quot;</span>
 </span><span class='line'>  <span class="s">&quot;io/ioutil&quot;</span>
+</span><span class='line'>  <span class="s">&quot;log&quot;</span>
 </span><span class='line'>  <span class="s">&quot;mime/multipart&quot;</span>
 </span><span class='line'>  <span class="s">&quot;net/http&quot;</span>
 </span><span class='line'>  <span class="s">&quot;os&quot;</span>
 </span><span class='line'><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// Creates a new file upload http request with optional extra params</span>
-</span><span class='line'><span class="k">func</span> <span class="n">newfileUploadRequest</span><span class="p">(</span><span class="n">uri</span> <span class="nb">string</span><span class="p">,</span> <span class="n">params</span> <span class="k">map</span><span class="p">[</span><span class="nb">string</span><span class="p">]</span><span class="nb">string</span><span class="p">,</span> <span class="n">paramName</span><span class="p">,</span> <span class="n">path</span> <span class="nb">string</span><span class="p">)</span> <span class="p">*</span><span class="n">http</span><span class="p">.</span><span class="n">Request</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">file</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">os</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">fileContents</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">ioutil</span><span class="p">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">fi</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">file</span><span class="p">.</span><span class="n">Stat</span><span class="p">()</span>
+</span><span class='line'><span class="k">func</span> <span class="n">newfileUploadRequest</span><span class="p">(</span><span class="n">uri</span> <span class="nb">string</span><span class="p">,</span> <span class="n">params</span> <span class="k">map</span><span class="p">[</span><span class="nb">string</span><span class="p">]</span><span class="nb">string</span><span class="p">,</span> <span class="n">paramName</span><span class="p">,</span> <span class="n">path</span> <span class="nb">string</span><span class="p">)</span> <span class="p">(*</span><span class="n">http</span><span class="p">.</span><span class="n">Request</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">os</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">fileContents</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">ioutil</span><span class="p">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">fi</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">file</span><span class="p">.</span><span class="n">Stat</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
+</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>  <span class="n">file</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="n">body</span> <span class="p">:=</span> <span class="nb">new</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">Buffer</span><span class="p">)</span>
 </span><span class='line'>  <span class="n">writer</span> <span class="p">:=</span> <span class="n">multipart</span><span class="p">.</span><span class="n">NewWriter</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">part</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">fi</span><span class="p">.</span><span class="n">Name</span><span class="p">())</span>
-</span><span class='line'>      <span class="n">part</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">fileContents</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">params</span> <span class="p">{</span>
-</span><span class='line'>          <span class="n">_</span> <span class="p">=</span> <span class="n">writer</span><span class="p">.</span><span class="n">WriteField</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="n">part</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">fi</span><span class="p">.</span><span class="n">Name</span><span class="p">())</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">writer</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
-</span><span class='line'>  <span class="n">req</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">req</span><span class="p">.</span><span class="n">Header</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="p">.</span><span class="n">FormDataContentType</span><span class="p">())</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">req</span>
+</span><span class='line'>  <span class="n">part</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">fileContents</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">params</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">_</span> <span class="p">=</span> <span class="n">writer</span><span class="p">.</span><span class="n">WriteField</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">err</span> <span class="p">=</span> <span class="n">writer</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="n">http</span><span class="p">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
@@ -135,22 +164,27 @@ multipart file upload example with some extra query params.</p>
 </span><span class='line'>      <span class="s">&quot;author&quot;</span><span class="p">:</span>      <span class="s">&quot;Matt Aimonetti&quot;</span><span class="p">,</span>
 </span><span class='line'>      <span class="s">&quot;description&quot;</span><span class="p">:</span> <span class="s">&quot;A document with all the Go programming language secrets&quot;</span><span class="p">,</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">request</span> <span class="p">:=</span> <span class="n">newfileUploadRequest</span><span class="p">(</span><span class="s">&quot;https://google.com/upload&quot;</span><span class="p">,</span> <span class="n">extraParams</span><span class="p">,</span> <span class="s">&quot;file&quot;</span><span class="p">,</span> <span class="s">&quot;/tmp/doc.pdf&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">request</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">newfileUploadRequest</span><span class="p">(</span><span class="s">&quot;https://google.com/upload&quot;</span><span class="p">,</span> <span class="n">extraParams</span><span class="p">,</span> <span class="s">&quot;file&quot;</span><span class="p">,</span> <span class="s">&quot;/tmp/doc.pdf&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">log</span><span class="p">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>  <span class="n">client</span> <span class="p">:=</span> <span class="p">&amp;</span><span class="n">http</span><span class="p">.</span><span class="n">Client</span><span class="p">{}</span>
 </span><span class='line'>  <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">client</span><span class="p">.</span><span class="n">Do</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 </span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">log</span><span class="p">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">var</span> <span class="n">bodyContent</span> <span class="p">[]</span><span class="nb">byte</span>
 </span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">)</span>
 </span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">Header</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">var</span> <span class="n">bodyContent</span> <span class="p">[]</span><span class="nb">byte</span>
 </span><span class='line'>      <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">bodyContent</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+</span><span class='line'>      <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
 </span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">bodyContent</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p><a href="https://gist.github.com/mattetti/5914158">Example&#8217;s source code on GitHub</a></p>
 
 <p>All the work is done in the <code>newfileUploadRequest</code> function and
 really, the <code>mime/multipart</code> package hides all the complexity of
