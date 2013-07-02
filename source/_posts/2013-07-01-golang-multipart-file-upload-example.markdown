@@ -45,6 +45,7 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 	file, _ := os.Open(path)
 	fileContents, _ := ioutil.ReadAll(file)
 	fi, _ := file.Stat()
+  file.Close()
 
 	body := new(bytes.Buffer)
 	writer := multipart.NewWriter(body)
@@ -80,6 +81,7 @@ func main() {
 		fmt.Println(resp.Header)
 		var bodyContent []byte
 		resp.Body.Read(bodyContent)
+    resp.Body.Close()
 		fmt.Println(bodyContent)
 	}
 }
@@ -95,7 +97,7 @@ The key is to set a new `multipart.Writer`:
 writer := multipart.NewWriter(body)
 ```
 
-The writer will do all the work and writes directly to our body (which itself is a buffer of bytes).
+The writer will do all the work and will write directly to our body (which itself is a buffer of bytes).
 
 We then create a part for the file form entry with the name of the file
 param and the name of the file (that we extracted using the `os`
@@ -175,8 +177,8 @@ A document with all the Go programming language secrets
 
 Golang might not be as high level as Ruby or Python, but it's not too
 far off and it certainly comes with some great std libs.
-I know I caught myself writing a lot of the small scripts in Go,
-something I used to do in Ruby. I think that this is mainly due to the
+I know I recently caught myself writing a lot of small scripts in Go,
+something I used to do in Ruby. I think this is mainly due to the
 fact that Go is compiled, designed for concurrency, has great std libs and 
 is quite easy to write.
 
