@@ -34,11 +34,12 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 // Creates a new file upload http request with optional extra params
@@ -47,23 +48,15 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 	if err != nil {
 		return nil, err
 	}
-	fileContents, err := ioutil.ReadAll(file)
-	if err != nil {
-		return nil, err
-	}
-	fi, err := file.Stat()
-	if err != nil {
-		return nil, err
-	}
 	file.Close()
 
 	body := new(bytes.Buffer)
 	writer := multipart.NewWriter(body)
-	part, err := writer.CreateFormFile(paramName, fi.Name())
+	part, err := writer.CreateFormFile(paramName, filepath.Base(path))
 	if err != nil {
 		return nil, err
 	}
-	part.Write(fileContents)
+	_, err = io.Copy(part, file)
 
 	for key, val := range params {
 		_ = writer.WriteField(key, val)
@@ -118,14 +111,18 @@ writer := multipart.NewWriter(body)
 The writer will do all the work and will write directly to our body (which itself is a buffer of bytes).
 
 We then create a part for the file form entry with the name of the file
-param and the name of the file (that we extracted using the `os`
+param and the name of the file (that we extracted using the `path/filepath`
 package).
 We need to add the content of the file to the file part, we use the
-[`writer` interface](http://golang.org/pkg/io/#Writer) to do so.
+`io.Copy()` to do so. In the first version of this article, I had used
+`io/ioutil` `Readall` to read the content of the file (see code [here](https://gist.github.com/mattetti/5914158/f4d1393d83ebedc682a3c8e7bdc6b49670083b84)).
+However a few readers rightfully mentioned that I should instead copy
+content from the file to the part instead of temporarily loading the content of
+the file in memory.
 
 ```go
-part, _ := writer.CreateFormFile(paramName, fi.Name())
-part.Write(fileContents)
+part, _ := writer.CreateFormFile(paramName, filepath.Base(path))
+_, err = io.Copy(part, file)
 ```
 
 The `multipart.Writer` takes care of setting the boundary and formating
