@@ -171,6 +171,9 @@ multipart file upload example with some extra query params.</p>
 <span class='line-number'>63</span>
 <span class='line-number'>64</span>
 <span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">import</span> <span class="p">(</span>
@@ -192,7 +195,7 @@ multipart file upload example with some extra query params.</p>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>  <span class="n">file</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="n">body</span> <span class="p">:=</span> <span class="nb">new</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">Buffer</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">body</span> <span class="p">:=</span> <span class="p">&amp;</span><span class="n">bytes</span><span class="p">.</span><span class="n">Buffer</span><span class="p">{}</span>
 </span><span class='line'>  <span class="n">writer</span> <span class="p">:=</span> <span class="n">multipart</span><span class="p">.</span><span class="n">NewWriter</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 </span><span class='line'>  <span class="n">part</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">filepath</span><span class="p">.</span><span class="n">Base</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 </span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
@@ -228,12 +231,15 @@ multipart file upload example with some extra query params.</p>
 </span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
 </span><span class='line'>      <span class="n">log</span><span class="p">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">var</span> <span class="n">bodyContent</span> <span class="p">[]</span><span class="nb">byte</span>
+</span><span class='line'>      <span class="n">body</span> <span class="p">:=</span> <span class="p">&amp;</span><span class="n">bytes</span><span class="p">.</span><span class="n">Buffer</span><span class="p">{}</span>
+</span><span class='line'>      <span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">body</span><span class="p">.</span><span class="n">ReadFrom</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>          <span class="n">log</span><span class="p">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
 </span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">StatusCode</span><span class="p">)</span>
 </span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">Header</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">bodyContent</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
-</span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">bodyContent</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -262,7 +268,8 @@ We need to add the content of the file to the file part, we use the
 <code>io/ioutil</code> <code>Readall</code> to read the content of the file (see code <a href="https://gist.github.com/mattetti/5914158/f4d1393d83ebedc682a3c8e7bdc6b49670083b84">here</a>).
 However a few readers rightfully mentioned that I should instead copy
 content from the file to the part instead of temporarily loading the content of
-the file in memory.</p>
+the file in memory. <a href="http://play.golang.org/p/eEFBMGMNTW">Here</a> is an
+even more optimized version using goroutine to stream the data.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

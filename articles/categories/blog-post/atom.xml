@@ -4,7 +4,7 @@
   <title><![CDATA[Category: blog-post | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/blog-post/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-07-04T11:58:59-07:00</updated>
+  <updated>2013-07-04T12:26:35-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -63,7 +63,7 @@ if err != nil {
 }
 file.Close()
 
-body := new(bytes.Buffer)
+body := &amp;bytes.Buffer{}
 writer := multipart.NewWriter(body)
 part, err := writer.CreateFormFile(paramName, filepath.Base(path))
 if err != nil {
@@ -102,12 +102,15 @@ resp, err := client.Do(request)
 if err != nil {
     log.Fatal(err)
 } else {
-    var bodyContent []byte
+    body := &amp;bytes.Buffer{}
+    _, err := body.ReadFrom(resp.Body)
+if err != nil {
+        log.Fatal(err)
+    }
+resp.Body.Close()
     fmt.Println(resp.StatusCode)
     fmt.Println(resp.Header)
-    resp.Body.Read(bodyContent)
-    resp.Body.Close()
-    fmt.Println(bodyContent)
+    fmt.Println(body)
 }
 </code></pre>
 
@@ -136,7 +139,8 @@ We need to add the content of the file to the file part, we use the
 <code>io/ioutil</code> <code>Readall</code> to read the content of the file (see code <a href="https://gist.github.com/mattetti/5914158/f4d1393d83ebedc682a3c8e7bdc6b49670083b84">here</a>).
 However a few readers rightfully mentioned that I should instead copy
 content from the file to the part instead of temporarily loading the content of
-the file in memory.</p>
+the file in memory. <a href="http://play.golang.org/p/eEFBMGMNTW">Here</a> is an
+even more optimized version using goroutine to stream the data.</p>
 
 <p><code>go
 part, _ := writer.CreateFormFile(paramName, filepath.Base(path))
