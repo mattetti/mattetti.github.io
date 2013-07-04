@@ -171,23 +171,17 @@ multipart file upload example with some extra query params.</p>
 <span class='line-number'>63</span>
 <span class='line-number'>64</span>
 <span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">import</span> <span class="p">(</span>
 </span><span class='line'>  <span class="s">&quot;bytes&quot;</span>
 </span><span class='line'>  <span class="s">&quot;fmt&quot;</span>
-</span><span class='line'>  <span class="s">&quot;io/ioutil&quot;</span>
+</span><span class='line'>  <span class="s">&quot;io&quot;</span>
 </span><span class='line'>  <span class="s">&quot;log&quot;</span>
 </span><span class='line'>  <span class="s">&quot;mime/multipart&quot;</span>
 </span><span class='line'>  <span class="s">&quot;net/http&quot;</span>
 </span><span class='line'>  <span class="s">&quot;os&quot;</span>
+</span><span class='line'>  <span class="s">&quot;path/filepath&quot;</span>
 </span><span class='line'><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// Creates a new file upload http request with optional extra params</span>
@@ -196,23 +190,15 @@ multipart file upload example with some extra query params.</p>
 </span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
 </span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">fileContents</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">ioutil</span><span class="p">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">fi</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">file</span><span class="p">.</span><span class="n">Stat</span><span class="p">()</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
-</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>  <span class="n">file</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="n">body</span> <span class="p">:=</span> <span class="nb">new</span><span class="p">(</span><span class="n">bytes</span><span class="p">.</span><span class="n">Buffer</span><span class="p">)</span>
 </span><span class='line'>  <span class="n">writer</span> <span class="p">:=</span> <span class="n">multipart</span><span class="p">.</span><span class="n">NewWriter</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">part</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">fi</span><span class="p">.</span><span class="n">Name</span><span class="p">())</span>
+</span><span class='line'>  <span class="n">part</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">filepath</span><span class="p">.</span><span class="n">Base</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 </span><span class='line'>  <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
 </span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">part</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">fileContents</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="p">=</span> <span class="n">io</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">params</span> <span class="p">{</span>
 </span><span class='line'>      <span class="n">_</span> <span class="p">=</span> <span class="n">writer</span><span class="p">.</span><span class="n">WriteField</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
@@ -269,15 +255,19 @@ creating a multipart request.</p>
 <p>The writer will do all the work and will write directly to our body (which itself is a buffer of bytes).</p>
 
 <p>We then create a part for the file form entry with the name of the file
-param and the name of the file (that we extracted using the <code>os</code>
+param and the name of the file (that we extracted using the <code>path/filepath</code>
 package).
 We need to add the content of the file to the file part, we use the
-<a href="http://golang.org/pkg/io/#Writer"><code>writer</code> interface</a> to do so.</p>
+<code>io.Copy()</code> to do so. In the first version of this article, I had used
+<code>io/ioutil</code> <code>Readall</code> to read the content of the file (see code <a href="https://gist.github.com/mattetti/5914158/f4d1393d83ebedc682a3c8e7bdc6b49670083b84">here</a>).
+However a few readers rightfully mentioned that I should instead copy
+content from the file to the part instead of temporarily loading the content of
+the file in memory.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">part</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">fi</span><span class="p">.</span><span class="n">Name</span><span class="p">())</span>
-</span><span class='line'><span class="n">part</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">fileContents</span><span class="p">)</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">part</span><span class="p">,</span> <span class="n">_</span> <span class="p">:=</span> <span class="n">writer</span><span class="p">.</span><span class="n">CreateFormFile</span><span class="p">(</span><span class="n">paramName</span><span class="p">,</span> <span class="n">filepath</span><span class="p">.</span><span class="n">Base</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+</span><span class='line'><span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="p">=</span> <span class="n">io</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: blog-post | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/blog-post/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-07-02T16:50:46-07:00</updated>
+  <updated>2013-07-04T11:58:59-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -44,11 +44,12 @@ package main</p>
 
 <pre><code>"bytes"
 "fmt"
-"io/ioutil"
+"io"
 "log"
 "mime/multipart"
 "net/http"
 "os"
+"path/filepath"
 </code></pre>
 
 <p>)</p>
@@ -60,23 +61,15 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 if err != nil {
     return nil, err
 }
-fileContents, err := ioutil.ReadAll(file)
-if err != nil {
-    return nil, err
-}
-fi, err := file.Stat()
-if err != nil {
-    return nil, err
-}
 file.Close()
 
 body := new(bytes.Buffer)
 writer := multipart.NewWriter(body)
-part, err := writer.CreateFormFile(paramName, fi.Name())
+part, err := writer.CreateFormFile(paramName, filepath.Base(path))
 if err != nil {
     return nil, err
 }
-part.Write(fileContents)
+_, err = io.Copy(part, file)
 
 for key, val := range params {
     _ = writer.WriteField(key, val)
@@ -136,14 +129,18 @@ writer := multipart.NewWriter(body)
 <p>The writer will do all the work and will write directly to our body (which itself is a buffer of bytes).</p>
 
 <p>We then create a part for the file form entry with the name of the file
-param and the name of the file (that we extracted using the <code>os</code>
+param and the name of the file (that we extracted using the <code>path/filepath</code>
 package).
 We need to add the content of the file to the file part, we use the
-<a href="http://golang.org/pkg/io/#Writer"><code>writer</code> interface</a> to do so.</p>
+<code>io.Copy()</code> to do so. In the first version of this article, I had used
+<code>io/ioutil</code> <code>Readall</code> to read the content of the file (see code <a href="https://gist.github.com/mattetti/5914158/f4d1393d83ebedc682a3c8e7bdc6b49670083b84">here</a>).
+However a few readers rightfully mentioned that I should instead copy
+content from the file to the part instead of temporarily loading the content of
+the file in memory.</p>
 
 <p><code>go
-part, _ := writer.CreateFormFile(paramName, fi.Name())
-part.Write(fileContents)
+part, _ := writer.CreateFormFile(paramName, filepath.Base(path))
+_, err = io.Copy(part, file)
 </code></p>
 
 <p>The <code>multipart.Writer</code> takes care of setting the boundary and formating
