@@ -48,9 +48,9 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 	if err != nil {
 		return nil, err
 	}
-	file.Close()
+	defer file.Close()
 
-	body := new(bytes.Buffer)
+	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	part, err := writer.CreateFormFile(paramName, filepath.Base(path))
 	if err != nil {
@@ -86,12 +86,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	} else {
-		var bodyContent []byte
+		body := &bytes.Buffer{}
+		_, err := body.ReadFrom(resp.Body)
+    if err != nil {
+			log.Fatal(err)
+		}
+    resp.Body.Close()
 		fmt.Println(resp.StatusCode)
 		fmt.Println(resp.Header)
-		resp.Body.Read(bodyContent)
-		resp.Body.Close()
-		fmt.Println(bodyContent)
+		fmt.Println(body)
 	}
 }
 ```
@@ -118,7 +121,9 @@ We need to add the content of the file to the file part, we use the
 `io/ioutil` `Readall` to read the content of the file (see code [here](https://gist.github.com/mattetti/5914158/f4d1393d83ebedc682a3c8e7bdc6b49670083b84)).
 However a few readers rightfully mentioned that I should instead copy
 content from the file to the part instead of temporarily loading the content of
-the file in memory.
+the file in memory. [Here](http://play.golang.org/p/eEFBMGMNTW) is an
+even more optimized version using goroutine to stream the data, and
+[here](https://github.com/gebi/go-fileupload-example/blob/master/main.go) is the full example using a pipe.
 
 ```go
 part, _ := writer.CreateFormFile(paramName, filepath.Base(path))
