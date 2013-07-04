@@ -4,7 +4,7 @@
   <title><![CDATA[Category: golang | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/golang/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-07-04T12:26:35-07:00</updated>
+  <updated>2013-07-04T16:17:33-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -61,7 +61,7 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 if err != nil {
     return nil, err
 }
-file.Close()
+defer file.Close()
 
 body := &amp;bytes.Buffer{}
 writer := multipart.NewWriter(body)
@@ -140,7 +140,8 @@ We need to add the content of the file to the file part, we use the
 However a few readers rightfully mentioned that I should instead copy
 content from the file to the part instead of temporarily loading the content of
 the file in memory. <a href="http://play.golang.org/p/eEFBMGMNTW">Here</a> is an
-even more optimized version using goroutine to stream the data.</p>
+even more optimized version using goroutine to stream the data, and
+<a href="https://github.com/gebi/go-fileupload-example/blob/master/main.go">here</a> is the full example using a pipe.</p>
 
 <p><code>go
 part, _ := writer.CreateFormFile(paramName, filepath.Base(path))
