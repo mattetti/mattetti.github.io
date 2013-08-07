@@ -10,28 +10,25 @@ categories:
 - entrepreneurship
 ---
 
-Over the years many people asked me the same question:
+Over the years many people have asked me the same question:
 
 > I'm starting this new project, what technology do you think I should use?
 
 Often these people fit in one of two categories:
 
-* Technologists who already made up their mind
+* Technologists who've already made up their mind
 * Non-technologist entrepreneurs who need to be reassured
 
 At the end of the day, I doubt that many of these people actually cared
 about my answers. They probably just wanted to know if we were on the same page or wanted to be reassured.
 
-To be honest, as an engineer, **I think that a great idea can be built with almost any
-technology**. They all have their pros/cons and you always have to pay a
-certain price for whatever advantages your technical choices end up
-being. To me, the chances of your project failing have more to do with
-vision, leadership, execution, market than poor technological choices.
+To be honest, as an engineer, I believe **a great idea can be built with almost any
+technology**. They all have their pros/cons. No matter what stack you choose, you'll pay a
+certain price for whatever advantages it offers. But really, the success or failure of your project has more to do with vision, leadership, execution, and market than technological choices.
 
 Now that I'm an entrepreneur, I make technical decisions daily. When I choose
 a specific technology, I need to be able to justify the decision to myself, my
-partners/employees and potential investors. The key to these decisions is that 
-I make technical choices based on the project and company's vision.
+partners/employees and potential investors. I make technical choices based on the project and company's vision.
 
 For a project to be successful you must have a strong vision.
 If you can convert your **vision** into a set of **values** to benchmark every decision, your path will be clear and it'll be easier to find the right people to join you.
@@ -61,16 +58,16 @@ who could work or be interested in working on the project.
 
 So maybe instead of asking what technology I should use, we should ask ourselves:
 
-> Does this technology fits my company's core values?
+> Does this technology fit my company's core values?
 
-That's a much harder question because you need to actually understand your
+That's a much harder question because you need to actually *understand* your
 core values. That understanding is key to building a successful product.
 
 You can't blindly copy a tech stack in the same way you can't copy a business plan. It's a part of your company's identity. Your core values, your objectives, your team and your
 expectations are different.
 
 The whole _"it worked for X"_ argument is
-rarely valid. Look, Facebook uses PHP, it "worked for them" does that mean we should all use PHP?
+rarely valid. Look, Facebook uses PHP, it "worked for them". Does that mean we should all use PHP?
 
 Technical decisions have cultural impact. Think clearly and carefully about **how your technologies align with your company's core values**. Make the right choices and you'll spend less time fighting about technical details and more time building a great business.
 
