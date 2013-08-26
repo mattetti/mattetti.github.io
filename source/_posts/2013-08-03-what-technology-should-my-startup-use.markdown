@@ -41,8 +41,7 @@ decisions will have a direct effect on the company culture**.
 
 Whether your new startup is based on J2EE/Oracle, Perl, PHP, Rails, Node.js or
 .NET, the team's engineers will have different expectations, different
-values, and different concerns. None of these technologies are intrinsically bad,
-great things have been built with each. But they do come with a culture.
+values, and different concerns. None of these technologies are intrinsically bad. Great things have been built with each. But they do come with a culture.
 
 A couple years ago, I met an entrepreneur who chose to
 build his application in Node.js. Curious, I asked why he chose Node.
@@ -69,35 +68,28 @@ expectations are different.
 The whole _"it worked for X"_ argument is
 rarely valid. Look, Facebook uses PHP, it "worked for them". Does that mean we should all use PHP?
 
-Technical decisions have cultural impact. Think clearly and carefully about **how your technologies align with your company's core values**. Make the right choices and you'll spend less time fighting about technical details and more time building a great business.
+## Technology-Culture Alignment
 
-And if you miss those arguments, there's always [hackernews](http://news.ycombinator.com/).
+Characterizing communities is difficult, but I'll share with you the impressions and perspectives that I have on various options. Feel free to use the comments to share your own perspective and cover other communities. 
 
+### Old School
 
-## Technology culture alignment
+Here are some of the "classics": languages that have been used for a
+while and have proven their values. They're widespread, but don't inspire much passion anymore. 
 
-I originally did not plan on adding this section, mainly because it will require for me to indulge in generalities which will more than likely bother some of you.
-But when [Jeff Casimir](https://twitter.com/j3) reviewed this post he convinced me to dive into what cultures align with different technologies stacks. Note that I'm just reporting my own perspective of the core values I noticed in the following technology communities. Feel free to use the comments to share your own perspective and cover other communities. 
+*Note*: I omitted Perl because I personally don't know any new startups building their core technology in Perl (6?).
 
+#### PHP
 
-#### Old School
+**Philosophy:**
 
-Here are some of the "classics", languages that have been used for a
-while and proved their values, they grew big but don't really get people too
-passionate about anymore. I omitted Perl because I personally don't know any new
-startups building their core technology in Perl (6?).
-
-## PHP
-
-**Philosphy:**
-
-* We don't have any, get stuff done, that's what matters.
-* Basic for the Web.
-* As long as there is a way to do it, it ain't broken.
-* It works and it's fast, anything else is pointless.
+* Get stuff done, that's what matters
+* It's like Basic for the Web
+* As long as there is a way to do it, it ain't broken
+* It works and it's fast, anything else is pointless
 * Don't be too academic, our language is accessible and anyone can be
   started in no time. Try to do the same thing with Java!
-* Object orientation as an afterthought.
+* Object orientation as an afterthought
 
 **Common use case: (as of mid-2013)**
 
@@ -109,51 +101,51 @@ startups building their core technology in Perl (6?).
 PHP had its days of glory. It really made web development easy and
 accessible. However, probably due to the really large amount of new programmers who
 started with PHP and a not so opinionated community, very few people can
-write good PHP. Good idiomatic code examples are hard to find and I'm not even sure there is such as as idiomatic PHP.
-Unfortunately, for most of us, PHP means poor code quality, lack of
-tests, security nightmare and an after taste of the early 2000s.
+write good PHP. 
+
+Good idiomatic code examples are hard to find and I'm not even sure there is such as as idiomatic PHP. The result is a community known for poor code quality, lack of
+tests, security nightmares and an after taste of the early 2000s.
+
 Strong PHP teams with well established conventions, processes and guidelines can accomplish great things, 
-but such teams are seldom.
-To be honest I'm not sure what kind of developers who you will attract
-when using PHP.
+but such teams are rare. 
 
+#### Java
 
-## Java
-
-
-**Philosphy:**
+**Philosophy:**
 
 * Portability
 * The power & performance of C/C++ but with automatic memory management
-* We care a lot about object-orientation
+* Cares a lot about object-orientation
 * IDE required
-* Memory is cheap so we consume it ALL
+* Memory is cheap so we consume it *ALL*
 * Threading is the way to go!
 * Don't mention Java applets
 * Look at my pretty JVM!
 * Open source (but owned by Oracle)
-* Slower but safer development cycles.
+* Slower but safer development cycles
 
-**Personal opinion:**
+**Personal Opinion:**
 
-Java is quite interesting, a few years ago a lot of developers got tired of Java and
+Java is quite interesting. A few years ago a lot of developers got tired of Java and
 explored other lands. They often switched to interpreted languages
-such as PHP, Python, Ruby or more esoteric languages such as Erlang.
+such as PHP, Python, Ruby or more esoteric languages like Erlang.
+
 However, Google via Android was able to show that Java in itself isn't as terrible
 as we remembered (as long as you don't have to use J2EE or Swing).
 There is also a "hipsterish" trend that seems to indicate that Java is
 actually cool again. A lot of that has to do with two things:
 
 * the JVM
-* the incredible amount of available and high quality libraries
+* the incredible quantity of high quality libraries
 
 That said, for a lot of us, writing Java all day long doesn't sound
-really appealing. If you are going to rely on the Java stack, there is [long list of other JVM languages](http://en.wikipedia.org/wiki/List_of_JVM_languages) 
-which are mature and plays well with Java
+ appealing. If you are going to rely on the Java stack, there is [long list of other JVM languages](http://en.wikipedia.org/wiki/List_of_JVM_languages) 
+which are mature and play well with Java
 libs (i.e: Scala, Groovy, JRuby, Clojure).
 You can always to mix and match. 
+
 Hiring Java developers isn't too hard since most students coming out of school learned Java, 
-but finding great early-stage startup engineers who want to write Java is quite harder. 
+but finding great early-stage startup engineers who want to write Java is quite challenging. 
 
 *Side note: If you are targeting Android, keep it simple, stay with the official
 stack even if you might fancy another JVM language better.*
@@ -162,312 +154,281 @@ There are still many reasons to use Java's technology for your new
 startup, but you might also consider using a more "rapid/flexible" solution in parallel (Ruby,
 Python, Node...). A multilingual environment brings a lot of value to
 both the company and the engineers, which is something the Java
-community seems to slowly but surely discover.
+community seems to be slowly but surely discovering.
 
-Java mainly attracts more classical trained engineers looking for
+Java mainly attracts more classically trained engineers looking for
 comfortable, repetitive, well known patterns. They will be used to the language, its
 tools and its natural rhythm. They might not be the most curious
 developers but they are reliable (if you pick the right ones obviously).
 
+#### C#/.NET
 
-## C#/.NET
+**Philosophy:**
 
-**Philosphy:**
-
-* A better a Java.
-* Originally designed for desktop and embedded apps.
-* We have a better IDE than the Java guys.
+* A better Java
+* Originally designed for desktop and embedded apps
+* We have a better IDE than the Java guys
 * We are enterprise serious but we can offer you most of Rails' cool
-  features.
-* We have a conflicted vision of Open Source.
-* Slower but safer development cycles.
+  features
+* We have a conflicted vision of Open Source
+* Slower but safer development cycles
 
-**Personal opinion:**
+**Personal Opinion:**
 
 I went back and looked at C# when C# 5 was released and I have to say
 that I was really impressed by some of the new language features. From a
-purely language design perspective, C# is quite ahead of Java. I was
+purely language design perspective, C# is quite a bit ahead of Java. I was
 also surprised by how pleasant it was to write Javascript in Visual
 Studio (I really didn't expect that since my experience with VS was
 mainly around C++). 
+
 Another thing that really impressed me: the quality level of the
 available documentation is outstanding!
-But the fact that C# isn't open source, that Visual Studio + msdn is so expensive and 
-that you can smell money everywhere you look, is bit of a turn off.
-From the look of it, Microsoft is pushing Javascript/Node.js as a
-main web solution and C# for more "serious" business. Like most developers
-out there, I personally have no desire/need/reason to run on the Microsoft stack 
-so for me the choice is easy.
-Microsoft seems to slowly change their mind on open source and as a
-company, it opens up to non MSFT solutions (see Azure). But as a
-community, .NET is still quite MSFT centered.
-As a startup entrepreneur, you should consider how you feel about open
-source vs enterprise backed cultures.
+But the fact that C# isn't open source, that Visual Studio + MSDN is so expensive and 
+the whole environment reeks of licenses and costs, is bit of a turn off.
 
-C# mainly attracts the Microsoft version of the Java crowd, that is the
-same kind of engineer but the version who doesn't value Open Source too much
-and prefer Windows/IIS over Linux/Nginx|Apache.
+Microsoft is slowly opening up to open source and more open solutions like Azure. But as a
+community, .NET is still quite Microsoft-centered.
+As a startup entrepreneur, you should consider how you feel about open source vs enterprise backed cultures.
 
+C# mainly attracts a variant of the Java crowd: engineers seeking stability and a support contract over open source. And they can tolerate IIS!
 
-
-#### Established alternatives
+### Established Alternatives
 
 Over the years, two dynamic languages became cherished by startups:
-Python first, then Ruby thanks to Ruby on Rails. These two languages are
+Python and Ruby. The two languages are
 actually quite similar. Nowadays Python is quite popular for backend apps
 (NLP, biotech, APIs, SOA elements) while Ruby is more popular for
-frontend apps (after all, Ruby is the web 2.0 language by excellence).
+consumer-facing apps.
 Both of these languages suffer from the same limitations (mainly
 performance and concurrency) but their core
 values and communities have different focuses.
 
-## Python
+#### Python
 
-**Philosphy:**
+**Philosophy:**
 
 * Only one obvious way to do things
 * Code has to be beautiful, simple and explicit
 * Documentation is critical
 * Strong language design leadership
 
-**Personal opinion:**
+**Personal Opinion:**
 
 As someone who chose Ruby over Python, I often envy the quality of
-the documentation you find in most Python projects.
+the documentation you find in Python projects.
 I also have a love/hate relationship with the fact that Python is
-designed to give you the minimal amount of ways to do one thing. This is
-often great for teams, but it can also be greatly frustrating.
+designed to give you just one right way. This is
+often great for teams, but it can also be frustrating.
+
 In some areas, Python has some of the best libraries out there, and
 depending on the problems you are tackling, Python might be the right
-choice. However, when it comes to the frontend, I think Ruby offers more
-benefits, but I will admit that it's debatable. 
-Python developers often know how to communicate about their code since 
-that's one of the language's strong values. They document what they do
-and are somewhat process oriented while being pragmatic about their
-approaches. But Python was created way before the internet became
-popular and if concurrency and high throughput is a concern for you, a
-dynamic, interpreted language with poor concurrency might not be for
-you.
+choice. Python developers know how to communicate about their code. They document what they do
+and are process oriented while being pragmatic about their
+approaches. 
 
-Python mainly attracts more pragmatic, experienced, full stack developers
-wanting a modern but well proven language.
+But Python was created way before the internet became
+popular and if concurrency and high throughput is a concern for you, a
+dynamic, interpreted language with poor concurrency might not be the right choice.
+
+Python mainly attracts more pragmatic, experienced, full-stack developers
+wanting a modern but well-proven language.
 
 ## Ruby/Ruby on Rails
 
 **Philosphy:**
 
-* Designed for humans, not machines.
-* Extreme flexibility, if you mess up, it's on you.
-* Everything has to be easy, elegant and fun.
-* DSL on top of DSLs on top of DSLs, abstraction is pretty and fun!
-* Testing is critical!
-* Things move quickly, learn to keep up.
-* Passionate and vibrant community.
+* Designed for humans, not machines
+* Extreme flexibility: if you mess up, it's on you
+* Everything has to be easy, elegant and fun
+* DSL on top of DSLs on top of DSLs
+* Testing is critical
+* Things move quickly, learn to keep up
+* Passionate and vibrant community
 
 **Personal opinion:**
 
-As far as I'm concerned, Ruby has been my goto language for years.
+As far as I'm concerned, Ruby has been my go-to language for years.
 You will find an incredible, sometimes overwhelming amount of Ruby open
 source code. Rails is really an amazing web framework making most web
-project easy to implement (once you've passed the increasingly steep learning
-curve). But this flexibility and rapid development cycles also have
-cons. Be ready to invest a large chunk of your time keeping your code
-base up to date and migrate away from abandoned libraries.
-If you can't rely on caching, the throughput of your app will often be limited
-by the lack of good concurrency support (often not a problem until you
-grow big enough tho, see Twitter as an example).
+projects easy to implement if you know how to use the tool. 
+
+But the flexibility and rapid development cycle also have
+downsides. Be ready to invest a large chunk of your time keeping your code
+base up to date and migrating away from abandoned libraries.
+If you can't rely on caching, the throughput of a successful app will often be limited
+by the lack of good concurrency support.
+
 Ruby developers are mainly Rails developers and a great majority might
-have a hard time being able to identify core language features vs
+have a hard time being able to identify core language features versus
 framework features. They are often curious, opportunistic (in a good way),
-somewhat pragmatic and care about code quality (whatever that means) and
-test coverage. Rails developers usually are early adopters often due to
+somewhat pragmatic and care about code quality/structure and
+test coverage. Rails developers are typically early adopters due to
 the fact that the framework itself uses some new technologies by
 default (coffeescript, turbolinks, CSS pre-processors...).
 
-Ruby and Rails mainly attracts developers wanting to get things done
-quickly but elegantly (whatever that means). These developers are often
-product oriented and care more about the higher than the lower level
-details. They are pragmatic, rely and contribute heavily to the
-ecosystem.
+Ruby and Rails mainly attract developers wanting to get things done
+quickly but elegantly. These developers are often
+product-oriented and care more about the purpose and customer value  than the lower-level computational details. 
 
-#### New players
+### New Players
 
 These are the languages/technologies that get people excited. They
 represent the new wave of programming languages designed to run
 in "the cloud".
 
-## Node.js (Javascript)
+#### Node.js (Javascript)
 
 Node.js isn't a programming language but it's the most popular way to
 run JS server side. The same way most of my comments about Ruby were
-about Rails, I'll focus on node more than JS itself.
+about Rails, I'll focus on Node more than JS itself.
 
-**Philosphy:**
+**Philosophy:**
 
 * Designed for real-time driven apps with high throughput, low latency
 * DIY
 * Small core, the rest is up to the community
 * Coupling is a sin
-* Learned from Ruby/Python
+* Learned lessons from Ruby/Python
 
-**Personal opinion:**
+**Personal Opinion:**
 
-I find Node.js interesting. Technically there isn't much new with Node, Python had
-Tornado/Twisted, Ruby had EventMachine (C had libevent), event-driven frameworks have
+I find Node.js interesting. Technically there isn't much new with Node. Python has
+Tornado/Twisted, Ruby has EventMachine, and C had libevent. 
+
+Event-driven frameworks have
 been used for a while but Node has two major advantages: 
-* most JS libs are non-blocking. 
-* most web developers have to write some JS.
-Granted, there wasn't many server side js libs out there,
-but at the same time other languages have mostly blocking libs meaning
-that they need to rewritten/refactored anyway.
-There is also something appealing in the idea of using the same
-programming language both in the front end and the back end.
-While I don't personally think that using the same language is realistic or even
-a good idea, I can appreciate why others think otherwise.
+* most JS libs are non-blocking
+* most web developers have to write some JS anyway
+
+The idea of using the same
+programming language both in the front end and the back end appeals to many, but the value is still unproven.
+
 Node offers great throughput (as long as you stick to IO operations),
-it's easy to get started and it's also fun to write.
-Node developers are early adopters, might or might stick with the
-technology but are interested in a more custom approach than what Rails
-or Django would have to offer.
-Dealing with so callbacks can be a serious pain and maintenance hell. I hope that node
-will adopt an official future/promise solution.
-Due to the nature of even based programming, debugging and testing is
-challenging, documentation is spotty making jumping on an existing
-project a bit challenging.
+is easy to get started, and is fun to write.
 
-Node.js mainly attracts developers wanting to use a known language (JS)
-to handle high levels of concurrency. Node as a framework is lower level
-than the classical MVCs which is a plus for hackers. Node developers
-also really like the idea of using the same programming language server
-and browser side.
+Due to the nature of event-based programming, debugging and testing is challenging. Dealing with callbacks can be maintenance hell. I hope that Node will adopt an official future/promise solution. And documentation is typically spotty making jumping on an existing project difficult.
 
-## Clojure
+Node developers are definitely early adopters and comfortable creating a custom structure/pattern rather than following convention.It attracts developers wanting to use a known language (JS)
+to handle high levels of concurrency. Node as a framework is lower level than the classical MVCs which is a plus for hackers. Node developers also really like the idea of using the same programming language on both server and client.
 
-**Philosphy:**
+#### Clojure
 
-* A pragmatic and modern Lisp.
-* Everything is data.
-* Concurrency, concurrency, concurrency.
-* States are evil.
-* Great Java interoperability.
-* A bit on the academic side, but still being pragmatic.
+**Philosophy:**
 
-**Personal opinion:**
+* A pragmatic and modern Lisp
+* Everything is data
+* Concurrency, concurrency, concurrency
+* States are evil
+* Great Java interoperability
+* A bit on the academic side, but still being pragmatic
 
-What I like the most about Clojure is that you get close to the lisp
+**Personal Opinion:**
+
+What I like the most about Clojure is the lisp
 spirit.
-Once you get passed the parenthesis and the operator/argument order,
-clojure forces you to entirely rethink the way you architect your code.
+Once you get past the parenthesis and the operator/argument order,
+Clojure challenges you to entirely rethink the way you architect your code.
 It's really good and efficient at processing data and pushes you to keep
 your code short.
-My problem with Clojure is that I'm not smart enough to write a lot of
-it. My brain quickly stack overflows trying to follow the data flows.
-Exceptions are often meaningless and trying to debug someone's code is
-challenging since the language itself is complex and it can be extended
-by macros. Finally, the Clojure community isn't really web oriented,
-most of the work done in Clojure seems to be data centric, which
-obviously makes sense. 
 
-Clojure mainly attracts more fringe, language-curious, data
-oriented programmers. If you are looking for data scientists with a programming language fetish,
+My problem with Clojure is that I'm not smart enough to write a lot of
+it. My brain quickly stack overflows trying to follow the data.
+Exceptions are often meaningless and trying to debug someone else's code is
+challenging since the language itself is complex and it can be extended
+by macros. Finally, the Clojure community isn't really web-oriented,
+most of the work done in Clojure seems to be data-centric. 
+
+Clojure mainly attracts more fringe, language-curious, data-oriented programmers. If you are looking for data scientists with a programming language fetish,
 Clojure is a good way to attract them.
 
-## Scala
+#### Scala
 
-**Philosphy:**
+**Philosophy:**
 
-* Have the best of both object oriented and functional programming worlds.
-* Let the compiler do some of the work so you can focus on your job.
-* Concurrency matters.
-* Less ceremony than Java, but aiming for same or better performance.
-* Live in harmony with the Java ecosystem.
-* Our language can get a bit crazy sometimes but with great comes great
-  responsibilities.
-* If you are a Java, Python or Ruby guy & want to develop concurrent,
-  party OO, partly functional apps, Scala is for you.
+* Have the best of both object oriented and functional programming worlds
+* Let the compiler do some of the work for you
+* Concurrency matters
+* Less ceremony than Java, but aiming for same or better performance
+* Live in harmony with the Java ecosystem
 
-**Personal opinion:**
+**Personal Opinion:**
 
-When dealing with the JVM, Scala is for me currently the best
-language choice. The learning curve might be a bit stiff, knowing
-when to use FP vs OOP can be a bit tricky and so is dealing with the
-language surface. That said, getting the benefits of using FP, while
-still keeping OOP when needed is very useful.
+Scala is currently the best language choice when targeting the JVM. The learning curve is steep. Knowing
+when to use FP vs OOP can be tricky and so is dealing with the
+language syntax itself. 
+
+That said, getting the benefits of using FP, while
+still keeping OOP when needed, is very useful.
 Once you "get" the language idioms, writing Scala is actually pleasant
-and the community is quite nice. The [Play](http://www.playframework.com/) 
+and the community is quite nice. 
+
+The [Play](http://www.playframework.com/) 
 framework is really good and offers a good alternative to Rails,
-especially for API development. Twitter's engineering team offers a lot
-of resources and open source code.
+especially for API development. Twitter's engineering team offers a lot of resources and open source code.
+
 Using Scala is a pretty safe bet at this point. Java developers feel
-confortable and get to try more "modern" language, while dynamic
+confortable and get to try a more "modern" language. Dynamic
 language developers don't feel too far from home but get the Java
 ecosystem, the performance boost, concurrency and immutability.
-The tooling and convetions make it so working on a Scala project with a
-growing team is actually quite nice, however the compilation time can
-get a bit annoying when coming from a scripting language or Go.
-Another thing that Scala isn't really good at:
-documentation (very much like the Ruby community btw).
-I really hope [the API doc](http://www.scala-lang.org/api/current/) will
-be rewritten to be more intuitive, and overall more useful.
-But to be fair there is a lot of great resources out there such as
+The tooling and convetions make using Scala on a
+growing team quite nice, if the compilation time doesn't get you down.
+
+Like Ruby, though, the Scala community isn't big on documentation.
+I really hope [the API doc](http://www.scala-lang.org/api/current/) will be rewritten to be more intuitive and overall more useful.
+But to be fair there are a lot of great resources out there such as
 [Twitter's Scala school](http://twitter.github.io/scala_school/) and
 [Coursera's FP in Scala class](https://www.coursera.org/course/progfun) given
-by Martin Odersky himself (Scala's creator).
+by Martin Odersky (Scala's creator).
 
-Scala mainly attracts curious and tired Java developers wanting
-something more modern as well as Ruby/Python developers wanting a more
-"enterprisey/performant" version of their language. 
+Scala mainly attracts curious Java developers wanting
+something more modern as well as Ruby/Python developers wanting a more scalable version of their language. 
 Scala is a good way to attract great developers who want to push 
-the boundaries of their existing dev environment as well as developers 
-being able to leverage the duality of the language.
+the boundaries of their existing dev environment as well as developers being able to leverage the duality of the language.
 
+#### Go
 
-## Go
+* A better C
+* Memory management is handled for you, but don't be wreckless
+* Explicit is better than implicit
+* Rich built-in functionality
+* Fast.. everything (from compilation to execution)
+* Concurrency built-in and made easy
+* Documentation is critical
 
-* A better C.
-* Memory management is handled for you, but don't be stupid.
-* Explicit is better than implicit.
-* Batteries included (the language provides you with what most people
-  need).
-* Fast.. everything (from compilation to execution).
-* Concurrency built-in and made easy.
-* Keep it simple, really!
-* Documentation is critical.
+**Personal Opinion:**
 
-**Personal opinion:**
-
-I really like Go (aka Golang), after playing with it for years, I chose to use it to
+I really like Go (aka Golang). After playing with it for years, I chose to use it to
 develop the APIs of my own startup. Go might sound boring to some, but
-its simplicity and efficiency make for an enjoyable language to work with.
+its simplicity and efficiency just work.
+
 Go forces you to think a bit more about how you structure your
-data/behaviors because you can't just stick to the usual OO patterns
-you've been using for years. I found that my code ended up being clearer
-to follow, simpler yet sometimes a bit more repetitive (error handling
-is a good example of that).
-Concurrency doesn't get much easier than what Go provides.
-Your code compiles and boots faster than it takes Rails to start. (Go
-supports some sort of duck typing making the transition from Ruby quite
-easy).
-Obviously the production performance are quite amazing when coming from
+data/behavior because you can't just stick to the usual OO patterns. I've found that my code ends up being easier
+to follow and simpler in structure, yet sometimes a bit more repetitive (ex: error handling).
+
+Concurrency can't get much easier than Go. While it is compiled, your code compiles and boots in less time than a Rails server starts up. Go supports some form of duck typing making the transition from Ruby (for instance) quite easy. The production performance is quite amazing when coming from
 a scripting language and the memory footprint stays small.
-Go is designed so a single user or a big team can work on the same code
-base and the tooling around the language is really great. However, it's
-not a perfect language. 3rd party dependency management can be tricky at
-times, the code can be a bit too low level when you're used to high
-level programming languages and some of the great language design decisions
-also make some things a bit confusing (interaction with interfaces vs structs). 
+
+Go is designed so a single user or a big team can work on the same codebase and the tooling around the language is really great. 
+
+However, it's not a perfect language. 3rd party dependency management can be tricky at
+times. The code can feel too low-level when you're used to high-level programming languages. And some of the language design decisions can cause confusion at times (ex: interacting with interfaces vs structs). 
+
 Go seems to become quite popular within the startup scene when
-performance and concurrency matters. I've seen a good number of startups
-migrating from Node to Go and others simply extending their stack by
-adding small Go apps.
-The Go community seems to be a mix of old school dudes coming from C/C++
-and a younger crowd finding a good compromise in the language.
+performance and concurrency matters. I've seen a good number of startups migrating from Node to Go and others simply extending their stack by adding small Go apps.
+
+The Go community seems to be a mix of old school hackers coming from C/C++ and a younger crowd enjoying a lower-level language.
 The language and the community leaders are opinionated which makes
 understanding their vision and approach easy. It also allows you to
-quickly evaluate how comfortable you are with their philosophy and see
-if it matches your expectations.
+quickly evaluate how comfortable you are with their philosophy and see if it matches your expectations.
 
 Go mainly attracts performance/architecture oriented developers.
-They want easy concurrency, the speed of C as well as the easiness of
+They want easy concurrency, the execution speed of C with the development speed of
 Python/Ruby. They don't look for a new fun language, they look for a
 solid compromise. 
+
+## Technology Drives Culture
+
+Technical decisions have cultural impact. Think clearly and carefully about **how your technologies align with your company's core values**. Make the right choices and you'll spend less time fighting about technical details and more time building a great business.
+
+And if you miss those arguments, there's always [hackernews](http://news.ycombinator.com/).
