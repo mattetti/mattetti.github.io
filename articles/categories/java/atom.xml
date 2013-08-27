@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/java/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-08-27T11:08:50-07:00</updated>
+  <updated>2013-08-27T11:26:17-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -90,7 +90,7 @@ while and have proven their values. They're widespread, but don't inspire much p
 
 <p><em>Note</em>: I omitted Perl because I personally don't know any new startups building their core technology in Perl (6?).</p>
 
-<h4>PHP</h4>
+<h2>PHP</h2>
 
 <p><strong>Philosophy:</strong></p>
 
@@ -126,7 +126,7 @@ tests, security nightmares and an after taste of the early 2000s.</p>
 <p>Strong PHP teams with well established conventions, processes and guidelines can accomplish great things,
 but such teams are rare.</p>
 
-<h4>Java</h4>
+<h2>Java</h2>
 
 <p><strong>Philosophy:</strong></p>
 
@@ -184,7 +184,7 @@ comfortable, repetitive, well known patterns. They will be used to the language,
 tools and its natural rhythm. They might not be the most curious
 developers but they are reliable (if you pick the right ones obviously).</p>
 
-<h4>C#/.NET</h4>
+<h2>C#/.NET</h2>
 
 <p><strong>Philosophy:</strong></p>
 
@@ -230,7 +230,7 @@ Both of these languages suffer from the same limitations (mainly
 performance and concurrency) but their core
 values and communities have different focuses.</p>
 
-<h4>Python</h4>
+<h2>Python</h2>
 
 <p><strong>Philosophy:</strong></p>
 
@@ -303,13 +303,13 @@ default (coffeescript, turbolinks, CSS pre-processors...).</p>
 quickly but elegantly. These developers are often
 product-oriented and care more about the purpose and customer value  than the lower-level computational details.</p>
 
-<h3>New Players</h3>
+<h2>New Players</h2>
 
 <p>These are the languages/technologies that get people excited. They
 represent the new wave of programming languages designed to run
 in "the cloud".</p>
 
-<h4>Node.js (Javascript)</h4>
+<h2>Node.js (Javascript)</h2>
 
 <p>Node.js isn't a programming language but it's the most popular way to
 run JS server side. The same way most of my comments about Ruby were
@@ -347,7 +347,7 @@ is easy to get started, and is fun to write.</p>
 <p>Node developers are definitely early adopters and comfortable creating a custom structure/pattern rather than following convention.It attracts developers wanting to use a known language (JS)
 to handle high levels of concurrency. Node as a framework is lower level than the classical MVCs which is a plus for hackers. Node developers also really like the idea of using the same programming language on both server and client.</p>
 
-<h4>Clojure</h4>
+<h2>Clojure</h2>
 
 <p><strong>Philosophy:</strong></p>
 
@@ -380,7 +380,7 @@ most of the work done in Clojure seems to be data-centric.</p>
 <p>Clojure mainly attracts more fringe, language-curious, data-oriented programmers. If you are looking for data scientists with a programming language fetish,
 Clojure is a good way to attract them.</p>
 
-<h4>Scala</h4>
+<h2>Scala</h2>
 
 <p><strong>Philosophy:</strong></p>
 
@@ -427,7 +427,7 @@ something more modern as well as Ruby/Python developers wanting a more scalable 
 Scala is a good way to attract great developers who want to push
 the boundaries of their existing dev environment as well as developers being able to leverage the duality of the language.</p>
 
-<h4>Go</h4>
+<h2>Go</h2>
 
 <ul>
 <li>A better C</li>
