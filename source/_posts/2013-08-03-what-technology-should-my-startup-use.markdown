@@ -15,6 +15,7 @@ categories:
 - Node.js
 - Clojure
 - Python
+- Popular
 ---
 
 Over the years many people have asked me the same question:
@@ -361,7 +362,7 @@ Clojure is a good way to attract them.
 
 **Personal Opinion:**
 
-Scala is currently the best language choice when targeting the JVM. The learning curve is steep. Knowing
+Scala is currently my language of choice when targeting the JVM. The learning curve is steep. Knowing
 when to use FP vs OOP can be tricky and so is dealing with the
 language syntax itself. 
 
@@ -439,3 +440,9 @@ solid compromise.
 Technical decisions have cultural impact. Think clearly and carefully about **how your technologies align with your company's core values**. Make the right choices and you'll spend less time fighting about technical details and more time building a great business.
 
 And if you miss those arguments, there's always [hackernews](http://news.ycombinator.com/).
+
+
+---
+<br/>
+
+*Update*: Speaking of HN, [here is the thread for this post](https://news.ycombinator.com/item?id=6285129)
