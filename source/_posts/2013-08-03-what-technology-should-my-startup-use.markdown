@@ -1,13 +1,20 @@
 ---
 layout: post
 title: "What technology should my startup use?"
-date: 2013-08-03 22:10
+date: 2013-08-27 22:10
 comments: true
 categories: 
 - blog-post
 - golang
 - ruby
 - entrepreneurship
+- PHP
+- C#
+- Java
+- Scala
+- Node.js
+- Clojure
+- Python
 ---
 
 Over the years many people have asked me the same question:
