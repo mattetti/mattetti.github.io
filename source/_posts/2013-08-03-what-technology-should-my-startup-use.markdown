@@ -86,7 +86,7 @@ while and have proven their values. They're widespread, but don't inspire much p
 
 *Note*: I omitted Perl because I personally don't know any new startups building their core technology in Perl (6?).
 
-#### PHP
+## PHP
 
 **Philosophy:**
 
@@ -116,7 +116,7 @@ tests, security nightmares and an after taste of the early 2000s.
 Strong PHP teams with well established conventions, processes and guidelines can accomplish great things, 
 but such teams are rare. 
 
-#### Java
+## Java
 
 **Philosophy:**
 
@@ -168,7 +168,7 @@ comfortable, repetitive, well known patterns. They will be used to the language,
 tools and its natural rhythm. They might not be the most curious
 developers but they are reliable (if you pick the right ones obviously).
 
-#### C#/.NET
+## C#/.NET
 
 **Philosophy:**
 
@@ -211,7 +211,7 @@ Both of these languages suffer from the same limitations (mainly
 performance and concurrency) but their core
 values and communities have different focuses.
 
-#### Python
+## Python
 
 **Philosophy:**
 
@@ -278,13 +278,13 @@ Ruby and Rails mainly attract developers wanting to get things done
 quickly but elegantly. These developers are often
 product-oriented and care more about the purpose and customer value  than the lower-level computational details. 
 
-### New Players
+## New Players
 
 These are the languages/technologies that get people excited. They
 represent the new wave of programming languages designed to run
 in "the cloud".
 
-#### Node.js (Javascript)
+## Node.js (Javascript)
 
 Node.js isn't a programming language but it's the most popular way to
 run JS server side. The same way most of my comments about Ruby were
@@ -319,7 +319,7 @@ Due to the nature of event-based programming, debugging and testing is challengi
 Node developers are definitely early adopters and comfortable creating a custom structure/pattern rather than following convention.It attracts developers wanting to use a known language (JS)
 to handle high levels of concurrency. Node as a framework is lower level than the classical MVCs which is a plus for hackers. Node developers also really like the idea of using the same programming language on both server and client.
 
-#### Clojure
+## Clojure
 
 **Philosophy:**
 
@@ -349,7 +349,7 @@ most of the work done in Clojure seems to be data-centric.
 Clojure mainly attracts more fringe, language-curious, data-oriented programmers. If you are looking for data scientists with a programming language fetish,
 Clojure is a good way to attract them.
 
-#### Scala
+## Scala
 
 **Philosophy:**
 
@@ -393,7 +393,7 @@ something more modern as well as Ruby/Python developers wanting a more scalable 
 Scala is a good way to attract great developers who want to push 
 the boundaries of their existing dev environment as well as developers being able to leverage the duality of the language.
 
-#### Go
+## Go
 
 * A better C
 * Memory management is handled for you, but don't be wreckless
