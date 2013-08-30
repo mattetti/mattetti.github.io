@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Node.js | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/node-js/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-08-27T15:10:54-07:00</updated>
+  <updated>2013-08-30T11:27:23+02:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[What technology should my startup use?]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use/"/>
-    <updated>2013-08-27T22:10:00-07:00</updated>
+    <updated>2013-08-27T22:10:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use</id>
     <content type="html"><![CDATA[<p>Over the years many people have asked me the same question:</p>
 
@@ -489,7 +489,7 @@ solid compromise.</p>
   <entry>
     <title type="html"><![CDATA[LA RubyConf 2012 - Ruby: time to move on]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012/"/>
-    <updated>2012-02-04T15:09:00-08:00</updated>
+    <updated>2012-02-04T15:09:00+01:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012</id>
     <content type="html"><![CDATA[<p>During <a href="http://larubyconf.org/">LA RubyConf 2012</a> in Los Angeles, CA Matt
 Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>

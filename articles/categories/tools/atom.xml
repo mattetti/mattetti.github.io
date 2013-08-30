@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tools | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/tools/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-08-27T15:10:54-07:00</updated>
+  <updated>2013-08-30T11:27:23+02:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
-    <updated>2013-06-26T10:26:00-07:00</updated>
+    <updated>2013-06-26T10:26:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
     <content type="html"><![CDATA[<p>Engineers love to improve things. Refactoring and optimizations
 drive us. There is just a slight problem: we often do that in a vacuum.</p>

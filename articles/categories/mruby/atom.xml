@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mruby | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/mruby/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-08-27T15:10:54-07:00</updated>
+  <updated>2013-08-30T11:27:23+02:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Aloha RubyConf - mmm..mruby or why yet another Ruby implementation]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
-    <updated>2012-10-09T20:14:00-07:00</updated>
+    <updated>2012-10-09T20:14:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
     <content type="html"><![CDATA[<p>During <a href="http://aloharubyconf.com/">Aloha RubyConf 2012</a> in Honolulu, Hawaii Matt
 Aimonetti gave a talk entitled <strong>mmm..mruby or why yet another Ruby implementation</strong>.</p>
@@ -52,7 +52,7 @@ Ruby) and and revisiting Ruby.</p>
   <entry>
     <title type="html"><![CDATA[Getting started with mruby]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby/"/>
-    <updated>2012-04-25T10:59:00-07:00</updated>
+    <updated>2012-04-25T10:59:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby</id>
     <content type="html"><![CDATA[<p>mruby is the latest Ruby implementation in an already quite long list:</p>
 
@@ -317,7 +317,7 @@ of Rails in a different domain thanks to the Ruby language.</p>
   <entry>
     <title type="html"><![CDATA[mruby and MobiRuby]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby/"/>
-    <updated>2012-04-20T12:32:00-07:00</updated>
+    <updated>2012-04-20T12:32:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby</id>
     <content type="html"><![CDATA[<p>Today, two big Ruby news came directly from Japan:</p>
 

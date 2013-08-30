@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-08-27T15:10:54-07:00</updated>
+  <updated>2013-08-30T11:27:23+02:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[What technology should my startup use?]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use/"/>
-    <updated>2013-08-27T22:10:00-07:00</updated>
+    <updated>2013-08-27T22:10:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use</id>
     <content type="html"><![CDATA[<p>Over the years many people have asked me the same question:</p>
 
@@ -489,7 +489,7 @@ solid compromise.</p>
   <entry>
     <title type="html"><![CDATA[Golang multipart file upload example]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example/"/>
-    <updated>2013-07-01T22:28:00-07:00</updated>
+    <updated>2013-07-01T22:28:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example</id>
     <content type="html"><![CDATA[<p>The Go language is one of my favorite programming languages. However,
 sometimes doing simple things can seem a bit harder than it should.
@@ -795,7 +795,7 @@ upload.</em></p>
   <entry>
     <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
-    <updated>2013-06-26T10:26:00-07:00</updated>
+    <updated>2013-06-26T10:26:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
     <content type="html"><![CDATA[<p>Engineers love to improve things. Refactoring and optimizations
 drive us. There is just a slight problem: we often do that in a vacuum.</p>
@@ -1595,7 +1595,7 @@ before its publication!</em></p>
   <entry>
     <title type="html"><![CDATA[Using Go vs Ruby for web APIs]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
-    <updated>2013-06-23T09:50:00-07:00</updated>
+    <updated>2013-06-23T09:50:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
     <content type="html"><![CDATA[<p>A few days ago, I was wondering if using <a href="http://golang.org/">Go</a> would be worth it when developing new web APIs.
 I obviously knew that Go would be faster than Ruby, but I wasn&#8217;t sure
@@ -1632,7 +1632,7 @@ good argument to start using some Go when it makes sense.</p>
   <entry>
     <title type="html"><![CDATA[Inspecting Rails 4 using Ruby 2.0]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
-    <updated>2013-03-05T22:18:00-08:00</updated>
+    <updated>2013-03-05T22:18:00+01:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
     <content type="html"><![CDATA[<p>Ruby 2.0 has a cool new feature that many people talk about:
 <a href="http://ruby-doc.org/core-2.0/TracePoint.html">TracePoint</a>.</p>
@@ -1814,7 +1814,7 @@ Fowler</a> Berliner by adoption:</p>
   <entry>
     <title type="html"><![CDATA[OmniAuth and Google Apps]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/01/30/omniauth-and-google-apps/"/>
-    <updated>2013-01-30T19:11:00-08:00</updated>
+    <updated>2013-01-30T19:11:00+01:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/01/30/omniauth-and-google-apps</id>
     <content type="html"><![CDATA[<p>Today I struggled to get <a href="https://github.com/intridea/omniauth">OmniAuth</a> and <a href="https://developers.google.com/accounts/docs/OpenID">Google apps</a> to work properly together.
 I just wanted to add authentication to my application and restrict access to only my Google Apps domain users.
@@ -2012,7 +2012,7 @@ you know two things:</p>
   <entry>
     <title type="html"><![CDATA[Real life concurrency in Go]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/11/27/real-life-concurrency-in-go/"/>
-    <updated>2012-11-27T10:08:00-08:00</updated>
+    <updated>2012-11-27T10:08:00+01:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/11/27/real-life-concurrency-in-go</id>
     <content type="html"><![CDATA[<p>The structure of a programming language reflects the challenges and solutions the
 designers decided to address. Each designer coming with his/her own background
@@ -2320,7 +2320,7 @@ with a special focus on concurrency with the unix approach.</p>
   <entry>
     <title type="html"><![CDATA[Engineers suck at finding the right jobs]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
-    <updated>2012-11-14T18:53:00-08:00</updated>
+    <updated>2012-11-14T18:53:00+01:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
     <content type="html"><![CDATA[<p>If you are currently a software engineer you need to realize two things:</p>
 
@@ -2633,7 +2633,7 @@ to leave advice or feedback.</p>
   <entry>
     <title type="html"><![CDATA[RubyConf 2012 - Ruby vs. The World]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
-    <updated>2012-11-02T20:47:00-07:00</updated>
+    <updated>2012-11-02T20:47:00+01:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.com/">RubyConf 2012</a> in Denver, Colorado Matt
 Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
@@ -2667,7 +2667,7 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
   <entry>
     <title type="html"><![CDATA[Aloha RubyConf - mmm..mruby or why yet another Ruby implementation]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
-    <updated>2012-10-09T20:14:00-07:00</updated>
+    <updated>2012-10-09T20:14:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
     <content type="html"><![CDATA[<p>During <a href="http://aloharubyconf.com/">Aloha RubyConf 2012</a> in Honolulu, Hawaii Matt
 Aimonetti gave a talk entitled <strong>mmm..mruby or why yet another Ruby implementation</strong>.</p>
@@ -2703,7 +2703,7 @@ Ruby) and and revisiting Ruby.</p>
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
-    <updated>2012-10-05T15:09:00-07:00</updated>
+    <updated>2012-10-05T15:09:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
     <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
 Aimonetti gave a talk entitled <em>Tower of
@@ -2747,7 +2747,7 @@ languages:</p>
   <entry>
     <title type="html"><![CDATA[What is Scala's pattern matching]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/09/20/what-is-scala-pattern-matching/"/>
-    <updated>2012-09-20T21:18:00-07:00</updated>
+    <updated>2012-09-20T21:18:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/09/20/what-is-scala-pattern-matching</id>
     <content type="html"><![CDATA[<p><a href="http://www.scala-lang.org/">Scala</a> is a very interesting programming
 language. It has for goal to provide
@@ -2977,7 +2977,7 @@ approach based on pattern matching.</p>
   <entry>
     <title type="html"><![CDATA[Ruby constructs: class, module and mixin]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/07/30/ruby-class-module-mixins/"/>
-    <updated>2012-07-30T14:46:00-07:00</updated>
+    <updated>2012-07-30T14:46:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/07/30/ruby-class-module-mixins</id>
     <content type="html"><![CDATA[<p>When you first get started with the Ruby programming and you come from a different
 language, the only tricky piece is often Ruby&#8217;s approach to block/closure/anonymous functions.
@@ -3394,7 +3394,7 @@ allocate an instance of a class to a constant. Surpisingly simple and efficient.
   <entry>
     <title type="html"><![CDATA[Ruby: the differences between dup &amp; clone]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/07/28/ruby-the-differences-between-dup-and-clone/"/>
-    <updated>2012-07-28T12:20:00-07:00</updated>
+    <updated>2012-07-28T12:20:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/07/28/ruby-the-differences-between-dup-and-clone</id>
     <content type="html"><![CDATA[<p>Have you ever wondered what the differences are between <strong>#dup</strong> and <strong>#clone</strong> in Ruby?</p>
 
@@ -3523,7 +3523,7 @@ allocate an instance of a class to a constant. Surpisingly simple and efficient.
   <entry>
     <title type="html"><![CDATA[Rethinking web service development]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development/"/>
-    <updated>2012-06-13T18:19:00-07:00</updated>
+    <updated>2012-06-13T18:19:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development</id>
     <content type="html"><![CDATA[<p>While it&#8217;s true that there are still a lot of places where software isn&#8217;t
 leveraged and many places where software needs to evolve, software is nearly everywhere!.
@@ -3882,7 +3882,7 @@ If not, why not?</p>
   <entry>
     <title type="html"><![CDATA[MacRuby on iOS - RubyMotion review]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/05/04/macruby-on-ios-rubymotion-review/"/>
-    <updated>2012-05-04T07:17:47-07:00</updated>
+    <updated>2012-05-04T07:17:47+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/05/04/macruby-on-ios-rubymotion-review</id>
     <content type="html"><![CDATA[<p>Yesterday, <a href="http://www.rubymotion.com/">RubyMotion</a> was released and let&#8217;s be honest, it is one the best alternatives to Objective-C out there (if not the best).</p>
 
@@ -4021,7 +4021,7 @@ post</a>.</p>
   <entry>
     <title type="html"><![CDATA[Getting started with mruby]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby/"/>
-    <updated>2012-04-25T10:59:00-07:00</updated>
+    <updated>2012-04-25T10:59:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby</id>
     <content type="html"><![CDATA[<p>mruby is the latest Ruby implementation in an already quite long list:</p>
 
@@ -4320,7 +4320,7 @@ of Rails in a different domain thanks to the Ruby language.</p>
   <entry>
     <title type="html"><![CDATA[mruby and MobiRuby]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby/"/>
-    <updated>2012-04-20T12:32:00-07:00</updated>
+    <updated>2012-04-20T12:32:00+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby</id>
     <content type="html"><![CDATA[<p>Today, two big Ruby news came directly from Japan:</p>
 
@@ -4524,7 +4524,7 @@ testing the first betas.</p>
   <entry>
     <title type="html"><![CDATA[Building and implementing a Single Sign-On solution]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution/"/>
-    <updated>2012-04-04T07:29:16-07:00</updated>
+    <updated>2012-04-04T07:29:16+02:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution</id>
     <content type="html"><![CDATA[<p>Most modern web applications start as a monolithic code base and, as complexity increases, the once small app gets split apart into many &#8220;modules&#8221;. In other cases, engineers opt for a <a href="http://en.wikipedia.org/wiki/Service-oriented_architecture">SOA</a> design approach from the beginning. One way or another, we start running multiple separate applications that need to interact seamlessly. My goal will be to describe some of the high-level challenges and solutions found in implementing a Single-Sign-On service.</p>
 
@@ -4698,7 +4698,7 @@ testing the first betas.</p>
   <entry>
     <title type="html"><![CDATA[Learning from Rails' failures]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/02/29/learning-from-rails-failures/"/>
-    <updated>2012-02-29T07:48:08-08:00</updated>
+    <updated>2012-02-29T07:48:08+01:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/02/29/learning-from-rails-failures</id>
     <content type="html"><![CDATA[<p>Ruby on Rails undisputedly changed the way web frameworks are designed. Rails became a reference when it comes to leveraging conventions, easy baked in feature set and a rich ecosystem. However, I think that Rails did and still does a lot of things pretty poorly.  By writing this post, I&#8217;m not trying to denigrate Rails, there are many other people out there already doing that. My hope is that by listing what I think didn&#8217;t and still doesn&#8217;t go well, we can learn from our mistakes and improve existing solutions or create better new ones.</p>
 
