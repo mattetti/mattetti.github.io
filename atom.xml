@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-08-30T11:27:23+02:00</updated>
+  <updated>2013-10-15T10:22:31-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -14,9 +14,102 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Bad code doesn't exist]]></title>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/10/14/bad-code-doesnt-exist/"/>
+    <updated>2013-10-14T09:08:00-07:00</updated>
+    <id>http://mattetti.github.com/mattetti/posts/2013/10/14/bad-code-doesnt-exist</id>
+    <content type="html"><![CDATA[<p>I just give a talk at <a href="http://wickedgoodruby.com/">Wicked Good Ruby Conf</a> in Boston. I&#8217;m sure the talk will be online soon, but I figured it would be interesting to discuss it a bit further in a blog post.</p>
+
+<p>The format was a bit different than usual, I had a 40 minute slot and
+divided in 2, I made my points for 20 minutes and invited two special
+guests on stage to discuss the topic. The reason for this format is
+because I think we all learn better by looking at things from different
+perspectives. I can&#8217;t thank enough <a href="http://www.sandimetz.com/">Sandi Metz</a> and <a href="http://kytrinyx.com/">Katrina Owen</a> for their contributions.</p>
+
+<p>Here are a few points that I think are interesting and
+that we discussed during the talk.</p>
+
+<h2>There isn&#8217;t such thing as bad code</h2>
+
+<p>Bad code doesn&#8217;t exist, you have code that can be interpreted/compiled and code that doesn&#8217;t.
+&#8220;Good&#8221; and &#8220;bad&#8221; are moralistic designations, not scientific ones.
+Let&#8217;s try to stop using these terms to refer to talk. Let&#8217;s be more
+precise when arguing about code, &#8220;what do you mean by bad?&#8221; Is it
+hard to maintain, hard to understand, slow etc.. ?
+Always refer to the context in which the code was written. Don&#8217;t use it
+as an excuse to defend anybody&#8217;s potentially hurt ego, but instead to
+explain why the code was written caring about certain values instead of
+others. Most code turns emo after a little while, being able to
+understand the context, helps a lot the devision process when facing
+such code.</p>
+
+<p><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-code_apology.jpg" alt="Bad code" /></p>
+
+<h2>It&#8217;s all about expected outcome and context</h2>
+
+<p>As developers, we aren&#8217;t paid to write code, we are paid to build
+products, to convert ideas into something &#8220;concrete&#8221;. When I use my
+favorite app, I don&#8217;t care that the code is beautiful, I care that it
+works, that it&#8217;s stable and provides me with what I need. If the code is
+written in Go, Pascal, Erlang, VB or Ruby doesn&#8217;t matter at all. That the
+code has full test coverage and was written in an agile manner using
+weekly scrums and TDD is probably as important as knowing the Pantone
+color of a company&#8217;s logo: it only matters to the people deeply
+involved.</p>
+
+<p>Don&#8217;t focus on how to build, focus on why you build things. Then the how
+will come as you learn from others, experiment and discover &#8220;how&#8221; to build
+the &#8220;why&#8221;. The &#8220;why&#8221; is often the constant, the &#8220;how&#8221; keeps on changing
+as we collect more information.</p>
+
+<h2>We love rules</h2>
+
+<p>When you learn, rules are easier. Katrina made a very good point during
+our discussion. When she teaches, she needs to have very strong rules
+that she can justify. That said, her rules can change, and as you become
+better, you can start challenging the rules. Rules are somewhere between
+training wheels and a guard-rail. They are very useful but shouldn&#8217;t be
+used to attack other people.</p>
+
+<p>Ruby has a language doesn&#8217;t enforce many rules, as a matter of fact,
+Matz designed a language so you can set your own rules, or barely have
+any rules.
+This fact probably explains why so many people are after solid rules
+they can rely on. Rules are easy to follow and are a good reference.
+The Ruby language doesn&#8217;t have enough rules to some, so the community is
+helping by coming together to define them.
+This is by the way, the biggest difference with Python and Go where
+these 2 languages explicitly want to only have 1 way of doing one thing.</p>
+
+<h2>Communication and team work</h2>
+
+<p>The key to building a good product (which is what we are paid to do) is
+communication. Unfortunately, us developers, are on average, pretty
+terrible at that.
+We need to do a better job communicating with the rest of the
+organization (i.e: anybody who&#8217;s not an engineer). It usually starts by
+the designers. The expected outcome of the product should be clear, well
+understood by all and easily evaluable.
+Within the engineering team, coding values should be set explicitly.
+Not everyone will agree but when we write code, we should all care about
+the same overall values so our work is consistent. When something
+happens and we have a disagreement, it&#8217;s easier to refer to our values
+to decide what solution to pick.</p>
+
+<h2>Slides</h2>
+
+<p>Slides without context don&#8217;t mean much, but they should give you an
+overview of the content until the video is being released.</p>
+
+<script async class="speakerdeck-embed" data-id="f325aee016620131a63906e09cf22df5" data-ratio="1.33333333333333" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[What technology should my startup use?]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use/"/>
-    <updated>2013-08-27T22:10:00+02:00</updated>
+    <updated>2013-08-27T22:10:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use</id>
     <content type="html"><![CDATA[<p>Over the years many people have asked me the same question:</p>
 
@@ -489,7 +582,7 @@ solid compromise.</p>
   <entry>
     <title type="html"><![CDATA[Golang multipart file upload example]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example/"/>
-    <updated>2013-07-01T22:28:00+02:00</updated>
+    <updated>2013-07-01T22:28:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example</id>
     <content type="html"><![CDATA[<p>The Go language is one of my favorite programming languages. However,
 sometimes doing simple things can seem a bit harder than it should.
@@ -795,7 +888,7 @@ upload.</em></p>
   <entry>
     <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
-    <updated>2013-06-26T10:26:00+02:00</updated>
+    <updated>2013-06-26T10:26:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
     <content type="html"><![CDATA[<p>Engineers love to improve things. Refactoring and optimizations
 drive us. There is just a slight problem: we often do that in a vacuum.</p>
@@ -1595,7 +1688,7 @@ before its publication!</em></p>
   <entry>
     <title type="html"><![CDATA[Using Go vs Ruby for web APIs]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
-    <updated>2013-06-23T09:50:00+02:00</updated>
+    <updated>2013-06-23T09:50:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
     <content type="html"><![CDATA[<p>A few days ago, I was wondering if using <a href="http://golang.org/">Go</a> would be worth it when developing new web APIs.
 I obviously knew that Go would be faster than Ruby, but I wasn&#8217;t sure
@@ -1632,7 +1725,7 @@ good argument to start using some Go when it makes sense.</p>
   <entry>
     <title type="html"><![CDATA[Inspecting Rails 4 using Ruby 2.0]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
-    <updated>2013-03-05T22:18:00+01:00</updated>
+    <updated>2013-03-05T22:18:00-08:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
     <content type="html"><![CDATA[<p>Ruby 2.0 has a cool new feature that many people talk about:
 <a href="http://ruby-doc.org/core-2.0/TracePoint.html">TracePoint</a>.</p>
@@ -1814,7 +1907,7 @@ Fowler</a> Berliner by adoption:</p>
   <entry>
     <title type="html"><![CDATA[OmniAuth and Google Apps]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2013/01/30/omniauth-and-google-apps/"/>
-    <updated>2013-01-30T19:11:00+01:00</updated>
+    <updated>2013-01-30T19:11:00-08:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2013/01/30/omniauth-and-google-apps</id>
     <content type="html"><![CDATA[<p>Today I struggled to get <a href="https://github.com/intridea/omniauth">OmniAuth</a> and <a href="https://developers.google.com/accounts/docs/OpenID">Google apps</a> to work properly together.
 I just wanted to add authentication to my application and restrict access to only my Google Apps domain users.
@@ -2012,7 +2105,7 @@ you know two things:</p>
   <entry>
     <title type="html"><![CDATA[Real life concurrency in Go]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/11/27/real-life-concurrency-in-go/"/>
-    <updated>2012-11-27T10:08:00+01:00</updated>
+    <updated>2012-11-27T10:08:00-08:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/11/27/real-life-concurrency-in-go</id>
     <content type="html"><![CDATA[<p>The structure of a programming language reflects the challenges and solutions the
 designers decided to address. Each designer coming with his/her own background
@@ -2320,7 +2413,7 @@ with a special focus on concurrency with the unix approach.</p>
   <entry>
     <title type="html"><![CDATA[Engineers suck at finding the right jobs]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
-    <updated>2012-11-14T18:53:00+01:00</updated>
+    <updated>2012-11-14T18:53:00-08:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
     <content type="html"><![CDATA[<p>If you are currently a software engineer you need to realize two things:</p>
 
@@ -2633,7 +2726,7 @@ to leave advice or feedback.</p>
   <entry>
     <title type="html"><![CDATA[RubyConf 2012 - Ruby vs. The World]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
-    <updated>2012-11-02T20:47:00+01:00</updated>
+    <updated>2012-11-02T20:47:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.com/">RubyConf 2012</a> in Denver, Colorado Matt
 Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
@@ -2667,7 +2760,7 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
   <entry>
     <title type="html"><![CDATA[Aloha RubyConf - mmm..mruby or why yet another Ruby implementation]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
-    <updated>2012-10-09T20:14:00+02:00</updated>
+    <updated>2012-10-09T20:14:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
     <content type="html"><![CDATA[<p>During <a href="http://aloharubyconf.com/">Aloha RubyConf 2012</a> in Honolulu, Hawaii Matt
 Aimonetti gave a talk entitled <strong>mmm..mruby or why yet another Ruby implementation</strong>.</p>
@@ -2703,7 +2796,7 @@ Ruby) and and revisiting Ruby.</p>
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
-    <updated>2012-10-05T15:09:00+02:00</updated>
+    <updated>2012-10-05T15:09:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
     <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
 Aimonetti gave a talk entitled <em>Tower of
@@ -2747,7 +2840,7 @@ languages:</p>
   <entry>
     <title type="html"><![CDATA[What is Scala's pattern matching]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/09/20/what-is-scala-pattern-matching/"/>
-    <updated>2012-09-20T21:18:00+02:00</updated>
+    <updated>2012-09-20T21:18:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/09/20/what-is-scala-pattern-matching</id>
     <content type="html"><![CDATA[<p><a href="http://www.scala-lang.org/">Scala</a> is a very interesting programming
 language. It has for goal to provide
@@ -2977,7 +3070,7 @@ approach based on pattern matching.</p>
   <entry>
     <title type="html"><![CDATA[Ruby constructs: class, module and mixin]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/07/30/ruby-class-module-mixins/"/>
-    <updated>2012-07-30T14:46:00+02:00</updated>
+    <updated>2012-07-30T14:46:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/07/30/ruby-class-module-mixins</id>
     <content type="html"><![CDATA[<p>When you first get started with the Ruby programming and you come from a different
 language, the only tricky piece is often Ruby&#8217;s approach to block/closure/anonymous functions.
@@ -3394,7 +3487,7 @@ allocate an instance of a class to a constant. Surpisingly simple and efficient.
   <entry>
     <title type="html"><![CDATA[Ruby: the differences between dup &amp; clone]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/07/28/ruby-the-differences-between-dup-and-clone/"/>
-    <updated>2012-07-28T12:20:00+02:00</updated>
+    <updated>2012-07-28T12:20:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/07/28/ruby-the-differences-between-dup-and-clone</id>
     <content type="html"><![CDATA[<p>Have you ever wondered what the differences are between <strong>#dup</strong> and <strong>#clone</strong> in Ruby?</p>
 
@@ -3523,7 +3616,7 @@ allocate an instance of a class to a constant. Surpisingly simple and efficient.
   <entry>
     <title type="html"><![CDATA[Rethinking web service development]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development/"/>
-    <updated>2012-06-13T18:19:00+02:00</updated>
+    <updated>2012-06-13T18:19:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development</id>
     <content type="html"><![CDATA[<p>While it&#8217;s true that there are still a lot of places where software isn&#8217;t
 leveraged and many places where software needs to evolve, software is nearly everywhere!.
@@ -3882,7 +3975,7 @@ If not, why not?</p>
   <entry>
     <title type="html"><![CDATA[MacRuby on iOS - RubyMotion review]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/05/04/macruby-on-ios-rubymotion-review/"/>
-    <updated>2012-05-04T07:17:47+02:00</updated>
+    <updated>2012-05-04T07:17:47-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/05/04/macruby-on-ios-rubymotion-review</id>
     <content type="html"><![CDATA[<p>Yesterday, <a href="http://www.rubymotion.com/">RubyMotion</a> was released and let&#8217;s be honest, it is one the best alternatives to Objective-C out there (if not the best).</p>
 
@@ -4021,7 +4114,7 @@ post</a>.</p>
   <entry>
     <title type="html"><![CDATA[Getting started with mruby]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby/"/>
-    <updated>2012-04-25T10:59:00+02:00</updated>
+    <updated>2012-04-25T10:59:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby</id>
     <content type="html"><![CDATA[<p>mruby is the latest Ruby implementation in an already quite long list:</p>
 
@@ -4320,7 +4413,7 @@ of Rails in a different domain thanks to the Ruby language.</p>
   <entry>
     <title type="html"><![CDATA[mruby and MobiRuby]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby/"/>
-    <updated>2012-04-20T12:32:00+02:00</updated>
+    <updated>2012-04-20T12:32:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby</id>
     <content type="html"><![CDATA[<p>Today, two big Ruby news came directly from Japan:</p>
 
@@ -4524,7 +4617,7 @@ testing the first betas.</p>
   <entry>
     <title type="html"><![CDATA[Building and implementing a Single Sign-On solution]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution/"/>
-    <updated>2012-04-04T07:29:16+02:00</updated>
+    <updated>2012-04-04T07:29:16-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution</id>
     <content type="html"><![CDATA[<p>Most modern web applications start as a monolithic code base and, as complexity increases, the once small app gets split apart into many &#8220;modules&#8221;. In other cases, engineers opt for a <a href="http://en.wikipedia.org/wiki/Service-oriented_architecture">SOA</a> design approach from the beginning. One way or another, we start running multiple separate applications that need to interact seamlessly. My goal will be to describe some of the high-level challenges and solutions found in implementing a Single-Sign-On service.</p>
 
@@ -4692,75 +4785,6 @@ testing the first betas.</p>
 <p>If the DSL and its features seem appealing to you and you are interested in digging more into it, the easiest way is to fork <a href="https://github.com/mattetti/sinatra-web-api-example/">this demo repo</a> and start writing your own services.</p>
 
 <p>The DSL has been used in production for more than a year, but there certainly are tweaks and small changes that can make the user experience even better. Feel free to fork the <a href="https://github.com/mattetti/Weasel-Diesel">DSL repo</a> and send me Pull Requests.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Learning from Rails' failures]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/02/29/learning-from-rails-failures/"/>
-    <updated>2012-02-29T07:48:08+01:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/02/29/learning-from-rails-failures</id>
-    <content type="html"><![CDATA[<p>Ruby on Rails undisputedly changed the way web frameworks are designed. Rails became a reference when it comes to leveraging conventions, easy baked in feature set and a rich ecosystem. However, I think that Rails did and still does a lot of things pretty poorly.  By writing this post, I&#8217;m not trying to denigrate Rails, there are many other people out there already doing that. My hope is that by listing what I think didn&#8217;t and still doesn&#8217;t go well, we can learn from our mistakes and improve existing solutions or create better new ones.</p>
-
-<p><a href="http://merbist.com/2012/02/29/learning-from-rails-failures/train_fail/"><img src="http://merbist.com/wp-content/uploads/2012/02/train_fail-300x188.jpg" alt="" /></a></p>
-
-<h2>Migration/upgrades</h2>
-
-<p>Migrating a Rails App from a version to the other is very much like playing the lottery, you are almost sure you will lose. To be more correct, you know things will break, you just don&#8217;t know what, when and how. The Rails team seems to think that everybody is always running on the cutting edge version and don&#8217;t consider people who prefer to stay a few version behind for stability reasons. What&#8217;s worse is that plugins/gems might or might not compatible with the version you are updating to, but you will only know that by trying yourself and letting others try and report potential issues.</p>
-
-<p>This is for me, by far, the biggest issue with Rails and something that should have been fixed a long time ago. If you&#8217;re using the WordPress blog engine, you know how easy and safe it is to upgrade the engine or the plugins. Granted WordPress isn&#8217;t a web dev framework, but it gives you an idea of what kind of experience we should be striving for.</p>
-
-<p> </p>
-
-<h2>Stability vs playground zone</h2>
-
-<p>New features are cool and they help make the platform more appealing to new comers. They also help shape the future of a framework. But from my perspective, that shouldn&#8217;t come to the cost of stability. Rails 3&#8217;s new asset pipeline is a good example of a half-baked solution shoved in a release at the last minute and creating a nightmare for a lot of us trying to upgrade. I know, I know, you can turn off the asset pipeline and it got better since it was first released. But shouldn&#8217;t that be the other way around? Shouldn&#8217;t fun new ideas risking the stability of an app or making migration harder, be off by default and turned on only by people wanting to experiment? When your framework is young, it&#8217;s normal that you move fast and sometimes break, but once it matures, these things shouldn&#8217;t happen.</p>
-
-<p> </p>
-
-<h2>Public/private/plugin APIs</h2>
-
-<p>This is more of a recommendation than anything else. When you write a framework in a very dynamic language like Ruby, people will &#8220;monkey patch&#8221; your code to inject features. Sometimes it is due to software design challenges, sometimes it&#8217;s because people don&#8217;t know better. However,  by not explicitly specifying what APIs are private (they can change at anytime, don&#8217;t touch), what APIs are public (stable, will be slowly deprecated when they need to be changed) and which ones are for plugin devs only (APIs meant for instrumentation, extension etc..), you are making migration to newer versions much harder. You see, if you have a small, clean public API, then it&#8217;s easy to see what could break, warn developers and avoid migration nightmares. However, you need to start doing that early on in your project, otherwise you will end up like Rails where all code can potentially change anytime.</p>
-
-<p> </p>
-
-<h2>Rails/Merb merge was a mistake</h2>
-
-<p>This is my personal opinion and well, feel free to disagree, nobody will ever be able to know to for sure. Without explaining what happened behind closed doors and the various personal motivations, looking at the end result, I agree with the group of people thinking that the merge didn&#8217;t turn up to be a good thing. For me, Rails 3 isn&#8217;t significantly better than Rails 2 and it took forever to be released. You still can&#8217;t really run a mini Rails stack like promised. I did hear that Strobe (company who was hiring Carl Lerche, Yehuda Katz and contracted Jose Valim) used to have an ActionPack based, mini stack but it was never released and apparently only Rails core members really knew what was going on there. Performance in vanilla Rails 3 are only now getting close to what you had with Rails 2 (and therefore far from the perf you were getting with Merb). Thread-safety is still OFF by default meaning that by default your app uses a giant lock only allowing a process to handle 1 request at a time. For me, the flexibility and performance focus of Merb were mainly lost in the merge with Rails. (Granted, some important things such as ActiveModel, cleaner internals and others have made their way into Rails 3)</p>
-
-<p>But what&#8217;s worse than everything listed so far is that the lack of competition and the internal rewrites made Rails lose its headstart.  Rails is very much HTML/view focused, its primarily strength is to make server side views trivial and it does an amazing job at that. But let&#8217;s be honest, that&#8217;s not the future for web dev. The future is more and more logic pushed to run on the client side (in JS) and the server side being used as an API serving data for the view layer. I&#8217;m sorry but adding support for CoffeeScript doesn&#8217;t really do much to making Rails evolve ahead of what it currently is. Don&#8217;t get me wrong, I&#8217;m a big fan of CoffeeScript, that said I still find that Rails is far from being optimized to developer web APIs in Rails. You can certainly do it, but you are basically using a tool that wasn&#8217;t designed to write APIs and you pay the overhead for that. If there is one thing I wish Rails will get better at is to make writing pure web APIs better (thankfully there is Sinatra). But at the end of the day, I think that two projects with different philosophies and different approaches are really hard to merge, especially in the open source world. I wouldn&#8217;t go as far as saying like others that Rails lost its sexiness to node.js because of the wasted time, but I do think that things would have been better for all if that didn&#8217;t happen. However, I also have to admit that I&#8217;m not sure how much of a big deal that is. I prefer to leave the past behind, learn from my own mistake and move on.</p>
-
-<p> </p>
-
-<h2>Technical debts</h2>
-
-<p>Here I&#8217;d like to stop to give a huge props to Aaron &#8221;<a href="http://twitter.com/tenderlove">@tenderlove</a>&#8221; Patterson, the man who&#8217;s actively working to reduce the <a href="http://en.wikipedia.org/wiki/Technical_debt">technical debts</a> in the Rails code base. This is a really hard job and definitely not a very glamorous one. He&#8217;s been working on various parts of Rails including its router and its ORM (ActiveRecord). Technical debts are unfortunately normal in most project, but sometimes they are overwhelming to the point that nobody dares touching the code base to clean it up. This is a hard problem, especially when projects move fast like Rails did. But looking back, I think that you want to start tackling technical debts on the side as you move on so you avoid getting to the point that you need a hero to come up and clean the piled errors made in the past. But don&#8217;t pause your entire project to clean things up otherwise you will lose market, momentum and excitement. I feel that this is also very much true for any legacy project you might pick up as a developer.</p>
-
-<p> </p>
-
-<h2>Keep the cost of entry level low</h2>
-
-<p>Getting started with Rails used to be easier. This can obviously argued since it&#8217;s very subjective, but from my perspective I think we forgot where we come from and we involuntary expect new comers to come with unrealistic knowledge. Sure, Rails does much more than it used to do, but it&#8217;s also much harder to get started. I&#8217;m not going to argue how harder  it is now or why we got there. Let&#8217;s just keep in mind that it is a critical thing that should always be re-evaluated. Sure, it&#8217;s harder when you have an open source project, but it&#8217;s also up to the leadership to show that they care and to encourage and mentor volunteers to  focus on this important part of a project.</p>
-
-<p> </p>
-
-<h2>Documentation</h2>
-
-<p>Rails documentation isn&#8217;t bad, but it&#8217;s far from being great. Documentation certainly isn&#8217;t one of the Ruby&#8217;s community strength, especially compared with the Python community, but what saddens me is to see the state of <a href="http://guides.rubyonrails.org/">the official documentation</a> which, should, in theory be the reference. Note that the Rails guides are usually well written and provide value, but they too often seem too light and not useful when you try to do something not totally basic (for instance use an ActiveModel compliant object). That&#8217;s probably why most people don&#8217;t refer to them or don&#8217;t spend too much time there. I&#8217;m not trying to blame anyone there. I think that the people who contributed theses guides did an amazing job, but if you want to build a strong and easy to access community, great documentation is key. Look at the <a href="https://docs.djangoproject.com/en/1.3/">Django</a> documentation as a good example. That said, I also need to acknowledge the amazing job done by many community members such as <a href="http://railscasts.com/">Ryan Bates</a> and <a href="http://ruby.railstutorial.org/">Michael Hartl</a> consistently providing high value external documentation via the <a href="http://railscasts.com/">railscasts</a> and the intro to <a href="http://ruby.railstutorial.org/">Rails tutorial</a> available for free.</p>
-
-<p> </p>
-
-<p>In conclusion, I think that there is a lot to learn from Rails, lots of great things as well as lots of things you would want to avoid. We can certainly argue on Hacker News or via comments about whether or not I&#8217;m right about Rails failures, my point will still be that the mentioned issues should be avoided in any projects, Rails here is just an example. Many of these issues are currently being addressed by the Rails team but wouldn&#8217;t it be great if new projects learn from older ones and avoid making the same mistakes? So what other mistakes do you think I forgot to mention and that one should be very careful of avoiding?</p>
-
-<p> </p>
-
-<h3>Updates:</h3>
-
-<ol>
-<li><p>Rails 4 had an API centric app generator but it <a href="https://github.com/rails/rails/commit/6db930cb5bbff9ad824590b5844e04768de240b1">was quickly reverted</a> and will live as gem until it&#8217;s mature enough.</p></li>
-<li><p>Rails 4 improved the ActiveModel API to be simpler to get started with. See <a href="http://blog.plataformatec.com.br/2012/03/barebone-models-to-use-with-actionpack-in-rails-4-0/">this blog</a> post for more info.</p></li>
-</ol>
-
 ]]></content>
   </entry>
   

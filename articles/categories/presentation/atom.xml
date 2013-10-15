@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Presentation | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/articles/categories/presentation/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-08-30T11:27:23+02:00</updated>
+  <updated>2013-10-15T10:22:31-07:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -14,9 +14,102 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Bad code doesn't exist]]></title>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/10/14/bad-code-doesnt-exist/"/>
+    <updated>2013-10-14T09:08:00-07:00</updated>
+    <id>http://mattetti.github.com/mattetti/posts/2013/10/14/bad-code-doesnt-exist</id>
+    <content type="html"><![CDATA[<p>I just give a talk at <a href="http://wickedgoodruby.com/">Wicked Good Ruby Conf</a> in Boston. I'm sure the talk will be online soon, but I figured it would be interesting to discuss it a bit further in a blog post.</p>
+
+<p>The format was a bit different than usual, I had a 40 minute slot and
+divided in 2, I made my points for 20 minutes and invited two special
+guests on stage to discuss the topic. The reason for this format is
+because I think we all learn better by looking at things from different
+perspectives. I can't thank enough <a href="http://www.sandimetz.com/">Sandi Metz</a> and <a href="http://kytrinyx.com/">Katrina Owen</a> for their contributions.</p>
+
+<p>Here are a few points that I think are interesting and
+that we discussed during the talk.</p>
+
+<h2>There isn't such thing as bad code</h2>
+
+<p>Bad code doesn't exist, you have code that can be interpreted/compiled and code that doesn't.
+"Good" and "bad" are moralistic designations, not scientific ones.
+Let's try to stop using these terms to refer to talk. Let's be more
+precise when arguing about code, "what do you mean by bad?" Is it
+hard to maintain, hard to understand, slow etc.. ?
+Always refer to the context in which the code was written. Don't use it
+as an excuse to defend anybody's potentially hurt ego, but instead to
+explain why the code was written caring about certain values instead of
+others. Most code turns emo after a little while, being able to
+understand the context, helps a lot the devision process when facing
+such code.</p>
+
+<p><img src="/images/matt_aimonetti-code_apology.jpg" alt="Bad code" /></p>
+
+<h2>It's all about expected outcome and context</h2>
+
+<p>As developers, we aren't paid to write code, we are paid to build
+products, to convert ideas into something "concrete". When I use my
+favorite app, I don't care that the code is beautiful, I care that it
+works, that it's stable and provides me with what I need. If the code is
+written in Go, Pascal, Erlang, VB or Ruby doesn't matter at all. That the
+code has full test coverage and was written in an agile manner using
+weekly scrums and TDD is probably as important as knowing the Pantone
+color of a company's logo: it only matters to the people deeply
+involved.</p>
+
+<p>Don't focus on how to build, focus on why you build things. Then the how
+will come as you learn from others, experiment and discover "how" to build
+the "why". The "why" is often the constant, the "how" keeps on changing
+as we collect more information.</p>
+
+<h2>We love rules</h2>
+
+<p>When you learn, rules are easier. Katrina made a very good point during
+our discussion. When she teaches, she needs to have very strong rules
+that she can justify. That said, her rules can change, and as you become
+better, you can start challenging the rules. Rules are somewhere between
+training wheels and a guard-rail. They are very useful but shouldn't be
+used to attack other people.</p>
+
+<p>Ruby has a language doesn't enforce many rules, as a matter of fact,
+Matz designed a language so you can set your own rules, or barely have
+any rules.
+This fact probably explains why so many people are after solid rules
+they can rely on. Rules are easy to follow and are a good reference.
+The Ruby language doesn't have enough rules to some, so the community is
+helping by coming together to define them.
+This is by the way, the biggest difference with Python and Go where
+these 2 languages explicitly want to only have 1 way of doing one thing.</p>
+
+<h2>Communication and team work</h2>
+
+<p>The key to building a good product (which is what we are paid to do) is
+communication. Unfortunately, us developers, are on average, pretty
+terrible at that.
+We need to do a better job communicating with the rest of the
+organization (i.e: anybody who's not an engineer). It usually starts by
+the designers. The expected outcome of the product should be clear, well
+understood by all and easily evaluable.
+Within the engineering team, coding values should be set explicitly.
+Not everyone will agree but when we write code, we should all care about
+the same overall values so our work is consistent. When something
+happens and we have a disagreement, it's easier to refer to our values
+to decide what solution to pick.</p>
+
+<h2>Slides</h2>
+
+<p>Slides without context don't mean much, but they should give you an
+overview of the content until the video is being released.</p>
+
+<script async class="speakerdeck-embed" data-id="f325aee016620131a63906e09cf22df5" data-ratio="1.33333333333333" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[RubyConf 2012 - Ruby vs. The World]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
-    <updated>2012-11-02T20:47:00+01:00</updated>
+    <updated>2012-11-02T20:47:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.com/">RubyConf 2012</a> in Denver, Colorado Matt
 Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
@@ -50,7 +143,7 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
   <entry>
     <title type="html"><![CDATA[Aloha RubyConf - mmm..mruby or why yet another Ruby implementation]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
-    <updated>2012-10-09T20:14:00+02:00</updated>
+    <updated>2012-10-09T20:14:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
     <content type="html"><![CDATA[<p>During <a href="http://aloharubyconf.com/">Aloha RubyConf 2012</a> in Honolulu, Hawaii Matt
 Aimonetti gave a talk entitled <strong>mmm..mruby or why yet another Ruby implementation</strong>.</p>
@@ -86,7 +179,7 @@ Ruby) and and revisiting Ruby.</p>
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
-    <updated>2012-10-05T15:09:00+02:00</updated>
+    <updated>2012-10-05T15:09:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
     <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
 Aimonetti gave a talk entitled <em>Tower of
@@ -130,7 +223,7 @@ languages:</p>
   <entry>
     <title type="html"><![CDATA[LA RubyConf 2012 - Ruby: time to move on]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012/"/>
-    <updated>2012-02-04T15:09:00+01:00</updated>
+    <updated>2012-02-04T15:09:00-08:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012</id>
     <content type="html"><![CDATA[<p>During <a href="http://larubyconf.org/">LA RubyConf 2012</a> in Los Angeles, CA Matt
 Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
@@ -161,7 +254,7 @@ Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
   <entry>
     <title type="html"><![CDATA[RubyConf Argentina 2011 - Inside Ruby]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2011/11/08/rubyconf-argentina-2011/"/>
-    <updated>2011-11-08T15:42:00+01:00</updated>
+    <updated>2011-11-08T15:42:00-08:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2011/11/08/rubyconf-argentina-2011</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconfargentina.org/en">RubyConf Argentina 2011</a> in Buenos Aires, Argentina Matt
 Aimonetti gave a talk entitled <em>Inside Ruby: concurrency &amp; garbage collection explained</em>.</p>
@@ -207,7 +300,7 @@ management works to get better performance out of your code.</p>
   <entry>
     <title type="html"><![CDATA[RubyConf 2011 - Complex Ruby concepts simplified]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2011/10/01/rubyconf-2011/"/>
-    <updated>2011-10-01T15:09:00+02:00</updated>
+    <updated>2011-10-01T15:09:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2011/10/01/rubyconf-2011</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.org/">RubyConf 2011</a> in New Orleans, LA Matt
 Aimonetti gave a talk entitled <em>Complex Ruby concepts simplified</em>.</p>
@@ -246,7 +339,7 @@ for the talk is available <a href="">here</a>.</p>
   <entry>
     <title type="html"><![CDATA[RubyConf 2010 - MacRuby: Why and How]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2010/11/12/rubyconf-2010-macruby-talk/"/>
-    <updated>2010-11-12T16:00:51+01:00</updated>
+    <updated>2010-11-12T16:00:51-08:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2010/11/12/rubyconf-2010-macruby-talk</id>
     <content type="html"><![CDATA[<h2>Description of the talk:</h2>
 
@@ -314,7 +407,7 @@ Since last new a lot of things happened, here is a quick summary:</p>
   <entry>
     <title type="html"><![CDATA[ConFoo.ca - Apple's Ruby:  MacRuby]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2010/04/11/apples-ruby-macruby/"/>
-    <updated>2010-04-11T09:52:00+02:00</updated>
+    <updated>2010-04-11T09:52:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2010/04/11/apples-ruby-macruby</id>
     <content type="html"><![CDATA[<p>During <a href="http://confoo.ca/">ConFoo Canada 2010</a> in Montreal, Canada Matt
 Aimonetti gave a talk entitled <em></em>.</p>
@@ -342,7 +435,7 @@ The talk itself wasn't recorded.</p>
   <entry>
     <title type="html"><![CDATA[ConFoo.ca - Rails for non Ruby developers]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2010/04/11/confoo-dot-ca-rails-for-non-ruby-developers/"/>
-    <updated>2010-04-11T09:51:00+02:00</updated>
+    <updated>2010-04-11T09:51:00-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2010/04/11/confoo-dot-ca-rails-for-non-ruby-developers</id>
     <content type="html"><![CDATA[<p>During <a href="http://confoo.ca/">ConFoo Canada 2010</a> in Montreal, Canada Matt
 Aimonetti gave a talk entitled <em>Rails for the non Ruby developers</em>.</p>
@@ -373,7 +466,7 @@ The talk itself wasn't recorded.</p>
   <entry>
     <title type="html"><![CDATA[RubyConf 2009 - 2D games for OS X]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2009/11/21/rubyconf-2009-2d-games-for-os-x/"/>
-    <updated>2009-11-21T10:25:00+01:00</updated>
+    <updated>2009-11-21T10:25:00-08:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2009/11/21/rubyconf-2009-2d-games-for-os-x</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.org/">RubyConf 2009</a> in San Francisco, CA Matt
 Aimonetti gave a talk entitled <em>Writing 2D games for the OSX platform in Ruby</em>.</p>
@@ -409,7 +502,7 @@ Aimonetti gave a talk entitled <em>Writing 2D games for the OSX platform in Ruby
   <entry>
     <title type="html"><![CDATA[RailsSummit - The future of Ruby and Rails]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2009/10/23/railssummit-2009/"/>
-    <updated>2009-10-23T10:17:45+02:00</updated>
+    <updated>2009-10-23T10:17:45-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2009/10/23/railssummit-2009</id>
     <content type="html"><![CDATA[<p>During <a href="http://www.flickr.com/photos/danicuki/sets/72157622452350763/">Rails Summit2009</a> in São Paulo, Brazil Matt
 Aimonetti gave a talk entitled <em>The future of Ruby and Rails</em>.</p>
@@ -456,7 +549,7 @@ Aimonetti gave a talk entitled <em>The future of Ruby and Rails</em>.</p>
   <entry>
     <title type="html"><![CDATA[RailsConf 2009 - Rails 3: Stepping off of the golden path]]></title>
     <link href="http://mattetti.github.com/mattetti/posts/2009/05/08/railsconf-2009/"/>
-    <updated>2009-05-08T12:18:18+02:00</updated>
+    <updated>2009-05-08T12:18:18-07:00</updated>
     <id>http://mattetti.github.com/mattetti/posts/2009/05/08/railsconf-2009</id>
     <content type="html"><![CDATA[<p>During <a href="http://en.oreilly.com/rails2009/">RailsConf 2009</a> in Las Vegas, Nevada Matt
 Aimonetti gave a talk entitled <em>Rails 3: Stepping off of the golden path</em>.</p>
