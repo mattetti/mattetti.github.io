@@ -93,7 +93,7 @@ to decide what solution to pick.
 ## Slides
 
 Slides without context don't mean much, but they should give you an
-overview of the content until the video is being released.
+overview of the content until the video is released.
 
 
 
