@@ -92,9 +92,8 @@ to decide what solution to pick.
 
 ## Slides
 
-Slides without context don't mean much, but they should give you an
-overview of the content until the video is released.
-
-
-
 <script async class="speakerdeck-embed" data-id="f325aee016620131a63906e09cf22df5" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+
+## Video
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/VO-NvnZfMA4" frameborder="0" allowfullscreen></iframe>
