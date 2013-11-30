@@ -96,4 +96,4 @@ to decide what solution to pick.
 
 ## Video
 
-<iframe width="420" height="315" src="//www.youtube.com/embed/VO-NvnZfMA4" frameborder="0" allowfullscreen></iframe>
+<iframe width="640" height="480" src="//www.youtube.com/embed/VO-NvnZfMA4" frameborder="0" allowfullscreen></iframe>
