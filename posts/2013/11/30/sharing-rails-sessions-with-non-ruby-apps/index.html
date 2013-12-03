@@ -1,0 +1,272 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sharing Rails Sessions with Non-Ruby Apps - Matt Aimonetti</title>
+    <meta name="author" content="Matt Aimonetti">
+
+    
+    <meta name="description" content="Sharing Rails Sessions With Non-Ruby Apps I wanted to share sessions between my Rails and Go applications. I wanted to let an authenticated Rails user make JavaScript &hellip;">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+
+    <link href="/atom.xml" rel="alternate" title="Matt Aimonetti" type="application/atom+xml">
+    
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-30927742-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+</head>
+
+
+<body>
+	<header><div id='meta' class='inner'>
+  <div id="matt-aimonetti" itemscope itemtype="http://data-vocabulary.org/Person">
+    <a href='/about/'><img class="photo left" title='About Matt Aimonetti'
+      alt='Photo of Matt Aimonetti' src="/images/matt_aimonetti.jpg" /></a>
+    <h1 class="left"><a itemprop="name" href="/">Matt Aimonetti</a></h1>
+    <br>
+    <ul class='left bio-summary'>
+      <li> <a href="https://splice.com"><span
+              itemprop="affiliation">Splice</span></a> co-founder</a></li>
+      <li><a href='http://www.oreillynet.com/pub/au/4385'>Author</a> at <span itemprop="affiliation">O'Reilly</span></li>
+      <li>Open Source <a href="/posts/archives/">enthusiast</a></li>
+      <li><a href="https://github.com/mattetti">Web engineer</a></li>
+    </ul>
+  <div class="right">
+    <div class="right">
+      <div id="cse-search-form">Loading</div>
+      <div class="social right">
+        
+        
+        <a class="google" rel='me' href="https://plus.google.com/101114877505962271216?rel=author" title="Google+">Google+</a>
+        
+        
+        <a class="twitter" rel='me' href="http://twitter.com/mattetti" title="Twitter">Twitter</a>
+        
+        
+        <a class="github" rel='me' href="https://github.com/mattetti" title="GitHub">GitHub</a>
+        
+        
+        
+        <a class="linkedin" rel='me' href="http://www.linkedin.com/in/mattaimonetti" title="Linkedin">Linkedin</a>
+        
+        
+        <a class="rss" rel='me' href="/atom.xml" title="RSS">RSS</a>
+        
+      </div>
+      <nav class="menu"><ul class="main">
+  <li><a href="/">Home</a></li>
+  <li><a href="/articles/categories/blog-post/">Articles</a></li>
+  <li><a href="/articles/categories/presentation/">Presentations</a></li>
+  <li><a href="/about/" rel='me'>About</a></li>
+</ul>
+</nav>
+    </div>
+  </div>
+</div>
+
+</header>
+	
+
+	<div id="content" class="inner"><article class="post hentry">
+  
+    <h1 class="title entry-title">Sharing Rails Sessions With Non-Ruby Apps</h1>
+    <div class="entry"><p>I wanted to share sessions between my Rails and Go applications. I wanted to let an authenticated Rails user make JavaScript API calls to an endpoint written in Go. How hard could it be?</p>
+
+<p>Since I own both apps, I thought it would be as simple as sharing the secret session key and re-implementing Rails crypto process in Go. It turned out to be a lot more interesting.</p>
+
+<p>In a nutshell, here is what I discovered:</p>
+
+<ul>
+<li> It&#8217;s totally doable! Here is my <a href="http://godoc.org/github.com/mattetti/goRailsYourself/crypto">Go package</a>.</li>
+<li> If you are using a version of Rails older than 4.0, you’d better upgrade ASAP!</li>
+<li> Rails has been criticized for security issues, but the current solution has been vetted by many experts.</li>
+<li> Rails serializes session data using Ruby Marshal which means that someone with the secret key can <em>inject arbitrary code in the session</em> and it will execute server side. Switch to JSON, MessagePack or other safe serialization formats.</li>
+<li> Security is (still) hard.</li>
+</ul>
+
+
+<h2>Rails Cookies are Dangerous</h2>
+
+<p>Because Rails serializes and deserializes the session and any encrypted/signed cookies using Ruby&#8217;s Marshal library, someone with the app secret can wreak havoc. They can embed arbitrary Ruby code into the cookie, submit it with a request, and the server-side deserialization will execute that code without you noticing. Granted, this requires the attacker to have the app secret, but since 99% of the apps out there have the shared secret in their source code, anyone with access to the source code has this data. It’s not data you can easily rotate when employees leave or when you are done working with contractors. Anybody with the shared secret is a potential attacker. Start by moving this data out of the code base and into an environment variable.</p>
+
+<p>Rails doesn’t let you change the default serializer directly. But Rails relies on ActiveSupport for its crypto work and AS supports swapping the serializer. Some people in the community are aware of this issue and monkey patch Rails to serialize their sessions using JSON or another alternative. Here is an <a href="http://nerds.airbnb.com/upgrading-from-ree-187-to-ruby-193/">Airbnb article</a> and
+<a href="https://gist.github.com/jeffyip/4091166">Rails 3 patch</a>. <a href="https://gist.github.com/mattetti/7624413">Here is my Rails 4 monkey patch</a> to switch the serialization to JSON. I&#8217;m using it in production with Rails 4, but it&#8217;s untested on Rails 3.</p>
+
+<p>You can modify either solution to use <a href="http://msgpack.org/">MessagePack</a> instead of JSON if you want to fit more data in the 4K cookie size.</p>
+
+<h2>Understanding Rails Session Encryption</h2>
+
+<p>Once I addressed the serialization issue, I had to reimplement the crypto work done by Rails to encode and/or sign the data.</p>
+
+<p>Most of us just rely on our frameworks/libraries to do the right thing, but we rarely look under the hood. I ported the logic to Golang which has an amazing support for crypto (albeit lower level than Ruby). My <a href="http://godoc.org/github.com/mattetti/goRailsYourself/crypto">Go package</a> contains an explanation of the code logic and <a href="http://godoc.org/github.com/mattetti/goRailsYourself/crypto#pkg-examples">the examples</a> needed to decode/verify as well as encode/sign sessions that are compatible with Rails.</p>
+
+<p>Here is a high level summary of what Rails does when it encodes and signs your session data:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">key_generator</span> <span class="o">=</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">CachingKeyGenerator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">KeyGenerator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">app_secret_key</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="mi">1000</span><span class="p">))</span>
+</span><span class='line'><span class="n">derived_secret</span> <span class="o">=</span> <span class="n">key_generator</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span><span class="s2">&quot;encrypted cookie&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">sign_secret</span> <span class="o">=</span> <span class="n">key_generator</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span><span class="s2">&quot;signed encrypted cookie&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">encryptor</span> <span class="o">=</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">MessageEncryptor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">secret</span><span class="p">,</span> <span class="n">sign_secret</span><span class="p">)</span>
+</span><span class='line'><span class="n">session_content</span> <span class="o">=</span> <span class="n">encryptor</span><span class="o">.</span><span class="n">encrypt_and_sign</span><span class="p">({</span><span class="n">hello</span><span class="p">:</span> <span class="s2">&quot;world&quot;</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>session_content</code> string is then set as the session cookie value.
+Note that you could do that in any Ruby app using <code>ActiveSupport</code>, making it easy to share sessions between Ruby applications (like Rails &amp; Sinatra).</p>
+
+<p>Technically, there are a lot of things going on. To avoid using the same secret to sign and encode data, Rails relies on derived keys using <a href="http://en.wikipedia.org/wiki/PBKDF2">PBKDF2</a> (password based key derivation function).
+It treats the app secret as a password and applies a pseudorandom function 1000 times (Rails default) using a default salt. The result is a derived key so the original password isn’t shared. The derived key can be regenerated identically if the salt and secret are known (because the function is pseudorandom).</p>
+
+<p>The two derived keys are then passed to the <a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/message_encryptor.rb"><code>MessageEncryptor</code></a> class which uses <a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/message_verifier.rb"><code>MessageVerifier</code></a> to do the signing. The generated keys are 64 bytes long. One key goes to the encryptor while the other goes to the verifier.</p>
+
+<p>The verification is done via <a href="http://en.wikipedia.org/wiki/Hash-based_message_authentication_code">HMAC (SHA1)</a> and it uses the full 64 byte key.
+The encoding is done via <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES 256 CBC</a> only using the first 32 bytes of the encryption derived key. Rails will only generate a 32-byte key since that&#8217;s the expected key length.</p>
+
+<p>The session data is serialized (using Marshal by default) then encoded via AES. Both the encoded string and the <a href="http://en.wikipedia.org/wiki/Initialization_vector">IV</a> are encoded using base64 and joined in a string using a predefined format.</p>
+
+<p>At this point, the session is encoded but it could be tampered with. To avoid that, Rails signs the encoded data using the verifier (HMAC) and appends the base 64 encoded signature to the encoded data.</p>
+
+<p>To decode and verify the data, Rails repeats the process in reverse using the serializer to deserialize the data.</p>
+
+<p>Note that you can also rely on the the same crypto process to safely encode/sign <em>any</em> data you want to share. If you&#8217;re ok with the data being user-readable, sign it to make sure it isn&#8217;t tampered with along the way. If you don&#8217;t want it to be user-readable, encrypt it first then sign the encrypted data.</p>
+
+<h2>Sharing the Session with Non-Ruby Apps</h2>
+
+<p>Many apps are moving to an SOA approach. That often means multiple languages living together in production. Sharing a web session can be very useful, especially until you switch to a SSO solution.</p>
+
+<p>The key is to start by having the session data serialized in a format that is available in all your relevent languages. JSON, XML MessagePack, and protobuf are good examples.</p>
+
+<p>The second step is to reimplement the crypto dance I just explained above. The good news is that I’ve already done it for Go. Using that example, you should be able to port it to other languages (Node, Scala/Clojure/Java, Rust, Elixir, Python or whatever you fancy).</p>
+
+<p>https://github.com/mattetti/goRailsYourself/tree/master/crypto</p>
+
+<p>Even though the test suite isn’t perfect (yet), it should greatly help you through the porting process. To be honest the hardest part was understanding the process, not writing the code. Most languages have decent crypto libraries to do the hard parts for you. But for Go I had to implement lower level pieces like the PKCS7 padding for the AES CBC encryption/decryption.</p>
+
+<p>Hopefully this article was helpful and you now better understand how Rails does its session encryption. Once you understand the process Rails uses, you can implement it in any language.</p>
+
+<p><strong> Finally, if you interested in working on interesting and challenging
+problems like these ones, consider joining the <a href="https://splice.com">Splice</a> team! </strong></p>
+</div>
+
+    <div class="meta">
+        <div class="date updated">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-30T12:01:00-08:00" pubdate data-updated="true">Nov 30<span>th</span>, 2013</time></div>
+        <div class="tags">
+
+<div class="cat">
+  
+    <a class='category' href='/articles/categories/golang/'>Golang</a>, <a class='category' href='/articles/categories/ruby/'>Ruby</a>
+  
+</div>
+
+</div>
+        
+        <div class='vcard author'>By <span class='fn'>Matt Aimonetti</span></div>
+        <div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+  <a class="addthis_button_tweet"></a>
+  </br>
+	
+	
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  </br>
+	
+	<a class="addthis_counter addthis_pill_style"></a></br>
+	</div>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=mattetti"></script>
+</div>
+
+        
+    </div>
+
+
+</article>
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+	<footer class="inner"><div id='copyright-notice'>Copyright &copy; 2013 Matt Aimonetti</div>
+</footer>
+	<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script src="/javascripts/slash.js"></script>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript"> 
+  google.load('search', '1', {language : 'en'});
+  google.setOnLoadCallback(function() {
+  var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+    '010526096358170648343:WMX140696544', customSearchOptions);
+  customSearchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+  var options = new google.search.DrawOptions();
+  options.enableSearchboxOnly("http://matt.aimonetti.net/search");
+  customSearchControl.draw('cse-search-form', options);
+  }, true);
+
+if (navigator.userAgent.match(/iPad/i) != null) {
+  $('meta[name=viewport]').attr('content', 'width=1200,initial-scale=1,maximum-scale=1');
+}
+</script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'mattaimonetti';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mattetti.github.com/mattetti/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps/';
+        var disqus_url = 'http://mattetti.github.com/mattetti/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

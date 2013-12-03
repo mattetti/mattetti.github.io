@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/mattetti/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-10-30T09:33:55-07:00</updated>
+  <updated>2013-12-03T13:53:09-08:00</updated>
   <id>http://mattetti.github.com/mattetti/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,96 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Sharing Rails Sessions with Non-Ruby Apps]]></title>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps/"/>
+    <updated>2013-11-30T12:01:00-08:00</updated>
+    <id>http://mattetti.github.com/mattetti/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps</id>
+    <content type="html"><![CDATA[<p>I wanted to share sessions between my Rails and Go applications. I wanted to let an authenticated Rails user make JavaScript API calls to an endpoint written in Go. How hard could it be?</p>
+
+<p>Since I own both apps, I thought it would be as simple as sharing the secret session key and re-implementing Rails crypto process in Go. It turned out to be a lot more interesting.</p>
+
+<p>In a nutshell, here is what I discovered:</p>
+
+<ul>
+<li> It&#8217;s totally doable! Here is my <a href="http://godoc.org/github.com/mattetti/goRailsYourself/crypto">Go package</a>.</li>
+<li> If you are using a version of Rails older than 4.0, you’d better upgrade ASAP!</li>
+<li> Rails has been criticized for security issues, but the current solution has been vetted by many experts.</li>
+<li> Rails serializes session data using Ruby Marshal which means that someone with the secret key can <em>inject arbitrary code in the session</em> and it will execute server side. Switch to JSON, MessagePack or other safe serialization formats.</li>
+<li> Security is (still) hard.</li>
+</ul>
+
+
+<h2>Rails Cookies are Dangerous</h2>
+
+<p>Because Rails serializes and deserializes the session and any encrypted/signed cookies using Ruby&#8217;s Marshal library, someone with the app secret can wreak havoc. They can embed arbitrary Ruby code into the cookie, submit it with a request, and the server-side deserialization will execute that code without you noticing. Granted, this requires the attacker to have the app secret, but since 99% of the apps out there have the shared secret in their source code, anyone with access to the source code has this data. It’s not data you can easily rotate when employees leave or when you are done working with contractors. Anybody with the shared secret is a potential attacker. Start by moving this data out of the code base and into an environment variable.</p>
+
+<p>Rails doesn’t let you change the default serializer directly. But Rails relies on ActiveSupport for its crypto work and AS supports swapping the serializer. Some people in the community are aware of this issue and monkey patch Rails to serialize their sessions using JSON or another alternative. Here is an <a href="http://nerds.airbnb.com/upgrading-from-ree-187-to-ruby-193/">Airbnb article</a> and
+<a href="https://gist.github.com/jeffyip/4091166">Rails 3 patch</a>. <a href="https://gist.github.com/mattetti/7624413">Here is my Rails 4 monkey patch</a> to switch the serialization to JSON. I&#8217;m using it in production with Rails 4, but it&#8217;s untested on Rails 3.</p>
+
+<p>You can modify either solution to use <a href="http://msgpack.org/">MessagePack</a> instead of JSON if you want to fit more data in the 4K cookie size.</p>
+
+<h2>Understanding Rails Session Encryption</h2>
+
+<p>Once I addressed the serialization issue, I had to reimplement the crypto work done by Rails to encode and/or sign the data.</p>
+
+<p>Most of us just rely on our frameworks/libraries to do the right thing, but we rarely look under the hood. I ported the logic to Golang which has an amazing support for crypto (albeit lower level than Ruby). My <a href="http://godoc.org/github.com/mattetti/goRailsYourself/crypto">Go package</a> contains an explanation of the code logic and <a href="http://godoc.org/github.com/mattetti/goRailsYourself/crypto#pkg-examples">the examples</a> needed to decode/verify as well as encode/sign sessions that are compatible with Rails.</p>
+
+<p>Here is a high level summary of what Rails does when it encodes and signs your session data:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">key_generator</span> <span class="o">=</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">CachingKeyGenerator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">KeyGenerator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">app_secret_key</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="mi">1000</span><span class="p">))</span>
+</span><span class='line'><span class="n">derived_secret</span> <span class="o">=</span> <span class="n">key_generator</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span><span class="s2">&quot;encrypted cookie&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">sign_secret</span> <span class="o">=</span> <span class="n">key_generator</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span><span class="s2">&quot;signed encrypted cookie&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">encryptor</span> <span class="o">=</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">MessageEncryptor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">secret</span><span class="p">,</span> <span class="n">sign_secret</span><span class="p">)</span>
+</span><span class='line'><span class="n">session_content</span> <span class="o">=</span> <span class="n">encryptor</span><span class="o">.</span><span class="n">encrypt_and_sign</span><span class="p">({</span><span class="n">hello</span><span class="p">:</span> <span class="s2">&quot;world&quot;</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>session_content</code> string is then set as the session cookie value.
+Note that you could do that in any Ruby app using <code>ActiveSupport</code>, making it easy to share sessions between Ruby applications (like Rails &amp; Sinatra).</p>
+
+<p>Technically, there are a lot of things going on. To avoid using the same secret to sign and encode data, Rails relies on derived keys using <a href="http://en.wikipedia.org/wiki/PBKDF2">PBKDF2</a> (password based key derivation function).
+It treats the app secret as a password and applies a pseudorandom function 1000 times (Rails default) using a default salt. The result is a derived key so the original password isn’t shared. The derived key can be regenerated identically if the salt and secret are known (because the function is pseudorandom).</p>
+
+<p>The two derived keys are then passed to the <a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/message_encryptor.rb"><code>MessageEncryptor</code></a> class which uses <a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/message_verifier.rb"><code>MessageVerifier</code></a> to do the signing. The generated keys are 64 bytes long. One key goes to the encryptor while the other goes to the verifier.</p>
+
+<p>The verification is done via <a href="http://en.wikipedia.org/wiki/Hash-based_message_authentication_code">HMAC (SHA1)</a> and it uses the full 64 byte key.
+The encoding is done via <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES 256 CBC</a> only using the first 32 bytes of the encryption derived key. Rails will only generate a 32-byte key since that&#8217;s the expected key length.</p>
+
+<p>The session data is serialized (using Marshal by default) then encoded via AES. Both the encoded string and the <a href="http://en.wikipedia.org/wiki/Initialization_vector">IV</a> are encoded using base64 and joined in a string using a predefined format.</p>
+
+<p>At this point, the session is encoded but it could be tampered with. To avoid that, Rails signs the encoded data using the verifier (HMAC) and appends the base 64 encoded signature to the encoded data.</p>
+
+<p>To decode and verify the data, Rails repeats the process in reverse using the serializer to deserialize the data.</p>
+
+<p>Note that you can also rely on the the same crypto process to safely encode/sign <em>any</em> data you want to share. If you&#8217;re ok with the data being user-readable, sign it to make sure it isn&#8217;t tampered with along the way. If you don&#8217;t want it to be user-readable, encrypt it first then sign the encrypted data.</p>
+
+<h2>Sharing the Session with Non-Ruby Apps</h2>
+
+<p>Many apps are moving to an SOA approach. That often means multiple languages living together in production. Sharing a web session can be very useful, especially until you switch to a SSO solution.</p>
+
+<p>The key is to start by having the session data serialized in a format that is available in all your relevent languages. JSON, XML MessagePack, and protobuf are good examples.</p>
+
+<p>The second step is to reimplement the crypto dance I just explained above. The good news is that I’ve already done it for Go. Using that example, you should be able to port it to other languages (Node, Scala/Clojure/Java, Rust, Elixir, Python or whatever you fancy).</p>
+
+<p>https://github.com/mattetti/goRailsYourself/tree/master/crypto</p>
+
+<p>Even though the test suite isn’t perfect (yet), it should greatly help you through the porting process. To be honest the hardest part was understanding the process, not writing the code. Most languages have decent crypto libraries to do the hard parts for you. But for Go I had to implement lower level pieces like the PKCS7 padding for the AES CBC encryption/decryption.</p>
+
+<p>Hopefully this article was helpful and you now better understand how Rails does its session encryption. Once you understand the process Rails uses, you can implement it in any language.</p>
+
+<p><strong> Finally, if you interested in working on interesting and challenging
+problems like these ones, consider joining the <a href="https://splice.com">Splice</a> team! </strong></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Bad code doesn't exist]]></title>
@@ -4613,180 +4703,6 @@ I&#8217;m quite concerned by the syntax and the performance we will get out of
 the box. But time will tell and things can always be improved.
 Ruby on iOS/Android is something exciting and I&#8217;m looking forward to
 testing the first betas.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Building and implementing a Single Sign-On solution]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution/"/>
-    <updated>2012-04-04T07:29:16-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/04/04/building-and-implementing-a-single-sign-on-solution</id>
-    <content type="html"><![CDATA[<p>Most modern web applications start as a monolithic code base and, as complexity increases, the once small app gets split apart into many &#8220;modules&#8221;. In other cases, engineers opt for a <a href="http://en.wikipedia.org/wiki/Service-oriented_architecture">SOA</a> design approach from the beginning. One way or another, we start running multiple separate applications that need to interact seamlessly. My goal will be to describe some of the high-level challenges and solutions found in implementing a Single-Sign-On service.</p>
-
-<h2>Authentication vs Authorization</h2>
-
-<p>I wish these two words didn&#8217;t share the same root because it surely confuses a lot of people. My most frequently-discussed example is <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a>. Every time I start talking about implementing a centralized/unified authentication system, someone jumps in and suggests that we use <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a>. The challenge is that <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a> is an authorization system, not an authentication system.</p>
-
-<p>It&#8217;s tricky, because you might actually be &#8220;authenticating&#8221; yourself to website X using OAuth. What you are really doing is allowing website X to use your information stored by the OAuth provider. It is true that OAuth offers a pseudo-authentication approach via its provider but that is not the main goal of <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a>: the Auth in OAuth stands for Authorization, not Authentication.</p>
-
-<p>Here is how we could briefly describe each role:</p>
-
-<ul>
-<li><p><strong>Authentication</strong>: recognizes who you are.</p></li>
-<li><p><strong>Authorization</strong>: know what you are allowed to do, or what you allow others to do.</p></li>
-</ul>
-
-
-<p>If you are feel stuck in your design and something seems wrong, ask yourself if you might be confused by the 2 auth words. This article will only focus on <strong>authentication</strong>.</p>
-
-<h2>A Common Scenario</h2>
-
-<p><a href="http://merbist.com/wp-content/uploads/2012/04/SSO-simplescenario.png"><img src="http://merbist.com/wp-content/uploads/2012/04/SSO-simplescenario.png" alt="SSO diagram with 3 top applications connecting to an authorization service." /></a></p>
-
-<p>This is probably the most common structure, though I made it slightly more complex by drawing the three main apps in different programming languages. We have three web applications running on different subdomains and sharing account data via a centralized authentication service.</p>
-
-<p><strong>Goals:</strong></p>
-
-<ul>
-<li><p>Keep authentication and basic account data isolated.</p></li>
-<li><p>Allow users to stay logged in while browsing different apps.</p></li>
-</ul>
-
-
-<p>Implementing such a system should be easy. That said, if you migrate an existing app to an architecture like that, you will spend 80% of your time decoupling your legacy code from authentication and wondering what data should be centralized and what should be distributed. Unfortunately, I can&#8217;t tell you what to do there since this is very domain specific. Instead, let&#8217;s see how to do the &#8220;easy part.&#8221;</p>
-
-<h2>Centralizing and Isolating Shared Account Data</h2>
-
-<p>At this point, you more than likely have each of your apps talk directly to shared database tables that contain user account data. The first step is to migrate away from doing that. We need a single interface that is the only entry point to create or update shared account data. Some of the data we have in the database might be app specific and therefore should stay within each app, anything that is shared across apps should be moved behind the new interface.</p>
-
-<p>Often your centralized authentication system will store the following information:</p>
-
-<ul>
-<li><p>ID</p></li>
-<li><p>first name</p></li>
-<li><p>last name</p></li>
-<li><p>login/nickname</p></li>
-<li><p>email</p></li>
-<li><p>hashed password</p></li>
-<li><p>salt</p></li>
-<li><p>creation timestamp</p></li>
-<li><p>update timestamp</p></li>
-<li><p>account state (verified, disabled &#8230;)</p></li>
-</ul>
-
-
-<p>Do not duplicate this data in each app, instead have each app rely on the account ID to query data that is specific to a given account in the app. Technically that means that instead of using SQL joins, you will query your database using the ID as part of the condition.</p>
-
-<p>My suggestion is to do things slowly but surely. Migrate your database schema piece by piece assuring that everything works fine. Once the other pieces will be in place, you can migrate one code API a time until your entire code base is moved over. You might want to change your DB credentials to only have read access, then no access at all.</p>
-
-<h2>Login workflow</h2>
-
-<p>Each of our apps already has a way for users to login. We don&#8217;t want to change the user experience, instead we want to make a transparent modification so the authentication check is done in a centralized way instead of a local way. To do that, the easiest way is to keep your current login forms but instead of POSTing them to your local apps, we&#8217;ll POST them to a centralized authentication API. (SSL is strongly recommended)</p>
-
-<p><a href="http://merbist.com/wp-content/uploads/2012/04/SSO-login.png"><img src="http://merbist.com/wp-content/uploads/2012/04/SSO-login.png" alt="diagram showing the login workflow" /></a></p>
-
-<p>As shown above, the login form now submits to an endpoint in the authentication application. The form will more than likely include a login or email and a clear text password as well as a hidden callback/redirect url so that the authentication API can redirect the user&#8217;s browser to the original app. For security reasons, you might want to white list the domains you allow your authentication app to redirect to.</p>
-
-<p>Internally, the Authentication app will validate the identifier (email or login) using a hashed version of the clear password against the matching record in the account data. If the verification is successful, a token will be generated containing some user data (for instance: id, first name, last name, email, created date, authentication timestamp). If the verification failed, the token isn&#8217;t generated. Finally the user&#8217;s browser is redirected to the callback/redirect URL provided in the request with the token being passed.</p>
-
-<p>You might want to safely encrypt the data in a way that allows the clients to verify and trust that the token comes from a trusted source. A great solution for that would be to use <a href="http://en.wikipedia.org/wiki/RSA_(algorithm">RSA encryption</a>) with the public key available in all your client apps but the private key only available on the auth server(s). Other strong encryption solutions would also work. For instance, another appropriate approach would be to add a signature to the params sent back. This way the clients could check the authenticity of the params. <a href="http://en.wikipedia.org/wiki/HMAC">HMAC</a> or <a href="http://en.wikipedia.org/wiki/Digital_Signature_Algorithm">DSA</a> signature are great for that but in some cases, you don&#8217;t want people to see the content of the data you send back. That&#8217;s especially true if you are sending back a &#8216;mobile&#8217; token for instance. But that&#8217;s a different story. What&#8217;s important to consider is that we need a way to ensure that the data sent back to the client can&#8217;t be tampered with. You might also make sure you prevent replay attacks.</p>
-
-<p>On the other side, the application receives a GET request with a token param. If the token is empty or can&#8217;t be decrypted, authentication failed. At that point, we need to show the user the login page again and let him/her try again. If on the other hand, the token can be decrypted, the content should be saved in the session so future requests can reuse the data.</p>
-
-<p>We described the authentication workflow, but if a user logins in application X, (s)he won&#8217;t be logged-in in application Y or Z. The trick here, is to set a top level domain cookie that can be seen by all applications running on subdomains. Certainly, this solution only works for apps being on the same domain, but we&#8217;ll see later how to handle apps on different domains.</p>
-
-<p><a href="http://merbist.com/wp-content/uploads/2012/04/SSO-login-cookie.png"><img src="http://merbist.com/wp-content/uploads/2012/04/SSO-login-cookie.png" alt="" /></a></p>
-
-<p>The cookie doesn&#8217;t need to contain a lot of data, its value can contain the account id, a timestamp (to know when authentication happened and a trusted signature) and a signature. The signature is critical here since this cookie will allow users to be automatically logged in other sites. I&#8217;d recommend the  <a href="http://en.wikipedia.org/wiki/HMAC">HMAC</a> or <a href="http://en.wikipedia.org/wiki/Digital_Signature_Algorithm">DSA</a> encryptions to generate the signature. The DSA encryption, very much like the RSA encryption is an asymmetrical encryption relying on a public/private key. This approach offers more security than having something based a shared secret like HMAC does. But that&#8217;s really up to you.</p>
-
-<p>Finally, we need to set a filter in your application. This auto-login filter will check the presence of an auth cookie on the top level domain and the absence of local session. If that&#8217;s the case, a session is automatically created using the user id from the cookie value after the cookie integrity is verified. We could also share the session between all our apps, but in most cases, the data stored by each app is very specific and it&#8217;s safer/cleaner to keep the sessions isolated. The integration with an app running on a different service will also be easier if the sessions are isolated.</p>
-
-<p> </p>
-
-<h2>Registration</h2>
-
-<p>For registration, as for login, we can take one of two approaches: point the user&#8217;s browser to the auth API or make S2S (server to server) calls from within our apps to the Authentication app. POSTing a form directly to the API is a great way to reduce duplicated logic and traffic on each client app so I&#8217;ll demonstrate this approach.</p>
-
-<p><a href="http://merbist.com/wp-content/uploads/2012/04/CopyofSSO-register.png"><img src="http://merbist.com/wp-content/uploads/2012/04/CopyofSSO-register.png" alt="" /></a></p>
-
-<p>As you can see, the approach is the same we used to login. The difference is that instead of returning a token, we just return some params (id, email and potential errors). The redirect/callback url will also obviously be different than for login. You could decide to encrypt the data you send back, but in this scenario, what I would do is set an auth cookie at the .domain.com level when the account is created so the &#8220;client&#8221; application can auto-login the user. The information sent back in the redirect is used to re-display the register form with the error information and the email entered by the user.</p>
-
-<p>At this point, our implementation is almost complete. We can create an account and login using the defined credentials. Users can switch from one app to another without having to re login because we are using a shared signed cookie that can only be created by the authentication app and can be verified by all &#8220;client&#8221; apps. Our code is simple, safe and efficient.</p>
-
-<h2>Updating or deleting an account</h2>
-
-<p>The next thing we will need is to update or delete an account. In this case, this is something that needs to be done between a &#8220;client&#8221; app and the authentication/accounts app. We&#8217;ll make S2S (server to server) calls. To ensure the security of our apps and to offer a nice way to log requests, API tokens/keys will be used by each client to communicate with the authentication/accounts app. The API key can be passed using a <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields">X-header</a> so this concern stays out of the request params and our code can process separately the authentication via X-header and the actual service implementation. S2S services should have a filter verifying and logging the API requests based on the key sent with the request. The rest is straight forward.</p>
-
-<h2>Using different domains</h2>
-
-<p>Until now, we assumed all our apps were on the same top domain. In reality, you will often find yourself with apps on different domains. This means that you can&#8217;t use the shared signed cookie approach anymore. However, there is a simple trick that will allow you to avoid requiring your users to re-login as they switch apps.</p>
-
-<p><a href="http://merbist.com/wp-content/uploads/2012/04/SSO-differentdomains-1.png"><img src="http://merbist.com/wp-content/uploads/2012/04/SSO-differentdomains-1.png" alt="" /></a></p>
-
-<p> </p>
-
-<p>The trick consists, when a local session isn&#8217;t present, of using an iframe in the application using the different domain. The iframe loads a page from the authentication/accounts app which verifies that a valid cookie was set on the main top domain. If that is the case, we can tell the application that the user is already globally logged in and we can tell the iframe host to redirect to an application end point passing an auth token the same way we did during the authentication. The app would then create a session and redirect the user back to where (s)he started. The next requests will see the local session and this process will be ignored.</p>
-
-<p>If the authentication application doesn&#8217;t find a signed cookie, the iframe can display a login form or redirect the iframe host to a login form depending on the required behavior.</p>
-
-<p>Something to keep in mind when using multiple apps and domains is that you need to keep the shared cookies/sessions in sync, meaning that if you log out from an app, you need to also delete the auth cookie to ensure that users are globally logged out. (It also means that you might always want to use an iframe to check the login status and auto-logoff users).</p>
-
-<p> </p>
-
-<h2>Mobile clients</h2>
-
-<p>Another part of implementing a SSO solution is to handle mobile clients. Mobile clients need to be able to register/login and update accounts. However, unlike S2S service clients, mobile clients should only allow calls to modify data on the behalf of a given user. To do that, I recommend providing opaque mobile tokens during the login process. This token can then be sent with each request in a X-header so the service can authenticate the user making the request. Again, SSL is strongly recommended.</p>
-
-<p>In this approach, we don&#8217;t use a cookie and we actually don&#8217;t need a SSO solution, but an unified authentication system.</p>
-
-<p> </p>
-
-<h2>Writing web services</h2>
-
-<p>Our Authentication/Accounts application turns out to be a pure web API app.</p>
-
-<p>We also have 3 sets of APIs:</p>
-
-<ul>
-<li><p>Public APIs: can be accessed from anywhere, no authentication required</p></li>
-<li><p>S2S APIs: authenticated via API keys and only available to trusted clients</p></li>
-<li><p>Mobile APIs: authenticated via a mobile token and limited in scope.</p></li>
-</ul>
-
-
-<p>We don&#8217;t need dynamic HTML views, just simple web service related code. While this is a little bit off topic, I&#8217;d like to take a minute to show you how I personally like writing web service applications.</p>
-
-<p>Something that I care a lot about when I implement web APIs is to validate incoming params. This is an opinionated approach that I picked up while at Sony and that I think should be used every time you implement a web API. As a matter of fact, I wrote a Ruby <a href="https://github.com/mattetti/Weasel-Diesel">DSL library (Weasel Diesel)</a> allowing you <a href="https://github.com/mattetti/sinatra-web-api-example/blob/master/api/hello_world.rb">describe a given service</a>, its <a href="https://github.com/mattetti/sinatra-web-api-example/blob/master/api/hello_world.rb#L7">incoming params</a>, and the <a href="https://github.com/mattetti/sinatra-web-api-example/blob/master/api/hello_world.rb#L10-15">expected output</a>. This DSL is hooked into a web backend so you can implement services using a web engine such as <a href="http://www.sinatrarb.com/">Sinatra</a> or maybe Rails3. Based on the DSL usage, incoming parameters are be verified before being processed. The other advantage is that you can generate documentation based on the API description as well as automated tests.</p>
-
-<p>You might be familiar with <a href="https://github.com/intridea/grape">Grape</a>, another DSL for web services. Besides the obvious style difference <a href="https://github.com/mattetti/Weasel-Diesel">Weasel Diesel </a>offers the following advantages:</p>
-
-<ul>
-<li><p>input validation/sanitization</p></li>
-<li><p>service isolation</p></li>
-<li><p>generated documentation</p></li>
-<li><p>contract based design</p></li>
-</ul>
-
-
-<p>Here is a hello world webservice being implemented using Weasel Diesel and Sinatra:</p>
-
-<div><script src='https://gist.github.com/2300131.js?file='></script>
-<noscript><pre><code></code></pre></noscript></div>
-
-
-<p>Basis test validating the contract defined in the DSL and the actual output when the service is called:</p>
-
-<div><script src='https://gist.github.com/2300440.js?file='></script>
-<noscript><pre><code></code></pre></noscript></div>
-
-
-<p>Generated documentation:</p>
-
-<p><img src="https://img.skitch.com/20120404-t1j93b73tef5pmd5idfqqa61td.jpg" alt="" /></p>
-
-<p>If the DSL and its features seem appealing to you and you are interested in digging more into it, the easiest way is to fork <a href="https://github.com/mattetti/sinatra-web-api-example/">this demo repo</a> and start writing your own services.</p>
-
-<p>The DSL has been used in production for more than a year, but there certainly are tweaks and small changes that can make the user experience even better. Feel free to fork the <a href="https://github.com/mattetti/Weasel-Diesel">DSL repo</a> and send me Pull Requests.</p>
 ]]></content>
   </entry>
   
