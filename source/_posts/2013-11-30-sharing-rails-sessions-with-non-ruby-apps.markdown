@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Sharing Rails Sessions with non-Ruby Apps"
+title: "Sharing Rails Sessions with Non-Ruby Apps"
 date: 2013-11-30 12:01
 comments: true
 categories: 
