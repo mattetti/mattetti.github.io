@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Sharing Rails sessions with non-Ruby apps"
+title: "Sharing Rails Sessions with non-Ruby Apps"
 date: 2013-11-30 12:01
 comments: true
 categories: 
@@ -8,33 +8,31 @@ categories:
 - Golang
 ---
 
-The other day I wanted to do something I thought would be simple: share my Rails sessions with my Go app. I wanted to let a an authenticated Rails user make and JS API call to and endpoint written in Go. 
-Since I own both apps, I thought it would be as simple as sharing the secret session key and re-implement Rails crypto in Go. 
-Little did I know that I would take me longer than I expected and I would discover interesting things.
+I wanted to do something I thought would be simple: share sessions between my Rails and Go applications. I wanted to let an authenticated Rails user make JavaScript API calls to an endpoint written in Go. 
+
+Since I own both apps, I thought it would be as simple as sharing the secret session key and re-implementing Rails crypto process in Go. It turned out to be a lot more interesting.
 
 In a nutshell, here is what I discovered:
 
-   * Totally doable, here is my [Go package](http://godoc.org/github.com/mattetti/goRailsYourself/crypto) 
+   * It's totally doable! Here is my [Go package](http://godoc.org/github.com/mattetti/goRailsYourself/crypto) 
    * If you are using a version of Rails older than 4.0, you’d better upgrade ASAP!
-   * Rails has been criticized for security issues, but the current solution has been vested by many experts.
+   * Rails has been criticized for security issues, but the current solution has been vetted by many experts.
    * Rails serializes session data using Ruby Marshal which means that someone with the secret key can *inject arbitrary code in the session* and it will execute server side. Switch to JSON, MessagePack or other safe serialization formats.
-   * Security is hard (reminder)
+   * Security is (still) hard.
 
+## Rails Cookies are Dangerous
 
-## Rails cookies are dangerous
+Because Rails serializes and deserializes the session and any encrypted/signed cookies using Ruby's Marshal library, someone with the app secret can wreak havoc. They can embed arbitrary Ruby code into the cookie, and the deserialization server side will execute that code without you noticing. Granted, this requires the attacker to have the app secret, but since 99% of the apps out there have the shared secret in their source code, anyone with access to the source code has this data. It’s not data you can easily rotate when employees leave or when you are done working with contractors. Anybody with the shared secret is a potential attacker. Start by moving this data out of the code base and into environment variables.
 
-Because Rails serializes the session and any encrypted/signed cookies using Ruby's Marshal library, someone with the app secret can run a very simple attack to execute arbitrary code server side without you noticing. Granted, this requires the attacker to have the app secret, but since 99% of the apps out there have the shared secret in their source code, anyone with access to the source code has this data. It’s not data you can easily rotate when employees leave or when you are done working with contractors. Anybody with the shared secret is a potential attacker, so start by moving this data out of the code base.
-
-Rails doesn’t let you change the default serializer, but Rails relies on two ActiveSupport for its crypto work and AS supports swapping the serializer. Some people in the community are aware of this issue and monkey patch Rails to serialize their sessions using JSON or other. Here is an [Airbnb article](http://nerds.airbnb.com/upgrading-from-ree-187-to-ruby-193/) mentioning why and how they did it.  
+Rails doesn’t let you change the default serializer directly. But Rails relies on ActiveSupport for its crypto work and AS supports swapping the serializer. Some people in the community are aware of this issue and monkey patch Rails to serialize their sessions using JSON or other. Here is an [Airbnb article](http://nerds.airbnb.com/upgrading-from-ree-187-to-ruby-193/) mentioning why and how they did it.  
 [Airbnb’s patch](https://gist.github.com/jeffyip/4091166) is Rails 3 only and to avoid logging off their users, they convert all Marshalled session to JSON, but if you use their patch, you are still vulnerable to an attack. (Airbnb probably stopped converting sessions after they migrated most of their user base). 
 [Here is my Rails 4 monkey patch](https://gist.github.com/mattetti/7624413
-) to switch the serialization to JSON (used in prod, untested on Rails 3). 
+) to switch the serialization to JSON (used in production with Rails 4, untested on Rails 3). 
 https://gist.github.com/mattetti/7624413
 
-Of course you can easily modify the code to use [MessagePack]( http://msgpack.org/) instead of JSON if you want to fit more data in the 4K cookie size. 
+You can modify those solutions to use [MessagePack]( http://msgpack.org/) instead of JSON if you want to fit more data in the 4K cookie size. 
 
-
-## Understanding Rails session ecnryption
+## Understanding Rails Session Ecnryption
 
 Once I addressed the serialization issue, I had to reimplement the crypto work done by Rails to encode and/or sign the data.
 Most of us just rely on our frameworks/libraries to do the right thing, but we rarely look under the hood. I ported the logic to Golang which has an amazing support for crypto (albeit lower level than Ruby).
