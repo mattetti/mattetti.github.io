@@ -32,14 +32,13 @@ https://gist.github.com/mattetti/7624413
 
 You can modify those solutions to use [MessagePack]( http://msgpack.org/) instead of JSON if you want to fit more data in the 4K cookie size. 
 
-## Understanding Rails Session Ecnryption
+## Understanding Rails Session Encryption
 
 Once I addressed the serialization issue, I had to reimplement the crypto work done by Rails to encode and/or sign the data.
 Most of us just rely on our frameworks/libraries to do the right thing, but we rarely look under the hood. I ported the logic to Golang which has an amazing support for crypto (albeit lower level than Ruby).
-My [Go package](http://godoc.org/github.com/mattetti/goRailsYourself/crypto) http://godoc.org/github.com/mattetti/goRailsYourself/crypto contains an explanation of the code logic and [the examples](http://godoc.org/github.com/mattetti/goRailsYourself/crypto#pkg-examples) needed to decode/verify as well as encode/sign sessions that are compatible with Rails.
+My [Go package](http://godoc.org/github.com/mattetti/goRailsYourself/crypto)  contains an explanation of the code logic and [the examples](http://godoc.org/github.com/mattetti/goRailsYourself/crypto#pkg-examples) needed to decode/verify as well as encode/sign sessions that are compatible with Rails.
 
-
-Here is the high level, extracted version of what Rails does when it encodes and signs your session data:
+Here is a high level summary of what Rails does when it encodes and signs your session data:
 
 ```ruby
 key_generator = ActiveSupport::CachingKeyGenerator.new(ActiveSupport::KeyGenerator.new(app_secret_key, iterations: 1000))
@@ -51,37 +50,37 @@ session_content = encryptor.encrypt_and_sign({hello: "world"})
 ```
 
 The `session_content` string is then set as the session cookie value.
-Note that you could do that in any Ruby app using `ActiveSupport`,
-sharing the session between Rails and Sinatra is trivial.
+Note that you could do that in any Ruby app using `ActiveSupport`. So sharings sessions between Ruby applications (like Rails & Sinatra) is easy.
 
-
-Technically, there are a lot of things going on. To avoid using the same secret to sign and encode data, Rails relies on derived keys using [PBKDF2](http://en.wikipedia.org/wiki/PBKDF2) (password based key derivation function) http://en.wikipedia.org/wiki/PBKDF2 .
+Technically, there are a lot of things going on. To avoid using the same secret to sign and encode data, Rails relies on derived keys using [PBKDF2](http://en.wikipedia.org/wiki/PBKDF2) (password based key derivation function).
 It treats the app secret as a password and applies a pseudorandom function 1000 times (Rails default) using a default salt. The result is a derived key so the original password isn’t shared. The derived key can be regenerated identically if the salt and secret are known (because the function is pseudorandom).
+
 The two derived keys are then passed to the [`MessageEncryptor`](https://github.com/rails/rails/blob/master/activesupport/lib/active_support/message_encryptor.rb) class which uses [`MessageVerifier`](https://github.com/rails/rails/blob/master/activesupport/lib/active_support/message_verifier.rb) to do the signing. The generated keys are 64 bytes long and a key goes to the encryptor while the other goes to the verifier.
 
-The verification is done via [HMAC (SHA1)](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code) and it uses the full 64 bytes key.
-The encoding is done via [AES 256 CBC](http://en.wikipedia.org/wiki/Advanced_Encryption_Standard) only using the first 32 bytes of the encryption derived key. (Rails will eventually only generate a 32-bytes key for that since that's the expected key length)
+The verification is done via [HMAC (SHA1)](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code) and it uses the full 64 byte key.
+The encoding is done via [AES 256 CBC](http://en.wikipedia.org/wiki/Advanced_Encryption_Standard) only using the first 32 bytes of the encryption derived key. (Rails will only generate a 32-bytes key for that since that's the expected key length)
 
 The session data is therefore serialized (using Marshal by default) then encoded via AES, then both the encoded string and the [IV](http://en.wikipedia.org/wiki/Initialization_vector) are encoded using base64 and joined in a string using a predefined format.
-At this point, the session is encoded but it could be tampered with, to avoid that, Rails signs the encoded data using the verifier (HMAC) and append the base 64 encoded signature to the encoded data. 
-To decode and verify the data, we just walk the chain back and call the serializer to deserialize the data.
 
-Note that you can also rely on the the same crypto to safely encode/sign any data you want to share. Only sign data when you don’t mind people seeing its content, encode and sign otherwise.
+At this point, the session is encoded but it could be tampered with. To avoid that, Rails signs the encoded data using the verifier (HMAC) and appends the base 64 encoded signature to the encoded data. 
 
+To decode and verify the data, Rails does the same process in reverse using the serializer to deserialize the data.
 
-## Sharing the session with non-Ruby apps
+Note that you can also rely on the the same crypto process to safely encode/sign any data you want to share. If you're ok with the data being user-readable, sign it to make sure it isn't tampered with along the way. If you don't want it to be user-readable, encrypt it first then sign the encrypted data.
 
-As most apps grow, they are moving to a SOA approach and that often means multiple languages live together in production. Sharing a web session can be very useful, at least until you switch to a SSO solution.
+## Sharing the Session with Non-Ruby Apps
 
-The key is to start by having the session data serialized in a format that is available to all languages. JSON, XML MessagePack, protobuf are good examples. Remember that sessions kept in cookies cannot be bigger than 4K so if you store a lot of data in your session (you really shouldn’t), you might want to use a format that doesn’t take too much room.
-The second thing to do is to reimplement the crypto dance I just explained above. The good news is that I’ve already done it for Go so you should be able to port it easily to other languages (Node, Scala/Clojure/Java, Rust, Elixir, Python or whatever you fancy).
+As apps grow many are moving to a SOA approach. That often means multiple languages living together in production. Sharing a web session can be very useful, especially until you switch to a SSO solution.
+
+The key is to start by having the session data serialized in a format that is available in all your relevent languages. JSON, XML MessagePack, and protobuf are good examples.
+
+The second step is to reimplement the crypto dance I just explained above. The good news is that I’ve already done it for Go so you should be able to port it to other languages (Node, Scala/Clojure/Java, Rust, Elixir, Python or whatever you fancy).
 
 https://github.com/mattetti/goRailsYourself/tree/master/crypto
 
-Even though the test suite isn’t perfect (yet), it should greatly help you through the porting process. To be honest the hardest part was to understand the flow, not really writing the code since most language have decent crypto libs to do the hard parts. But in some cases, like for Go, I had to implement lower level pieces like the PKCS7 padding so I could implement the AES CBC encryption/decryption. Each language is different but I don’t expect the work to take that long. 
+Even though the test suite isn’t perfect (yet), it should greatly help you through the porting process. To be honest the hardest part was to understand the process, not writing the code. Most languages have decent crypto libraries to do the hard parts for you. But in some cases, like for Go, I had to implement lower level pieces like the PKCS7 padding so I could implement the AES CBC encryption/decryption.
 
-Hopefully this article was helpful and you now better understand how Rails does its session encryption so session sharing won’t be a blocker when it comes to extending your Rails apps using other languages.
-
+Hopefully this article was helpful and you now better understand how Rails does its session encryption. Once you understand the process Rails uses, you can implement it in any language.
 
 
 
