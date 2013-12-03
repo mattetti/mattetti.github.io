@@ -84,41 +84,5 @@ Hopefully this article was helpful and you now better understand how Rails does 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Rails sessions and signed cookies are serialized using Marshal!
-
-This is an issue for 2 main reasons:
-
-
-   * Marshal isn’t a standard, it’s often not even compatible between versions of Ruby, I really don’t want to implement a partial version of Marshal in Go.
-   * If you have the session secret key, you can put whatever Ruby code in your session and it will execute server side.
-
-
-The first reason on its own pushed me to look at the code and I noticed a few things, first there isn’t a way to do that even though the underlying elements do support a change of serializer. Secondly, many people in the community are aware of this issue ( http://nerds.airbnb.com/upgrading-from-ree-187-to-ruby-193/ ) and run monkey patched versions of Rails.
-
-The second issue is also quite problematic. In theory, the cookie secret key shouldn’t be in your source code (even though Rails generate a file for that) and nobody should know the prod key. However, in practice, most of your dev team has access to this info. Even with a different serializer, it’s a serious vector of attack since anyone with the key can forge a cookie and login as someone else. But because of the cookie Marshaling, a malicious (ex) employee can execute arbitrary code server side by signing it and putting it in a cookie and letting Rails unmarshal automatically.
-
-This is why I recommend we all quickly switch away from using an unsafe serializer for our Rails cookies and switch to a better default like JSON.
-
-I discussed the issue with the Rails team who understands the problem and would in theory accept a PR to change the default. 
-I myself wrote a monkey patch for Rails 4  but I don’t currently have time to prepare a proper pull request (airbnb published a Rails 3 only patch, but I recommend against it since it still unmarshals the cookies).
-
-
-If you agree that this is a problem, consider two things: 
-
-
-   * switch your serializer (all your users will need to re-login but you can also take airbnb’s approach temporarily) 
-
-   * help getting this change in the next Rails release by working on a pull request.
-
+** Finally, if you interested in working on interesting and challenging
+problems like these ones, consider joining the [Splice](https://splice.com) team! **
