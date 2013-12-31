@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: MobiRuby | Matt Aimonetti]]></title>
-  <link href="http://mattetti.github.com//articles/categories/mobiruby/atom.xml" rel="self"/>
-  <link href="http://mattetti.github.com//"/>
-  <updated>2013-12-31T01:14:29-08:00</updated>
-  <id>http://mattetti.github.com//</id>
+  <link href="http://mattetti.github.com/articles/categories/mobiruby/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com/"/>
+  <updated>2013-12-31T01:16:41-08:00</updated>
+  <id>http://mattetti.github.com/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[mruby and MobiRuby]]></title>
-    <link href="http://mattetti.github.com//posts/2012/04/20/mruby-and-mobiruby/"/>
+    <link href="http://mattetti.github.com/posts/2012/04/20/mruby-and-mobiruby/"/>
     <updated>2012-04-20T12:32:00-07:00</updated>
-    <id>http://mattetti.github.com//posts/2012/04/20/mruby-and-mobiruby</id>
+    <id>http://mattetti.github.com/posts/2012/04/20/mruby-and-mobiruby</id>
     <content type="html"><![CDATA[<p>Today, two big Ruby news came directly from Japan:</p>
 
 <ul>
