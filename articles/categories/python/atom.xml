@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Python | Matt Aimonetti]]></title>
-  <link href="http://mattetti.github.com/mattetti/articles/categories/python/atom.xml" rel="self"/>
-  <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-12-31T01:07:06-08:00</updated>
-  <id>http://mattetti.github.com/mattetti/</id>
+  <link href="http://mattetti.github.com//articles/categories/python/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com//"/>
+  <updated>2013-12-31T01:14:29-08:00</updated>
+  <id>http://mattetti.github.com//</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[What technology should my startup use?]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use/"/>
+    <link href="http://mattetti.github.com//posts/2013/08/27/what-technology-should-my-startup-use/"/>
     <updated>2013-08-27T22:10:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use</id>
+    <id>http://mattetti.github.com//posts/2013/08/27/what-technology-should-my-startup-use</id>
     <content type="html"><![CDATA[<p>Over the years many people have asked me the same question:</p>
 
 <blockquote><p>I'm starting this new project, what technology do you think I should use?</p></blockquote>
@@ -488,9 +488,9 @@ solid compromise.</p>
   
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
+    <link href="http://mattetti.github.com//posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
     <updated>2012-10-05T15:09:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
+    <id>http://mattetti.github.com//posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
     <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
 Aimonetti gave a talk entitled <em>Tower of
 Babel: a tour of programming languages</em>.</p>
@@ -519,7 +519,7 @@ languages:</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="http://mattetti.github.com///speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on <a href="https://speakerdeck.com/u/matt_aimonetti/p/tower-of-babel-a-tour-of-programming-languages">Matt's SpeakerDeck</a> and can be <a href="">downloaded here</a>.</p>
@@ -532,9 +532,9 @@ languages:</p>
   
   <entry>
     <title type="html"><![CDATA[LA RubyConf 2012 - Ruby: time to move on]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012/"/>
+    <link href="http://mattetti.github.com//posts/2012/02/04/larubyconf-2012/"/>
     <updated>2012-02-04T15:09:00-08:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/02/04/larubyconf-2012</id>
+    <id>http://mattetti.github.com//posts/2012/02/04/larubyconf-2012</id>
     <content type="html"><![CDATA[<p>During <a href="http://larubyconf.org/">LA RubyConf 2012</a> in Los Angeles, CA Matt
 Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
 
@@ -563,9 +563,9 @@ Aimonetti gave a talk entitled <em>Ruby: time to move on</em>.</p>
   
   <entry>
     <title type="html"><![CDATA[RubyConf Argentina 2011 - Inside Ruby]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2011/11/08/rubyconf-argentina-2011/"/>
+    <link href="http://mattetti.github.com//posts/2011/11/08/rubyconf-argentina-2011/"/>
     <updated>2011-11-08T15:42:00-08:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2011/11/08/rubyconf-argentina-2011</id>
+    <id>http://mattetti.github.com//posts/2011/11/08/rubyconf-argentina-2011</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconfargentina.org/en">RubyConf Argentina 2011</a> in Buenos Aires, Argentina Matt
 Aimonetti gave a talk entitled <em>Inside Ruby: concurrency &amp; garbage collection explained</em>.</p>
 
@@ -609,9 +609,9 @@ management works to get better performance out of your code.</p>
   
   <entry>
     <title type="html"><![CDATA[RubyConf 2011 - Complex Ruby concepts simplified]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2011/10/01/rubyconf-2011/"/>
+    <link href="http://mattetti.github.com//posts/2011/10/01/rubyconf-2011/"/>
     <updated>2011-10-01T15:09:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2011/10/01/rubyconf-2011</id>
+    <id>http://mattetti.github.com//posts/2011/10/01/rubyconf-2011</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.org/">RubyConf 2011</a> in New Orleans, LA Matt
 Aimonetti gave a talk entitled <em>Complex Ruby concepts simplified</em>.</p>
 

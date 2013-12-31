@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Matt Aimonetti]]></title>
-  <link href="http://mattetti.github.com/mattetti/atom.xml" rel="self"/>
-  <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-12-31T01:07:06-08:00</updated>
-  <id>http://mattetti.github.com/mattetti/</id>
+  <link href="http://mattetti.github.com//atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com//"/>
+  <updated>2013-12-31T01:14:29-08:00</updated>
+  <id>http://mattetti.github.com//</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Sharing Rails Sessions with Non-Ruby Apps]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps/"/>
+    <link href="http://mattetti.github.com//posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps/"/>
     <updated>2013-11-30T12:01:00-08:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps</id>
+    <id>http://mattetti.github.com//posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps</id>
     <content type="html"><![CDATA[<p>I wanted to share sessions between my Rails and Go applications. I wanted to let an authenticated Rails user make JavaScript API calls to an endpoint written in Go. How hard could it be?</p>
 
 <p>Since I own both apps, I thought it would be as simple as sharing the secret session key and re-implementing Rails crypto process in Go. It turned out to be a lot more interesting.</p>
@@ -105,9 +105,9 @@ problems like these ones, consider joining the <a href="https://splice.com">Spli
   
   <entry>
     <title type="html"><![CDATA[Bad code doesn't exist]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/10/14/bad-code-doesnt-exist/"/>
+    <link href="http://mattetti.github.com//posts/2013/10/14/bad-code-doesnt-exist/"/>
     <updated>2013-10-14T09:08:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/10/14/bad-code-doesnt-exist</id>
+    <id>http://mattetti.github.com//posts/2013/10/14/bad-code-doesnt-exist</id>
     <content type="html"><![CDATA[<p>I just give a talk at <a href="http://wickedgoodruby.com/">Wicked Good Ruby Conf</a> in Boston. I&#8217;m sure the talk will be online soon, but I figured it would be interesting to discuss it a bit further in a blog post.</p>
 
 <p>The format was a bit different than usual, I had a 40 minute slot and
@@ -133,7 +133,7 @@ others. Most code turns emo after a little while, being able to
 understand the context, helps a lot the devision process when facing
 such code.</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-code_apology.jpg" alt="Bad code" /></p>
+<p><img src="http://mattetti.github.com//images/matt_aimonetti-code_apology.jpg" alt="Bad code" /></p>
 
 <h2>It&#8217;s all about expected outcome and context</h2>
 
@@ -188,21 +188,21 @@ to decide what solution to pick.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="f325aee016620131a63906e09cf22df5" data-ratio="1.33333333333333" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="f325aee016620131a63906e09cf22df5" data-ratio="1.33333333333333" src="http://mattetti.github.com///speakerdeck.com/assets/embed.js"></script>
 
 
 <h2>Video</h2>
 
-<iframe width="640" height="480" src="http://mattetti.github.com/mattetti//www.youtube.com/embed/VO-NvnZfMA4" frameborder="0" allowfullscreen></iframe>
+<iframe width="640" height="480" src="http://mattetti.github.com///www.youtube.com/embed/VO-NvnZfMA4" frameborder="0" allowfullscreen></iframe>
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[What technology should my startup use?]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use/"/>
+    <link href="http://mattetti.github.com//posts/2013/08/27/what-technology-should-my-startup-use/"/>
     <updated>2013-08-27T22:10:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/08/27/what-technology-should-my-startup-use</id>
+    <id>http://mattetti.github.com//posts/2013/08/27/what-technology-should-my-startup-use</id>
     <content type="html"><![CDATA[<p>Over the years many people have asked me the same question:</p>
 
 <blockquote><p>I&#8217;m starting this new project, what technology do you think I should use?</p></blockquote>
@@ -673,9 +673,9 @@ solid compromise.</p>
   
   <entry>
     <title type="html"><![CDATA[Golang multipart file upload example]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example/"/>
+    <link href="http://mattetti.github.com//posts/2013/07/01/golang-multipart-file-upload-example/"/>
     <updated>2013-07-01T22:28:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example</id>
+    <id>http://mattetti.github.com//posts/2013/07/01/golang-multipart-file-upload-example</id>
     <content type="html"><![CDATA[<p>The Go language is one of my favorite programming languages. However,
 sometimes doing simple things can seem a bit harder than it should.
 However, most of the time, the problem is just to find out how to
@@ -979,9 +979,9 @@ upload.</em></p>
   
   <entry>
     <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
+    <link href="http://mattetti.github.com//posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
     <updated>2013-06-26T10:26:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
+    <id>http://mattetti.github.com//posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
     <content type="html"><![CDATA[<p>Engineers love to improve things. Refactoring and optimizations
 drive us. There is just a slight problem: we often do that in a vacuum.</p>
 
@@ -995,7 +995,7 @@ drive us. There is just a slight problem: we often do that in a vacuum.</p>
 and cons. The point of this article isn&#8217;t to argue about which one <strong>you</strong> should use,
 but instead to give you the some practical knowledge about <a href="http://graphite.readthedocs.org/en/latest/overview.html">Graphite</a>.</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite_fullscreen_800.png" alt="Screenshot of the Graphite UI" /></p>
+<p><img src="http://mattetti.github.com//images/graphite_fullscreen_800.png" alt="Screenshot of the Graphite UI" /></p>
 
 <p>Graphite is used to store and render time-series data. In other words,
 you collect metrics and Graphite allows you to create pretty graphs easily.</p>
@@ -1527,7 +1527,7 @@ A 5-95 span means that we cut off the extreme outliers above 95% and below 5%.</
 <p>Here is a comparison showing how the graphs can be different for the same
 data based on what metric you use:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite/graphite-median_vs_mean_vs_span.png" alt="Graphite comparing median vs mean vs span" /></p>
+<p><img src="http://mattetti.github.com//images/graphite/graphite-median_vs_mean_vs_span.png" alt="Graphite comparing median vs mean vs span" /></p>
 
 <p>Of course the span graph looks much worse than the other two, but it&#8217;s
 also more representative of the real user experience and thus more
@@ -1579,7 +1579,7 @@ A threshold is a visual representation of expectations. Say, for example, that y
 
 <p>and here&#8217;s how it would look in a graph:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite/graphite-median_vs_mean_vs_span-with-threshold.png" alt="Graphite with a threshold" /></p>
+<p><img src="http://mattetti.github.com//images/graphite/graphite-median_vs_mean_vs_span-with-threshold.png" alt="Graphite with a threshold" /></p>
 
 <h3>Draw Null as Zero</h3>
 
@@ -1591,7 +1591,7 @@ the <code>Draw Null as Zero</code> box.</p>
 <p>Here is a graph tracking a webservice that isn&#8217;t getting a lot of
 traffic:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite/nulls_not_drawn_as_zero.png" alt="graphite example" /></p>
+<p><img src="http://mattetti.github.com//images/graphite/nulls_not_drawn_as_zero.png" alt="graphite example" /></p>
 
 <p>You can see that the line is discontinued, that&#8217;s because the API
 doesn&#8217;t constantly receive traffic. If your data series gets only very
@@ -1623,7 +1623,7 @@ To do that, we&#8217;ll use the <code>sumSeries</code> function:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite/graphite-not-summarized.png" alt="RPMs not summarized" /></p>
+<p><img src="http://mattetti.github.com//images/graphite/graphite-not-summarized.png" alt="RPMs not summarized" /></p>
 
 <p>The graph looks pretty but it&#8217;s hard to understand what kind of request
 volume we are getting. We can summarize this data to show 1 min
@@ -1634,7 +1634,7 @@ summaries instead:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite/graphite-summarize.png" alt="RPMs summarize" /></p>
+<p><img src="http://mattetti.github.com//images/graphite/graphite-summarize.png" alt="RPMs summarize" /></p>
 
 <p>We can now see the quantity of requests per minute. You could do the same to resolve by hour, day, etc.</p>
 
@@ -1659,7 +1659,7 @@ today&#8217;s quantity of logins vs those from last weeks.</p>
 
 <p>Graphing both series in the same graph will give us that:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite/graphite-timeshift.png" alt="graphite timeshift example" /></p>
+<p><img src="http://mattetti.github.com//images/graphite/graphite-timeshift.png" alt="graphite timeshift example" /></p>
 
 <p>Wow, it looks like last week we had an authentication peek for a few
 hours. Why? It would be interesting to graph our promos and sales in the same
@@ -1695,11 +1695,11 @@ second is last week&#8217;s summarized RPMs.</p>
 
 <p>Here is how the graph looks:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite/graphite-compare-as-percent.png" alt="graphite as percent" /></p>
+<p><img src="http://mattetti.github.com//images/graphite/graphite-compare-as-percent.png" alt="graphite as percent" /></p>
 
 <p>Based on all the data we collect, we can now graph something like that:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/graphite/graphite-as-percent.png" alt="graphite as percent with multiple series" /></p>
+<p><img src="http://mattetti.github.com//images/graphite/graphite-as-percent.png" alt="graphite as percent with multiple series" /></p>
 
 <p>This graph is basically the same as the one above, but we used the
 overall response time as the 100% value and we graphed all the different
@@ -1779,9 +1779,9 @@ before its publication!</em></p>
   
   <entry>
     <title type="html"><![CDATA[Using Go vs Ruby for web APIs]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
+    <link href="http://mattetti.github.com//posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
     <updated>2013-06-23T09:50:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
+    <id>http://mattetti.github.com//posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
     <content type="html"><![CDATA[<p>A few days ago, I was wondering if using <a href="http://golang.org/">Go</a> would be worth it when developing new web APIs.
 I obviously knew that Go would be faster than Ruby, but I wasn&#8217;t sure
 how much faster. I also wondering about the amount of work required to
@@ -1810,15 +1810,15 @@ good argument to start using some Go when it makes sense.</p>
 
 <p>I documented my experiment on <a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY">Google+</a>, click the following screenshot to read more.</p>
 
-<p><a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY"><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-golang_vs_ruby_api_exp.png" alt="Matt Aimonetti's Go vs Ruby post on Google+" /></a></p>
+<p><a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY"><img src="http://mattetti.github.com//images/matt_aimonetti-golang_vs_ruby_api_exp.png" alt="Matt Aimonetti's Go vs Ruby post on Google+" /></a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Inspecting Rails 4 using Ruby 2.0]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
+    <link href="http://mattetti.github.com//posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
     <updated>2013-03-05T22:18:00-08:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
+    <id>http://mattetti.github.com//posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
     <content type="html"><![CDATA[<p>Ruby 2.0 has a cool new feature that many people talk about:
 <a href="http://ruby-doc.org/core-2.0/TracePoint.html">TracePoint</a>.</p>
 
@@ -1998,9 +1998,9 @@ Fowler</a> Berliner by adoption:</p>
   
   <entry>
     <title type="html"><![CDATA[OmniAuth and Google Apps]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/01/30/omniauth-and-google-apps/"/>
+    <link href="http://mattetti.github.com//posts/2013/01/30/omniauth-and-google-apps/"/>
     <updated>2013-01-30T19:11:00-08:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/01/30/omniauth-and-google-apps</id>
+    <id>http://mattetti.github.com//posts/2013/01/30/omniauth-and-google-apps</id>
     <content type="html"><![CDATA[<p>Today I struggled to get <a href="https://github.com/intridea/omniauth">OmniAuth</a> and <a href="https://developers.google.com/accounts/docs/OpenID">Google apps</a> to work properly together.
 I just wanted to add authentication to my application and restrict access to only my Google Apps domain users.
 I was hoping it would be straight forward since I could use Google&#8217;s OpenID service.</p>
@@ -2196,9 +2196,9 @@ you know two things:</p>
   
   <entry>
     <title type="html"><![CDATA[Real life concurrency in Go]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/11/27/real-life-concurrency-in-go/"/>
+    <link href="http://mattetti.github.com//posts/2012/11/27/real-life-concurrency-in-go/"/>
     <updated>2012-11-27T10:08:00-08:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/11/27/real-life-concurrency-in-go</id>
+    <id>http://mattetti.github.com//posts/2012/11/27/real-life-concurrency-in-go</id>
     <content type="html"><![CDATA[<p>The structure of a programming language reflects the challenges and solutions the
 designers decided to address. Each designer coming with his/her own background
 decides to tackle some specific issues in a novel way and/or often
@@ -2213,7 +2213,7 @@ show you the language constructs by actually writing real life code.</p>
 
 <h2>Fetching web resources concurrently</h2>
 
-<p>The following example is taken from my recent presentation <a href="http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/">Ruby vs. the World</a>. I explored a few programming languages and
+<p>The following example is taken from my recent presentation <a href="http://mattetti.github.com//posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/">Ruby vs. the World</a>. I explored a few programming languages and
 showed how they changed my Ruby.</p>
 
 <p>To show how <a href="http://golang.org/">Go</a> addresses concurrency, I decided to build a
@@ -2504,9 +2504,9 @@ with a special focus on concurrency with the unix approach.</p>
   
   <entry>
     <title type="html"><![CDATA[Engineers suck at finding the right jobs]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
+    <link href="http://mattetti.github.com//posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
     <updated>2012-11-14T18:53:00-08:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
+    <id>http://mattetti.github.com//posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
     <content type="html"><![CDATA[<p>If you are currently a software engineer you need to realize two things:</p>
 
 <ul>
@@ -2735,9 +2735,9 @@ A friend gave me a Seth Godin&#8217;s book called <a href="http://www.amazon.com
 how do the efforts compare to the returns?
 Which situation are you in:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/dip.jpg" alt="" /></p>
+<p><img src="http://mattetti.github.com//images/dip.jpg" alt="" /></p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/cliff-dip.jpg" alt="" /></p>
+<p><img src="http://mattetti.github.com//images/cliff-dip.jpg" alt="" /></p>
 
 <p>Think about it. <strong>Will the effort you put into your work pay off?</strong>
 If you don&#8217;t think it will, then you should quit right away.</p>
@@ -2751,7 +2751,7 @@ further from the direction you set for yourself.</p>
 <p>Trust is the key element of any relationship.
 In <a href="http://www.amazon.com/gp/product/B000UCUX0K/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B000UCUX0K&amp;linkCode=as2&amp;tag=merbist-20">The Five Dysfunctions of a Team</a>, Patrick Lencioni explains that the base of management dysfunctions is absence of trust:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/fivedysfunctions.gif" alt="" /></p>
+<p><img src="http://mattetti.github.com//images/fivedysfunctions.gif" alt="" /></p>
 
 <p>Turns out it&#8217;s the same thing for our careers. We need a team of people
 to help us define a vision/direction and keep us honest and accountable.</p>
@@ -2817,9 +2817,9 @@ to leave advice or feedback.</p>
   
   <entry>
     <title type="html"><![CDATA[RubyConf 2012 - Ruby vs. The World]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
+    <link href="http://mattetti.github.com//posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
     <updated>2012-11-02T20:47:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
+    <id>http://mattetti.github.com//posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.com/">RubyConf 2012</a> in Denver, Colorado Matt
 Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
 
@@ -2831,7 +2831,7 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="http://mattetti.github.com///speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on [Matt&#8217;s SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/ruby-vs-the-world) and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50941f6aeb710400020019ac/aimonetti-ruby_vs_the_world_rubyconf_2012.pdf">downloaded here</a>.</p>
@@ -2851,9 +2851,9 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
   
   <entry>
     <title type="html"><![CDATA[Aloha RubyConf - mmm..mruby or why yet another Ruby implementation]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
+    <link href="http://mattetti.github.com//posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
     <updated>2012-10-09T20:14:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
+    <id>http://mattetti.github.com//posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
     <content type="html"><![CDATA[<p>During <a href="http://aloharubyconf.com/">Aloha RubyConf 2012</a> in Honolulu, Hawaii Matt
 Aimonetti gave a talk entitled <strong>mmm..mruby or why yet another Ruby implementation</strong>.</p>
 
@@ -2869,7 +2869,7 @@ Ruby) and and revisiting Ruby.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50752712f8a4020002043005" data-ratio="1.2994923857868" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50752712f8a4020002043005" data-ratio="1.2994923857868" src="http://mattetti.github.com///speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on [Matt&#8217;s SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/mmmm-dot-mruby-everywhere-and-revisiting-ruby) and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50752712f8a4020002043005/mmmmruby_aloha_rubyconf.pdf">downloaded here</a>.</p>
@@ -2887,9 +2887,9 @@ Ruby) and and revisiting Ruby.</p>
   
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
+    <link href="http://mattetti.github.com//posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
     <updated>2012-10-05T15:09:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
+    <id>http://mattetti.github.com//posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
     <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
 Aimonetti gave a talk entitled <em>Tower of
 Babel: a tour of programming languages</em>.</p>
@@ -2900,7 +2900,7 @@ Babel: a tour of programming languages</em>.</p>
 comparing programming languages isn&#8217;t as simple as drawing a table
 comparing features.</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti_languages_table.jpg" alt="Matt Aimonetti compares programming languages" /></p>
+<p><img src="http://mattetti.github.com//images/matt_aimonetti_languages_table.jpg" alt="Matt Aimonetti compares programming languages" /></p>
 
 <p>In his talk, Matt shows what he likes, dislikes, the philosophy and concrete example of how to use 7 programming
 languages:</p>
@@ -2918,7 +2918,7 @@ languages:</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="http://mattetti.github.com///speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on <a href="https://speakerdeck.com/u/matt_aimonetti/p/tower-of-babel-a-tour-of-programming-languages">Matt&#8217;s SpeakerDeck</a> and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50662c32244a9d000202ba53/aimonetti_pulsoconf_2012.pdf">downloaded here</a>.</p>
@@ -2931,9 +2931,9 @@ languages:</p>
   
   <entry>
     <title type="html"><![CDATA[What is Scala's pattern matching]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/09/20/what-is-scala-pattern-matching/"/>
+    <link href="http://mattetti.github.com//posts/2012/09/20/what-is-scala-pattern-matching/"/>
     <updated>2012-09-20T21:18:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/09/20/what-is-scala-pattern-matching</id>
+    <id>http://mattetti.github.com//posts/2012/09/20/what-is-scala-pattern-matching</id>
     <content type="html"><![CDATA[<p><a href="http://www.scala-lang.org/">Scala</a> is a very interesting programming
 language. It has for goal to provide
 both <a href="http://en.wikipedia.org/wiki/Object-oriented_programming">Object Oriented</a> and <a href="http://en.wikipedia.org/wiki/Functional_programming">Functional Programming</a> paradigms.
@@ -3161,9 +3161,9 @@ approach based on pattern matching.</p>
   
   <entry>
     <title type="html"><![CDATA[Ruby constructs: class, module and mixin]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/07/30/ruby-class-module-mixins/"/>
+    <link href="http://mattetti.github.com//posts/2012/07/30/ruby-class-module-mixins/"/>
     <updated>2012-07-30T14:46:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/07/30/ruby-class-module-mixins</id>
+    <id>http://mattetti.github.com//posts/2012/07/30/ruby-class-module-mixins</id>
     <content type="html"><![CDATA[<p>When you first get started with the Ruby programming and you come from a different
 language, the only tricky piece is often Ruby&#8217;s approach to block/closure/anonymous functions.
 Sure the metaprogramming seems a bit odd, but you don&#8217;t have to use it.
@@ -3578,9 +3578,9 @@ allocate an instance of a class to a constant. Surpisingly simple and efficient.
   
   <entry>
     <title type="html"><![CDATA[Ruby: the differences between dup &amp; clone]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/07/28/ruby-the-differences-between-dup-and-clone/"/>
+    <link href="http://mattetti.github.com//posts/2012/07/28/ruby-the-differences-between-dup-and-clone/"/>
     <updated>2012-07-28T12:20:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/07/28/ruby-the-differences-between-dup-and-clone</id>
+    <id>http://mattetti.github.com//posts/2012/07/28/ruby-the-differences-between-dup-and-clone</id>
     <content type="html"><![CDATA[<p>Have you ever wondered what the differences are between <strong>#dup</strong> and <strong>#clone</strong> in Ruby?</p>
 
 <p>They both create a shallow copy of an object (meaning that they don&#8217;t copy the objects that might be referenced within the copied object). However, <strong>#clone</strong> does two things that <strong>#dup</strong> doesn&#8217;t:</p>
@@ -3707,9 +3707,9 @@ allocate an instance of a class to a constant. Surpisingly simple and efficient.
   
   <entry>
     <title type="html"><![CDATA[Rethinking web service development]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development/"/>
+    <link href="http://mattetti.github.com//posts/2012/06/13/rethinking-web-service-development/"/>
     <updated>2012-06-13T18:19:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development</id>
+    <id>http://mattetti.github.com//posts/2012/06/13/rethinking-web-service-development</id>
     <content type="html"><![CDATA[<p>While it&#8217;s true that there are still a lot of places where software isn&#8217;t
 leveraged and many places where software needs to evolve, software is nearly everywhere!.
 The type of software we write today needs to interact
@@ -3730,7 +3730,7 @@ and focus on communication and interaction.</p>
 
 <h2>Unlearning</h2>
 
-<p><a href="http://mattetti.github.com/mattetti/images/matt_aimonetti-unlearn.jpeg"><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-unlearn.jpeg"
+<p><a href="http://mattetti.github.com//images/matt_aimonetti-unlearn.jpeg"><img src="http://mattetti.github.com//images/matt_aimonetti-unlearn.jpeg"
   style="width:250px;display:block;margin:auto"/></a></p>
 
 <p>Many are used to doing certain
@@ -3974,7 +3974,7 @@ whatever you want. I don&#8217;t even set a default ORM for you to use since
 this choice is highly personal. I do however leave you places to set
 these things.</p>
 
-<p><a href="http://mattetti.github.com/mattetti/images/matt_aimonetti-WeaselDiesel_doc_generation.jpeg"><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-WeaselDiesel_doc_generation.jpeg" style="width:200px;display:block;margin:auto" title="Matt Aimonetti - WeaselDiesel documentation generation example" alt="Matt Aimonetti - WeaselDiesel documentation generation example"></a></p>
+<p><a href="http://mattetti.github.com//images/matt_aimonetti-WeaselDiesel_doc_generation.jpeg"><img src="http://mattetti.github.com//images/matt_aimonetti-WeaselDiesel_doc_generation.jpeg" style="width:200px;display:block;margin:auto" title="Matt Aimonetti - WeaselDiesel documentation generation example" alt="Matt Aimonetti - WeaselDiesel documentation generation example"></a></p>
 
 <p>Sinatra and my &#8220;freedom framework&#8221; might seem too free form for
 you. So I&#8217;m currently working on getting the DSL to run on top of Rails,
@@ -4066,9 +4066,9 @@ If not, why not?</p>
   
   <entry>
     <title type="html"><![CDATA[MacRuby on iOS - RubyMotion review]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/05/04/macruby-on-ios-rubymotion-review/"/>
+    <link href="http://mattetti.github.com//posts/2012/05/04/macruby-on-ios-rubymotion-review/"/>
     <updated>2012-05-04T07:17:47-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/05/04/macruby-on-ios-rubymotion-review</id>
+    <id>http://mattetti.github.com//posts/2012/05/04/macruby-on-ios-rubymotion-review</id>
     <content type="html"><![CDATA[<p>Yesterday, <a href="http://www.rubymotion.com/">RubyMotion</a> was released and let&#8217;s be honest, it is one the best alternatives to Objective-C out there (if not the best).</p>
 
 <p>RubyMotion is a commercial, proprietary fork of MacRuby that targets iOS. This is not a small achievement, MacRuby relies on Objective C&#8217;s Garbage Collector (libauto) which is not available on iOS. Static compilation and new memory management solution was required to target the iOS platform . The new runtime had to be small and efficient. Furthermore, being able to run code on iOS isn&#8217;t enough, you need tools to interact with the compiler, to debug, to packages applications etc&#8230;</p>
@@ -4205,9 +4205,9 @@ post</a>.</p>
   
   <entry>
     <title type="html"><![CDATA[Getting started with mruby]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby/"/>
+    <link href="http://mattetti.github.com//posts/2012/04/25/getting-started-with-mruby/"/>
     <updated>2012-04-25T10:59:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby</id>
+    <id>http://mattetti.github.com//posts/2012/04/25/getting-started-with-mruby</id>
     <content type="html"><![CDATA[<p>mruby is the latest Ruby implementation in an already quite long list:</p>
 
 <ul>
@@ -4267,12 +4267,12 @@ fact, this definition of Lua applies very well to mruby:</p>
 <p>This is a matter of taste and requirements. It should eventually boil
 down to the difference in the language designs.</p>
 
-<p><img src='http://mattetti.github.com/mattetti/images/lua_logo.gif' alt='Lua logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px' class='no-caption'/></p>
+<p><img src='http://mattetti.github.com//images/lua_logo.gif' alt='Lua logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px' class='no-caption'/></p>
 
 <blockquote><p>Lua combines simple procedural syntax with powerful data description constructs based on associative arrays and extensible semantics.</p></blockquote>
 
 <p></br>
- <img src='http://mattetti.github.com/mattetti/images/ruby_logo.png' alt='Ruby logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px'class='no-caption' /></p>
+ <img src='http://mattetti.github.com//images/ruby_logo.png' alt='Ruby logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px'class='no-caption' /></p>
 
 <blockquote><p>Ruby is a dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write.</p></blockquote>
 
@@ -4504,9 +4504,9 @@ of Rails in a different domain thanks to the Ruby language.</p>
   
   <entry>
     <title type="html"><![CDATA[mruby and MobiRuby]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby/"/>
+    <link href="http://mattetti.github.com//posts/2012/04/20/mruby-and-mobiruby/"/>
     <updated>2012-04-20T12:32:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby</id>
+    <id>http://mattetti.github.com//posts/2012/04/20/mruby-and-mobiruby</id>
     <content type="html"><![CDATA[<p>Today, two big Ruby news came directly from Japan:</p>
 
 <ul>
@@ -4538,7 +4538,7 @@ linked within another application.</p>
 
 <p>Hiroshi Nakamura gave a great 1 line definition of mruby:</p>
 
-<p><img src="http://mattetti.github.com/mattetti/images/mruby_def.jpg" alt="mruby" /></p>
+<p><img src="http://mattetti.github.com//images/mruby_def.jpg" alt="mruby" /></p>
 
 <p>mruby targets game developers (to use instead of Lua), embedded
 application developers (devices, TV, phones..) and small memory

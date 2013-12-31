@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: design | Matt Aimonetti]]></title>
-  <link href="http://mattetti.github.com/mattetti/articles/categories/design/atom.xml" rel="self"/>
-  <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-12-31T01:07:06-08:00</updated>
-  <id>http://mattetti.github.com/mattetti/</id>
+  <link href="http://mattetti.github.com//articles/categories/design/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com//"/>
+  <updated>2013-12-31T01:14:29-08:00</updated>
+  <id>http://mattetti.github.com//</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Rethinking web service development]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development/"/>
+    <link href="http://mattetti.github.com//posts/2012/06/13/rethinking-web-service-development/"/>
     <updated>2012-06-13T18:19:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/06/13/rethinking-web-service-development</id>
+    <id>http://mattetti.github.com//posts/2012/06/13/rethinking-web-service-development</id>
     <content type="html"><![CDATA[<p>While it's true that there are still a lot of places where software isn't
 leveraged and many places where software needs to evolve, software is nearly everywhere!.
 The type of software we write today needs to interact

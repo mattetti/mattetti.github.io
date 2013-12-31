@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: monitoring | Matt Aimonetti]]></title>
-  <link href="http://mattetti.github.com/mattetti/articles/categories/monitoring/atom.xml" rel="self"/>
-  <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-12-31T01:07:06-08:00</updated>
-  <id>http://mattetti.github.com/mattetti/</id>
+  <link href="http://mattetti.github.com//articles/categories/monitoring/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com//"/>
+  <updated>2013-12-31T01:14:29-08:00</updated>
+  <id>http://mattetti.github.com//</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
+    <link href="http://mattetti.github.com//posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
     <updated>2013-06-26T10:26:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
+    <id>http://mattetti.github.com//posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
     <content type="html"><![CDATA[<p>Engineers love to improve things. Refactoring and optimizations
 drive us. There is just a slight problem: we often do that in a vacuum.</p>
 

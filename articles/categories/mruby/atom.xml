@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: mruby | Matt Aimonetti]]></title>
-  <link href="http://mattetti.github.com/mattetti/articles/categories/mruby/atom.xml" rel="self"/>
-  <link href="http://mattetti.github.com/mattetti/"/>
-  <updated>2013-12-31T01:07:06-08:00</updated>
-  <id>http://mattetti.github.com/mattetti/</id>
+  <link href="http://mattetti.github.com//articles/categories/mruby/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com//"/>
+  <updated>2013-12-31T01:14:29-08:00</updated>
+  <id>http://mattetti.github.com//</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Aloha RubyConf - mmm..mruby or why yet another Ruby implementation]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
+    <link href="http://mattetti.github.com//posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
     <updated>2012-10-09T20:14:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
+    <id>http://mattetti.github.com//posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
     <content type="html"><![CDATA[<p>During <a href="http://aloharubyconf.com/">Aloha RubyConf 2012</a> in Honolulu, Hawaii Matt
 Aimonetti gave a talk entitled <strong>mmm..mruby or why yet another Ruby implementation</strong>.</p>
 
@@ -33,7 +33,7 @@ Ruby) and and revisiting Ruby.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50752712f8a4020002043005" data-ratio="1.2994923857868" src="http://mattetti.github.com/mattetti//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50752712f8a4020002043005" data-ratio="1.2994923857868" src="http://mattetti.github.com///speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on [Matt's SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/mmmm-dot-mruby-everywhere-and-revisiting-ruby) and can be <a href="">downloaded here</a>.</p>
@@ -51,9 +51,9 @@ Ruby) and and revisiting Ruby.</p>
   
   <entry>
     <title type="html"><![CDATA[Getting started with mruby]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby/"/>
+    <link href="http://mattetti.github.com//posts/2012/04/25/getting-started-with-mruby/"/>
     <updated>2012-04-25T10:59:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/04/25/getting-started-with-mruby</id>
+    <id>http://mattetti.github.com//posts/2012/04/25/getting-started-with-mruby</id>
     <content type="html"><![CDATA[<p>mruby is the latest Ruby implementation in an already quite long list:</p>
 
 <ul>
@@ -113,12 +113,12 @@ fact, this definition of Lua applies very well to mruby:</p>
 <p>This is a matter of taste and requirements. It should eventually boil
 down to the difference in the language designs.</p>
 
-<p><img src='http://mattetti.github.com/mattetti/images/lua_logo.gif' alt='Lua logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px' class='no-caption'/></p>
+<p><img src='http://mattetti.github.com//images/lua_logo.gif' alt='Lua logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px' class='no-caption'/></p>
 
 <blockquote><p>Lua combines simple procedural syntax with powerful data description constructs based on associative arrays and extensible semantics.</p></blockquote>
 
 <p></br>
- <img src='http://mattetti.github.com/mattetti/images/ruby_logo.png' alt='Ruby logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px'class='no-caption' /></p>
+ <img src='http://mattetti.github.com//images/ruby_logo.png' alt='Ruby logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px'class='no-caption' /></p>
 
 <blockquote><p>Ruby is a dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write.</p></blockquote>
 
@@ -316,9 +316,9 @@ of Rails in a different domain thanks to the Ruby language.</p>
   
   <entry>
     <title type="html"><![CDATA[mruby and MobiRuby]]></title>
-    <link href="http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby/"/>
+    <link href="http://mattetti.github.com//posts/2012/04/20/mruby-and-mobiruby/"/>
     <updated>2012-04-20T12:32:00-07:00</updated>
-    <id>http://mattetti.github.com/mattetti/posts/2012/04/20/mruby-and-mobiruby</id>
+    <id>http://mattetti.github.com//posts/2012/04/20/mruby-and-mobiruby</id>
     <content type="html"><![CDATA[<p>Today, two big Ruby news came directly from Japan:</p>
 
 <ul>
