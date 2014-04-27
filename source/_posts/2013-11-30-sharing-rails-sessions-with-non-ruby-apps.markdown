@@ -6,6 +6,7 @@ comments: true
 categories: 
 - Ruby
 - Golang
+- Popular
 ---
 
 I wanted to share sessions between my Rails and Go applications. I wanted to let an authenticated Rails user make JavaScript API calls to an endpoint written in Go. How hard could it be?

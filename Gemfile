@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 group :development do
+  gem "iconv"
   gem 'rake'
   gem 'rack'
   gem 'jekyll'
