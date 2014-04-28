@@ -9,16 +9,29 @@ categories:
 - tutorial
 ---
 
-# Refactoring Go code
-
-Go (aka golang) is an amazing language but also a language that
+[Go](http://golang.org/) aka golang is an amazing language but also a language that
 is really easy to learn due to its small scope.
-
 If you have some coding experience, you will be able to have fully working code
-in a matter of minutes. The challenging part with Go (like many other languages)
-is to write idiomatic code. The good news is that Go makes refactoring easy.
+in a matter of minutes otherwise you might want to read [my free book](http://www.golangbootcamp.com/) (WIP).
+
+<div style="text-align:center; padding:2em 0">
+  <a href="http://www.golangbootcamp.com/"><img src="/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
+</div>
+
+Very much like with many other programming languages, a challenging part
+of Go is to learn how to write idiomatic code.
+The good news is that Go makes refactoring easy (and already has a lot
+of conventions).
+I strongly recommend [this post](http://peter.bourgon.org/go-in-production/) from Peter Bourgon about Go at SoundCloud and 
+the extra conventions they follow ([Splice](https://splice.com) also
+follows the same conventions).
+
 One of my favorite Go projects is the [gobot](http://gobot.io) project
 by [HybridGroup](http://hybridgroup.com/).
+
+<div style="text-align:center; padding:2em 0">
+<a href="http://gobot.io/"><img src="/images/gobotio.png" alt="Gobot"></a>
+</div>
 
 The Gobot project is pretty young and I noticed a few things that
 could be improved so I offered my help to [Ron](https://twitter.com/deadprogram),
@@ -30,8 +43,9 @@ session (featuring [@kytrinyx](https://twitter.com/kytrinyx),
 [@jnbeck](https://twitter.com/jnbeck),
 [@adzankich](https://twitter.com/adzankich) )
 
-![refactoring](/images/matt_aimonetti-go_refactoring.jpg)
-
+<div style="text-align:center; padding:2em 0">
+  <img src="/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
+</div>
 
 ## Packages
 
@@ -117,7 +131,7 @@ func GobotMaster() *Master {
 
 There are a few things that aren't really idiomatic in this code.
 The first thing is that by convention, constructors are usually called `New<Type>`.
-Secondly, the community seems to follow the following stylistic choice:
+Secondly, the [community seems to follow](http://peter.bourgon.org/go-in-production/) the following stylistic choice:
 only use `new` and `make` when you need to set the capacity (`make([]string,3)`)
 Finally we don't need to allocate a variable. Here is the refactored code:
 
@@ -372,7 +386,10 @@ I can only encourage everybody to play with [Gobot](http://gobot.io),
 there are very few things as fun as Go and Robots!
 (The code is open sourced, look at it, add new drivers, send PRs!)
 
-Finally, I'd like to thank [Ron Evans](https://twitter.com/deadprogram) and the [Hybrid Group](http://hybridgroup.com/)
+I'd like to thank [Ron Evans](https://twitter.com/deadprogram) and the [Hybrid Group](http://hybridgroup.com/)
 for  open sourcing their code and sharing the fun with all of us.
 I can't wait for the next LA Go + Robot hack night.
 
+Finally, [Splice](https://splice.com) is hiring, our stack uses a lot of
+different technologies but our backend is all in Go and we are always
+looking for tatented engineers. Drop me a line if interested.
