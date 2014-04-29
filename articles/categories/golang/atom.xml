@@ -4,7 +4,7 @@
   <title><![CDATA[Category: golang | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/articles/categories/golang/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/"/>
-  <updated>2013-12-31T14:27:21-08:00</updated>
+  <updated>2014-04-29T08:02:32-07:00</updated>
   <id>http://mattetti.github.com/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,432 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Refactoring Go code]]></title>
+    <link href="http://mattetti.github.com/posts/2014/04/28/refactoring-go-code/"/>
+    <updated>2014-04-28T10:45:00-07:00</updated>
+    <id>http://mattetti.github.com/posts/2014/04/28/refactoring-go-code</id>
+    <content type="html"><![CDATA[<p><a href="http://golang.org/">Go</a> aka golang is an amazing language but also a language that
+is really easy to learn due to its small scope.
+If you have some coding experience, you will be able to have fully working code
+in a matter of minutes otherwise you might want to read <a href="http://www.golangbootcamp.com/">my free book</a> (WIP).</p>
+
+<div style="text-align:center; padding:2em 0">
+  <a href="http://www.golangbootcamp.com/"><img src="http://mattetti.github.com/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
+</div>
+
+
+<p>Very much like with many other programming languages, a challenging part
+of Go is to learn how to write idiomatic code.
+The good news is that Go makes refactoring easy (and already has a lot
+of conventions).
+I strongly recommend <a href="http://peter.bourgon.org/go-in-production/">this post</a> from Peter Bourgon about Go at SoundCloud and
+the extra conventions they follow (<a href="https://splice.com">Splice</a> also
+follows the same conventions).</p>
+
+<p>One of my favorite Go projects is the <a href="http://gobot.io">gobot</a> project
+by <a href="http://hybridgroup.com/">HybridGroup</a>.</p>
+
+<div style="text-align:center; padding:2em 0">
+<a href="http://gobot.io/"><img src="http://mattetti.github.com/images/gobotio.png" alt="Gobot"></a>
+</div>
+
+
+<p>The Gobot project is pretty young and I noticed a few things that
+could be improved so I offered my help to <a href="https://twitter.com/deadprogram">Ron</a>,
+<a href="https://twitter.com/adzankich">Adrian</a> and the rest of the team.
+Our discussion quickly turned into a fun group refactoring
+session (featuring <a href="https://twitter.com/kytrinyx">@kytrinyx</a>,
+<a href="https://twitter.com/deadprogram">@deadprogram</a>,
+<a href="https://twitter.com/codegangsta">@codegangsta</a>,
+<a href="https://twitter.com/jnbeck">@jnbeck</a>,
+<a href="https://twitter.com/adzankich">@adzankich</a> )</p>
+
+<div style="text-align:center; padding:2em 0">
+  <img src="http://mattetti.github.com/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
+</div>
+
+
+<h2>Packages</h2>
+
+<p>Gobot is split into multiple packages, a core and a few other packages.
+The gobot team, out of habit chose to put a package per repo.
+After further discussions, we chose to bring all official packages
+inside the same repo to keep things easier and to keep the import paths
+clean and logical.</p>
+
+<p>So instead of having:</p>
+
+<p><code>
+github.com/hybridgroup/gobot
+github.com/hybridgroup/gobot-sphero
+github.com/hybridgroup/gobot-...
+</code></p>
+
+<p>All the none-core packages are moved to subdirectories:</p>
+
+<p><code>
+github.com/hybridgroup/gobot
+github.com/hybridgroup/gobot/sphero
+github.com/hybridgroup/gobot/...
+</code></p>
+
+<p>This also allowed us to fix the package names
+<code>gobot-sphero</code> is now simply <code>sphero</code></p>
+
+<p>Which also allowed us to simplify the following code:</p>
+
+<p>From:
+```go
+type SpheroAdaptor struct {</p>
+
+<pre><code>gobot.Adaptor
+sp io.ReadWriteCloser
+</code></pre>
+
+<p>}
+```</p>
+
+<p>To</p>
+
+<p><code>go
+type Adaptor struct {
+  gobot.Adaptor
+  sp io.ReadWriteCloser
+}
+</code></p>
+
+<p>We did that with a few other types and methods all over the packages.</p>
+
+<p>We had a discussion about what lead to the multiple repos vs
+one repo. There are legimiate cases for both approaches but in this
+situation, the decision was based on a misunderstanding. The author
+thought that by importing the top package, all sub packages would
+also be somewhat included in the build, making the binary bigger than
+needed. Since Go only compiles and links packages imported, moving all
+packages within the same repo wouldn't change the binary output.
+Note that this is not because in this specific case we have all packages
+in the same repo that this is the right thing to do every single time.</p>
+
+<h2>doc.go</h2>
+
+<p>By conventions, package should contain a <code>doc.go</code> file that contains
+an overview of the package and often some information so the developer
+trying to use the library can find the right entry points.</p>
+
+<p>As usual, the standard libraries are a good example,
+<a href="http://golang.org/src/pkg/net/http/doc.go">here is the net/http <code>doc.go</code> file</a>.</p>
+
+<h2>Using a constructor</h2>
+
+<p>We spent some time refactoring <code>master.go</code> which is the file implementing
+the code handling one or multiple robots (which can each have multiple devices).</p>
+
+<p>The original function code looked like this:</p>
+
+<p><code>go
+func GobotMaster() *Master {
+  m := new(Master)
+  m.NumCPU = runtime.NumCPU()
+  return m
+}
+</code></p>
+
+<p>There are a few things that aren't really idiomatic in this code.
+The first thing is that by convention, constructors are usually called <code>New&lt;Type&gt;</code>.
+Secondly, the <a href="http://peter.bourgon.org/go-in-production/">community seems to follow</a> the following stylistic choice:
+only use <code>new</code> and <code>make</code> when you need to set the capacity (<code>make([]string,3)</code>)
+Finally we don't need to allocate a variable. Here is the refactored code:</p>
+
+<p><code>go
+func NewMaster() *Master {
+  return &amp;Master{NumCPU: runtime.NumCPU()}
+}
+</code></p>
+
+<h2>Cleanup package vars</h2>
+
+<p>In the original code, we had a variable called <code>trap</code> which was
+a function living at the top level of the package:</p>
+
+<p><code>go
+var trap = func(c chan os.Signal) {
+  signal.Notify(c, os.Interrupt)
+}
+</code></p>
+
+<p>The func was then used to handle signals. The author
+chose to use a variable so he could mutate it in the test suite and
+avoid sending an interrupt when testing.
+We realized we could avoid having this function variable at the top of the package by moving
+it as a field on the <code>Master</code> type and setting the default func in the constructor.</p>
+
+<p>```go
+func NewMaster() *Master {</p>
+
+<pre><code>return &amp;Master{
+    NumCPU: runtime.NumCPU(),
+    trap: func(c chan os.Signal) {
+        signal.Notify(c, os.Interrupt)
+    },
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>The code still behaves the same and we can still overwrite the trap function in our tests
+(since the tests are part of the same packge, the non exported field is available)
+but we got rid of a top level var.</p>
+
+<h2>Reading from a channel</h2>
+
+<p>The following code was ranging over a predefined channel (<code>c</code>) of signals.
+and when a signal would arrive, all robots belonging to the master
+would be halted and disconnected.</p>
+
+<p>```go
+for _ = range c {
+  for r := range m.Robots {</p>
+
+<pre><code>m.Robots[r].haltDevices()
+m.Robots[r].finalizeConnections()
+</code></pre>
+
+<p>  }
+  break
+}
+```</p>
+
+<p>The code above works well but could be cleaned up a little:</p>
+
+<p>```go
+// waiting on something coming on the channel
+_ = &lt;- c
+for _, r := range m.Robots {</p>
+
+<pre><code>r.haltDevices()
+r.finalizeConnections()
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This code does the same thing but simpler.
+We are trying to read from the channel which will block
+(we don't care about the result so we use an underscore).
+Then we loop through each robot and stop them.
+We managed to remove a for loop on the channel (with an odd break)
+and me made the code intent clearer.</p>
+
+<h2>Chainable functions and typed nils</h2>
+
+<p>Next, we tacked the following method:</p>
+
+<p>```go
+func (m <em>Master) FindRobotDevice(name string, device string) </em>device {</p>
+
+<pre><code>robot := m.FindRobot(name)
+if robot != nil {
+    return robot.GetDevice(device)
+}
+return nil
+</code></pre>
+
+<p>}
+```</p>
+
+<p>The funny thing about this method is that it's not needed.
+We could get the same result by calling:</p>
+
+<p><code>go
+m.FindRobot("bot name").GetDevice("laser")
+</code></p>
+
+<p>When I said that, someone suggested that it might be a bad idea
+since <code>FindRobot()</code> might return <code>nil</code> and now we would be calling
+<code>GetDevice()</code> on <code>nil</code> and bad things would happen.
+Looking at the code, it was actually easy to fix.</p>
+
+<p>Here is the original code:</p>
+
+<p>```go
+func (r <em>Robot) GetDevice(name string) </em>device {</p>
+
+<pre><code>for _, device := range r.devices {
+    if device.Name == name {
+        return device
+    }
+}
+return nil
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Here is the refactored version:</p>
+
+<p>```go
+func (r <em>Robot) GetDevice(name string) </em>device {</p>
+
+<pre><code>if r == nil {
+    return nil
+}
+for _, device := range r.devices {
+    if device.Name == name {
+        return device
+    }
+}
+return nil
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Did you spot the difference? We just added a check to see if the pointer (<code>r</code>)
+was nil, if it is, we just return <code>nil</code>.
+When I added the code above, the person who was worried
+about calling <code>GetDevice()</code> on <code>nil</code> was scratching his head.</p>
+
+<p>Golang does something very interesting (and a bit surprising if you come
+from a dynamic language),
+it returns a nil pointer of the type we defined as return type.
+Let's walk through the code by rewriting it slightly differently:</p>
+
+<p><code>go
+var bot *Robot
+bot = m.FindRobot("unknown name")
+</code></p>
+
+<p>At this point if <code>FindRobot()</code> didn't find a robot, <code>bot</code> is still
+of type <code>*Robot</code> but the pointer is nil.
+Because we defined a method <code>GetDevice()</code> on <code>*Robot</code>, we
+can call:</p>
+
+<p><code>go
+bot.GetDevice("x-ray")
+</code></p>
+
+<p>The <code>GetDevice()</code> method will execute and will return <code>nil</code> right
+away because we check if the pointer is <code>nil</code>.</p>
+
+<p>The fact that nil pointers have types has 2 important implications,
+the first one is that you can nicely chain methods without
+checking at the caller site if the returned value is <code>nil</code>.
+The second is that your methods should expect to be potentially
+called on a nil pointer and should properly handle such cases.</p>
+
+<h2>Collection types / type aliasing</h2>
+
+<p>I'm writing this post on my way back from GopherCon and there
+was one more thing I wanted to clean up and share with you.
+This is a nice pattern I use often to simplify my code.</p>
+
+<p>Our <code>Robot</code> type has a <code>connections</code> field and a <code>devices</code> field:</p>
+
+<p>```go
+type Robot struct {
+  // .. fields removed to simplify the example</p>
+
+<pre><code>devices       []*device
+</code></pre>
+
+<p>}
+```</p>
+
+<p>To avoid always having to manually loop through the slice, a method is defined on
+pointers to <code>Robot</code>. This method iterates over
+the devices and halts them:</p>
+
+<p>```go
+func (r *Robot) haltDevices() {</p>
+
+<pre><code>for _, device := range r.devices {
+    device.Halt()
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This code is totally fine but from an API design perspective wouldn't be nicer
+to use:</p>
+
+<p><code>go
+r.devices().Halt()
+</code></p>
+
+<p>One of the nice things with this approach is that the concept of halting which
+really belongs to the devices doesn't need to leak into the <code>Robot</code> world.</p>
+
+<p>To implement the suggested API change, we need to define a <a href="http://www.golangbootcamp.com/book/methods_and_interfaces#uid90">type alias</a>:</p>
+
+<p><code>go
+type DeviceCollection []*device
+</code></p>
+
+<p>We can now define methods on our new type:</p>
+
+<p>```go
+func(c DeviceCollection) Halt() {
+  for _, device := range c {</p>
+
+<pre><code>device.Halt()
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>We then need to update our <code>Robot</code> type:</p>
+
+<p><code>go
+type Robot struct {
+  // .. fields removed to simplify the example
+  devices       DeviceCollection
+}
+</code></p>
+
+<p>And we are done with out refactoring.</p>
+
+<p>One last note, since we might be need to call different methods on our collection
+we could create an iterator method.</p>
+
+<p>```go
+func(c DeviceCollection) Each(f func(*device)) {
+  for _, d := range c {</p>
+
+<pre><code>f(d)
+</code></pre>
+
+<p>  }
+}</p>
+
+<p>// which can be called like so
+r.devices.Each(func(d *device){
+  d.Halt()
+})
+```</p>
+
+<h2>Conclusion</h2>
+
+<p>Needless to say that we had fun. The refactoring went much further
+and we removed the use of reflections, some sleeps and much more.
+The code is going through a nice cleanup before reaching 1.0 and
+I can only encourage everybody to play with <a href="http://gobot.io">Gobot</a>,
+there are very few things as fun as Go and Robots!
+(The code is open sourced, look at it, add new drivers, send PRs!)</p>
+
+<p>I'd like to thank <a href="https://twitter.com/deadprogram">Ron Evans</a> and the <a href="http://hybridgroup.com/">Hybrid Group</a>
+for  open sourcing their code and sharing the fun with all of us.
+I can't wait for the next LA Go + Robot hack night.</p>
+
+<p>Finally, <a href="https://splice.com">Splice</a> is hiring, our stack uses a lot of
+different technologies but our backend is all in Go and we are always
+looking for tatented engineers. Drop me a line if interested.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[What technology should my startup use?]]></title>

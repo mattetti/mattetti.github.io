@@ -1,0 +1,682 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Refactoring Go code - Matt Aimonetti</title>
+    <meta name="author" content="Matt Aimonetti">
+
+    
+    <meta name="description" content="Refactoring Go Code Go aka golang is an amazing language but also a language that
+is really easy to learn due to its small scope.
+If you have some coding experience, &hellip;">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+
+    <link href="/atom.xml" rel="alternate" title="Matt Aimonetti" type="application/atom+xml">
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <meta name="google-site-verification" content="nx3a_0e6HT0nLCJ3HPHknL31CcLJanwyI3WvqJWZjaA" />
+    
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-30927742-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+</head>
+
+
+<body>
+	<header><div id='meta' class='inner'>
+  <div id="matt-aimonetti" itemscope itemtype="http://data-vocabulary.org/Person">
+    <a href='/about/'><img class="photo left" title='About Matt Aimonetti'
+      alt='Photo of Matt Aimonetti' src="/images/matt_aimonetti.jpg" /></a>
+    <h1 class="left"><a itemprop="name" href="/">Matt Aimonetti</a></h1>
+    <br>
+    <ul class='left bio-summary'>
+      <li> <a href="https://splice.com"><span
+              itemprop="affiliation">Splice</span></a> co-founder</a></li>
+      <li><a href='http://www.oreillynet.com/pub/au/4385'>Author</a> at <span itemprop="affiliation">O'Reilly</span></li>
+      <li>Open Source <a href="/posts/archives/">enthusiast</a></li>
+      <li><a href="https://github.com/mattetti">Web engineer</a></li>
+    </ul>
+  <div class="right">
+    <div class="right">
+      <div id="cse-search-form">Loading</div>
+      <div class="social right">
+        
+        
+        <a class="google" rel='me' href="https://plus.google.com/101114877505962271216?rel=author" title="Google+">Google+</a>
+        
+        
+        <a class="twitter" rel='me' href="http://twitter.com/mattetti" title="Twitter">Twitter</a>
+        
+        
+        <a class="github" rel='me' href="https://github.com/mattetti" title="GitHub">GitHub</a>
+        
+        
+        
+        <a class="linkedin" rel='me' href="http://www.linkedin.com/in/mattaimonetti" title="Linkedin">Linkedin</a>
+        
+        
+        <a class="rss" rel='me' href="/atom.xml" title="RSS">RSS</a>
+        
+      </div>
+      <nav class="menu"><ul class="main">
+  <li><a href="/">Home</a></li>
+  <li><a href="/articles/categories/blog-post/">Articles</a></li>
+  <li><a href="/articles/categories/presentation/">Presentations</a></li>
+  <li><a href="/about/" rel='me'>About</a></li>
+</ul>
+</nav>
+    </div>
+  </div>
+</div>
+
+</header>
+	
+
+	<div id="content" class="inner"><article class="post hentry">
+  
+    <h1 class="title entry-title">Refactoring Go Code</h1>
+    <div class="entry"><p><a href="http://golang.org/">Go</a> aka golang is an amazing language but also a language that
+is really easy to learn due to its small scope.
+If you have some coding experience, you will be able to have fully working code
+in a matter of minutes otherwise you might want to read <a href="http://www.golangbootcamp.com/">my free book</a> (WIP).</p>
+
+<div style="text-align:center; padding:2em 0">
+  <a href="http://www.golangbootcamp.com/"><img src="/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
+</div>
+
+
+<p>Very much like with many other programming languages, a challenging part
+of Go is to learn how to write idiomatic code.
+The good news is that Go makes refactoring easy (and already has a lot
+of conventions).
+I strongly recommend <a href="http://peter.bourgon.org/go-in-production/">this post</a> from Peter Bourgon about Go at SoundCloud and
+the extra conventions they follow (<a href="https://splice.com">Splice</a> also
+follows the same conventions).</p>
+
+<p>One of my favorite Go projects is the <a href="http://gobot.io">gobot</a> project
+by <a href="http://hybridgroup.com/">HybridGroup</a>.</p>
+
+<div style="text-align:center; padding:2em 0">
+<a href="http://gobot.io/"><img src="/images/gobotio.png" alt="Gobot"></a>
+</div>
+
+
+<p>The Gobot project is pretty young and I noticed a few things that
+could be improved so I offered my help to <a href="https://twitter.com/deadprogram">Ron</a>,
+<a href="https://twitter.com/adzankich">Adrian</a> and the rest of the team.
+Our discussion quickly turned into a fun group refactoring
+session (featuring <a href="https://twitter.com/kytrinyx">@kytrinyx</a>,
+<a href="https://twitter.com/deadprogram">@deadprogram</a>,
+<a href="https://twitter.com/codegangsta">@codegangsta</a>,
+<a href="https://twitter.com/jnbeck">@jnbeck</a>,
+<a href="https://twitter.com/adzankich">@adzankich</a> )</p>
+
+<div style="text-align:center; padding:2em 0">
+  <img src="/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
+</div>
+
+
+<h2>Packages</h2>
+
+<p>Gobot is split into multiple packages, a core and a few other packages.
+The gobot team, out of habit chose to put a package per repo.
+After further discussions, we chose to bring all official packages
+inside the same repo to keep things easier and to keep the import paths
+clean and logical.</p>
+
+<p>So instead of having:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>github.com/hybridgroup/gobot
+</span><span class='line'>github.com/hybridgroup/gobot-sphero
+</span><span class='line'>github.com/hybridgroup/gobot-...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>All the none-core packages are moved to subdirectories:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>github.com/hybridgroup/gobot
+</span><span class='line'>github.com/hybridgroup/gobot/sphero
+</span><span class='line'>github.com/hybridgroup/gobot/...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This also allowed us to fix the package names
+<code>gobot-sphero</code> is now simply <code>sphero</code></p>
+
+<p>Which also allowed us to simplify the following code:</p>
+
+<p>From:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">SpheroAdaptor</span> <span class="k">struct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">gobot</span><span class="p">.</span><span class="n">Adaptor</span>
+</span><span class='line'>  <span class="n">sp</span> <span class="n">io</span><span class="p">.</span><span class="n">ReadWriteCloser</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">Adaptor</span> <span class="k">struct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">gobot</span><span class="p">.</span><span class="n">Adaptor</span>
+</span><span class='line'>  <span class="n">sp</span> <span class="n">io</span><span class="p">.</span><span class="n">ReadWriteCloser</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We did that with a few other types and methods all over the packages.</p>
+
+<p>We had a discussion about what lead to the multiple repos vs
+one repo. There are legimiate cases for both approaches but in this
+situation, the decision was based on a misunderstanding. The author
+thought that by importing the top package, all sub packages would
+also be somewhat included in the build, making the binary bigger than
+needed. Since Go only compiles and links packages imported, moving all
+packages within the same repo wouldn&#8217;t change the binary output.
+Note that this is not because in this specific case we have all packages
+in the same repo that this is the right thing to do every single time.</p>
+
+<h2>doc.go</h2>
+
+<p>By conventions, package should contain a <code>doc.go</code> file that contains
+an overview of the package and often some information so the developer
+trying to use the library can find the right entry points.</p>
+
+<p>As usual, the standard libraries are a good example,
+<a href="http://golang.org/src/pkg/net/http/doc.go">here is the net/http <code>doc.go</code> file</a>.</p>
+
+<h2>Using a constructor</h2>
+
+<p>We spent some time refactoring <code>master.go</code> which is the file implementing
+the code handling one or multiple robots (which can each have multiple devices).</p>
+
+<p>The original function code looked like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">GobotMaster</span><span class="p">()</span> <span class="p">*</span><span class="n">Master</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">m</span> <span class="p">:=</span> <span class="nb">new</span><span class="p">(</span><span class="n">Master</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">m</span><span class="p">.</span><span class="n">NumCPU</span> <span class="p">=</span> <span class="n">runtime</span><span class="p">.</span><span class="n">NumCPU</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">m</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are a few things that aren&#8217;t really idiomatic in this code.
+The first thing is that by convention, constructors are usually called <code>New&lt;Type&gt;</code>.
+Secondly, the <a href="http://peter.bourgon.org/go-in-production/">community seems to follow</a> the following stylistic choice:
+only use <code>new</code> and <code>make</code> when you need to set the capacity (<code>make([]string,3)</code>)
+Finally we don&#8217;t need to allocate a variable. Here is the refactored code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">NewMaster</span><span class="p">()</span> <span class="p">*</span><span class="n">Master</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">&amp;</span><span class="n">Master</span><span class="p">{</span><span class="n">NumCPU</span><span class="p">:</span> <span class="n">runtime</span><span class="p">.</span><span class="n">NumCPU</span><span class="p">()}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Cleanup package vars</h2>
+
+<p>In the original code, we had a variable called <code>trap</code> which was
+a function living at the top level of the package:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">var</span> <span class="n">trap</span> <span class="p">=</span> <span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="k">chan</span> <span class="n">os</span><span class="p">.</span><span class="n">Signal</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">signal</span><span class="p">.</span><span class="n">Notify</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">os</span><span class="p">.</span><span class="n">Interrupt</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The func was then used to handle signals. The author
+chose to use a variable so he could mutate it in the test suite and
+avoid sending an interrupt when testing.
+We realized we could avoid having this function variable at the top of the package by moving
+it as a field on the <code>Master</code> type and setting the default func in the constructor.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">NewMaster</span><span class="p">()</span> <span class="p">*</span><span class="n">Master</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">&amp;</span><span class="n">Master</span><span class="p">{</span>
+</span><span class='line'>      <span class="n">NumCPU</span><span class="p">:</span> <span class="n">runtime</span><span class="p">.</span><span class="n">NumCPU</span><span class="p">(),</span>
+</span><span class='line'>      <span class="n">trap</span><span class="p">:</span> <span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="k">chan</span> <span class="n">os</span><span class="p">.</span><span class="n">Signal</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="n">signal</span><span class="p">.</span><span class="n">Notify</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">os</span><span class="p">.</span><span class="n">Interrupt</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The code still behaves the same and we can still overwrite the trap function in our tests
+(since the tests are part of the same packge, the non exported field is available)
+but we got rid of a top level var.</p>
+
+<h2>Reading from a channel</h2>
+
+<p>The following code was ranging over a predefined channel (<code>c</code>) of signals.
+and when a signal would arrive, all robots belonging to the master
+would be halted and disconnected.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">for</span> <span class="n">_</span> <span class="p">=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">r</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">m</span><span class="p">.</span><span class="n">Robots</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">m</span><span class="p">.</span><span class="n">Robots</span><span class="p">[</span><span class="n">r</span><span class="p">].</span><span class="n">haltDevices</span><span class="p">()</span>
+</span><span class='line'>      <span class="n">m</span><span class="p">.</span><span class="n">Robots</span><span class="p">[</span><span class="n">r</span><span class="p">].</span><span class="n">finalizeConnections</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">break</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The code above works well but could be cleaned up a little:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="c1">// waiting on something coming on the channel</span>
+</span><span class='line'><span class="n">_</span> <span class="p">=</span> <span class="p">&lt;-</span> <span class="n">c</span>
+</span><span class='line'><span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">m</span><span class="p">.</span><span class="n">Robots</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">r</span><span class="p">.</span><span class="n">haltDevices</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">r</span><span class="p">.</span><span class="n">finalizeConnections</span><span class="p">()</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code does the same thing but simpler.
+We are trying to read from the channel which will block
+(we don&#8217;t care about the result so we use an underscore).
+Then we loop through each robot and stop them.
+We managed to remove a for loop on the channel (with an odd break)
+and me made the code intent clearer.</p>
+
+<h2>Chainable functions and typed nils</h2>
+
+<p>Next, we tacked the following method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">m</span> <span class="p">*</span><span class="n">Master</span><span class="p">)</span> <span class="n">FindRobotDevice</span><span class="p">(</span><span class="n">name</span> <span class="nb">string</span><span class="p">,</span> <span class="n">device</span> <span class="nb">string</span><span class="p">)</span> <span class="p">*</span><span class="n">device</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">robot</span> <span class="p">:=</span> <span class="n">m</span><span class="p">.</span><span class="n">FindRobot</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">robot</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">robot</span><span class="p">.</span><span class="n">GetDevice</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">nil</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The funny thing about this method is that it&#8217;s not needed.
+We could get the same result by calling:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">m</span><span class="p">.</span><span class="n">FindRobot</span><span class="p">(</span><span class="s">&quot;bot name&quot;</span><span class="p">).</span><span class="n">GetDevice</span><span class="p">(</span><span class="s">&quot;laser&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When I said that, someone suggested that it might be a bad idea
+since <code>FindRobot()</code> might return <code>nil</code> and now we would be calling
+<code>GetDevice()</code> on <code>nil</code> and bad things would happen.
+Looking at the code, it was actually easy to fix.</p>
+
+<p>Here is the original code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">Robot</span><span class="p">)</span> <span class="n">GetDevice</span><span class="p">(</span><span class="n">name</span> <span class="nb">string</span><span class="p">)</span> <span class="p">*</span><span class="n">device</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">r</span><span class="p">.</span><span class="n">devices</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">device</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="n">name</span> <span class="p">{</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">device</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">nil</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here is the refactored version:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">Robot</span><span class="p">)</span> <span class="n">GetDevice</span><span class="p">(</span><span class="n">name</span> <span class="nb">string</span><span class="p">)</span> <span class="p">*</span><span class="n">device</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">r</span> <span class="p">==</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">r</span><span class="p">.</span><span class="n">devices</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">device</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="n">name</span> <span class="p">{</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">device</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">nil</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Did you spot the difference? We just added a check to see if the pointer (<code>r</code>)
+was nil, if it is, we just return <code>nil</code>.
+When I added the code above, the person who was worried
+about calling <code>GetDevice()</code> on <code>nil</code> was scratching his head.</p>
+
+<p>Golang does something very interesting (and a bit surprising if you come
+from a dynamic language),
+it returns a nil pointer of the type we defined as return type.
+Let&#8217;s walk through the code by rewriting it slightly differently:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">var</span> <span class="n">bot</span> <span class="p">*</span><span class="n">Robot</span>
+</span><span class='line'><span class="n">bot</span> <span class="p">=</span> <span class="n">m</span><span class="p">.</span><span class="n">FindRobot</span><span class="p">(</span><span class="s">&quot;unknown name&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>At this point if <code>FindRobot()</code> didn&#8217;t find a robot, <code>bot</code> is still
+of type <code>*Robot</code> but the pointer is nil.
+Because we defined a method <code>GetDevice()</code> on <code>*Robot</code>, we
+can call:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">bot</span><span class="p">.</span><span class="n">GetDevice</span><span class="p">(</span><span class="s">&quot;x-ray&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>GetDevice()</code> method will execute and will return <code>nil</code> right
+away because we check if the pointer is <code>nil</code>.</p>
+
+<p>The fact that nil pointers have types has 2 important implications,
+the first one is that you can nicely chain methods without
+checking at the caller site if the returned value is <code>nil</code>.
+The second is that your methods should expect to be potentially
+called on a nil pointer and should properly handle such cases.</p>
+
+<h2>Collection types / type aliasing</h2>
+
+<p>I&#8217;m writing this post on my way back from GopherCon and there
+was one more thing I wanted to clean up and share with you.
+This is a nice pattern I use often to simplify my code.</p>
+
+<p>Our <code>Robot</code> type has a <code>connections</code> field and a <code>devices</code> field:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">Robot</span> <span class="k">struct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. fields removed to simplify the example</span>
+</span><span class='line'>  <span class="n">devices</span>       <span class="p">[]*</span><span class="n">device</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To avoid always having to manually loop through the slice, a method is defined on
+pointers to <code>Robot</code>. This method iterates over
+the devices and halts them:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">Robot</span><span class="p">)</span> <span class="n">haltDevices</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">r</span><span class="p">.</span><span class="n">devices</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">device</span><span class="p">.</span><span class="n">Halt</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code is totally fine but from an API design perspective wouldn&#8217;t be nicer
+to use:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">r</span><span class="p">.</span><span class="n">devices</span><span class="p">().</span><span class="n">Halt</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One of the nice things with this approach is that the concept of halting which
+really belongs to the devices doesn&#8217;t need to leak into the <code>Robot</code> world.</p>
+
+<p>To implement the suggested API change, we need to define a <a href="http://www.golangbootcamp.com/book/methods_and_interfaces#uid90">type alias</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">DeviceCollection</span> <span class="p">[]*</span><span class="n">device</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can now define methods on our new type:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="n">DeviceCollection</span><span class="p">)</span> <span class="n">Halt</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">device</span><span class="p">.</span><span class="n">Halt</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We then need to update our <code>Robot</code> type:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">Robot</span> <span class="k">struct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. fields removed to simplify the example</span>
+</span><span class='line'>  <span class="n">devices</span>       <span class="n">DeviceCollection</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And we are done with out refactoring.</p>
+
+<p>One last note, since we might be need to call different methods on our collection
+we could create an iterator method.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="n">DeviceCollection</span><span class="p">)</span> <span class="n">Each</span><span class="p">(</span><span class="n">f</span> <span class="k">func</span><span class="p">(*</span><span class="n">device</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">f</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// which can be called like so</span>
+</span><span class='line'><span class="n">r</span><span class="p">.</span><span class="n">devices</span><span class="p">.</span><span class="n">Each</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">d</span> <span class="p">*</span><span class="n">device</span><span class="p">){</span>
+</span><span class='line'>  <span class="n">d</span><span class="p">.</span><span class="n">Halt</span><span class="p">()</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Conclusion</h2>
+
+<p>Needless to say that we had fun. The refactoring went much further
+and we removed the use of reflections, some sleeps and much more.
+The code is going through a nice cleanup before reaching 1.0 and
+I can only encourage everybody to play with <a href="http://gobot.io">Gobot</a>,
+there are very few things as fun as Go and Robots!
+(The code is open sourced, look at it, add new drivers, send PRs!)</p>
+
+<p>I&#8217;d like to thank <a href="https://twitter.com/deadprogram">Ron Evans</a> and the <a href="http://hybridgroup.com/">Hybrid Group</a>
+for  open sourcing their code and sharing the fun with all of us.
+I can&#8217;t wait for the next LA Go + Robot hack night.</p>
+
+<p>Finally, <a href="https://splice.com">Splice</a> is hiring, our stack uses a lot of
+different technologies but our backend is all in Go and we are always
+looking for tatented engineers. Drop me a line if interested.</p>
+</div>
+
+    <div class="meta">
+        <div class="date updated">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T10:45:00-07:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time></div>
+        <div class="tags">
+
+<div class="cat">
+  
+    <a class='category' href='/articles/categories/blog-post/'>blog-post</a>, <a class='category' href='/articles/categories/golang/'>golang</a>, <a class='category' href='/articles/categories/tutorial/'>tutorial</a>
+  
+</div>
+
+</div>
+        
+        <div class='vcard author'>By <span class='fn'>Matt Aimonetti</span></div>
+        <div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+  <a class="addthis_button_tweet"></a>
+  </br>
+	
+	
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  </br>
+	
+	<a class="addthis_counter addthis_pill_style"></a></br>
+	</div>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=mattetti"></script>
+</div>
+
+        
+    </div>
+
+
+</article>
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+	<footer class="inner"><div id='copyright-notice'>Copyright &copy; 2014 Matt Aimonetti</div>
+</footer>
+	<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script src="/javascripts/slash.js"></script>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript"> 
+  google.load('search', '1', {language : 'en'});
+  google.setOnLoadCallback(function() {
+  var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+    '010526096358170648343:WMX140696544', customSearchOptions);
+  customSearchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+  var options = new google.search.DrawOptions();
+  options.enableSearchboxOnly("http://matt.aimonetti.net/search");
+  customSearchControl.draw('cse-search-form', options);
+  }, true);
+
+if (navigator.userAgent.match(/iPad/i) != null) {
+  $('meta[name=viewport]').attr('content', 'width=1200,initial-scale=1,maximum-scale=1');
+}
+</script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'mattaimonetti';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mattetti.github.com/posts/2014/04/28/refactoring-go-code/';
+        var disqus_url = 'http://mattetti.github.com/posts/2014/04/28/refactoring-go-code/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

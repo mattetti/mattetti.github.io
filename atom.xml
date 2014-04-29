@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/"/>
-  <updated>2013-12-31T14:27:21-08:00</updated>
+  <updated>2014-04-29T08:02:32-07:00</updated>
   <id>http://mattetti.github.com/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,504 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Refactoring Go code]]></title>
+    <link href="http://mattetti.github.com/posts/2014/04/28/refactoring-go-code/"/>
+    <updated>2014-04-28T10:45:00-07:00</updated>
+    <id>http://mattetti.github.com/posts/2014/04/28/refactoring-go-code</id>
+    <content type="html"><![CDATA[<p><a href="http://golang.org/">Go</a> aka golang is an amazing language but also a language that
+is really easy to learn due to its small scope.
+If you have some coding experience, you will be able to have fully working code
+in a matter of minutes otherwise you might want to read <a href="http://www.golangbootcamp.com/">my free book</a> (WIP).</p>
+
+<div style="text-align:center; padding:2em 0">
+  <a href="http://www.golangbootcamp.com/"><img src="http://mattetti.github.com/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
+</div>
+
+
+<p>Very much like with many other programming languages, a challenging part
+of Go is to learn how to write idiomatic code.
+The good news is that Go makes refactoring easy (and already has a lot
+of conventions).
+I strongly recommend <a href="http://peter.bourgon.org/go-in-production/">this post</a> from Peter Bourgon about Go at SoundCloud and
+the extra conventions they follow (<a href="https://splice.com">Splice</a> also
+follows the same conventions).</p>
+
+<p>One of my favorite Go projects is the <a href="http://gobot.io">gobot</a> project
+by <a href="http://hybridgroup.com/">HybridGroup</a>.</p>
+
+<div style="text-align:center; padding:2em 0">
+<a href="http://gobot.io/"><img src="http://mattetti.github.com/images/gobotio.png" alt="Gobot"></a>
+</div>
+
+
+<p>The Gobot project is pretty young and I noticed a few things that
+could be improved so I offered my help to <a href="https://twitter.com/deadprogram">Ron</a>,
+<a href="https://twitter.com/adzankich">Adrian</a> and the rest of the team.
+Our discussion quickly turned into a fun group refactoring
+session (featuring <a href="https://twitter.com/kytrinyx">@kytrinyx</a>,
+<a href="https://twitter.com/deadprogram">@deadprogram</a>,
+<a href="https://twitter.com/codegangsta">@codegangsta</a>,
+<a href="https://twitter.com/jnbeck">@jnbeck</a>,
+<a href="https://twitter.com/adzankich">@adzankich</a> )</p>
+
+<div style="text-align:center; padding:2em 0">
+  <img src="http://mattetti.github.com/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
+</div>
+
+
+<h2>Packages</h2>
+
+<p>Gobot is split into multiple packages, a core and a few other packages.
+The gobot team, out of habit chose to put a package per repo.
+After further discussions, we chose to bring all official packages
+inside the same repo to keep things easier and to keep the import paths
+clean and logical.</p>
+
+<p>So instead of having:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>github.com/hybridgroup/gobot
+</span><span class='line'>github.com/hybridgroup/gobot-sphero
+</span><span class='line'>github.com/hybridgroup/gobot-...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>All the none-core packages are moved to subdirectories:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>github.com/hybridgroup/gobot
+</span><span class='line'>github.com/hybridgroup/gobot/sphero
+</span><span class='line'>github.com/hybridgroup/gobot/...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This also allowed us to fix the package names
+<code>gobot-sphero</code> is now simply <code>sphero</code></p>
+
+<p>Which also allowed us to simplify the following code:</p>
+
+<p>From:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">SpheroAdaptor</span> <span class="k">struct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">gobot</span><span class="p">.</span><span class="n">Adaptor</span>
+</span><span class='line'>  <span class="n">sp</span> <span class="n">io</span><span class="p">.</span><span class="n">ReadWriteCloser</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">Adaptor</span> <span class="k">struct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">gobot</span><span class="p">.</span><span class="n">Adaptor</span>
+</span><span class='line'>  <span class="n">sp</span> <span class="n">io</span><span class="p">.</span><span class="n">ReadWriteCloser</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We did that with a few other types and methods all over the packages.</p>
+
+<p>We had a discussion about what lead to the multiple repos vs
+one repo. There are legimiate cases for both approaches but in this
+situation, the decision was based on a misunderstanding. The author
+thought that by importing the top package, all sub packages would
+also be somewhat included in the build, making the binary bigger than
+needed. Since Go only compiles and links packages imported, moving all
+packages within the same repo wouldn&#8217;t change the binary output.
+Note that this is not because in this specific case we have all packages
+in the same repo that this is the right thing to do every single time.</p>
+
+<h2>doc.go</h2>
+
+<p>By conventions, package should contain a <code>doc.go</code> file that contains
+an overview of the package and often some information so the developer
+trying to use the library can find the right entry points.</p>
+
+<p>As usual, the standard libraries are a good example,
+<a href="http://golang.org/src/pkg/net/http/doc.go">here is the net/http <code>doc.go</code> file</a>.</p>
+
+<h2>Using a constructor</h2>
+
+<p>We spent some time refactoring <code>master.go</code> which is the file implementing
+the code handling one or multiple robots (which can each have multiple devices).</p>
+
+<p>The original function code looked like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">GobotMaster</span><span class="p">()</span> <span class="p">*</span><span class="n">Master</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">m</span> <span class="p">:=</span> <span class="nb">new</span><span class="p">(</span><span class="n">Master</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">m</span><span class="p">.</span><span class="n">NumCPU</span> <span class="p">=</span> <span class="n">runtime</span><span class="p">.</span><span class="n">NumCPU</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">m</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are a few things that aren&#8217;t really idiomatic in this code.
+The first thing is that by convention, constructors are usually called <code>New&lt;Type&gt;</code>.
+Secondly, the <a href="http://peter.bourgon.org/go-in-production/">community seems to follow</a> the following stylistic choice:
+only use <code>new</code> and <code>make</code> when you need to set the capacity (<code>make([]string,3)</code>)
+Finally we don&#8217;t need to allocate a variable. Here is the refactored code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">NewMaster</span><span class="p">()</span> <span class="p">*</span><span class="n">Master</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">&amp;</span><span class="n">Master</span><span class="p">{</span><span class="n">NumCPU</span><span class="p">:</span> <span class="n">runtime</span><span class="p">.</span><span class="n">NumCPU</span><span class="p">()}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Cleanup package vars</h2>
+
+<p>In the original code, we had a variable called <code>trap</code> which was
+a function living at the top level of the package:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">var</span> <span class="n">trap</span> <span class="p">=</span> <span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="k">chan</span> <span class="n">os</span><span class="p">.</span><span class="n">Signal</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">signal</span><span class="p">.</span><span class="n">Notify</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">os</span><span class="p">.</span><span class="n">Interrupt</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The func was then used to handle signals. The author
+chose to use a variable so he could mutate it in the test suite and
+avoid sending an interrupt when testing.
+We realized we could avoid having this function variable at the top of the package by moving
+it as a field on the <code>Master</code> type and setting the default func in the constructor.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">NewMaster</span><span class="p">()</span> <span class="p">*</span><span class="n">Master</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">&amp;</span><span class="n">Master</span><span class="p">{</span>
+</span><span class='line'>      <span class="n">NumCPU</span><span class="p">:</span> <span class="n">runtime</span><span class="p">.</span><span class="n">NumCPU</span><span class="p">(),</span>
+</span><span class='line'>      <span class="n">trap</span><span class="p">:</span> <span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="k">chan</span> <span class="n">os</span><span class="p">.</span><span class="n">Signal</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="n">signal</span><span class="p">.</span><span class="n">Notify</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">os</span><span class="p">.</span><span class="n">Interrupt</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The code still behaves the same and we can still overwrite the trap function in our tests
+(since the tests are part of the same packge, the non exported field is available)
+but we got rid of a top level var.</p>
+
+<h2>Reading from a channel</h2>
+
+<p>The following code was ranging over a predefined channel (<code>c</code>) of signals.
+and when a signal would arrive, all robots belonging to the master
+would be halted and disconnected.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">for</span> <span class="n">_</span> <span class="p">=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">r</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">m</span><span class="p">.</span><span class="n">Robots</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">m</span><span class="p">.</span><span class="n">Robots</span><span class="p">[</span><span class="n">r</span><span class="p">].</span><span class="n">haltDevices</span><span class="p">()</span>
+</span><span class='line'>      <span class="n">m</span><span class="p">.</span><span class="n">Robots</span><span class="p">[</span><span class="n">r</span><span class="p">].</span><span class="n">finalizeConnections</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">break</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The code above works well but could be cleaned up a little:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="c1">// waiting on something coming on the channel</span>
+</span><span class='line'><span class="n">_</span> <span class="p">=</span> <span class="p">&lt;-</span> <span class="n">c</span>
+</span><span class='line'><span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">m</span><span class="p">.</span><span class="n">Robots</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">r</span><span class="p">.</span><span class="n">haltDevices</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">r</span><span class="p">.</span><span class="n">finalizeConnections</span><span class="p">()</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code does the same thing but simpler.
+We are trying to read from the channel which will block
+(we don&#8217;t care about the result so we use an underscore).
+Then we loop through each robot and stop them.
+We managed to remove a for loop on the channel (with an odd break)
+and me made the code intent clearer.</p>
+
+<h2>Chainable functions and typed nils</h2>
+
+<p>Next, we tacked the following method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">m</span> <span class="p">*</span><span class="n">Master</span><span class="p">)</span> <span class="n">FindRobotDevice</span><span class="p">(</span><span class="n">name</span> <span class="nb">string</span><span class="p">,</span> <span class="n">device</span> <span class="nb">string</span><span class="p">)</span> <span class="p">*</span><span class="n">device</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">robot</span> <span class="p">:=</span> <span class="n">m</span><span class="p">.</span><span class="n">FindRobot</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">robot</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">robot</span><span class="p">.</span><span class="n">GetDevice</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">nil</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The funny thing about this method is that it&#8217;s not needed.
+We could get the same result by calling:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">m</span><span class="p">.</span><span class="n">FindRobot</span><span class="p">(</span><span class="s">&quot;bot name&quot;</span><span class="p">).</span><span class="n">GetDevice</span><span class="p">(</span><span class="s">&quot;laser&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When I said that, someone suggested that it might be a bad idea
+since <code>FindRobot()</code> might return <code>nil</code> and now we would be calling
+<code>GetDevice()</code> on <code>nil</code> and bad things would happen.
+Looking at the code, it was actually easy to fix.</p>
+
+<p>Here is the original code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">Robot</span><span class="p">)</span> <span class="n">GetDevice</span><span class="p">(</span><span class="n">name</span> <span class="nb">string</span><span class="p">)</span> <span class="p">*</span><span class="n">device</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">r</span><span class="p">.</span><span class="n">devices</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">device</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="n">name</span> <span class="p">{</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">device</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">nil</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here is the refactored version:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">Robot</span><span class="p">)</span> <span class="n">GetDevice</span><span class="p">(</span><span class="n">name</span> <span class="nb">string</span><span class="p">)</span> <span class="p">*</span><span class="n">device</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">r</span> <span class="p">==</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">nil</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">r</span><span class="p">.</span><span class="n">devices</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">device</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="n">name</span> <span class="p">{</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">device</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">nil</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Did you spot the difference? We just added a check to see if the pointer (<code>r</code>)
+was nil, if it is, we just return <code>nil</code>.
+When I added the code above, the person who was worried
+about calling <code>GetDevice()</code> on <code>nil</code> was scratching his head.</p>
+
+<p>Golang does something very interesting (and a bit surprising if you come
+from a dynamic language),
+it returns a nil pointer of the type we defined as return type.
+Let&#8217;s walk through the code by rewriting it slightly differently:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">var</span> <span class="n">bot</span> <span class="p">*</span><span class="n">Robot</span>
+</span><span class='line'><span class="n">bot</span> <span class="p">=</span> <span class="n">m</span><span class="p">.</span><span class="n">FindRobot</span><span class="p">(</span><span class="s">&quot;unknown name&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>At this point if <code>FindRobot()</code> didn&#8217;t find a robot, <code>bot</code> is still
+of type <code>*Robot</code> but the pointer is nil.
+Because we defined a method <code>GetDevice()</code> on <code>*Robot</code>, we
+can call:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">bot</span><span class="p">.</span><span class="n">GetDevice</span><span class="p">(</span><span class="s">&quot;x-ray&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>GetDevice()</code> method will execute and will return <code>nil</code> right
+away because we check if the pointer is <code>nil</code>.</p>
+
+<p>The fact that nil pointers have types has 2 important implications,
+the first one is that you can nicely chain methods without
+checking at the caller site if the returned value is <code>nil</code>.
+The second is that your methods should expect to be potentially
+called on a nil pointer and should properly handle such cases.</p>
+
+<h2>Collection types / type aliasing</h2>
+
+<p>I&#8217;m writing this post on my way back from GopherCon and there
+was one more thing I wanted to clean up and share with you.
+This is a nice pattern I use often to simplify my code.</p>
+
+<p>Our <code>Robot</code> type has a <code>connections</code> field and a <code>devices</code> field:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">Robot</span> <span class="k">struct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. fields removed to simplify the example</span>
+</span><span class='line'>  <span class="n">devices</span>       <span class="p">[]*</span><span class="n">device</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To avoid always having to manually loop through the slice, a method is defined on
+pointers to <code>Robot</code>. This method iterates over
+the devices and halts them:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">r</span> <span class="p">*</span><span class="n">Robot</span><span class="p">)</span> <span class="n">haltDevices</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">r</span><span class="p">.</span><span class="n">devices</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">device</span><span class="p">.</span><span class="n">Halt</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code is totally fine but from an API design perspective wouldn&#8217;t be nicer
+to use:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">r</span><span class="p">.</span><span class="n">devices</span><span class="p">().</span><span class="n">Halt</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One of the nice things with this approach is that the concept of halting which
+really belongs to the devices doesn&#8217;t need to leak into the <code>Robot</code> world.</p>
+
+<p>To implement the suggested API change, we need to define a <a href="http://www.golangbootcamp.com/book/methods_and_interfaces#uid90">type alias</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">DeviceCollection</span> <span class="p">[]*</span><span class="n">device</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can now define methods on our new type:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="n">DeviceCollection</span><span class="p">)</span> <span class="n">Halt</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">device</span><span class="p">.</span><span class="n">Halt</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We then need to update our <code>Robot</code> type:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">type</span> <span class="n">Robot</span> <span class="k">struct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// .. fields removed to simplify the example</span>
+</span><span class='line'>  <span class="n">devices</span>       <span class="n">DeviceCollection</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And we are done with out refactoring.</p>
+
+<p>One last note, since we might be need to call different methods on our collection
+we could create an iterator method.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="n">DeviceCollection</span><span class="p">)</span> <span class="n">Each</span><span class="p">(</span><span class="n">f</span> <span class="k">func</span><span class="p">(*</span><span class="n">device</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">f</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// which can be called like so</span>
+</span><span class='line'><span class="n">r</span><span class="p">.</span><span class="n">devices</span><span class="p">.</span><span class="n">Each</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">d</span> <span class="p">*</span><span class="n">device</span><span class="p">){</span>
+</span><span class='line'>  <span class="n">d</span><span class="p">.</span><span class="n">Halt</span><span class="p">()</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Conclusion</h2>
+
+<p>Needless to say that we had fun. The refactoring went much further
+and we removed the use of reflections, some sleeps and much more.
+The code is going through a nice cleanup before reaching 1.0 and
+I can only encourage everybody to play with <a href="http://gobot.io">Gobot</a>,
+there are very few things as fun as Go and Robots!
+(The code is open sourced, look at it, add new drivers, send PRs!)</p>
+
+<p>I&#8217;d like to thank <a href="https://twitter.com/deadprogram">Ron Evans</a> and the <a href="http://hybridgroup.com/">Hybrid Group</a>
+for  open sourcing their code and sharing the fun with all of us.
+I can&#8217;t wait for the next LA Go + Robot hack night.</p>
+
+<p>Finally, <a href="https://splice.com">Splice</a> is hiring, our stack uses a lot of
+different technologies but our backend is all in Go and we are always
+looking for tatented engineers. Drop me a line if interested.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Books to read in 2014]]></title>
@@ -4352,305 +4850,6 @@ source 3rd party library for <a href="http://www.rubymotion.com/">RubyMotion</a>
 Unfortunately, as of July 2011 <strong>I took a break from this project and
 RubyMotion in general</strong>. I explained my motivations in <a href="https://groups.google.com/d/topic/rubymotion/XIE673vnuQk/discussion">this mailing list
 post</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Getting started with mruby]]></title>
-    <link href="http://mattetti.github.com/posts/2012/04/25/getting-started-with-mruby/"/>
-    <updated>2012-04-25T10:59:00-07:00</updated>
-    <id>http://mattetti.github.com/posts/2012/04/25/getting-started-with-mruby</id>
-    <content type="html"><![CDATA[<p>mruby is the latest Ruby implementation in an already quite long list:</p>
-
-<ul>
-<li><a href="http://en.wikipedia.org/wiki/Ruby_MRI">MRI</a></li>
-<li><a href="http://www.rubyenterpriseedition.com/">REE</a></li>
-<li><a href="http://jruby.org/">JRuby</a></li>
-<li><a href="http://rubini.us/">Rubinius</a></li>
-<li><a href="http://macruby.org">MacRuby</a></li>
-<li><a href="http://maglev.github.com/">Maglev</a></li>
-<li><a href="http://www.ironruby.net/">IronRuby</a></li>
-</ul>
-
-
-<p>And many other less known implementations.</p>
-
-<p>This time, the main man behind the project is the Ruby creator
-himself: <a href="http://en.wikipedia.org/wiki/Yukihiro_Matsumoto">Yukihiro &#8216;Matz&#8217; Matsumoto</a>.
-I already covered the <a href="http://matt.aimonetti.net/posts/2012/04/20/mruby-and-mobiruby/">announcement, you can read more about it there</a>.</p>
-
-<h2>Why mruby?</h2>
-
-<p>Following my previous <a href="http://matt.aimonetti.net/posts/2012/04/20/mruby-and-mobiruby/">article on mruby</a>, some people seemed to be confused by the &#8220;raison d&#8217;être&#8221;/purpose of the project and the difference between <a href="http://en.wikipedia.org/wiki/Ruby_MRI">MRI</a> and mruby.</p>
-
-<p>mruby is designed to be modular and to be embedded, which means that
-it&#8217;s expected to live inside other software applications. In other words
-mruby&#8217;s goal is to make Ruby an embedded language. mruby is library that you link in other applications.</p>
-
-<p>When talking about embedded languages, <a href="http://www.lua.org/">Lua</a> is
-probably the most well known interpreted language.
-<a href="http://www.lua.org/">Lua</a> is usually used for the purpose of offering a
-higher level language (scripting language) inside a software written in a low level language
-(usually C/C++). This is why <a href="http://www.lua.org/">Lua</a> is very popular
-in the game industry to allow a scriptable interface and have parts of
-the code interpreted instead of requiring to recompile the code base
-against the target platform. According to <a href="http://www.satori.org/2009/03/the-engine-survey-general-results/">this survey from 2009</a>,
-Lua was by far the most popular scripting language for game developers.</p>
-
-<p><img src="http://www.satori.org/images/GE1/9Scripting.gif" alt="Lua vs other scripting languages" /></p>
-
-<p>Of course, Lua is also popular outside of the game industry and the
-reasons are simple to understand:</p>
-
-<ul>
-<li>very easily embedded (simple and well documented API)</li>
-<li>small footprint</li>
-<li>portable (runs almost everywhere)</li>
-</ul>
-
-
-<p>That gives you an idea of what mruby is trying to be. As a matter of
-fact, this definition of Lua applies very well to mruby:</p>
-
-<blockquote><p>&#8220;Lua is dynamically typed, runs by interpreting bytecode for a register-based virtual machine, and has automatic memory management with incremental garbage collection, making it ideal for configuration, scripting, and rapid prototyping.&#8221;</p></blockquote>
-
-<h2>Why not Lua?</h2>
-
-<p>This is a matter of taste and requirements. It should eventually boil
-down to the difference in the language designs.</p>
-
-<p><img src='http://mattetti.github.com/images/lua_logo.gif' alt='Lua logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px' class='no-caption'/></p>
-
-<blockquote><p>Lua combines simple procedural syntax with powerful data description constructs based on associative arrays and extensible semantics.</p></blockquote>
-
-<p></br>
- <img src='http://mattetti.github.com/images/ruby_logo.png' alt='Ruby logo, Matt Aimonetti site' style='margin:auto;display:block;width:100px'class='no-caption' /></p>
-
-<blockquote><p>Ruby is a dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write.</p></blockquote>
-
-<br style="clear:both">
-
-
-<p>So on one hand you have a very simple language with a focus on
-functional programming and on the other, a <a href="http://www.ruby-lang.org/en/about/">richer language</a> (albeit more
-complex) with a
-main focus on Object Oriented programming.</p>
-
-<p>If you don&#8217;t know Lua, it&#8217;s quite close to JavaScript in the sense that
-it&#8217;s a prototype based language and you can therefore write code that is
-Object Oriented.</p>
-
-<p>Ruby being a full OO and richer language, you can organize your code
-differently and write more of your complex logic in a scriptable language.
-One could even potentially leverage the language to create its own
-Domain Specific Language in pure Ruby and create a &#8220;Rails like&#8221; experience
-within its application.</p>
-
-<p>To be honest, I don&#8217;t think that Ruby via mruby will just replace Lua,
-but I do believe it will become a very interesting alternative for some
-use cases. Especially if mruby manages to perform as well as Lua with the
-same type of footprint. There is also the fact that mruby being
-a sponsored project from the Japanese government, I wouldn&#8217;t be
-surprised to see big Japanese companies experiment with embedding Ruby
-in their devices. After all, software is being added in every object we
-own, rapid development and being first to market is more critical than
-ever which makes mruby is a very attractive solution.</p>
-
-<h2>Getting started</h2>
-
-<p>I wrote a simple hello world example to give you a place to start:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">/* Include the mruby header */</span>
-</span><span class='line'><span class="cp">#include &lt;mruby.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;mruby/compile.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">mrb_state</span> <span class="o">*</span><span class="n">mrb</span> <span class="o">=</span> <span class="n">mrb_open</span><span class="p">();</span>
-</span><span class='line'>  <span class="kt">char</span> <span class="n">code</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;p &#39;hello world!&#39;&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Executing Ruby code with mruby!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">mrb_load_string</span><span class="p">(</span><span class="n">mrb</span><span class="p">,</span> <span class="n">code</span><span class="p">);</span>
-</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Or the longer/more complex version:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">/* Include the mruby headers */</span>
-</span><span class='line'><span class="cp">#include &lt;mruby.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;mruby/proc.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;mruby/data.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;mruby/compile.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">struct</span> <span class="n">mrb_parser_state</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">mrb_state</span> <span class="o">*</span><span class="n">mrb</span> <span class="o">=</span> <span class="n">mrb_open</span><span class="p">();</span>
-</span><span class='line'>  <span class="kt">char</span> <span class="n">code</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;p &#39;hello world!&#39;&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Executing code with mruby!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">p</span> <span class="o">=</span> <span class="n">mrb_parse_string</span><span class="p">(</span><span class="n">mrb</span><span class="p">,</span> <span class="n">code</span><span class="p">);</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">n</span> <span class="o">=</span> <span class="n">mrb_generate_code</span><span class="p">(</span><span class="n">mrb</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">mrb_run</span><span class="p">(</span><span class="n">mrb</span><span class="p">,</span> <span class="n">mrb_proc_new</span><span class="p">(</span><span class="n">mrb</span><span class="p">,</span> <span class="n">mrb</span><span class="o">-&gt;</span><span class="n">irep</span><span class="p">[</span><span class="n">n</span><span class="p">]),</span> <span class="n">mrb_top_self</span><span class="p">(</span><span class="n">mrb</span><span class="p">));</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">mrb</span><span class="o">-&gt;</span><span class="n">exc</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">mrb_p</span><span class="p">(</span><span class="n">mrb</span><span class="p">,</span> <span class="n">mrb_obj_value</span><span class="p">(</span><span class="n">mrb</span><span class="o">-&gt;</span><span class="n">exc</span><span class="p">));</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To compile and link the code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="err">$</span> <span class="n">gcc</span> <span class="o">-</span><span class="n">Iinclude</span> <span class="n">hello</span><span class="p">.</span><span class="n">c</span> <span class="n">lib</span><span class="o">/</span><span class="n">libmruby</span><span class="p">.</span><span class="n">a</span> <span class="o">-</span><span class="n">lm</span> <span class="o">-</span><span class="n">o</span> <span class="n">hello</span><span class="p">.</span><span class="n">out</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To execute it:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">hello</span><span class="p">.</span><span class="n">out</span>
-</span><span class='line'><span class="n">Executing</span> <span class="n">Ruby</span> <span class="n">code</span> <span class="n">with</span> <span class="n">mruby</span><span class="o">!</span>
-</span><span class='line'><span class="s">&quot;hello world!&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To get started, you just need the <a href="https://github.com/mruby/mruby">mruby source code</a> and a compiler. (I haven&#8217;t tried to compile mruby or my sample on Windows for this code, but I assume it would work just fine with Visual C++).</p>
-
-<p>The above example is very trivial and takes a line of Ruby code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">p</span> <span class="s1">&#39;hello world!&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>that the linked mruby lib interprets.
-You can take the compiled file and use it on other machines using the
-same platform and the code will run fine, just like normal C code.</p>
-
-<p>For a more complete example, take a look at the <a href="https://github.com/mruby/mruby/blob/master/tools/mruby/mruby.c">mruby&#8217;s standalone
-interpreter</a></p>
-
-<h2>Future</h2>
-
-<p>It&#8217;s a bit too early to know if mruby will be successful or not. There are few things I will keep my
-eyes on.</p>
-
-<h3>Performance</h3>
-
-<p>To be a true alternative to Lua, mruby will have to interpret Ruby code
-much faster than what MRI is able to do right now. It will also need to
-keep the memory footprint really tiny. Ruby being a more complicated
-language than Lua, it might be tricky, but we&#8217;ll see.</p>
-
-<h3>Documentation</h3>
-
-<p>While the idea of using Ruby has a macro language might get a lot of
-people excited, if documentation lacks or if the process is painful, the very same people might
-fallback to another language.
-Historically speaking, the MRI team has had issues with documentation
-and communication due to various factors. I hope that thanks to Matz
-experience and to the strong Ruby community, mruby will become a easy
-and efficient alternative to Lua or people wanting to embed one of the
-greatest interpreted languages.</p>
-
-<h3>Ruby outside of Rails</h3>
-
-<p>While <a href="http://rubyonrails.org">Ruby on Rails</a> really made Ruby popular,
-I&#8217;m always a bit dissapointed when I see how many popular projects the
-Ruby community has outside of Rails. Think about it, we have some
-awesome implementation such as JRuby and MacRuby which allow you to use
-an amazing amount of libraries to do the craziest thing one could
-imagine using the language they like the most. But yet, Rails is still
-by far the #1 Ruby project. Of course, there are many non-Rails related
-projects out there, but they don&#8217;t benefit from Rails&#8217; aura.</p>
-
-<p>What I hope with mruby is that it will allow developers to leverage the
-beauty of Ruby and to create other niches for people to have fun.
-Some people already started:</p>
-
-<h4>MobiRuby</h4>
-
-<p><a href="https://github.com/masuidrive">Yuichiro MASUI</a>
-is working on having Ruby available on iOS and Android.</p>
-
-<h4>Ruby for Node.js</h4>
-
-<p><a href="http://mattn.kaoriya.net/">Yasuhiro Matsumoto</a> is working on <a href="https://github.com/mattn/mruby-uv">mruby-uv</a> an interface for <a href="https://github.com/joyent/libuv">libuv</a> Node.js&#8217; platform layer.</p>
-
-<h4>mod_mruby</h4>
-
-<p><a href="http://blog.matsumoto-r.jp/">MATSUMOTO Ryosuke</a> is working on an Apache
-module for mruby called <a href="https://github.com/matsumoto-r/mod_mruby">mod_mruby</a> which would
-be comparable to <a href="http://httpd.apache.org/docs/2.3/mod/mod_lua.html">mod_lua</a></p>
-
-<h4>mruby REPL</h4>
-
-<p><a href="">Frank Celler</a> started working and blogging about writing a REPL for
-mruby, go check out <a href="http://www.avocadodb.org/category/mruby">his excellent blog posts</a> on the shell he&#8217;s working on and other stuff he&#8217;s doing with mruby.</p>
-
-<p>But there is plenty more to do, <a href="http://antirez.com/post/scripting-branch-released.html">redis</a> for instance now has/is about to be scriptabled via Lua, what about trying to use mruby to also support Ruby?
-What about scripting game logic and even full games in Ruby?
-What about mruby on a <a href="http://www.raspberrypi.org/">Raspberry pi</a>?
-Ruby on my TV, fridge, car, AC, solar panel controller&#8230;</p>
-
-<p>I will certainly be looking forward to people trying to reproduce the success
-of Rails in a different domain thanks to the Ruby language.</p>
 ]]></content>
   </entry>
   
