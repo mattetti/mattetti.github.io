@@ -4,7 +4,7 @@
   <title><![CDATA[Category: blog-post | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/articles/categories/blog-post/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/"/>
-  <updated>2014-04-29T08:38:08-07:00</updated>
+  <updated>2014-04-29T08:43:22-07:00</updated>
   <id>http://mattetti.github.com/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -214,7 +214,7 @@ m.Robots[r].finalizeConnections()
 
 <p>```go
 // waiting on something coming on the channel
-_ = &lt;- c
+&lt;- c
 for _, r := range m.Robots {</p>
 
 <pre><code>r.haltDevices()
@@ -226,7 +226,7 @@ r.finalizeConnections()
 
 <p>This code does the same thing but simpler.
 We are trying to read from the channel which will block
-(we don't care about the result so we use an underscore).
+(we don't care about the result so we don't capture or could have used an underscore).
 Then we loop through each robot and stop them.
 We managed to remove a for loop on the channel (with an odd break)
 and me made the code intent clearer.</p>

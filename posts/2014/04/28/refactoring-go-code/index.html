@@ -320,7 +320,7 @@ would be halted and disconnected.</p>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="c1">// waiting on something coming on the channel</span>
-</span><span class='line'><span class="n">_</span> <span class="p">=</span> <span class="p">&lt;-</span> <span class="n">c</span>
+</span><span class='line'><span class="p">&lt;-</span> <span class="n">c</span>
 </span><span class='line'><span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">m</span><span class="p">.</span><span class="n">Robots</span> <span class="p">{</span>
 </span><span class='line'>  <span class="n">r</span><span class="p">.</span><span class="n">haltDevices</span><span class="p">()</span>
 </span><span class='line'>  <span class="n">r</span><span class="p">.</span><span class="n">finalizeConnections</span><span class="p">()</span>
@@ -330,7 +330,7 @@ would be halted and disconnected.</p>
 
 <p>This code does the same thing but simpler.
 We are trying to read from the channel which will block
-(we don&#8217;t care about the result so we use an underscore).
+(we don&#8217;t care about the result so we don&#8217;t capture or could have used an underscore).
 Then we loop through each robot and stop them.
 We managed to remove a for loop on the channel (with an odd break)
 and me made the code intent clearer.</p>
