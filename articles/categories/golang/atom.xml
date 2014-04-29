@@ -4,7 +4,7 @@
   <title><![CDATA[Category: golang | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/articles/categories/golang/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/"/>
-  <updated>2014-04-29T08:44:56-07:00</updated>
+  <updated>2014-04-29T09:51:53-07:00</updated>
   <id>http://mattetti.github.com/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -327,6 +327,11 @@ the first one is that you can nicely chain methods without
 checking at the caller site if the returned value is <code>nil</code>.
 The second is that your methods should expect to be potentially
 called on a nil pointer and should properly handle such cases.</p>
+
+<p><strong>Note</strong>: Go team member <a href="https://twitter.com/enneff">Andrew Gerrand</a>
+suggested on <a href="https://news.ycombinator.com/item?id=7667554">Hacker News</a>
+to name the method <code>Device</code> instead of <code>GetDevice</code>. The word <code>Get</code> is almost always redundant.
+In the same chain of thoughts, maybe we should rename <code>FindRobot</code> just <code>Robot</code>.</p>
 
 <h2>Collection types / type aliasing</h2>
 
