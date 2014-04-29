@@ -4,7 +4,7 @@
   <title><![CDATA[Category: blog-post | Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/articles/categories/blog-post/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/"/>
-  <updated>2014-04-29T08:43:22-07:00</updated>
+  <updated>2014-04-29T08:44:56-07:00</updated>
   <id>http://mattetti.github.com/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -380,7 +380,7 @@ type DeviceCollection []*device
 <p>We can now define methods on our new type:</p>
 
 <p>```go
-func(c DeviceCollection) Halt() {
+func (c DeviceCollection) Halt() {
   for _, device := range c {</p>
 
 <pre><code>device.Halt()
@@ -399,13 +399,13 @@ type Robot struct {
 }
 </code></p>
 
-<p>And we are done with out refactoring.</p>
+<p>And we are done with our refactoring.</p>
 
 <p>One last note, since we might be need to call different methods on our collection
 we could create an iterator method.</p>
 
 <p>```go
-func(c DeviceCollection) Each(f func(*device)) {
+func (c DeviceCollection) Each(f func(*device)) {
   for _, d := range c {</p>
 
 <pre><code>f(d)

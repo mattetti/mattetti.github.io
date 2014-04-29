@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://mattetti.github.com/atom.xml" rel="self"/>
   <link href="http://mattetti.github.com/"/>
-  <updated>2014-04-29T08:43:22-07:00</updated>
+  <updated>2014-04-29T08:44:56-07:00</updated>
   <id>http://mattetti.github.com/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -443,7 +443,7 @@ really belongs to the devices doesn&#8217;t need to leak into the <code>Robot</c
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="n">DeviceCollection</span><span class="p">)</span> <span class="n">Halt</span><span class="p">()</span> <span class="p">{</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="n">DeviceCollection</span><span class="p">)</span> <span class="n">Halt</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">device</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
 </span><span class='line'>    <span class="n">device</span><span class="p">.</span><span class="n">Halt</span><span class="p">()</span>
 </span><span class='line'>  <span class="p">}</span>
@@ -464,7 +464,7 @@ really belongs to the devices doesn&#8217;t need to leak into the <code>Robot</c
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>And we are done with out refactoring.</p>
+<p>And we are done with our refactoring.</p>
 
 <p>One last note, since we might be need to call different methods on our collection
 we could create an iterator method.</p>
@@ -479,7 +479,7 @@ we could create an iterator method.</p>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span><span class="p">(</span><span class="n">c</span> <span class="n">DeviceCollection</span><span class="p">)</span> <span class="n">Each</span><span class="p">(</span><span class="n">f</span> <span class="k">func</span><span class="p">(*</span><span class="n">device</span><span class="p">))</span> <span class="p">{</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">c</span> <span class="n">DeviceCollection</span><span class="p">)</span> <span class="n">Each</span><span class="p">(</span><span class="n">f</span> <span class="k">func</span><span class="p">(*</span><span class="n">device</span><span class="p">))</span> <span class="p">{</span>
 </span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">d</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">c</span> <span class="p">{</span>
 </span><span class='line'>    <span class="n">f</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span>
