@@ -96,7 +96,7 @@ type Adaptor struct {
 We did that with a few other types and methods all over the packages.
 
 We had a discussion about what lead to the multiple repos vs
-one repo. There are legimiate cases for both approaches but in this
+one repo. There are legitimate cases for both approaches but in this
 situation, the decision was based on a misunderstanding. The author
 thought that by importing the top package, all sub packages would
 also be somewhat included in the build, making the binary bigger than
@@ -205,11 +205,11 @@ We are trying to read from the channel which will block
 (we don't care about the result so we use an underscore).
 Then we loop through each robot and stop them.
 We managed to remove a for loop on the channel (with an odd break)
-and me made the code intent clearer.
+and made the code intent clearer.
 
 ## Chainable functions and typed nils
 
-Next, we tacked the following method:
+Next, we tackled the following method:
 
 ```go
 func (m *Master) FindRobotDevice(name string, device string) *device {
@@ -324,15 +324,15 @@ func (r *Robot) haltDevices() {
 }
 ```
 
-This code is totally fine but from an API design perspective wouldn't be nicer
-to use:
+This code is totally fine but from an API design perspective, wouldn't it be nicer
+to use?:
 
 ```go
 r.devices().Halt()
 ```
 
-One of the nice things with this approach is that the concept of halting which
-really belongs to the devices doesn't need to leak into the `Robot` world.
+One of the nice things with this approach is that the concept of halting, which
+really belongs to the devices, doesn't need to leak into the `Robot` world.
 
 To implement the suggested API change, we need to define a [type alias](http://www.golangbootcamp.com/book/methods_and_interfaces#uid90):
 
@@ -361,7 +361,7 @@ type Robot struct {
 
 And we are done with out refactoring.
 
-One last note, since we might be need to call different methods on our collection
+One last note, since we might need to call different methods on our collection
 we could create an iterator method.
 
 ```go
@@ -392,4 +392,4 @@ I can't wait for the next LA Go + Robot hack night.
 
 Finally, [Splice](https://splice.com) is hiring, our stack uses a lot of
 different technologies but our backend is all in Go and we are always
-looking for tatented engineers. Drop me a line if interested.
+looking for talented engineers. Drop me a line if interested.
