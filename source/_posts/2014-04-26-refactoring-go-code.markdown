@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Refactoring Go code"
+title: "Go, Robots and code refactoring"
 date: 2014-04-28 10:45
 comments: true
 categories: 
-- golang
+- Golang
 - blog-post
 - tutorial
+- Popular
 ---
 
 [Go](http://golang.org/) aka golang is an amazing language but also a language that
@@ -193,7 +194,7 @@ The code above works well but could be cleaned up a little:
 
 ```go
 // waiting on something coming on the channel
-_ = <- c
+<- c
 for _, r := range m.Robots {
 	r.haltDevices()
 	r.finalizeConnections()
@@ -202,7 +203,7 @@ for _, r := range m.Robots {
 
 This code does the same thing but simpler.
 We are trying to read from the channel which will block
-(we don't care about the result so we use an underscore).
+(we don't care about the result so we don't capture or could have used an underscore).
 Then we loop through each robot and stop them.
 We managed to remove a for loop on the channel (with an odd break)
 and made the code intent clearer.
@@ -295,6 +296,10 @@ checking at the caller site if the returned value is `nil`.
 The second is that your methods should expect to be potentially
 called on a nil pointer and should properly handle such cases.
 
+**Note**: Go team member [Andrew Gerrand](https://twitter.com/enneff)
+suggested on [Hacker News](https://news.ycombinator.com/item?id=7667554)
+to name the method `Device` instead of `GetDevice`. The word `Get` is almost always redundant.
+In the same chain of thoughts, maybe we should rename `FindRobot` just `Robot`.
 
 ## Collection types / type aliasing
 
@@ -343,7 +348,7 @@ type DeviceCollection []*device
 We can now define methods on our new type:
 
 ```go
-func(c DeviceCollection) Halt() {
+func (c DeviceCollection) Halt() {
   for _, device := range c {
     device.Halt()
   }
@@ -359,13 +364,13 @@ type Robot struct {
 }
 ```
 
-And we are done with out refactoring.
+And we are done with our refactoring.
 
 One last note, since we might need to call different methods on our collection
 we could create an iterator method.
 
 ```go
-func(c DeviceCollection) Each(f func(*device)) {
+func (c DeviceCollection) Each(f func(*device)) {
   for _, d := range c {
     f(d)
   }

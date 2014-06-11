@@ -5,7 +5,7 @@ date: 2013-07-01 22:28
 comments: true
 categories: 
 - blog-post
-- golang
+- Golang
 - tutorial
 ---
 

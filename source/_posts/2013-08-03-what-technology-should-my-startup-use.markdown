@@ -5,7 +5,7 @@ date: 2013-08-27 22:10
 comments: true
 categories: 
 - blog-post
-- golang
+- Golang
 - ruby
 - entrepreneurship
 - PHP
