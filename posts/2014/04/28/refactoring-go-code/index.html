@@ -195,7 +195,7 @@ clean and logical.</p>
 <p>We did that with a few other types and methods all over the packages.</p>
 
 <p>We had a discussion about what lead to the multiple repos vs
-one repo. There are legimiate cases for both approaches but in this
+one repo. There are legitimate cases for both approaches but in this
 situation, the decision was based on a misunderstanding. The author
 thought that by importing the top package, all sub packages would
 also be somewhat included in the build, making the binary bigger than
@@ -336,11 +336,11 @@ We are trying to read from the channel which will block
 (we don&#8217;t care about the result so we don&#8217;t capture or could have used an underscore).
 Then we loop through each robot and stop them.
 We managed to remove a for loop on the channel (with an odd break)
-and me made the code intent clearer.</p>
+and made the code intent clearer.</p>
 
 <h2>Chainable functions and typed nils</h2>
 
-<p>Next, we tacked the following method:</p>
+<p>Next, we tackled the following method:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -497,16 +497,16 @@ the devices and halts them:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This code is totally fine but from an API design perspective wouldn&#8217;t be nicer
-to use:</p>
+<p>This code is totally fine but from an API design perspective, wouldn&#8217;t it be nicer
+to use?:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="n">r</span><span class="p">.</span><span class="n">devices</span><span class="p">().</span><span class="n">Halt</span><span class="p">()</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>One of the nice things with this approach is that the concept of halting which
-really belongs to the devices doesn&#8217;t need to leak into the <code>Robot</code> world.</p>
+<p>One of the nice things with this approach is that the concept of halting, which
+really belongs to the devices, doesn&#8217;t need to leak into the <code>Robot</code> world.</p>
 
 <p>To implement the suggested API change, we need to define a <a href="http://www.golangbootcamp.com/book/methods_and_interfaces#uid90">type alias</a>:</p>
 
@@ -545,7 +545,7 @@ really belongs to the devices doesn&#8217;t need to leak into the <code>Robot</c
 
 <p>And we are done with our refactoring.</p>
 
-<p>One last note, since we might be need to call different methods on our collection
+<p>One last note, since we might need to call different methods on our collection
 we could create an iterator method.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -586,7 +586,7 @@ I can&#8217;t wait for the next LA Go + Robot hack night.</p>
 
 <p>Finally, <a href="https://splice.com">Splice</a> is hiring, our stack uses a lot of
 different technologies but our backend is all in Go and we are always
-looking for tatented engineers. Drop me a line if interested.</p>
+looking for talented engineers. Drop me a line if interested.</p>
 </div>
 
     <div class="meta">
