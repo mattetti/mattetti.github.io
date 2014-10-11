@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2014-10-11T10:36:03-07:00</updated>
+  <updated>2014-10-11T10:39:44-07:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -32,14 +32,14 @@ in Barcelona, Spain. The talk focuses on:</p>
 <p>To illustrate this pretty dry topic, I told the story of Alice and Bob,
 two entrepreneurs building a succesful web application and facing some serious challenges.</p>
 
-<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-slide="5" data-id="9260300033980132573d121bd1ded631" data-ratio="1.33333333333333" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
-
-
 <h2>Video</h2>
 
 <iframe width="640" height="480" src="http://matt.aimonetti.net//www.youtube.com/embed/vC5xR5CgThM" frameborder="0" allowfullscreen></iframe>
+
+
+<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-slide="5" data-id="9260300033980132573d121bd1ded631" data-ratio="1.33333333333333" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 ]]></content>
   </entry>
