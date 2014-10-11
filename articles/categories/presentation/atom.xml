@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Presentation | Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/articles/categories/presentation/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2014-10-11T11:20:27-07:00</updated>
+  <updated>2014-10-11T12:32:54-07:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -56,8 +56,10 @@ information about the events, see <a href="http://blog.golang.org/io2014">this b
 
 <h2>Slides</h2>
 
-<iframe src="https://docs.google.com/a/splice.com/file/d/0B-nws9GU_6qVZklnNnJITlhSbXc/preview" width="640" height="480"></iframe>
+<script async class="speakerdeck-embed" data-id="fb7887b033aa0132ef480af01cce597a" data-ratio="1.33333333333333" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
+
+<p><a href="https://docs.google.com/a/golang.org/file/d/0B-nws9GU_6qVZklnNnJITlhSbXc/edit">Full screen slides</a></p>
 
 <h2>Video</h2>
 
