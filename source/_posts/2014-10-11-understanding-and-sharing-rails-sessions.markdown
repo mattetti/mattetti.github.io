@@ -16,7 +16,7 @@ in Barcelona, Spain. The talk focuses on:
 * how session authentication works in Ruby on Rails,
 * the crypto used to protect the data,
 * the security implications and
-* how to share the session with applications written in other languages than Ruby. (with an example in [Go](http://golang.org))
+* how to share the session with applications written in other languages than Ruby (with an example in [Go](http://golang.org)).
 
 To illustrate this pretty dry topic, I told the story of Alice and Bob,
 two entrepreneurs building a succesful web application and facing some serious challenges.
