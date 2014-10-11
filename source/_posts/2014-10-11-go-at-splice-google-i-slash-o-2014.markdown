@@ -16,7 +16,10 @@ information about the events, see [this blog post from the Go team](http://blog.
 
 
 ## Slides
-<iframe src="https://docs.google.com/a/splice.com/file/d/0B-nws9GU_6qVZklnNnJITlhSbXc/preview" width="640" height="480"></iframe>
+
+<script async class="speakerdeck-embed" data-id="fb7887b033aa0132ef480af01cce597a" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+
+[Full screen slides](https://docs.google.com/a/golang.org/file/d/0B-nws9GU_6qVZklnNnJITlhSbXc/edit)
 
 ## Video
 
