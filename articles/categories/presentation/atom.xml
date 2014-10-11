@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Presentation | Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/articles/categories/presentation/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2014-10-11T10:31:48-07:00</updated>
+  <updated>2014-10-11T10:36:03-07:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -19,11 +19,15 @@
     <updated>2014-09-13T10:15:00-07:00</updated>
     <id>http://matt.aimonetti.net/posts/2014/09/13/understanding-and-sharing-rails-sessions</id>
     <content type="html"><![CDATA[<p>In September 2014, I gave this talk at <a href="http://www.baruco.org/">Baruco</a>
-in Barcelona, Spain. The talk focuses on:
-* how session authentication works in Ruby on Rails,
-* the crypto used to protect the data,
-* the security implications and
-* how to share the session with applications written in other languages than Ruby. (with an example in <a href="http://golang.org">Go</a>)</p>
+in Barcelona, Spain. The talk focuses on:</p>
+
+<ul>
+<li>how session authentication works in Ruby on Rails,</li>
+<li>the crypto used to protect the data,</li>
+<li>the security implications and</li>
+<li>how to share the session with applications written in other languages than Ruby. (with an example in <a href="http://golang.org">Go</a>)</li>
+</ul>
+
 
 <p>To illustrate this pretty dry topic, I told the story of Alice and Bob,
 two entrepreneurs building a succesful web application and facing some serious challenges.</p>
