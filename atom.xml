@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-03-04T00:11:07-08:00</updated>
+  <updated>2015-03-04T00:16:37-08:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -49,6 +49,10 @@
 will be posted on April first. Prizes and conditions available on the
 website. Comments and discussions available on
 <a href="https://news.ycombinator.com/item?id=9125480">HackerNews</a></p>
+
+<p>Note that I also wrote <a href="https://github.com/splicers/sm-808">another challenge</a> that we usually give our
+frontend candidates. If you&#8217;re not into Go and prefer JS, you might like
+this challenge better.</p>
 ]]></content>
   </entry>
   
