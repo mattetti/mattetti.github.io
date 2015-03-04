@@ -1,0 +1,1334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: tutorial | Matt Aimonetti]]></title>
+  <link href="http://mattetti.github.com/mattetti/articles/categories/tutorial/atom.xml" rel="self"/>
+  <link href="http://mattetti.github.com/mattetti/"/>
+  <updated>2015-03-03T23:52:24-08:00</updated>
+  <id>http://mattetti.github.com/mattetti/</id>
+  <author>
+    <name><![CDATA[Matt Aimonetti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Go, Robots and code refactoring]]></title>
+    <link href="http://mattetti.github.com/mattetti/posts/2014/04/28/refactoring-go-code/"/>
+    <updated>2014-04-28T10:45:00-07:00</updated>
+    <id>http://mattetti.github.com/mattetti/posts/2014/04/28/refactoring-go-code</id>
+    <content type="html"><![CDATA[<p><a href="http://golang.org/">Go</a> aka golang is an amazing language but also a language that
+is really easy to learn due to its small scope.
+If you have some coding experience, you will be able to have fully working code
+in a matter of minutes otherwise you might want to read <a href="http://www.golangbootcamp.com/">my free book</a> (WIP).</p>
+
+<div style="text-align:center; padding:2em 0">
+  <a href="http://www.golangbootcamp.com/"><img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
+</div>
+
+
+<p>Very much like with many other programming languages, a challenging part
+of Go is to learn how to write idiomatic code.
+The good news is that Go makes refactoring easy (and already has a lot
+of conventions).
+I strongly recommend <a href="http://peter.bourgon.org/go-in-production/">this post</a> from Peter Bourgon about Go at SoundCloud and
+the extra conventions they follow (<a href="https://splice.com">Splice</a> also
+follows the same conventions).</p>
+
+<p>One of my favorite Go projects is the <a href="http://gobot.io">gobot</a> project
+by <a href="http://hybridgroup.com/">HybridGroup</a>.</p>
+
+<div style="text-align:center; padding:2em 0">
+<a href="http://gobot.io/"><img src="http://mattetti.github.com/mattetti/images/gobotio.png" alt="Gobot"></a>
+</div>
+
+
+<p>The Gobot project is pretty young and I noticed a few things that
+could be improved so I offered my help to <a href="https://twitter.com/deadprogram">Ron</a>,
+<a href="https://twitter.com/adzankich">Adrian</a> and the rest of the team.
+Our discussion quickly turned into a fun group refactoring
+session (featuring <a href="https://twitter.com/kytrinyx">@kytrinyx</a>,
+<a href="https://twitter.com/deadprogram">@deadprogram</a>,
+<a href="https://twitter.com/codegangsta">@codegangsta</a>,
+<a href="https://twitter.com/jnbeck">@jnbeck</a>,
+<a href="https://twitter.com/adzankich">@adzankich</a> )</p>
+
+<div style="text-align:center; padding:2em 0">
+  <img src="http://mattetti.github.com/mattetti/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
+</div>
+
+
+<h2>Packages</h2>
+
+<p>Gobot is split into multiple packages, a core and a few other packages.
+The gobot team, out of habit chose to put a package per repo.
+After further discussions, we chose to bring all official packages
+inside the same repo to keep things easier and to keep the import paths
+clean and logical.</p>
+
+<p>So instead of having:</p>
+
+<p><code>
+github.com/hybridgroup/gobot
+github.com/hybridgroup/gobot-sphero
+github.com/hybridgroup/gobot-...
+</code></p>
+
+<p>All the none-core packages are moved to subdirectories:</p>
+
+<p><code>
+github.com/hybridgroup/gobot
+github.com/hybridgroup/gobot/sphero
+github.com/hybridgroup/gobot/...
+</code></p>
+
+<p>This also allowed us to fix the package names
+<code>gobot-sphero</code> is now simply <code>sphero</code></p>
+
+<p>Which also allowed us to simplify the following code:</p>
+
+<p>From:
+```go
+type SpheroAdaptor struct {</p>
+
+<pre><code>gobot.Adaptor
+sp io.ReadWriteCloser
+</code></pre>
+
+<p>}
+```</p>
+
+<p>To</p>
+
+<p><code>go
+type Adaptor struct {
+  gobot.Adaptor
+  sp io.ReadWriteCloser
+}
+</code></p>
+
+<p>We did that with a few other types and methods all over the packages.</p>
+
+<p>We had a discussion about what lead to the multiple repos vs
+one repo. There are legitimate cases for both approaches but in this
+situation, the decision was based on a misunderstanding. The author
+thought that by importing the top package, all sub packages would
+also be somewhat included in the build, making the binary bigger than
+needed. Since Go only compiles and links packages imported, moving all
+packages within the same repo wouldn't change the binary output.
+Note that this is not because in this specific case we have all packages
+in the same repo that this is the right thing to do every single time.</p>
+
+<h2>doc.go</h2>
+
+<p>By conventions, package should contain a <code>doc.go</code> file that contains
+an overview of the package and often some information so the developer
+trying to use the library can find the right entry points.</p>
+
+<p>As usual, the standard libraries are a good example,
+<a href="http://golang.org/src/pkg/net/http/doc.go">here is the net/http <code>doc.go</code> file</a>.</p>
+
+<h2>Using a constructor</h2>
+
+<p>We spent some time refactoring <code>master.go</code> which is the file implementing
+the code handling one or multiple robots (which can each have multiple devices).</p>
+
+<p>The original function code looked like this:</p>
+
+<p><code>go
+func GobotMaster() *Master {
+  m := new(Master)
+  m.NumCPU = runtime.NumCPU()
+  return m
+}
+</code></p>
+
+<p>There are a few things that aren't really idiomatic in this code.
+The first thing is that by convention, constructors are usually called <code>New&lt;Type&gt;</code>.
+Secondly, the <a href="http://peter.bourgon.org/go-in-production/">community seems to follow</a> the following stylistic choice:
+only use <code>new</code> and <code>make</code> when you need to set the capacity (<code>make([]string,3)</code>)
+Finally we don't need to allocate a variable. Here is the refactored code:</p>
+
+<p><code>go
+func NewMaster() *Master {
+  return &amp;Master{NumCPU: runtime.NumCPU()}
+}
+</code></p>
+
+<h2>Cleanup package vars</h2>
+
+<p>In the original code, we had a variable called <code>trap</code> which was
+a function living at the top level of the package:</p>
+
+<p><code>go
+var trap = func(c chan os.Signal) {
+  signal.Notify(c, os.Interrupt)
+}
+</code></p>
+
+<p>The func was then used to handle signals. The author
+chose to use a variable so he could mutate it in the test suite and
+avoid sending an interrupt when testing.
+We realized we could avoid having this function variable at the top of the package by moving
+it as a field on the <code>Master</code> type and setting the default func in the constructor.</p>
+
+<p>```go
+func NewMaster() *Master {</p>
+
+<pre><code>return &amp;Master{
+    NumCPU: runtime.NumCPU(),
+    trap: func(c chan os.Signal) {
+        signal.Notify(c, os.Interrupt)
+    },
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>The code still behaves the same and we can still overwrite the trap function in our tests
+(since the tests are part of the same packge, the non exported field is available)
+but we got rid of a top level var.</p>
+
+<h2>Reading from a channel</h2>
+
+<p>The following code was ranging over a predefined channel (<code>c</code>) of signals.
+and when a signal would arrive, all robots belonging to the master
+would be halted and disconnected.</p>
+
+<p>```go
+for _ = range c {
+  for r := range m.Robots {</p>
+
+<pre><code>m.Robots[r].haltDevices()
+m.Robots[r].finalizeConnections()
+</code></pre>
+
+<p>  }
+  break
+}
+```</p>
+
+<p>The code above works well but could be cleaned up a little:</p>
+
+<p>```go
+// waiting on something coming on the channel
+&lt;- c
+for _, r := range m.Robots {</p>
+
+<pre><code>r.haltDevices()
+r.finalizeConnections()
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This code does the same thing but simpler.
+We are trying to read from the channel which will block
+(we don't care about the result so we don't capture or could have used an underscore).
+Then we loop through each robot and stop them.
+We managed to remove a for loop on the channel (with an odd break)
+and made the code intent clearer.</p>
+
+<h2>Chainable functions and typed nils</h2>
+
+<p>Next, we tackled the following method:</p>
+
+<p>```go
+func (m <em>Master) FindRobotDevice(name string, device string) </em>device {</p>
+
+<pre><code>robot := m.FindRobot(name)
+if robot != nil {
+    return robot.GetDevice(device)
+}
+return nil
+</code></pre>
+
+<p>}
+```</p>
+
+<p>The funny thing about this method is that it's not needed.
+We could get the same result by calling:</p>
+
+<p><code>go
+m.FindRobot("bot name").GetDevice("laser")
+</code></p>
+
+<p>When I said that, someone suggested that it might be a bad idea
+since <code>FindRobot()</code> might return <code>nil</code> and now we would be calling
+<code>GetDevice()</code> on <code>nil</code> and bad things would happen.
+Looking at the code, it was actually easy to fix.</p>
+
+<p>Here is the original code:</p>
+
+<p>```go
+func (r <em>Robot) GetDevice(name string) </em>device {</p>
+
+<pre><code>for _, device := range r.devices {
+    if device.Name == name {
+        return device
+    }
+}
+return nil
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Here is the refactored version:</p>
+
+<p>```go
+func (r <em>Robot) GetDevice(name string) </em>device {</p>
+
+<pre><code>if r == nil {
+    return nil
+}
+for _, device := range r.devices {
+    if device.Name == name {
+        return device
+    }
+}
+return nil
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Did you spot the difference? We just added a check to see if the pointer (<code>r</code>)
+was nil, if it is, we just return <code>nil</code>.
+When I added the code above, the person who was worried
+about calling <code>GetDevice()</code> on <code>nil</code> was scratching his head.</p>
+
+<p>Golang does something very interesting (and a bit surprising if you come
+from a dynamic language),
+it returns a nil pointer of the type we defined as return type.
+Let's walk through the code by rewriting it slightly differently:</p>
+
+<p><code>go
+var bot *Robot
+bot = m.FindRobot("unknown name")
+</code></p>
+
+<p>At this point if <code>FindRobot()</code> didn't find a robot, <code>bot</code> is still
+of type <code>*Robot</code> but the pointer is nil.
+Because we defined a method <code>GetDevice()</code> on <code>*Robot</code>, we
+can call:</p>
+
+<p><code>go
+bot.GetDevice("x-ray")
+</code></p>
+
+<p>The <code>GetDevice()</code> method will execute and will return <code>nil</code> right
+away because we check if the pointer is <code>nil</code>.</p>
+
+<p>The fact that nil pointers have types has 2 important implications,
+the first one is that you can nicely chain methods without
+checking at the caller site if the returned value is <code>nil</code>.
+The second is that your methods should expect to be potentially
+called on a nil pointer and should properly handle such cases.</p>
+
+<p><strong>Note</strong>: Go team member <a href="https://twitter.com/enneff">Andrew Gerrand</a>
+suggested on <a href="https://news.ycombinator.com/item?id=7667554">Hacker News</a>
+to name the method <code>Device</code> instead of <code>GetDevice</code>. The word <code>Get</code> is almost always redundant.
+In the same chain of thoughts, maybe we should rename <code>FindRobot</code> just <code>Robot</code>.</p>
+
+<h2>Collection types / type aliasing</h2>
+
+<p>I'm writing this post on my way back from GopherCon and there
+was one more thing I wanted to clean up and share with you.
+This is a nice pattern I use often to simplify my code.</p>
+
+<p>Our <code>Robot</code> type has a <code>connections</code> field and a <code>devices</code> field:</p>
+
+<p>```go
+type Robot struct {
+  // .. fields removed to simplify the example</p>
+
+<pre><code>devices       []*device
+</code></pre>
+
+<p>}
+```</p>
+
+<p>To avoid always having to manually loop through the slice, a method is defined on
+pointers to <code>Robot</code>. This method iterates over
+the devices and halts them:</p>
+
+<p>```go
+func (r *Robot) haltDevices() {</p>
+
+<pre><code>for _, device := range r.devices {
+    device.Halt()
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This code is totally fine but from an API design perspective, wouldn't it be nicer
+to use?:</p>
+
+<p><code>go
+r.devices().Halt()
+</code></p>
+
+<p>One of the nice things with this approach is that the concept of halting, which
+really belongs to the devices, doesn't need to leak into the <code>Robot</code> world.</p>
+
+<p>To implement the suggested API change, we need to define a <a href="http://www.golangbootcamp.com/book/methods_and_interfaces#uid90">type alias</a>:</p>
+
+<p><code>go
+type DeviceCollection []*device
+</code></p>
+
+<p>We can now define methods on our new type:</p>
+
+<p>```go
+func (c DeviceCollection) Halt() {
+  for _, device := range c {</p>
+
+<pre><code>device.Halt()
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>We then need to update our <code>Robot</code> type:</p>
+
+<p><code>go
+type Robot struct {
+  // .. fields removed to simplify the example
+  devices       DeviceCollection
+}
+</code></p>
+
+<p>And we are done with our refactoring.</p>
+
+<p>One last note, since we might need to call different methods on our collection
+we could create an iterator method.</p>
+
+<p>```go
+func (c DeviceCollection) Each(f func(*device)) {
+  for _, d := range c {</p>
+
+<pre><code>f(d)
+</code></pre>
+
+<p>  }
+}</p>
+
+<p>// which can be called like so
+r.devices.Each(func(d *device){
+  d.Halt()
+})
+```</p>
+
+<h2>Conclusion</h2>
+
+<p>Needless to say that we had fun. The refactoring went much further
+and we removed the use of reflections, some sleeps and much more.
+The code is going through a nice cleanup before reaching 1.0 and
+I can only encourage everybody to play with <a href="http://gobot.io">Gobot</a>,
+there are very few things as fun as Go and Robots!
+(The code is open sourced, look at it, add new drivers, send PRs!)</p>
+
+<p>I'd like to thank <a href="https://twitter.com/deadprogram">Ron Evans</a> and the <a href="http://hybridgroup.com/">Hybrid Group</a>
+for  open sourcing their code and sharing the fun with all of us.
+I can't wait for the next LA Go + Robot hack night.</p>
+
+<p>Finally, <a href="https://splice.com">Splice</a> is hiring, our stack uses a lot of
+different technologies but our backend is all in Go and we are always
+looking for talented engineers. Drop me a line if interested.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Golang multipart file upload example]]></title>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example/"/>
+    <updated>2013-07-01T22:28:00-07:00</updated>
+    <id>http://mattetti.github.com/mattetti/posts/2013/07/01/golang-multipart-file-upload-example</id>
+    <content type="html"><![CDATA[<p>The Go language is one of my favorite programming languages. However,
+sometimes doing simple things can seem a bit harder than it should.
+However, most of the time, the problem is just to find out how to
+do things the easy way. While Go's documention isn't bad, the real key
+to finding out how to do things is often to look at the <a href="http://golang.org/src/pkg/mime/multipart/">source code</a> and
+the <a href="http://golang.org/src/pkg/mime/multipart/multipart_test.go">test suite</a>.</p>
+
+<p>I'm not yet super familiar with all the std lib packages, so when I
+wanted to test my Go web services, I wrote a few lines of code to create
+a multipart file upload function that was building the body from scratch.
+Once I was done messing with the various headers, boundary protocol etc..
+I started testing some edge cases, I found some bugs in my code.
+Looking at Go's packages, I realized that all the tools were already
+available for me to use. I was just lacking a good example. Walking
+through the test suite I finally figured out how to write a simple
+multipart file upload example with some extra query params.</p>
+
+<p>Hopefully this example will be helpful to some of you.</p>
+
+<p>```go
+package main</p>
+
+<p>import (</p>
+
+<pre><code>"bytes"
+"fmt"
+"io"
+"log"
+"mime/multipart"
+"net/http"
+"os"
+"path/filepath"
+</code></pre>
+
+<p>)</p>
+
+<p>// Creates a new file upload http request with optional extra params
+func newfileUploadRequest(uri string, params map[string]string, paramName, path string) (*http.Request, error) {</p>
+
+<pre><code>file, err := os.Open(path)
+if err != nil {
+    return nil, err
+}
+defer file.Close()
+
+body := &amp;bytes.Buffer{}
+writer := multipart.NewWriter(body)
+part, err := writer.CreateFormFile(paramName, filepath.Base(path))
+if err != nil {
+    return nil, err
+}
+_, err = io.Copy(part, file)
+
+for key, val := range params {
+    _ = writer.WriteField(key, val)
+}
+err = writer.Close()
+if err != nil {
+    return nil, err
+}
+
+return http.NewRequest("POST", uri, body)
+</code></pre>
+
+<p>}</p>
+
+<p>func main() {</p>
+
+<pre><code>path, _ := os.Getwd()
+path += "/test.pdf"
+extraParams := map[string]string{
+    "title":       "My Document",
+    "author":      "Matt Aimonetti",
+    "description": "A document with all the Go programming language secrets",
+}
+request, err := newfileUploadRequest("https://google.com/upload", extraParams, "file", "/tmp/doc.pdf")
+if err != nil {
+    log.Fatal(err)
+}
+client := &amp;http.Client{}
+resp, err := client.Do(request)
+if err != nil {
+    log.Fatal(err)
+} else {
+    body := &amp;bytes.Buffer{}
+    _, err := body.ReadFrom(resp.Body)
+if err != nil {
+        log.Fatal(err)
+    }
+resp.Body.Close()
+    fmt.Println(resp.StatusCode)
+    fmt.Println(resp.Header)
+    fmt.Println(body)
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p><a href="https://gist.github.com/mattetti/5914158">Example's source code on GitHub</a></p>
+
+<p>All the work is done in the <code>newfileUploadRequest</code> function and
+really, the <code>mime/multipart</code> package hides all the complexity of
+creating a multipart request.</p>
+
+<p>The key is to set a new <code>multipart.Writer</code>:</p>
+
+<p><code>go
+writer := multipart.NewWriter(body)
+</code></p>
+
+<p>The writer will do all the work and will write directly to our body (which itself is a buffer of bytes).</p>
+
+<p>We then create a part for the file form entry with the name of the file
+param and the name of the file (that we extracted using the <code>path/filepath</code>
+package).
+We need to add the content of the file to the file part, we use the
+<code>io.Copy()</code> to do so. In the first version of this article, I had used
+<code>io/ioutil</code> <code>Readall</code> to read the content of the file (see code <a href="https://gist.github.com/mattetti/5914158/f4d1393d83ebedc682a3c8e7bdc6b49670083b84">here</a>).
+However a few readers rightfully mentioned that I should instead copy
+content from the file to the part instead of temporarily loading the content of
+the file in memory. <a href="http://play.golang.org/p/eEFBMGMNTW">Here</a> is an
+even more optimized version using goroutine to stream the data, and
+<a href="https://github.com/gebi/go-fileupload-example/blob/master/main.go">here</a> is the full example using a pipe.</p>
+
+<p><code>go
+part, _ := writer.CreateFormFile(paramName, filepath.Base(path))
+_, err = io.Copy(part, file)
+</code></p>
+
+<p>The <code>multipart.Writer</code> takes care of setting the boundary and formating
+the form data for us, nice isn't it?!</p>
+
+<p>Then for any extra params passed as a map of string keys to string
+value, we use another function of the <code>multipart.Writer</code> type:</p>
+
+<p><code>go
+writer.WriteField(key, val)
+</code></p>
+
+<p>Once again, the writer takes care of creating the right headers, and to
+add the passed value.</p>
+
+<p>At this point, we just need to close our writer and use our body to
+create a new request.</p>
+
+<p><code>go
+writer.Close()
+req, _ := http.NewRequest("POST", uri, body)
+</code></p>
+
+<p>One last thing before triggering our request, we need to set the header
+that contains the content type including the boundary being used.
+Once again, the Go lib has us covered:</p>
+
+<p><code>go
+req.Header.Add("Content-Type", writer.FormDataContentType())
+</code></p>
+
+<p>As a reference, here is the generated body:</p>
+
+<p>```
+--0d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee
+Content-Disposition: form-data; name="file"; filename="doc.pdf"
+Content-Type: application/octet-stream</p>
+
+<p>%PDF-1.4
+%????
+4 0 obj
+&lt;&lt;/Type /Catalog
+// removed for example
+trailer
+&lt;&lt;/Size 18
+/Root 4 0 R</p>
+
+<blockquote><blockquote><p>startxref
+45054
+%%EOF
+--0d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee
+Content-Disposition: form-data; name="title"</p></blockquote></blockquote>
+
+<p>My Document
+--0d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee
+Content-Disposition: form-data; name="author"</p>
+
+<p>Matt Aimonetti
+--0d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee
+Content-Disposition: form-data; name="description"</p>
+
+<p>A document with all the Go programming language secrets
+--0d940a1e725445cd9192c14c5a3f3d30ea9c90f1f5fb9c08813b3fc2adee--</p>
+
+<p>```</p>
+
+<p>Golang might not be as high level as Ruby or Python, but it's not too
+far off and it certainly comes with some great std libs.
+I know I recently caught myself writing a lot of small scripts in Go,
+something I used to do in Ruby. I think this is mainly due to the
+fact that Go is compiled, designed for concurrency, has great std libs and
+is quite easy to write.</p>
+
+<p><em>Hopefully this code sample illustrates how easy Go can be and can also
+serve as a reference point if you are looking for a way to do multipart
+upload.</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
+    <link href="http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
+    <updated>2013-06-26T10:26:00-07:00</updated>
+    <id>http://mattetti.github.com/mattetti/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
+    <content type="html"><![CDATA[<p>Engineers love to improve things. Refactoring and optimizations
+drive us. There is just a slight problem: we often do that in a vacuum.</p>
+
+<p>Before optimizing, we need to <strong>measure</strong>.</p>
+
+<p>Without a solid baseline, how can you say that the time you invested in making things better wasn't a total waste?</p>
+
+<p>True refactoring is done with a solid test suite in place. Developers know that their code behavior didn't change while they cleaned things up. Performance optimization is the same thing: we need a good set of metrics before changing anything.</p>
+
+<p>There are plenty of monitoring tools out there, each with its own pros
+and cons. The point of this article isn't to argue about which one <strong>you</strong> should use,
+but instead to give you the some practical knowledge about <a href="http://graphite.readthedocs.org/en/latest/overview.html">Graphite</a>.</p>
+
+<p><img src="/images/graphite_fullscreen_800.png" alt="Screenshot of the Graphite UI" /></p>
+
+<p>Graphite is used to store and render time-series data. In other words,
+you collect metrics and Graphite allows you to create pretty graphs easily.</p>
+
+<p>During my time at LivingSocial, I relied on Graphite to
+understand trends, issues and optimize performance. As my coworkers
+and I were discussing my recently announced departure, I asked them how I
+could help them during the transition period. Someone mentioned creating a
+Graphite cheatsheet. The cheatsheet turned into something much bigger than I expected
+and LivingSocial was nice enough to let me publicly publish this
+short guide.</p>
+
+<p><em>For a more in depth dive into the statsd/graphite features, look at
+<a href="http://blog.pkhamre.com/2012/07/24/understanding-statsd-and-graphite/">this blog post</a></em></p>
+
+<h2>Organizing metrics</h2>
+
+<p>There are <a href="http://graphite.readthedocs.org/en/latest/tools.html">many ways</a> to feed Graphite,
+I personally used <a href="https://github.com/etsy/statsd/">Etsy's statsd</a> (node.js daemon) which was being fed
+via the <a href="https://github.com/reinh/statsd">statsd RubyGem</a>.
+The gem allows developers to push recorded metrics to a statsd server
+via UDP. Using UDP instead of TCP makes the metrics collection operation
+non blocking which means that while you might theoretically lose a few samples, your
+instrumented code performance shouldn't be affected. (Read <a href="http://codeascraft.com/2011/02/15/measure-anything-measure-everything/">Etsy's
+blog post</a> to know more about
+why they chose UDP).</p>
+
+<p><strong> Tip </strong>: Doing DNS resolution on each call can be a bit expensive (a
+few ms), target your statsd server using its ip or use Ruby's <a href="http://www.ruby-doc.org/stdlib-2.0/libdoc/resolv/rdoc/Resolv/DNS.html#method-i-getaddress">resolv</a>
+standard library to only do the lookup once at initialization.</p>
+
+<p><strong>Note</strong>: <em>I'm skipping the config settings about storage retention, resolution etc.. see the
+<a href="http://graphite.readthedocs.org/en/latest/overview.html">manual</a> for more info.</em></p>
+
+<h3>Namespacing</h3>
+
+<p>Always namespace your collected data, even if you only have one app for
+now. If your app does two things at the same time like serving HTML and
+providing an API, you might want to create two clients which you would namespace
+differently.</p>
+
+<h3>Naming metrics</h3>
+
+<p>Properly naming your metrics is critical to avoid conflicts,
+confusing data and potentially wrong interpretation later on.
+I like to organize metrics using the following schema:</p>
+
+<p><code>
+ &lt;namespace&gt;.&lt;instrumented section&gt;.&lt;target (noun)&gt;.&lt;action (past tense verb)&gt;
+</code></p>
+
+<p>Example:</p>
+
+<p><code>
+accounts.authentication.password.attempted
+accounts.authentication.password.succeeded
+accounts.authentication.password.failed
+</code></p>
+
+<p>I use nouns to define the target and past tense verbs to define
+the action. This becomes a useful convention when you need to nest
+metrics. In the above example, let's say I want to monitor the reasons for
+the failed password authentications. Here is how I would organize the
+extra stats:</p>
+
+<p><code>
+accounts.authentication.password.failure.no_email_found
+accounts.authentication.password.failure.password_check_failed
+accounts.authentication.password.failure.password_reset_required
+</code></p>
+
+<p>As you can see, I used <code>failure</code> instead of <code>failed</code> in the stat name.
+The main reason is to avoid conflicting data. <code>failed</code> is an action and
+already has a data series allocated, if I were to add nested data using
+<code>failed</code>, the data would be collected but the result would be confusing.
+The other reason is because when we will graph the data, we will often
+want to use a wildcard <code>*</code> to collect all nested data in a series.</p>
+
+<p>Graphite wild card usage example on counters:</p>
+
+<p><code>
+accounts.authentication.password.failure.*
+</code></p>
+
+<p>This should give us the same value as <code>accounts.authentication.password.failed</code>,
+ so really, we should just collect the more detailed version and get rid
+of <code>accounts.authentication.password.failed</code>.</p>
+
+<p>Following this naming convention should really help your data stay clean and
+easy to manage.</p>
+
+<h2>Counters and metrics</h2>
+
+<p>StatsD lets you record different types of metrics <a href="https://github.com/etsy/statsd/blob/master/docs/metric_types.md">as illustrated here</a>.</p>
+
+<p>This article will focus on the 2 main types:</p>
+
+<ul>
+<li>counters</li>
+<li>timers</li>
+</ul>
+
+
+<p>Use counters for metrics when you don't care about how long the code
+your are instrumenting takes to run. Usually counters are used for data
+that have more of a direct business value. Examples include sales,
+authentication, signups, etc.</p>
+
+<p>Timers are more powerful because they can be used to analyze the time
+spent in a piece of code but also be used as a counters. Most of my work
+involves timers because I want to detect system anomalies including performance
+changes and trends in the way code is being used.</p>
+
+<p>I usually use timers in a nested manner, starting when a request
+comes into the system, through each of the various
+datastores, and ending with the response.</p>
+
+<h2>Monitoring response time</h2>
+
+<p>It's a well known fact that the response time of your application will
+both affect the user's emotional experience and their likelihood of completing a transactin.
+However understanding where time is being spent within a request is
+hard, especially when the problems aren't obvious. Tools like
+<a href="http://newrelic.com/">NewRelic</a> will often get you a good overview of
+how your system behave but they also lack the granularity you might
+need. For instance NewRelic aggregates and averageses the data client side
+before sending it to their servers. While this is fine in a lot of cases,
+if you care about more than averages and want more detailed metrics, you probably need
+to run your own solution such as statsd + graphite.</p>
+
+<p>I build most of my web-based APIs on <a href="https://github.com/mattetti/wd-sinatra">wd_sinatra</a> which
+has a <code>pre_dispatch_hook</code> method which method is executed before a
+request is dispatched.</p>
+
+<p>I use this hook to both set the "Stats context" in the current thread and extract the client name based on HTTP headers.
+If you don't use WD, I'll show how to do the same thing in a
+Rack middleware.</p>
+
+<p><code>ruby
+def pre_dispatch_hook
+  api_client = extract_api_client_name(env)
+  Thread.current[:stats_context] = "#{api_client}.http.#{env['wd.service'].verb}.#{env['wd.service'].url}".gsub('/', '.')
+  # [...]
+end
+</code></p>
+
+<p>Then using Sinatra's global before/after filters, we set a unique
+request id and start a timer that we stop and report in the after filter. If we were using Rails we'd get the unique identifier generated automatically.</p>
+
+<p>Before filter:</p>
+
+<p>```ruby
+require 'securerandom'</p>
+
+<p>before do
+  Thread.current[:request_id] = request.env['HTTP_X_REQUEST_ID'] || SecureRandom.hex(16)
+  response['X-Request-Id'] = Thread.current[:request_id]
+  @instrumentation_start = Time.now
+end
+```</p>
+
+<p>After filter:</p>
+
+<p><code>ruby
+after do
+  stat = (Thread.current[:stats_context] || "http.skipped.#{env["REQUEST_METHOD"]}.#{request.path_info}") + ".response_time"
+  $statsd.timing(stat, ((Time.now - @instrumentation_start) * 1000).round, 1) if @instrumentation_start
+end
+</code></p>
+
+<p>Note that this could, and probably <strong>should</strong>, be done in a Rack middleware like this (untested, YMMV):</p>
+
+<p>```ruby</p>
+
+<h1>require whatever is needed and set statsd</h1>
+
+<p>class Stats
+  class Middleware</p>
+
+<pre><code>def initialize(app)
+  @app = app
+end
+
+def call(env)
+  request = Rack::Request.new(env)
+  Thread.current[:request_id] = request.env['HTTP_X_REQUEST_ID'] || SecureRandom.hex(16)
+  response['X-Request-Id'] = Thread.current[:request_id]
+  api_client = extract_api_client_name(env)
+  Thread.current[:stats_context] = "#{api_client}.http.#{request.request_method}.#{request.path_info}".gsub('/', '.')
+  @instrumentation_start = Time.now
+
+  response = @app.call(env)
+
+  stat = (Thread.current[:stats_context] || "http.skipped.#{env["REQUEST_METHOD"]}.#{request.path_info}") + ".response_time"
+  $statsd.timing(stat, ((Time.now - @instrumentation_start) * 1000).round, 1) if @instrumentation_start
+  response
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Note that the stats are organized slightly differently and will read
+like that:</p>
+
+<p><code>
+&lt;namespace&gt;.&lt;client name&gt;.http.&lt;http verb&gt;.&lt;path&gt;.&lt;segments&gt;.response_time
+</code></p>
+
+<p>The dots in the stats name will be used to create subfolders in graphite.
+By using such a segmented stats name, we will be able to use <code>*</code>
+wildcards to analyze how an old version of an API compares against a
+newer one, which clients still talk to the old APIs, compare response
+times, etc.</p>
+
+<h2>Monitor time spent within a response</h2>
+
+<p>We're collecting stats on every request so
+we can see request counts and median average response times.
+But wouldn't be better if we could measure the time spent in specific
+parts of our code base and compare that to the overall time spent in the
+request?</p>
+
+<p>We could, for instance, compare the time spent in the DB vs Redis
+vs Memcached vs the framework. And what's nice is that we could do that
+per API endpoint and per API client. In a simpler case, you might decide to monitor mobile vs desktop. The principle is the same.</p>
+
+<p>Let's hook into ActiveRecord's query generation to track the time spent
+in AR within each request:</p>
+
+<p>```ruby
+module MysqlStats
+  module Instrumentation</p>
+
+<pre><code>SQL_INSERT_DELETE_PARSER_REGEXP = /^(\w+)\s(\w+)\s\W*(\w+)/
+SQL_SELECT_REGEXP = /select .*? FROM \W*(\w+)/i
+SQL_UPDATE_REGEXP = /update \W*(\w+)/i
+
+# Returns the table and query type
+def self.extract_from_sql_inserts_deletes(query)
+  query =~ SQL_INSERT_DELETE_PARSER_REGEXP
+  [$3, $1]
+end
+
+def self.extract_sql_selects(query)
+  query =~ SQL_SELECT_REGEXP
+  [$1, 'SELECT']
+end
+
+def self.guess_sql_content(query)
+  if query =~ SQL_UPDATE_REGEXP 
+    [$1, 'UPDATE']
+  elsif query =~ SQL_SELECT_REGEXP
+    extract_sql_selects(query)
+  end
+end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>ActiveSupport::Notifications.subscribe "sql.active_record" do |name, start, finish, id, payload|
+  if payload[:name] == "SQL"</p>
+
+<pre><code>table, action = MysqlStats::Instrumentation.extract_from_sql_inserts_deletes(payload[:sql])
+</code></pre>
+
+<p>  elsif payload[:name] =~ /.* Load$/</p>
+
+<pre><code>table, action = MysqlStats::Instrumentation.extract_sql_selects(payload[:sql])
+</code></pre>
+
+<p>  elsif !payload[:name]</p>
+
+<pre><code>table, action = MysqlStats::Instrumentation.guess_sql_content(payload[:sql])
+</code></pre>
+
+<p>  end</p>
+
+<p>  if table</p>
+
+<pre><code>$statsd.timing("#{Thread.current[:stats_context] || 'wild'}.sql.#{table}.#{action}.query_time",
+                    (finish - start) * 1000, 1)
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>This code might not be pretty but it works (<em>or should work</em>).
+We subscribe to <code>ActiveSupport::Notifications</code> for <code>sql.active_record</code>
+and we extract the info we need. Then we use the stats context set in
+the thread and report the stats by appending
+<code>.sql.#{table}.#{action}.query_time</code></p>
+
+<p>The final stats entry could look like this:
+<code>auth_api.ios.http.post.v1.accounts.sql.users.SELECT.query_time</code></p>
+
+<ul>
+<li><strong>auth_api</strong>: the name of the monitored app</li>
+<li><strong>ios</strong>: the client name</li>
+<li><strong>http</strong>: the protocol used (you might want to monitor thrift, spdy etc..</li>
+<li><strong>post</strong>: HTTP verb</li>
+<li><strong>v1.accounts</strong>: the converted uri: /v1/accounts</li>
+<li><strong>sql</strong>: the key for the SQL metrics</li>
+<li><strong>users</strong>: the table being queried</li>
+<li><strong>SELECT</strong>: the SQL query type</li>
+<li><strong>query_time</strong>: the kind of data being collected.</li>
+</ul>
+
+
+<p>As you can see, we are getting granular data. Depending on how you setup
+statsd/graphite, you could have access to the following timer data for
+each stat (and more):</p>
+
+<ul>
+<li>count</li>
+<li>lower</li>
+<li>mean</li>
+<li>mean_5</li>
+<li>mean_10</li>
+<li>mean_90</li>
+<li>mean_95</li>
+<li>median</li>
+<li>sum</li>
+<li>upper</li>
+<li>upper_5</li>
+<li>upper_10</li>
+<li>upper_90</li>
+<li>upper_95</li>
+</ul>
+
+
+<p>Instrumenting Redis is easy too:</p>
+
+<p>```ruby
+::Redis::Client.class_eval do</p>
+
+<p>  # Support older versions of Redis::Client that used the method
+  # +raw_call_command+.
+  call_method = ::Redis::Client.new.respond_to?(:call) ? :call : :raw_call_command</p>
+
+<p>  def call_with_stats_trace(*args, &amp;blk)</p>
+
+<pre><code>method_name = args[0].is_a?(Array) ? args[0][0] : args[0]
+start = Time.now
+begin
+  call_without_stats_trace(*args, &amp;blk)
+ensure
+  if Thread.current[:stats_context]
+    $statsd.timing("#{Thread.current[:stats_context]}.redis.#{method_name.to_s.upcase}.query_time", 
+                     ((Time.now - start) * 1000).round, 1) rescue nil
+  end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>  alias_method :call_without_stats_trace, call_method
+  alias_method call_method, :call_with_stats_trace</p>
+
+<p>end if defined?(::Redis::Client)
+```</p>
+
+<p>Using Ruby's alias method chain, we inject
+our instrumentation into the Redis client so we can track the time spent
+there.</p>
+
+<p>Applying the same approach, we can instrument the Ruby <strong>memcached</strong> gem:</p>
+
+<p>```ruby
+::Memcached.class_eval do</p>
+
+<p>  def get_with_stats_trace(keys, marshal=true)</p>
+
+<pre><code>start = Time.now
+begin
+  get_without_stats_trace(keys, marshal)
+ensure
+  if Thread.current[:stats_context]
+    type = keys.is_a?(Array) ? "multi_get" : "get"
+    $statsd.timing("#{Thread.current[:stats_context]}.memcached.#{type}.query_time", 
+                     ((Time.now - start) * 1000).round, 1) rescue nil
+  end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>  alias_method :get_without_stats_trace, :get
+  alias_method :get, :get_with_stats_trace</p>
+
+<p>end if defined?(::Memcached)
+```</p>
+
+<h2>Dashboards</h2>
+
+<p>We now have collected and organized our stats. Let's talk about how to
+use Graphite to display all this data in a valuable way.</p>
+
+<p>When looking at timer data series, the first thing we want to do is create an overall represention. Your first inclination is probably an <em>average</em>.</p>
+
+<p>The problem with the mean is that it's the sum of all data
+points divided by the number of data points. It can thus be significantly affected by a small number of outliers.</p>
+
+<p>The median value is the number found in the center of the sorted list of
+collected data points. The problem in this case is that based on your
+data set, the median value might not well represent the real overall
+experience.</p>
+
+<p>Neither <strong>median</strong> nor <strong>mean</strong> can summarize the whole story of your system's behavior.
+Instead I prefer to use a <strong>5-95 span</strong> (thanks <a href="http://steveakers.com/">Steve
+Akers</a> for showing me this metric and most of what I
+know about Graphite).
+A 5-95 span means that we cut off the extreme outliers above 95% and below 5%.</p>
+
+<h3>Span</h3>
+
+<p>Here is a comparison showing how the graphs can be different for the same
+data based on what metric you use:</p>
+
+<p><img src="/images/graphite/graphite-median_vs_mean_vs_span.png" alt="Graphite comparing median vs mean vs span" /></p>
+
+<p>Of course the span graph looks much worse than the other two, but it's
+also more representative of the real user experience and thus more
+valuable. Here is how you would write the graphite function to get this data.</p>
+
+<p>Given that we are tracking the following data-series:</p>
+
+<p><code>
+stats.timers.accounts.ios.http.post.authenticate.response_time
+</code></p>
+
+<p>The function would be:</p>
+
+<p>```
+diffSeries(stats.timers.accounts.ios.http.post.authenticate.response_time.upper_95,</p>
+
+<pre><code>       stats.timers.accounts.ios.http.post.authenticate.response_time.upper_5)
+</code></pre>
+
+<p>```</p>
+
+<h3>Alias</h3>
+
+<p>If you try that function, the graph legend will show the entire
+function, which really doesn't look great. To simplify things, you can use an
+alias like I did in the graph above:</p>
+
+<p>```
+alias(diffSeries(stats.timers.accounts.ios.http.post.authenticate.response_time.upper_95,</p>
+
+<pre><code>             stats.timers.accounts.ios.http.post.authenticate.response_time.upper_5),
+  "iOS authentication response time (span)")
+</code></pre>
+
+<p>```</p>
+
+<p>Aliases are very useful, especially when you share your dashboards with
+others.</p>
+
+<h3>Threshold</h3>
+
+<p>Another neat feature you might add to your graph is a <strong>threshold</strong>.
+A threshold is a visual representation of expectations. Say, for example, that your web service shouldn't be slower than 60ms server side. Let's add a threshold for that:</p>
+
+<p><code>
+alias(threshold(60), "60ms threshold")
+</code></p>
+
+<p>and here's how it would look in a graph:</p>
+
+<p><img src="/images/graphite/graphite-median_vs_mean_vs_span-with-threshold.png" alt="Graphite with a threshold" /></p>
+
+<h3>Draw Null as Zero</h3>
+
+<p>Another useful trick is to change the render options of a
+graph to draw null values as zero.
+Open the graph panel, click on <code>Render Options</code>, then <code>Line Mode</code> and check
+the <code>Draw Null as Zero</code> box.</p>
+
+<p>Here is a graph tracking a webservice that isn't getting a lot of
+traffic:</p>
+
+<p><img src="/images/graphite/nulls_not_drawn_as_zero.png" alt="graphite example" /></p>
+
+<p>You can see that the line is discontinued, that's because the API
+doesn't constantly receive traffic. If your data series gets only very
+few entries, you might not even see a line. This is why you want to
+enable the <code>Draw Null as Zero</code>.</p>
+
+<h3>SumSeries &amp; Summarize or how to get RPMs</h3>
+
+<p>By default graphite shows data at a 10 second interval. But often
+you want to see less granular data, like the quantity of requests
+per second.</p>
+
+<p>Let's say we didn't use a counter for the amount of requests, but
+because we used the middleware I described earlier, we are timing all
+responses. Graphite keeps a count of the timers we used, so we can use
+this count value with a wildcard:</p>
+
+<p><code>
+stats.timers.accounts.*.http.post.authenticate.response_time.count
+</code></p>
+
+<p>If we were to render a graph for this stat we would see a graph per
+client. Right now we only care about showing the total amount of requests.
+To do that, we'll use the <code>sumSeries</code> function:</p>
+
+<p><code>
+sumSeries(stats.timers.accounts.*.http.post.authenticate.response_time.count)
+</code></p>
+
+<p><img src="/images/graphite/graphite-not-summarized.png" alt="RPMs not summarized" /></p>
+
+<p>The graph looks pretty but it's hard to understand what kind of request
+volume we are getting. We can summarize this data to show 1 min
+summaries instead:</p>
+
+<p><code>
+summarize(sumSeries(stats.timers.accounts.*.http.post.authenticate.response_time.count), "1min")
+</code></p>
+
+<p><img src="/images/graphite/graphite-summarize.png" alt="RPMs summarize" /></p>
+
+<p>We can now see the quantity of requests per minute. You could do the same to resolve by hour, day, etc.</p>
+
+<h3>Timeshift</h3>
+
+<p>Graphite has the ability to compare a given metric across two different time spans. For instance, let's compare
+today's quantity of logins vs those from last weeks.</p>
+
+<p>To generate today's graph:</p>
+
+<p><code>
+alias(summarize(sumSeries(stats.timers.accounts.*.http.post.authenticate.response_time.count),"1min"), "today")
+</code></p>
+
+<p>Then we use the <code>timeShift</code> function to get last week's data:</p>
+
+<p><code>
+alias(timeShift(summarize(sumSeries(stats.timers.accounts.*.http.post.authenticate.response_time.count), "1min"),"1w"), "last week")
+</code></p>
+
+<p>Graphing both series in the same graph will give us that:</p>
+
+<p><img src="/images/graphite/graphite-timeshift.png" alt="graphite timeshift example" /></p>
+
+<p>Wow, it looks like last week we had an authentication peek for a few
+hours. Why? It would be interesting to graph our promos and sales in the same
+graph to see if we can find any correlations.</p>
+
+<p>Depending on your domain, you might want to compare against different
+time slices. Just change the second <code>timeShift</code> argument.</p>
+
+<h3>As percent</h3>
+
+<p>Another technique is to compare the percentage growth since last week.
+Let's imagine we are looking at sales or signup numbers.
+We could graph today's sales per minute vs those from last week.</p>
+
+<p>To do that, Graphite has the <code>asPercent</code> function. This function
+takes a series representing <em>100%</em> and second to compare against.
+The function call looks a bit scary so let me try to break it down over
+multiple lines:</p>
+
+<p><code>
+asPercent(
+  summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count),"1min")
+  ,timeShift(summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count), "1min"),"1w")
+)
+</code></p>
+
+<p>The first argument is the summarized RPMs (requests per minute) and the
+second is last week's summarized RPMs.</p>
+
+<p>Here is how the graph looks:</p>
+
+<p><img src="/images/graphite/graphite-compare-as-percent.png" alt="graphite as percent" /></p>
+
+<p>Based on all the data we collect, we can now graph something like that:</p>
+
+<p><img src="/images/graphite/graphite-as-percent.png" alt="graphite as percent with multiple series" /></p>
+
+<p>This graph is basically the same as the one above, but we used the
+overall response time as the 100% value and we graphed all the different
+monitored sections of our code base.</p>
+
+<p>You can now build some really advanced tools that look at trends,
+check pre- and post-deployment measurements, trigger alerts, and help you refactor your
+code.</p>
+
+<p>Maybe you suspect that your app has a chokepoint at the database level.
+You can track the query types and the targeted tables per API
+endpoint. You can see where you spend most of the time and which code path
+is responsible for it. You can quickly see if adding indicies or other database-level techniques actually make a difference.</p>
+
+<h2>Other tips</h2>
+
+<h3>Share a url into campfire/irc and see a preview</h3>
+
+<p>Campfire and many other chat tools offer image preview as long as they
+detect that the url has an image extension. Unfortunately, Graphite's
+graph urls look more like this:</p>
+
+<p><code>
+http://graphite.awesome.graphs.com/render?width=400&amp;from=-4hours&amp;until=-&amp;height=400&amp;target=summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count))&amp;drawNullAsZero=true&amp;title=Example&amp;_uniq=0.11944825737737119
+</code></p>
+
+<p>To get a preview, just append the with: <code>&amp;.jpg</code></p>
+
+<h3>Get the graph data in JSON format</h3>
+
+<p>You might want to do something fancy with the data like
+create alerts. For that you can ask Graphite for a json representation
+of the data by adding <code>&amp;format=json</code> to the URL.</p>
+
+<p>```json
+[
+ {"target":
+  "summarize(sumSeries(stats.timers.accounts.*.http.post.accounts.response_time.count))",
+  "datapoints": [</p>
+
+<pre><code>[20260.0, 137256960],[19513, 1372357020] //[...]
+</code></pre>
+
+<p>   ]
+  }
+]
+```</p>
+
+<p>The data points are the timestamped value of each graphed point.
+Note that you can also ask for the CSV version of the data then pass it on to some poor bastard using Excel.</p>
+
+<h3>Only show top graphs</h3>
+
+<p>Let say that you are graphing the response time of all your APIs. The
+amount of displayed graphs can be overwhelming.</p>
+
+<p>To limit the displayed graphs, use one of the filters. For instance the <code>currentAbove</code> or
+<code>averageAbove</code> filters that can help you only display web services with
+more than X RPMs for instance. Using filters can be very useful to find
+outliers.</p>
+
+<h2>Get going with Graphite!</h2>
+
+<p>Hopefully this guide will help and inspire you to start using Graphite to easily collect and analyze your metrics.
+I'm sure there are great tricks I forgot to mention, please add your favorites in the comments.</p>
+
+<p><em>Thanks to <a href="https://twitter.com/j3">Jeff Casimir</a> for reviewing this post
+before its publication!</em></p>
+]]></content>
+  </entry>
+  
+</feed>
