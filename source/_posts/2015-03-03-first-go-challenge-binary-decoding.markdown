@@ -5,6 +5,7 @@ date: 2015-03-03 23:24
 comments: true
 categories:
 - blog-post
+- Golang
 ---
 
 I'm very glad to have had the chance to be involved with the very first
@@ -30,3 +31,7 @@ The challenge is going on for 2 weeks until March 15, a new challenge
 will be posted on April first. Prizes and conditions available on the
 website. Comments and discussions available on
 [HackerNews](https://news.ycombinator.com/item?id=9125480)
+
+Note that I also wrote [another challenge](https://github.com/splicers/sm-808) that we usually give our
+frontend candidates. If you're not into Go and prefer JS, you might like
+this challenge better.
