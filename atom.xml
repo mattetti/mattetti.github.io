@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2014-10-11T12:32:54-07:00</updated>
+  <updated>2015-03-04T00:11:07-08:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[First Go challenge - binary decoding]]></title>
+    <link href="http://matt.aimonetti.net/posts/2015/03/03/first-go-challenge-binary-decoding/"/>
+    <updated>2015-03-03T23:24:00-08:00</updated>
+    <id>http://matt.aimonetti.net/posts/2015/03/03/first-go-challenge-binary-decoding</id>
+    <content type="html"><![CDATA[<p>I&#8217;m very glad to have had the chance to be involved with the very first
+<a href="http://golang.org">Go</a> challenge. My challenge is related to something we do at <a href="https://splice.com">Splice</a>: binary decoding.</p>
+
+<p>Read more on the <a href="http://golang-challenge.com/go-challenge1/">Go Challenge website</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pattern_1.splice
+</span><span class='line'>Saved with HW Version: 0.808-alpha
+</span><span class='line'>Tempo: 120
+</span><span class='line'>(0) kick     |x---|x---|x---|x---|
+</span><span class='line'>(1) snare    |----|x---|----|x---|
+</span><span class='line'>(2) clap     |----|x-x-|----|----|
+</span><span class='line'>(3) hh-open  |--x-|--x-|x-x-|--x-|
+</span><span class='line'>(4) hh-close |x---|x---|----|x--x|
+</span><span class='line'>(5) cowbell  |----|----|--x-|----|</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://matt.aimonetti.net/images/hex.png" alt="Splice challenge hex" /></p>
+
+<p>The challenge is going on for 2 weeks until March 15, a new challenge
+will be posted on April first. Prizes and conditions available on the
+website. Comments and discussions available on
+<a href="https://news.ycombinator.com/item?id=9125480">HackerNews</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Understanding &amp; sharing Rails sessions]]></title>
@@ -4282,135 +4321,6 @@ a class and associate an instance of this class to a constant so it can
 be shared all over the place. Wow, a constant, this is so nasty you
 might think. Classes are constants too and so are modules, here we just
 allocate an instance of a class to a constant. Surpisingly simple and efficient.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ruby: the differences between dup &amp; clone]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/07/28/ruby-the-differences-between-dup-and-clone/"/>
-    <updated>2012-07-28T12:20:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/07/28/ruby-the-differences-between-dup-and-clone</id>
-    <content type="html"><![CDATA[<p>Have you ever wondered what the differences are between <strong>#dup</strong> and <strong>#clone</strong> in Ruby?</p>
-
-<p>They both create a shallow copy of an object (meaning that they don&#8217;t copy the objects that might be referenced within the copied object). However, <strong>#clone</strong> does two things that <strong>#dup</strong> doesn&#8217;t:</p>
-
-<ul>
-<li>copy the singleton class of the copied object</li>
-<li>maintain the frozen status of the copied object</li>
-</ul>
-
-
-<p>Examples of the singleton methods not being copied.</p>
-
-<p>dup:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="k">def</span> <span class="nc">a</span><span class="o">.</span><span class="nf">foo</span><span class="p">;</span> <span class="ss">:foo</span> <span class="k">end</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">a</span><span class="o">.</span><span class="n">foo</span>
-</span><span class='line'><span class="c1"># =&gt; :foo</span>
-</span><span class='line'><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dup</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">b</span><span class="o">.</span><span class="n">foo</span>
-</span><span class='line'><span class="c1"># =&gt; undefined method `foo&#39; for #&lt;Object:0x007f8bc395ff00&gt; (NoMethodError)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>vs clone:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="k">def</span> <span class="nc">a</span><span class="o">.</span><span class="nf">foo</span><span class="p">;</span> <span class="ss">:foo</span> <span class="k">end</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">a</span><span class="o">.</span><span class="n">foo</span>
-</span><span class='line'><span class="c1"># =&gt; :foo</span>
-</span><span class='line'><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">clone</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">b</span><span class="o">.</span><span class="n">foo</span>
-</span><span class='line'><span class="c1"># =&gt; :foo</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Frozen state:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">a</span><span class="o">.</span><span class="n">freeze</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">a</span><span class="o">.</span><span class="n">frozen?</span>
-</span><span class='line'><span class="c1"># =&gt; true</span>
-</span><span class='line'><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dup</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">b</span><span class="o">.</span><span class="n">frozen?</span>
-</span><span class='line'><span class="c1"># =&gt; false</span>
-</span><span class='line'><span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">clone</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">c</span><span class="o">.</span><span class="n">frozen?</span>
-</span><span class='line'><span class="c1"># =&gt; true</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Looking at the <a href="https://github.com/rubinius/rubinius/blob/master/kernel/alpha.rb#L230">Rubinius source code</a> makes the difference extremely obvious.</p>
-
-<p>Because of the extra steps, <strong>clone</strong> is a bit slower than <strong>dup</strong> but that&#8217;s probably <strong>not</strong> what will make your app too slow.</p>
-
-<p>Just a quick note about shallow copies (true for <strong>clone</strong> and <strong>dupe</strong>). Notice how the array referenced by the bar attribute doesn&#8217;t get copied but shared between the original and the copied instances:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span>
-</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:bar</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span>
-</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">]</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="no">Foo</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">clone</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">a</span><span class="o">.</span><span class="n">bar</span>
-</span><span class='line'><span class="c1"># =&gt; [1, 2, 3]</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">b</span><span class="o">.</span><span class="n">bar</span>
-</span><span class='line'><span class="c1"># =&gt; [1, 2, 3]</span>
-</span><span class='line'><span class="n">a</span><span class="o">.</span><span class="n">bar</span><span class="o">.</span><span class="n">clear</span> <span class="c1"># clearing the array #bar points to</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">a</span><span class="o">.</span><span class="n">bar</span>
-</span><span class='line'><span class="c1"># =&gt; []</span>
-</span><span class='line'><span class="nb">p</span> <span class="n">b</span><span class="o">.</span><span class="n">bar</span>
-</span><span class='line'><span class="c1"># =&gt; []</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Both objects, <strong>a</strong> and <strong>b</strong> share the same reference to the array instance created when <strong>a</strong> is initiated. There are a few ways to do a deep copy of an object, but that&#8217;s a different matter.</p>
 ]]></content>
   </entry>
   
