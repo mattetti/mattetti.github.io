@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-03-04T00:16:37-08:00</updated>
+  <updated>2015-09-02T22:55:26-07:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,255 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Automate iTunes with JS to wake up in music]]></title>
+    <link href="http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/"/>
+    <updated>2015-09-02T20:46:00-07:00</updated>
+    <id>http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js</id>
+    <content type="html"><![CDATA[<p>Last week, my daughter started Kindergarten. I&#8217;m very happy for her,
+especially because she&#8217;s going to an <a href="http://www.edison.smmusd.org/">awesome public school</a>.
+As someone who didn&#8217;t grow up in the US, I heard a lot of stories about the American school
+system but one thing I didn&#8217;t know is that kids start so early. My
+daughter starts at 8:10am! We had to find a way to turn our
+sleeping-in family members into morning people.</p>
+
+<p>I found a solution to help us: coding and music!</p>
+
+<p>My goal: to wake up my daughter with a custom music playlist starting a
+few minutes before I go see her.</p>
+
+<p>We have an old Mac Mini at home that I recently upgraded it to run Yosemite.
+This recent version of OS X added JavaScript as an alternative to <a href="https://en.wikipedia.org/wiki/AppleScript">AppleScript</a>.
+My goal is to write a little script that will play a given playlist and
+then I want to schedule this script to play every school morning.</p>
+
+<h2>JavaScript for Automation</h2>
+
+<p>Apple has some <a href="https://developer.apple.com/library/mac/releasenotes/InterapplicationCommunication/RN-JavaScriptForAutomation/">documentation</a> about how to use JS to automate different tasks. To be honest the documentation isn&#8217;t really good in comparison to their usual doc.
+Also, the technical implementation is pretty hacky/buggy but that won&#8217;t
+prevent us to have a bit of fun.</p>
+
+<p>The code to start iTunes and play our playlist if very straight forward:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span> <span class="o">=</span> <span class="nx">Application</span><span class="p">(</span><span class="s1">&#39;iTunes&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">activate</span><span class="p">()</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">stop</span><span class="p">()</span>
+</span><span class='line'><span class="nx">playlist</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">sources</span><span class="p">[</span><span class="s2">&quot;Library&quot;</span><span class="p">].</span><span class="nx">userPlaylists</span><span class="p">[</span><span class="s2">&quot;morning&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">playlist</span><span class="p">.</span><span class="nx">play</span><span class="p">()</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The playlist probably doesn&#39;t exist&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you probably guessed, this script loads iTunes and then uses its
+scripting API to load the main library and look for a playlist called
+&#8220;morning&#8221;.
+I&#8217;m not proud of the ugly try/catch, but playlist is an instance of
+<code>ObjectSpecifier</code> which isn&#8217;t evaluated until a method is called on it.
+You can think of it as a lazy container. The problem is that if we try
+to call <code>play()</code> on a playlist we didn&#8217;t find, then an error is thrown.
+I didn&#8217;t find a way to check if the underlying value is null so I had to
+catch the error.</p>
+
+<p>Once we have the above code, we have two options, put it in a script or
+convert it into an app. When developing your automation, it&#8217;s highly
+recommended to use <code>Script Editor.app</code> which ships with the OS.
+From within the app, you can run your script and test / &#8220;debug&#8221; it.
+Script Editor also allows you to export your script as script, script
+bundle and app. The easiest way is to export our code as an app:</p>
+
+<p><img src="http://matt.aimonetti.net/images/jxa_app.jpg" alt="Export JS as an app" /></p>
+
+<p>Note that you can also write a script and create a <code>osascript</code> shebang,
+or even evalute your automation JS in the terminal:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">say</span> <span class="s2">&quot;you are listening to&quot;</span> <span class="err">`</span><span class="nx">osascript</span> <span class="o">-</span><span class="nx">l</span> <span class="nx">JavaScript</span> <span class="o">-</span><span class="nx">e</span> <span class="s1">&#39;Application(&quot;iTunes&quot;).currentTrack.name()&#39;</span><span class="err">`</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So we have a script to start iTunes if needed and play our morning
+playlist. Now we need to schedule our app to start every school day:</p>
+
+<h2>Launchctl</h2>
+
+<p>OS X has a builtin scheduling system called <a href="http://launchd.info/">launchd</a>. It&#8217;s kind of like a cron scheduler but with more options.
+Unfortunately figuring something as simple as scheduling a recurring
+script is much harder than it should. So here is my plist file:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class='line'><span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
+</span><span class='line'><span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;string&gt;</span>morning.playlist.itunes<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;array&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>/usr/bin/open<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>-a<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>wakeup.app<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/array&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;false/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>StandardErrorPath<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;string&gt;</span>/tmp/morning.playlist.itunes.stderr<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>StandardOutPath<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;string&gt;</span>/tmp/morning.playlist.itunes.stdout<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>StartCalendarInterval<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;array&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>1<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>2<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>3<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>4<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>5<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/array&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'><span class="nt">&lt;/plist&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://gist.github.com/mattetti/75fd52c653b9144f303e">Gist</a></p>
+
+<p>Note that I called my app <code>wakeup.app</code> and I put it in my Applications
+folder. My launch agent starts the app when it&#8217;s called, but it doesn&#8217;t
+do that when the system loads the service (<code>RunAtLoad</code> is set to false).
+I&#8217;m also logging out stdout and stderr to tmp files so I can debug if
+something goes wrong. Finally the schedule is defined in the <code>StartCalendarInterval</code>
+key with a daily entry Monday to Friday at 6:55am.</p>
+
+<p>Save the plist file as <code>wakeup.playlist.itunes.plist</code> and drop it in <code>~/Library/LaunchAgents/</code>
+and load it via <code>launchctl</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>$ launchctl load -w ~/Library/LaunchAgents/wakeup.playlist.itunes.plist
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&#8217;s it, everything should work fine, however if you want to make sure
+it will, you might want to unload the plist, edit it so <code>RunAtLoad</code> is
+set to true and reload it. At this point, your playlist should play. If
+it doesn&#8217;t, then check the log files to see what happened.
+When everything is good, unload, go back to the original version and
+reload.</p>
+
+<p>There is plenty more you can do with JS Automation for Mac, if like me
+you are listening to a lot of music while coding, you might be
+interested in knowing that <strong>Spotify</strong> and <strong>VLC</strong> are scriptable (and
+so are most browsers).</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[First Go challenge - binary decoding]]></title>
@@ -3908,423 +4157,6 @@ approach based on pattern matching.</p>
 <li><a href="http://www.artima.com/scalazine/articles/pattern_matching.html">http://www.artima.com/scalazine/articles/pattern_matching.html</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ruby constructs: class, module and mixin]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/07/30/ruby-class-module-mixins/"/>
-    <updated>2012-07-30T14:46:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/07/30/ruby-class-module-mixins</id>
-    <content type="html"><![CDATA[<p>When you first get started with the Ruby programming and you come from a different
-language, the only tricky piece is often Ruby&#8217;s approach to block/closure/anonymous functions.
-Sure the metaprogramming seems a bit odd, but you don&#8217;t have to use it.
-That&#8217;s why a lot of developers think that Ruby is a simple language.
-Turns out that when you dig a bit further, you realize that Ruby is
-actually quite a complex language. Ask any developer who worked on a
-Ruby implementation, they&#8217;ll all tell you the same thing: Ruby is full of
-small little things that makes it complicated.</p>
-
-<p>An example of something that might seem simple is inheritance. Ruby,
-unlike C++, doesn&#8217;t support multiple inheritance. What that means is
-that a Ruby class can only have 1 parent class (superclass). However
-multiple inheritance can be achieved via modules used as a mixins.
-That&#8217;s a very common pattern, people put some code in a module and then
-mix it in/include it in a bunch of classes.
-The problem I see though, is that people abuse these concepts and don&#8217;t
-respect the difference between a class, a module and a module used a
-mixin.</p>
-
-<h2>The Class</h2>
-
-<p>Object Oriented Programming 101:</p>
-
-<blockquote><p>&#8220;In object-oriented programming, a class is a construct that is used to create instances of itself – referred to as class instances, class objects, instance objects or simply objects. A class defines constituent members which enable its instances to have state and behavior.&#8221;</p></blockquote>
-
-<p>So if you create a class and you don&#8217;t create instances, you are using
-the wrong construct. Here is an example of what I often see:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Settings</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="vi">@settings</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all</span>
-</span><span class='line'>    <span class="vi">@settings</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">[]</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">all</span><span class="o">[</span><span class="n">key</span><span class="o">]</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">[]=</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">all</span><span class="o">[</span><span class="n">key</span><span class="o">]</span> <span class="o">=</span> <span class="n">value</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Which can be used as such:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Settings</span><span class="o">[</span><span class="ss">:secret</span><span class="o">]</span> <span class="o">=</span> <span class="mi">42</span> <span class="o">*</span> <span class="no">Math</span><span class="o">::</span><span class="no">PI</span> <span class="o">*</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_f</span>
-</span><span class='line'><span class="nb">p</span> <span class="no">Settings</span><span class="o">[</span><span class="ss">:secret</span><span class="o">]</span>
-</span><span class='line'><span class="c1"># =&gt; 177243152913.2707</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><em>(granted this isn&#8217;t a great example since we could have used a subclass
-of <code>Hash</code> but just bear with me)</em></p>
-
-<p>Actually, the developer who wrote the code above would probably also use
-some Ruby magic like <code>method_missing</code> to provide a more laxed API and allow for &#8220;nicer&#8221; getters
-such as <code>Settings.secret</code> and <code>Settings['secret']</code>. I have my
-own thoughts on the topic but it&#8217;s
-an entirely different subject.</p>
-
-<p>Note also that the way class level methods are defined
-can also be different depending on who wrote the code, you might see the
-following variations (and other more esoteric ones):</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Settings</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">Settings</span><span class="o">.</span><span class="nf">all</span><span class="p">;</span> <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1"># or</span>
-</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">all</span><span class="p">;</span> <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The <code>Settings</code> code above works, the code is simple, yet I will argue one thing: <strong>it&#8217;s
-an abuse of the class construct</strong>. We&#8217;re breaking the #1 rule of classes:
-<em>&#8220;create instances of self&#8221;</em>.</p>
-
-<p><strong>It&#8217;s easy, whenever you don&#8217;t create instances of a class,
-please don&#8217;t use a class.</strong></p>
-
-<p>That&#8217;s also true for slightly different examples such as:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">API</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-</span><span class='line'>    <span class="no">HTTP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://matt.aimonetti.net/article/:id&#39;</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="nb">id</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">resource</span> <span class="o">=</span> <span class="no">API</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There is no need whatsoever to create an instance of <code>API</code>, using a class is
-picking the wrong construct. Also, I don&#8217;t care if you use the <code>Singleton</code>
-module to only allow 1 instance of the class, you still shouldn&#8217;t use a
-class in the above example.</p>
-
-<h2>The Module</h2>
-
-<p>In Ruby&#8217;s object hierarchy, the Class object actually inherits from the
-Module object.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">ruby</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;p Class.ancestors&quot;</span>
-</span><span class='line'><span class="n">ruby</span> <span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">(</span><span class="mi">2012</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">20</span> <span class="n">revision</span> <span class="mi">35410</span><span class="p">)</span> <span class="o">[</span><span class="n">x86_64</span><span class="o">-</span><span class="n">darwin11</span><span class="o">.</span><span class="mi">3</span><span class="o">.</span><span class="mi">0</span><span class="o">]</span>
-</span><span class='line'><span class="o">[</span><span class="no">Class</span><span class="p">,</span> <span class="no">Module</span><span class="p">,</span> <span class="no">Object</span><span class="p">,</span> <span class="no">Kernel</span><span class="p">,</span> <span class="no">BasicObject</span><span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As per Ruby&#8217;s source code defintion:</p>
-
-<blockquote><p>&#8220;A Module is a collection of methods and constants.&#8221;</p></blockquote>
-
-<p>I like to think of modules as namespaced methods and constants. Whenever
-you want code that logically belongs together but that
-won&#8217;t require that you create instances of a &#8216;model&#8217;, then a module is
-the right construct to use.</p>
-
-<p>As a matter of fact, the two examples above are great cases where a
-module should have been used.</p>
-
-<p>The confusing bit is that modules can have module level methods but also
-instance level methods. Here is an example:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">API</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">fetch</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-</span><span class='line'>    <span class="no">HTTP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://matt.aimonetti.net/article/:id&#39;</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="nb">id</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This is a module level function, it could also be written like that:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">API</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kp">module_function</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-</span><span class='line'>    <span class="no">HTTP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://matt.aimonetti.net/article/:id&#39;</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="nb">id</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And be used like that:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">resource</span> <span class="o">=</span> <span class="no">API</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Until now, it makes sense. The weird thing is that even though, modules
-unlike classes aren&#8217;t meant to create instances, we have the possibility
-to define module instance methods.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Settings</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="no">DATA</span> <span class="o">=</span> <span class="p">{</span><span class="n">repo</span><span class="p">:</span> <span class="s1">&#39;http://github.com/mattetti&#39;</span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">repository</span>
-</span><span class='line'>    <span class="no">DATA</span><span class="o">[</span><span class="ss">:repo</span><span class="o">]</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">secret_key</span>
-</span><span class='line'>    <span class="no">DATA</span><span class="o">[</span><span class="ss">:key</span><span class="o">]</span> <span class="o">||=</span> <span class="mi">42</span><span class="o">*</span><span class="no">Math</span><span class="o">::</span><span class="no">PI</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Great, but we can&#8217;t actually use these methods since they are instance
-methods and we don&#8217;t create instances of modules. Well, that isn&#8217;t quite
-true, there is a way to access them and that&#8217;s by using a module as a
-mixin. What that means is that we inject/copy the module code inside a
-class or an(other) object. Example in code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">a</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">Settings</span><span class="p">)</span>
-</span><span class='line'><span class="n">a</span><span class="o">.</span><span class="n">repository</span>
-</span><span class='line'><span class="c1"># =&gt; &quot;http://github.com/mattetti&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Or we can add the code to a class so the instances of this class can
-access our module instance methods:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span>
-</span><span class='line'>  <span class="kp">include</span> <span class="no">Settings</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">Foo</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">repository</span>
-</span><span class='line'><span class="c1"># =&gt; &quot;http://github.com/mattetti&quot; </span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>The mixin modules</h2>
-
-<p>There a plenty of resources online about the many ways to use mixins in Ruby to achieve multiple inheritance and do cool stuff.
-But the point of this article is to try to demonstrate that mixins
-shouldn&#8217;t be abused.</p>
-
-<p>My problem with the above example is that by mixing in the <code>Settings</code>
-module inside our <code>Foo</code> class, we created an uneeded, confusing extra
-level of abstraction. Instances of <code>Foo</code> now have access to two
-methods/objects: <code>repository</code> and <code>secret_key</code>. These methods or the
-objects they refer to don&#8217;t belong to the <code>Foo</code> class, but it seems
-convenient to not have to type <code>Settings.repository</code> so we mixed things
-in. Plus, a lot of Ruby developers seem to dislike adding class/module
-level methods so they feel that this approach &#8216;feels better&#8217;.</p>
-
-<p>Here is the thing, the convenience of typing a few less characters isn&#8217;t
-worth it. Next time you or someone else will look at an instance of the
-<code>Foo</code> class calling <code>repository</code>, finding where it is defined is going
-to be a pain. That&#8217;s especially true if you have many mixins in your
-class. <code>Settings</code> will also probably grow and you will end up with a
-bunch of methods that have nothing to do with your class instances.
-In this case, I will call the use of a mixin, an abuse of construct.
-Sure, Ruby allows you to do it, but that doesn&#8217;t mean it&#8217;s the right
-thing to do. In Ruby, unlike in Python, there are 101 ways to do a
-simple thing. It doesn&#8217;t mean that the 101 ways are good, it just means
-that Matz wasn&#8217;t sure how people would use his programming language and
-chose to give us more freedom to messup/doing it our own way.</p>
-
-<h3>When to use mixins?</h3>
-
-<p>I have my own rule: use mixins whenever you need to <em>share behaviors</em> between
-different classes.</p>
-
-<p>In the above example, we weren&#8217;t sharing behaviors, we were sharing
-objects, there was no need to actually use a mixin.</p>
-
-<p>That said, rules aren&#8217;t rules without exceptions. A good example of this
-exception would be the <code>Math</code> module from the standard library.
-This module offers trigonometric and transcendental functions. You might
-think that this module would be designed to be a mixin so you can get
-<code>log</code>, <code>cos</code>, <code>exp</code> and friends available in your math related classes.
-It turns out, all Math&#8217;s methods are defined a module functions meaning
-that they are meant to be called from the <code>Math</code> module directly.</p>
-
-<p>However, Ruby allows you to mixin module functions, but these functions
-become private. If you do include the module inside your class, your instance methods
-will be able to call <code>hypot(x,y)</code> directly, but these methods won&#8217;t be
-available from the outside (<code>Foo.new.log(42)</code> would raise an
-exception).</p>
-
-<p>To conclude with mixins: mixins are great but don&#8217;t abuse them or you
-will endup with so much abstraction that your coworkers will secretely
-call you <a href="http://en.wikipedia.org/wiki/Wassily_Kandinsky">Kandinsky</a>.
-Stick to simple mixins allowing you to share behaviors between at least
-a couple classes. See <code>DataMapper</code> for a great way to use mixins.</p>
-
-<h2>Modules: your secret functional programming weapon</h2>
-
-<p>I have to say that I do like functional programming. The idea of having
-functions not mutating the states of things around them pleases me. It
-just seems clean, you feed data to a function and you get another piece
-of data. No states were changed, maybe some temporary variables were
-allocated to process the data, but the only thing that matters is the
-input and the output. Easy to grasp, easy to follow, no magical states
-being changed by some code fairies.</p>
-
-<p>The good news is that Ruby allows us to write code like that. And this
-is where modules are great. Very much like the <code>Math</code> module we
-discussed above, there are many cases where you want to have a bunch of
-functions that process an input and provide an output without keeping
-any states. A good example of such a module would be a param
-verification filter. The filter takes an input, takes some rules and
-verifies that the input matches the rules.
-Surely, we could create an instance for each verification, this would
-allow to keep states in our class and do the usual OOP things. But we
-could also simply use a module with a bunch of module (level) functions
-that would pass to each other the input they need to not need to keep
-states. The end result will be faster, nicer on the GC and easy to
-follow.</p>
-
-<p>Mixing OOP and functional programming isn&#8217;t new, ask <a href="http://www.scala-lang.org/">Scala</a> developers!
-If done right, by adopting this approach we can simply our code base,
-make it faster, easier to maintain and not losing the chance to also use
-OOP paradigms when needed.</p>
-
-<h2>Compromise</h2>
-
-<p>As shown earlier, modules and classes have pros and cons. Classes are
-however much more natural to use for Object Oriented Programming. A
-compromise about the <code>Settings</code> examples was suggested by Evan Phoenix.
-The solution is elegant and simple. Use a class and an instance.
-Here is an implementation based on his suggestion:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AppSettings</span> <span class="o">&lt;</span> <span class="no">Hash</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">custom_method</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">SETTINGS</span> <span class="o">=</span> <span class="no">AppSettings</span><span class="o">.</span><span class="n">new</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The point here is not about the class implementation but that fact that we use
-a class and associate an instance of this class to a constant so it can
-be shared all over the place. Wow, a constant, this is so nasty you
-might think. Classes are constants too and so are modules, here we just
-allocate an instance of a class to a constant. Surpisingly simple and efficient.</p>
 ]]></content>
   </entry>
   

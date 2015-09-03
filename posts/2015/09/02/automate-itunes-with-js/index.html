@@ -1,0 +1,435 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Automate iTunes with JS to wake up in music - Matt Aimonetti</title>
+    <meta name="author" content="Matt Aimonetti">
+
+    
+    <meta name="description" content="Automate iTunes With JS to Wake Up in Music Last week, my daughter started Kindergarten. I&#8217;m very happy for her,
+especially because she&#8217;s going to an &hellip;">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+
+    <link href="/atom.xml" rel="alternate" title="Matt Aimonetti" type="application/atom+xml">
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <meta name="google-site-verification" content="nx3a_0e6HT0nLCJ3HPHknL31CcLJanwyI3WvqJWZjaA" />
+    
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+    _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+    _gaq.push(['_setAccount', 'UA-30927742-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<meta property="twitter:account_id" content="16476741" />
+
+</head>
+
+
+<body>
+	<header><div id='meta' class='inner'>
+  <div id="matt-aimonetti" itemscope itemtype="http://data-vocabulary.org/Person">
+    <a href='/about/'><img class="photo left" title='About Matt Aimonetti'
+      alt='Photo of Matt Aimonetti' src="/images/matt_aimonetti.jpg" /></a>
+    <h1 class="left"><a itemprop="name" href="/">Matt Aimonetti</a></h1>
+    <br>
+    <ul class='left bio-summary'>
+      <li> <a href="https://splice.com"><span
+              itemprop="affiliation">Splice</span></a> co-founder</a></li>
+      <li><a href='http://www.oreillynet.com/pub/au/4385'>Author</a> at <span itemprop="affiliation">O'Reilly</span></li>
+      <li>Open Source <a href="/posts/archives/">enthusiast</a></li>
+      <li><a href="https://github.com/mattetti">Web engineer</a></li>
+    </ul>
+  <div class="right">
+    <div class="right">
+      <div id="cse-search-form">Loading</div>
+      <div class="social right">
+        
+        
+        <a class="google" rel='me' href="https://plus.google.com/101114877505962271216?rel=author" title="Google+">Google+</a>
+        
+        
+        <a class="twitter" rel='me' href="http://twitter.com/mattetti" title="Twitter">Twitter</a>
+        
+        
+        <a class="github" rel='me' href="https://github.com/mattetti" title="GitHub">GitHub</a>
+        
+        
+        
+        <a class="linkedin" rel='me' href="http://www.linkedin.com/in/mattaimonetti" title="Linkedin">Linkedin</a>
+        
+        
+        <a class="rss" rel='me' href="/atom.xml" title="RSS">RSS</a>
+        
+      </div>
+      <nav class="menu"><ul class="main">
+  <li><a href="/">Home</a></li>
+  <li><a href="/articles/categories/blog-post/">Articles</a></li>
+  <li><a href="/articles/categories/presentation/">Presentations</a></li>
+  <li><a href="/about/" rel='me'>About</a></li>
+</ul>
+</nav>
+    </div>
+  </div>
+</div>
+
+</header>
+	
+
+	<div id="content" class="inner"><article class="post hentry">
+  
+    <h1 class="title entry-title">Automate iTunes With JS to Wake Up in Music</h1>
+    <div class="entry"><p>Last week, my daughter started Kindergarten. I&#8217;m very happy for her,
+especially because she&#8217;s going to an <a href="http://www.edison.smmusd.org/">awesome public school</a>.
+As someone who didn&#8217;t grow up in the US, I heard a lot of stories about the American school
+system but one thing I didn&#8217;t know is that kids start so early. My
+daughter starts at 8:10am! We had to find a way to turn our
+sleeping-in family members into morning people.</p>
+
+<p>I found a solution to help us: coding and music!</p>
+
+<p>My goal: to wake up my daughter with a custom music playlist starting a
+few minutes before I go see her.</p>
+
+<p>We have an old Mac Mini at home that I recently upgraded it to run Yosemite.
+This recent version of OS X added JavaScript as an alternative to <a href="https://en.wikipedia.org/wiki/AppleScript">AppleScript</a>.
+My goal is to write a little script that will play a given playlist and
+then I want to schedule this script to play every school morning.</p>
+
+<h2>JavaScript for Automation</h2>
+
+<p>Apple has some <a href="https://developer.apple.com/library/mac/releasenotes/InterapplicationCommunication/RN-JavaScriptForAutomation/">documentation</a> about how to use JS to automate different tasks. To be honest the documentation isn&#8217;t really good in comparison to their usual doc.
+Also, the technical implementation is pretty hacky/buggy but that won&#8217;t
+prevent us to have a bit of fun.</p>
+
+<p>The code to start iTunes and play our playlist if very straight forward:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span> <span class="o">=</span> <span class="nx">Application</span><span class="p">(</span><span class="s1">&#39;iTunes&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">activate</span><span class="p">()</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">stop</span><span class="p">()</span>
+</span><span class='line'><span class="nx">playlist</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">sources</span><span class="p">[</span><span class="s2">&quot;Library&quot;</span><span class="p">].</span><span class="nx">userPlaylists</span><span class="p">[</span><span class="s2">&quot;morning&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">playlist</span><span class="p">.</span><span class="nx">play</span><span class="p">()</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The playlist probably doesn&#39;t exist&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you probably guessed, this script loads iTunes and then uses its
+scripting API to load the main library and look for a playlist called
+&#8220;morning&#8221;.
+I&#8217;m not proud of the ugly try/catch, but playlist is an instance of
+<code>ObjectSpecifier</code> which isn&#8217;t evaluated until a method is called on it.
+You can think of it as a lazy container. The problem is that if we try
+to call <code>play()</code> on a playlist we didn&#8217;t find, then an error is thrown.
+I didn&#8217;t find a way to check if the underlying value is null so I had to
+catch the error.</p>
+
+<p>Once we have the above code, we have two options, put it in a script or
+convert it into an app. When developing your automation, it&#8217;s highly
+recommended to use <code>Script Editor.app</code> which ships with the OS.
+From within the app, you can run your script and test / &#8220;debug&#8221; it.
+Script Editor also allows you to export your script as script, script
+bundle and app. The easiest way is to export our code as an app:</p>
+
+<p><img src="/images/jxa_app.jpg" alt="Export JS as an app" /></p>
+
+<p>Note that you can also write a script and create a <code>osascript</code> shebang,
+or even evalute your automation JS in the terminal:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">say</span> <span class="s2">&quot;you are listening to&quot;</span> <span class="err">`</span><span class="nx">osascript</span> <span class="o">-</span><span class="nx">l</span> <span class="nx">JavaScript</span> <span class="o">-</span><span class="nx">e</span> <span class="s1">&#39;Application(&quot;iTunes&quot;).currentTrack.name()&#39;</span><span class="err">`</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So we have a script to start iTunes if needed and play our morning
+playlist. Now we need to schedule our app to start every school day:</p>
+
+<h2>Launchctl</h2>
+
+<p>OS X has a builtin scheduling system called <a href="http://launchd.info/">launchd</a>. It&#8217;s kind of like a cron scheduler but with more options.
+Unfortunately figuring something as simple as scheduling a recurring
+script is much harder than it should. So here is my plist file:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class='line'><span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
+</span><span class='line'><span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;string&gt;</span>morning.playlist.itunes<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;array&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>/usr/bin/open<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>-a<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>wakeup.app<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/array&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;false/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>StandardErrorPath<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;string&gt;</span>/tmp/morning.playlist.itunes.stderr<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>StandardOutPath<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;string&gt;</span>/tmp/morning.playlist.itunes.stdout<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>StartCalendarInterval<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;array&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>1<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>2<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>3<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>4<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;key&gt;</span>Weekday<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;integer&gt;</span>5<span class="nt">&lt;/integer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/array&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'><span class="nt">&lt;/plist&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://gist.github.com/mattetti/75fd52c653b9144f303e">Gist</a></p>
+
+<p>Note that I called my app <code>wakeup.app</code> and I put it in my Applications
+folder. My launch agent starts the app when it&#8217;s called, but it doesn&#8217;t
+do that when the system loads the service (<code>RunAtLoad</code> is set to false).
+I&#8217;m also logging out stdout and stderr to tmp files so I can debug if
+something goes wrong. Finally the schedule is defined in the <code>StartCalendarInterval</code>
+key with a daily entry Monday to Friday at 6:55am.</p>
+
+<p>Save the plist file as <code>wakeup.playlist.itunes.plist</code> and drop it in <code>~/Library/LaunchAgents/</code>
+and load it via <code>launchctl</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>$ launchctl load -w ~/Library/LaunchAgents/wakeup.playlist.itunes.plist
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&#8217;s it, everything should work fine, however if you want to make sure
+it will, you might want to unload the plist, edit it so <code>RunAtLoad</code> is
+set to true and reload it. At this point, your playlist should play. If
+it doesn&#8217;t, then check the log files to see what happened.
+When everything is good, unload, go back to the original version and
+reload.</p>
+
+<p>There is plenty more you can do with JS Automation for Mac, if like me
+you are listening to a lot of music while coding, you might be
+interested in knowing that <strong>Spotify</strong> and <strong>VLC</strong> are scriptable (and
+so are most browsers).</p>
+</div>
+
+    <div class="meta">
+        <div class="date updated">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-02T20:46:00-07:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2015</time></div>
+        <div class="tags">
+
+<div class="cat">
+  
+    <a class='category' href='/articles/categories/automation/'>Automation</a>, <a class='category' href='/articles/categories/jxa/'>JXA</a>, <a class='category' href='/articles/categories/javascript/'>JavaScript</a>
+  
+</div>
+
+</div>
+        
+        <div class='vcard author'>By <span class='fn'>Matt Aimonetti</span></div>
+        <div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+  <a class="addthis_button_tweet"></a>
+  </br>
+	
+	
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  </br>
+	
+	<a class="addthis_counter addthis_pill_style"></a></br>
+	</div>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=mattetti"></script>
+</div>
+
+        
+    </div>
+
+
+</article>
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+	<footer class="inner"><div id='copyright-notice'>Copyright &copy; 2015 Matt Aimonetti</div>
+</footer>
+	<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script src="/javascripts/slash.js"></script>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript"> 
+  google.load('search', '1', {language : 'en'});
+  google.setOnLoadCallback(function() {
+  var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+    '010526096358170648343:WMX140696544', customSearchOptions);
+  customSearchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+  var options = new google.search.DrawOptions();
+  options.enableSearchboxOnly("http://matt.aimonetti.net/search");
+  customSearchControl.draw('cse-search-form', options);
+  }, true);
+
+if (navigator.userAgent.match(/iPad/i) != null) {
+  $('meta[name=viewport]').attr('content', 'width=1200,initial-scale=1,maximum-scale=1');
+}
+</script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'mattaimonetti';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/';
+        var disqus_url = 'http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

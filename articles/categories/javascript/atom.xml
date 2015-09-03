@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JavaScript | Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/articles/categories/javascript/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-03-04T00:16:37-08:00</updated>
+  <updated>2015-09-02T22:55:26-07:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,189 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Automate iTunes with JS to wake up in music]]></title>
+    <link href="http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/"/>
+    <updated>2015-09-02T20:46:00-07:00</updated>
+    <id>http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js</id>
+    <content type="html"><![CDATA[<p>Last week, my daughter started Kindergarten. I'm very happy for her,
+especially because she's going to an <a href="http://www.edison.smmusd.org/">awesome public school</a>.
+As someone who didn't grow up in the US, I heard a lot of stories about the American school
+system but one thing I didn't know is that kids start so early. My
+daughter starts at 8:10am! We had to find a way to turn our
+sleeping-in family members into morning people.</p>
+
+<p>I found a solution to help us: coding and music!</p>
+
+<p>My goal: to wake up my daughter with a custom music playlist starting a
+few minutes before I go see her.</p>
+
+<p>We have an old Mac Mini at home that I recently upgraded it to run Yosemite.
+This recent version of OS X added JavaScript as an alternative to <a href="https://en.wikipedia.org/wiki/AppleScript">AppleScript</a>.
+My goal is to write a little script that will play a given playlist and
+then I want to schedule this script to play every school morning.</p>
+
+<h2>JavaScript for Automation</h2>
+
+<p>Apple has some <a href="https://developer.apple.com/library/mac/releasenotes/InterapplicationCommunication/RN-JavaScriptForAutomation/">documentation</a> about how to use JS to automate different tasks. To be honest the documentation isn't really good in comparison to their usual doc.
+Also, the technical implementation is pretty hacky/buggy but that won't
+prevent us to have a bit of fun.</p>
+
+<p>The code to start iTunes and play our playlist if very straight forward:</p>
+
+<p>```javascript
+app = Application('iTunes')
+app.activate()
+app.stop()
+playlist = app.sources["Library"].userPlaylists["morning"]
+try {</p>
+
+<pre><code>playlist.play()
+</code></pre>
+
+<p>}
+catch(err) {</p>
+
+<pre><code>console.log("The playlist probably doesn't exist", err)
+</code></pre>
+
+<p>}
+```</p>
+
+<p>As you probably guessed, this script loads iTunes and then uses its
+scripting API to load the main library and look for a playlist called
+"morning".
+I'm not proud of the ugly try/catch, but playlist is an instance of
+<code>ObjectSpecifier</code> which isn't evaluated until a method is called on it.
+You can think of it as a lazy container. The problem is that if we try
+to call <code>play()</code> on a playlist we didn't find, then an error is thrown.
+I didn't find a way to check if the underlying value is null so I had to
+catch the error.</p>
+
+<p>Once we have the above code, we have two options, put it in a script or
+convert it into an app. When developing your automation, it's highly
+recommended to use <code>Script Editor.app</code> which ships with the OS.
+From within the app, you can run your script and test / "debug" it.
+Script Editor also allows you to export your script as script, script
+bundle and app. The easiest way is to export our code as an app:</p>
+
+<p><img src="/images/jxa_app.jpg" alt="Export JS as an app" /></p>
+
+<p>Note that you can also write a script and create a <code>osascript</code> shebang,
+or even evalute your automation JS in the terminal:</p>
+
+<p><code>
+$ say "you are listening to" `osascript -l JavaScript -e 'Application("iTunes").currentTrack.name()'`
+</code></p>
+
+<p>So we have a script to start iTunes if needed and play our morning
+playlist. Now we need to schedule our app to start every school day:</p>
+
+<h2>Launchctl</h2>
+
+<p>OS X has a builtin scheduling system called <a href="http://launchd.info/">launchd</a>. It's kind of like a cron scheduler but with more options.
+Unfortunately figuring something as simple as scheduling a recurring
+script is much harder than it should. So here is my plist file:</p>
+
+<p>```xml
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict></p>
+
+<pre><code>&lt;key&gt;Label&lt;/key&gt;
+&lt;string&gt;morning.playlist.itunes&lt;/string&gt;
+&lt;key&gt;ProgramArguments&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;/usr/bin/open&lt;/string&gt;
+    &lt;string&gt;-a&lt;/string&gt;
+    &lt;string&gt;wakeup.app&lt;/string&gt;
+&lt;/array&gt;
+&lt;key&gt;RunAtLoad&lt;/key&gt;
+&lt;false/&gt;
+&lt;key&gt;StandardErrorPath&lt;/key&gt;
+&lt;string&gt;/tmp/morning.playlist.itunes.stderr&lt;/string&gt;
+&lt;key&gt;StandardOutPath&lt;/key&gt;
+&lt;string&gt;/tmp/morning.playlist.itunes.stdout&lt;/string&gt;
+&lt;key&gt;StartCalendarInterval&lt;/key&gt;
+&lt;array&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;1&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;2&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;3&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;4&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;5&lt;/integer&gt;
+    &lt;/dict&gt;
+&lt;/array&gt;
+</code></pre>
+
+<p></dict>
+</plist>
+```</p>
+
+<p><a href="https://gist.github.com/mattetti/75fd52c653b9144f303e">Gist</a></p>
+
+<p>Note that I called my app <code>wakeup.app</code> and I put it in my Applications
+folder. My launch agent starts the app when it's called, but it doesn't
+do that when the system loads the service (<code>RunAtLoad</code> is set to false).
+I'm also logging out stdout and stderr to tmp files so I can debug if
+something goes wrong. Finally the schedule is defined in the <code>StartCalendarInterval</code>
+key with a daily entry Monday to Friday at 6:55am.</p>
+
+<p>Save the plist file as <code>wakeup.playlist.itunes.plist</code> and drop it in <code>~/Library/LaunchAgents/</code>
+and load it via <code>launchctl</code>:</p>
+
+<p><code>
+$ launchctl load -w ~/Library/LaunchAgents/wakeup.playlist.itunes.plist
+</code></p>
+
+<p>That's it, everything should work fine, however if you want to make sure
+it will, you might want to unload the plist, edit it so <code>RunAtLoad</code> is
+set to true and reload it. At this point, your playlist should play. If
+it doesn't, then check the log files to see what happened.
+When everything is good, unload, go back to the original version and
+reload.</p>
+
+<p>There is plenty more you can do with JS Automation for Mac, if like me
+you are listening to a lot of music while coding, you might be
+interested in knowing that <strong>Spotify</strong> and <strong>VLC</strong> are scriptable (and
+so are most browsers).</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
