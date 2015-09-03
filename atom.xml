@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-09-02T22:55:26-07:00</updated>
+  <updated>2015-09-03T08:46:33-07:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -33,7 +33,9 @@ few minutes before I go see her.</p>
 <p>We have an old Mac Mini at home that I recently upgraded it to run Yosemite.
 This recent version of OS X added JavaScript as an alternative to <a href="https://en.wikipedia.org/wiki/AppleScript">AppleScript</a>.
 My goal is to write a little script that will play a given playlist and
-then I want to schedule this script to play every school morning.</p>
+then I want to schedule this script to play every school morning. The
+Mac Mini is connected to an Airport Express with usb speakers located in
+my daughter&#8217;s bedroom.</p>
 
 <h2>JavaScript for Automation</h2>
 
