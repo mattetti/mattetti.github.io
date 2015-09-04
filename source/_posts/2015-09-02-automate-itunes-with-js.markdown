@@ -24,7 +24,9 @@ few minutes before I go see her.
 We have an old Mac Mini at home that I recently upgraded it to run Yosemite.
 This recent version of OS X added JavaScript as an alternative to [AppleScript](https://en.wikipedia.org/wiki/AppleScript).
 My goal is to write a little script that will play a given playlist and
-then I want to schedule this script to play every school morning.
+then I want to schedule this script to play every school morning. The
+Mac Mini is connected to an Airport Express with usb speakers located in
+my daughter's bedroom.
 
 ## JavaScript for Automation
 
