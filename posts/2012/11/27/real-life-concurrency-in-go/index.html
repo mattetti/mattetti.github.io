@@ -139,7 +139,7 @@ code together.</p>
 </span><span class='line'><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">var</span> <span class="n">urls</span> <span class="p">=</span> <span class="p">[]</span><span class="nb">string</span><span class="p">{</span>
-</span><span class='line'>  <span class="s">&quot;http://www.rubyconf.com/&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s">&quot;http://www.rubyconf.org/&quot;</span><span class="p">,</span>
 </span><span class='line'>  <span class="s">&quot;http://golang.org/&quot;</span><span class="p">,</span>
 </span><span class='line'>  <span class="s">&quot;http://matt.aimonetti.net/&quot;</span><span class="p">,</span>
 </span><span class='line'><span class="p">}</span>
@@ -200,14 +200,25 @@ This approach to types is called <a href="http://en.wikipedia.org/wiki/Structura
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">asyncHttpGets</span><span class="p">(</span><span class="n">urls</span> <span class="p">[]</span><span class="nb">string</span><span class="p">)</span> <span class="p">[]*</span><span class="n">HttpResponse</span> <span class="p">{</span>
 </span><span class='line'>  <span class="n">ch</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="p">*</span><span class="n">HttpResponse</span><span class="p">)</span>
 </span><span class='line'>  <span class="n">responses</span> <span class="p">:=</span> <span class="p">[]*</span><span class="n">HttpResponse</span><span class="p">{}</span>
+</span><span class='line'>  <span class="n">client</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">Client</span><span class="p">{}</span>
 </span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">url</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">urls</span> <span class="p">{</span>
 </span><span class='line'>      <span class="k">go</span> <span class="k">func</span><span class="p">(</span><span class="n">url</span> <span class="nb">string</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>          <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Fetching %s \n&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
-</span><span class='line'>          <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">client</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 </span><span class='line'>          <span class="n">ch</span> <span class="p">&lt;-</span> <span class="p">&amp;</span><span class="n">HttpResponse</span><span class="p">{</span><span class="n">url</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">err</span><span class="p">}</span>
+</span><span class='line'>          <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">&amp;&amp;</span> <span class="n">resp</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">&amp;&amp;</span> <span class="n">resp</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">==</span> <span class="n">http</span><span class="p">.</span><span class="n">StatusOK</span> <span class="p">{</span>
+</span><span class='line'>              <span class="n">resp</span><span class="p">.</span><span class="n">Body</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+</span><span class='line'>          <span class="p">}</span>
 </span><span class='line'>      <span class="p">}(</span><span class="n">url</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>
@@ -215,6 +226,9 @@ This approach to types is called <a href="http://en.wikipedia.org/wiki/Structura
 </span><span class='line'>      <span class="k">select</span> <span class="p">{</span>
 </span><span class='line'>      <span class="k">case</span> <span class="n">r</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ch</span><span class="p">:</span>
 </span><span class='line'>          <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%s was fetched\n&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>          <span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>              <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;with an error&quot;</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>          <span class="p">}</span>
 </span><span class='line'>          <span class="n">responses</span> <span class="p">=</span> <span class="n">append</span><span class="p">(</span><span class="n">responses</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
 </span><span class='line'>          <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">responses</span><span class="p">)</span> <span class="p">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>              <span class="k">return</span> <span class="n">responses</span>
@@ -327,8 +341,7 @@ For reference here is what I had before (don&#8217;t use this code):</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>
-Thank you HackerNews.</p>
+<p>Thank you HackerNews.</p>
 
 <p>With that code constructed, our <code>main</code> can make use of it like this:</p>
 
@@ -339,17 +352,21 @@ Thank you HackerNews.</p>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="n">results</span> <span class="p">:=</span> <span class="n">asyncHttpGets</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span>
 </span><span class='line'>  <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">result</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">results</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%s status: %s\n&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">.</span><span class="n">url</span><span class="p">,</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">result</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">&amp;&amp;</span> <span class="n">result</span><span class="p">.</span><span class="n">response</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+</span><span class='line'>          <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%s status: %s\n&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">.</span><span class="n">url</span><span class="p">,</span>
 </span><span class='line'>                 <span class="n">result</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">Status</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">}</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Compiling and running the code look like this:</p>
+<p>Running the code looks like this:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -361,15 +378,15 @@ Thank you HackerNews.</p>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>go build concurrency_example.go <span class="o">&amp;&amp;</span> ./a.out
-</span><span class='line'>.Fetching http://www.rubyconf.com/
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>go run concurrency_example.go
+</span><span class='line'>.Fetching http://www.rubyconf.org/
 </span><span class='line'>Fetching http://golang.org/
 </span><span class='line'>Fetching http://matt.aimonetti.net/
 </span><span class='line'>.....http://golang.org/ was fetched
-</span><span class='line'>.......http://www.rubyconf.com/ was fetched
+</span><span class='line'>.......http://www.rubyconf.org/ was fetched
 </span><span class='line'>.http://matt.aimonetti.net/ was fetched
 </span><span class='line'>http://golang.org/ status: 200 OK
-</span><span class='line'>http://www.rubyconf.com/ status: 200 OK
+</span><span class='line'>http://www.rubyconf.org/ status: 200 OK
 </span><span class='line'>http://matt.aimonetti.net/ status: 200 OK
 </span></code></pre></td></tr></table></div></figure>
 
@@ -388,9 +405,9 @@ explicit. If you want to write concurrent code, Go pushes you to do it
 in a specific style. That style is clear and comfortable for me. My code stays simple, I don&#8217;t go crazy with callbacks, and the
 conventions make it simple for everyone else to understand my code.</p>
 
-<p>Whether or not Go appeals to you stylistically, but clearly the designers
+<p>Whether or not Go appeals to you stylistically, clearly the designers
 stayed close to the goal of developing to a 21st century C
-with a special focus on concurrency with the unix approach.</p>
+with a special focus on concurrency with a unix approach.</p>
 </div>
 
     <div class="meta">

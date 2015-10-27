@@ -4,7 +4,7 @@
   <title><![CDATA[Category: blog-post | Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/articles/categories/blog-post/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-09-03T22:44:32-07:00</updated>
+  <updated>2015-10-26T21:33:47-07:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -2220,7 +2220,7 @@ package main</p>
 
 <p>var urls = []string{</p>
 
-<pre><code>"http://www.rubyconf.com/",
+<pre><code>"http://www.rubyconf.org/",
 "http://golang.org/",
 "http://matt.aimonetti.net/",
 </code></pre>
@@ -2260,11 +2260,15 @@ func asyncHttpGets(urls []string) []*HttpResponse {</p>
 
 <pre><code>ch := make(chan *HttpResponse)
 responses := []*HttpResponse{}
+client := http.Client{}
 for _, url := range urls {
     go func(url string) {
         fmt.Printf("Fetching %s \n", url)
-        resp, err := http.Get(url)
+        resp, err := client.Get(url)
         ch &lt;- &amp;HttpResponse{url, resp, err}
+        if err != nil &amp;&amp; resp != nil &amp;&amp; resp.StatusCode == http.StatusOK {
+            resp.Body.Close()
+        }
     }(url)
 }
 
@@ -2272,6 +2276,9 @@ for {
     select {
     case r := &lt;-ch:
         fmt.Printf("%s was fetched\n", r.url)
+        if r.err != nil {
+            fmt.Println("with an error", r.err)
+        }
         responses = append(responses, r)
         if len(responses) == len(urls) {
             return responses
@@ -2383,26 +2390,28 @@ func main() {</p>
 
 <pre><code>results := asyncHttpGets(urls)
 for _, result := range results {
-    fmt.Printf("%s status: %s\n", result.url,
+    if result != nil &amp;&amp; result.response != nil {
+        fmt.Printf("%s status: %s\n", result.url,
              result.response.Status)
+    }
 }
 </code></pre>
 
 <p>}
 ```</p>
 
-<p>Compiling and running the code look like this:</p>
+<p>Running the code looks like this:</p>
 
 <p><code>bash
-$ go build concurrency_example.go &amp;&amp; ./a.out
-.Fetching http://www.rubyconf.com/
+$ go run concurrency_example.go
+.Fetching http://www.rubyconf.org/
 Fetching http://golang.org/
 Fetching http://matt.aimonetti.net/
 .....http://golang.org/ was fetched
-.......http://www.rubyconf.com/ was fetched
+.......http://www.rubyconf.org/ was fetched
 .http://matt.aimonetti.net/ was fetched
 http://golang.org/ status: 200 OK
-http://www.rubyconf.com/ status: 200 OK
+http://www.rubyconf.org/ status: 200 OK
 http://matt.aimonetti.net/ status: 200 OK
 </code></p>
 
@@ -2420,9 +2429,9 @@ explicit. If you want to write concurrent code, Go pushes you to do it
 in a specific style. That style is clear and comfortable for me. My code stays simple, I don't go crazy with callbacks, and the
 conventions make it simple for everyone else to understand my code.</p>
 
-<p>Whether or not Go appeals to you stylistically, but clearly the designers
+<p>Whether or not Go appeals to you stylistically, clearly the designers
 stayed close to the goal of developing to a 21st century C
-with a special focus on concurrency with the unix approach.</p>
+with a special focus on concurrency with a unix approach.</p>
 ]]></content>
   </entry>
   
@@ -4973,7 +4982,15 @@ end
     <link href="http://matt.aimonetti.net/posts/2011/06/27/golang-reflection-exampl/"/>
     <updated>2011-06-27T12:12:32-07:00</updated>
     <id>http://matt.aimonetti.net/posts/2011/06/27/golang-reflection-exampl</id>
-    <content type="html"><![CDATA[<p>The <a href="http://golang.org/">Go Programming language</a> is really cool language by Google. According to the sales pitch, it's a <strong><em>"fast, statically typed, compiled language that feels like a dynamically typed, interpreted language"</em></strong>. Well, if you are like me, you don't trust sales pitches because you know that people writing them don't care about you, they care about their product. However cynical you are, you still have to check the facts. So here is a quick demonstration showing how to use Go's reflection feature.</p>
+    <content type="html"><![CDATA[<p><strong>Note:</strong> This was one of my first blog posts on Go and well, I won't make
+any excuses, it's pretty terrible. It's a good example of what not to
+do, that is, trying to force the concepts of a different language (in this case Ruby)
+to Go. I almost never use reflection and the following code is the kind
+of code you should avoiding writing. I'm leaving this post up as a
+testimony of my past mistakes and so you hopefully others won't make the
+same :)</p>
+
+<p>The <a href="http://golang.org/">Go Programming language</a> is really cool language by Google. According to the sales pitch, it's a <strong><em>"fast, statically typed, compiled language that feels like a dynamically typed, interpreted language"</em></strong>. Well, if you are like me, you don't trust sales pitches because you know that people writing them don't care about you, they care about their product. However cynical you are, you still have to check the facts. So here is a quick demonstration showing how to use Go's reflection feature.</p>
 
 <p>Installing Go is actually really straight forward on a Mac, and slightly harder on Linux, check <a href="http://golang.org/doc/install.html">this guide </a>to see how to build Go in a few minutes.</p>
 
