@@ -45,7 +45,7 @@ import (
 )
 
 var urls = []string{
-	"http://www.rubyconf.com/",
+	"http://www.rubyconf.org/",
 	"http://golang.org/",
 	"http://matt.aimonetti.net/",
 }
@@ -79,11 +79,15 @@ Here is the code:
 func asyncHttpGets(urls []string) []*HttpResponse {
 	ch := make(chan *HttpResponse)
 	responses := []*HttpResponse{}
+	client := http.Client{}
 	for _, url := range urls {
 		go func(url string) {
 			fmt.Printf("Fetching %s \n", url)
-			resp, err := http.Get(url)
+			resp, err := client.Get(url)
 			ch <- &HttpResponse{url, resp, err}
+			if err != nil && resp != nil && resp.StatusCode == http.StatusOK {
+				resp.Body.Close()
+			}
 		}(url)
 	}
 
@@ -91,6 +95,9 @@ func asyncHttpGets(urls []string) []*HttpResponse {
 		select {
 		case r := <-ch:
 			fmt.Printf("%s was fetched\n", r.url)
+			if r.err != nil {
+				fmt.Println("with an error", r.err)
+			}
 			responses = append(responses, r)
 			if len(responses) == len(urls) {
 				return responses
@@ -143,7 +150,7 @@ The `go` keyword executes the code that is passed in as a *goroutine* which is w
 > A goroutine is a function executing concurrently with other goroutines in the same address space. It is lightweight, costing little more than the allocation of stack space. And the stacks start small, so they are cheap, and grow by allocating (and freeing) heap storage as required.
 
 In other words, you start a *goroutine* and you let the "system" handle
-how it wants to deal with the low level details. Technically, goroutines 
+how it wants to deal with the low level details. Technically, goroutines
 might run in one or multiple threads, but you don't need to know.
 We trigger each http fetch in a separate goroutine
 and then each response is pushed down the channel.
@@ -153,8 +160,8 @@ The case statement checks if something is
 in the channel. If there is something, we...
 
 * allocate the data to the `r` variable
-* print the resource's url 
-* append the resource to the slice we created at the beginning of the function. 
+* print the resource's url
+* append the resource to the slice we created at the beginning of the function.
 
 If the length of the array is the same as the length of all urls we want to fetch, we are done
 fetching all our resources and can return.
@@ -181,7 +188,7 @@ For reference here is what I had before (don't use this code):
 			time.Sleep(50 * time.Millisecond)
 		}
 	}
-``` 
+```
 Thank you HackerNews.
 
 
@@ -192,29 +199,31 @@ With that code constructed, our `main` can make use of it like this:
 func main() {
 	results := asyncHttpGets(urls)
 	for _, result := range results {
-		fmt.Printf("%s status: %s\n", result.url,
+		if result != nil && result.response != nil {
+			fmt.Printf("%s status: %s\n", result.url,
                  result.response.Status)
+		}
 	}
 }
 ```
 
-Compiling and running the code look like this:
+Running the code looks like this:
 
 ```bash
-$ go build concurrency_example.go && ./a.out 
-.Fetching http://www.rubyconf.com/
+$ go run concurrency_example.go
+.Fetching http://www.rubyconf.org/
 Fetching http://golang.org/
 Fetching http://matt.aimonetti.net/ 
 .....http://golang.org/ was fetched 
-.......http://www.rubyconf.com/ was fetched 
+.......http://www.rubyconf.org/ was fetched 
 .http://matt.aimonetti.net/ was fetched 
 http://golang.org/ status: 200 OK 
-http://www.rubyconf.com/ status: 200 OK 
+http://www.rubyconf.org/ status: 200 OK 
 http://matt.aimonetti.net/ status: 200 OK
 ```
 
 As you can see from the print statements, the 3 urls are triggered in a
-sequential way, but the responses come back in different orders due to different server latencies and response transfer time. 
+sequential way, but the responses come back in different orders due to different server latencies and response transfer time.
 
 ## Conclusion
 
@@ -227,6 +236,6 @@ explicit. If you want to write concurrent code, Go pushes you to do it
 in a specific style. That style is clear and comfortable for me. My code stays simple, I don't go crazy with callbacks, and the
 conventions make it simple for everyone else to understand my code.
 
-Whether or not Go appeals to you stylistically, but clearly the designers
+Whether or not Go appeals to you stylistically, clearly the designers
 stayed close to the goal of developing to a 21st century C
-with a special focus on concurrency with the unix approach.
+with a special focus on concurrency with a unix approach.

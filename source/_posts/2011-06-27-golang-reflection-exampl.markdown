@@ -16,6 +16,14 @@ categories:
 - Golang
 ---
 
+**Note:** This was one of my first blog posts on Go and well, I won't make
+any excuses, it's pretty terrible. It's a good example of what not to
+do, that is, trying to force the concepts of a different language (in this case Ruby)
+to Go. I almost never use reflection and the following code is the kind
+of code you should avoiding writing. I'm leaving this post up as a
+testimony of my past mistakes and so you hopefully others won't make the
+same :)
+
 The [Go Programming language](http://golang.org/) is really cool language by Google. According to the sales pitch, it's a **_"fast, statically typed, compiled language that feels like a dynamically typed, interpreted language"_**. Well, if you are like me, you don't trust sales pitches because you know that people writing them don't care about you, they care about their product. However cynical you are, you still have to check the facts. So here is a quick demonstration showing how to use Go's reflection feature.
 
 Installing Go is actually really straight forward on a Mac, and slightly harder on Linux, check [this guide ](http://golang.org/doc/install.html)to see how to build Go in a few minutes.
