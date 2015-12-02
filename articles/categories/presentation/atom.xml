@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Presentation | Matt Aimonetti]]></title>
   <link href="http://matt.aimonetti.net/articles/categories/presentation/atom.xml" rel="self"/>
   <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-10-26T21:33:47-07:00</updated>
+  <updated>2015-12-02T08:52:24-08:00</updated>
   <id>http://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Applied Concurrency in Go]]></title>
+    <link href="http://matt.aimonetti.net/posts/2015/12/02/dotgo-applied-concurrency-in-go/"/>
+    <updated>2015-12-02T08:20:00-08:00</updated>
+    <id>http://matt.aimonetti.net/posts/2015/12/02/dotgo-applied-concurrency-in-go</id>
+    <content type="html"><![CDATA[<p><img src="https://farm6.staticflickr.com/5688/22350810834_20caad1e11_k_d.jpg" class=""></p>
+
+<p>Back in November I was in Paris for <a href="http://www.dotgo.eu/">dotGo</a>, one of my favorite Golang conferences.
+I was invited to speak and wanted to share something concrete with the audience, something based on my
+experience with <a href="http://golang.org">Go</a> at <a href="https://splice.com">Splice</a>. Go is designed for simplicity
+with only one way of doing one thing. That makes preparing talks pretty challenging since a lot has already been said
+and there is not much more to add. A lot of us pick Go because it's has concurrency built-in, but it doesn't mean that
+writing efficient concurrent code is instinctive or obvious.</p>
+
+<p>I walked the audience through the parallelization of code execution and all the mistakes we usually make.
+Using an Arduino and a set of LEDs, I show how goroutines operate and how to write working Go code.</p>
+
+<p><a href="http://www.thedotpost.com/2015/11/matt-aimonetti-applied-concurrency-in-go">Official post about the talk</a></p>
+
+<h2>Video</h2>
+
+<iframe width="720" height="480" src="https://www.youtube.com/embed/TI8OW22WZvQ" frameborder="0" allowfullscreen></iframe>
+
+
+<h2>Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="c55aca1f604545abbbc143ca65171ec7" data-ratio="1.77777777777778" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Understanding &amp; sharing Rails sessions]]></title>
