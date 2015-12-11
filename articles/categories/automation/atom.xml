@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Automation | Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/articles/categories/automation/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-12-02T08:52:24-08:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="https://matt.aimonetti.net/articles/categories/automation/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2015-12-10T21:40:47-08:00</updated>
+  <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Automate iTunes with JS to wake up in music]]></title>
-    <link href="http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/"/>
+    <link href="https://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/"/>
     <updated>2015-09-02T20:46:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js</id>
+    <id>https://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js</id>
     <content type="html"><![CDATA[<p>Last week, my daughter started Kindergarten. I'm very happy for her,
 especially because she's going to an <a href="http://www.edison.smmusd.org/">awesome public school</a>.
 As someone who didn't grow up in the US, I heard a lot of stories about the American school

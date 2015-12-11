@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: books | Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/articles/categories/books/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-12-02T08:52:24-08:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="https://matt.aimonetti.net/articles/categories/books/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2015-12-10T21:40:47-08:00</updated>
+  <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Books to read in 2014]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/12/31/books-to-read-in-2014/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/12/31/books-to-read-in-2014/"/>
     <updated>2013-12-31T09:00:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/12/31/books-to-read-in-2014</id>
+    <id>https://matt.aimonetti.net/posts/2013/12/31/books-to-read-in-2014</id>
     <content type="html"><![CDATA[<p>I like to read and I have a great community on Twitter so I asked them
 what they think others and myself should read in 2014.
 Here is the compiled list of the recommended books.

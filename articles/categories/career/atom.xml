@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Career | Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/articles/categories/career/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-12-02T08:52:24-08:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="https://matt.aimonetti.net/articles/categories/career/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2015-12-10T21:40:47-08:00</updated>
+  <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Engineers suck at finding the right jobs]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
+    <link href="https://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
     <updated>2012-11-14T18:53:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
+    <id>https://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
     <content type="html"><![CDATA[<p>If you are currently a software engineer you need to realize two things:</p>
 
 <ul>

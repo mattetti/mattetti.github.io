@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: tutorial | Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/articles/categories/tutorial/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-12-02T08:52:24-08:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="https://matt.aimonetti.net/articles/categories/tutorial/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2015-12-10T21:40:47-08:00</updated>
+  <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,16 +15,16 @@
   
   <entry>
     <title type="html"><![CDATA[Go, Robots and code refactoring]]></title>
-    <link href="http://matt.aimonetti.net/posts/2014/04/28/refactoring-go-code/"/>
+    <link href="https://matt.aimonetti.net/posts/2014/04/28/refactoring-go-code/"/>
     <updated>2014-04-28T10:45:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2014/04/28/refactoring-go-code</id>
+    <id>https://matt.aimonetti.net/posts/2014/04/28/refactoring-go-code</id>
     <content type="html"><![CDATA[<p><a href="http://golang.org/">Go</a> aka golang is an amazing language but also a language that
 is really easy to learn due to its small scope.
 If you have some coding experience, you will be able to have fully working code
 in a matter of minutes otherwise you might want to read <a href="http://www.golangbootcamp.com/">my free book</a> (WIP).</p>
 
 <div style="text-align:center; padding:2em 0">
-  <a href="http://www.golangbootcamp.com/"><img src="http://matt.aimonetti.net/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
+  <a href="http://www.golangbootcamp.com/"><img src="https://matt.aimonetti.net/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
 </div>
 
 
@@ -40,7 +40,7 @@ follows the same conventions).</p>
 by <a href="http://hybridgroup.com/">HybridGroup</a>.</p>
 
 <div style="text-align:center; padding:2em 0">
-<a href="http://gobot.io/"><img src="http://matt.aimonetti.net/images/gobotio.png" alt="Gobot"></a>
+<a href="http://gobot.io/"><img src="https://matt.aimonetti.net/images/gobotio.png" alt="Gobot"></a>
 </div>
 
 
@@ -55,7 +55,7 @@ session (featuring <a href="https://twitter.com/kytrinyx">@kytrinyx</a>,
 <a href="https://twitter.com/adzankich">@adzankich</a> )</p>
 
 <div style="text-align:center; padding:2em 0">
-  <img src="http://matt.aimonetti.net/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
+  <img src="https://matt.aimonetti.net/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
 </div>
 
 
@@ -446,9 +446,9 @@ looking for talented engineers. Drop me a line if interested.</p>
   
   <entry>
     <title type="html"><![CDATA[Golang multipart file upload example]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/07/01/golang-multipart-file-upload-example/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/07/01/golang-multipart-file-upload-example/"/>
     <updated>2013-07-01T22:28:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/07/01/golang-multipart-file-upload-example</id>
+    <id>https://matt.aimonetti.net/posts/2013/07/01/golang-multipart-file-upload-example</id>
     <content type="html"><![CDATA[<p>The Go language is one of my favorite programming languages. However,
 sometimes doing simple things can seem a bit harder than it should.
 However, most of the time, the problem is just to find out how to
@@ -658,9 +658,9 @@ upload.</em></p>
   
   <entry>
     <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
     <updated>2013-06-26T10:26:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
+    <id>https://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
     <content type="html"><![CDATA[<p>Engineers love to improve things. Refactoring and optimizations
 drive us. There is just a slight problem: we often do that in a vacuum.</p>
 

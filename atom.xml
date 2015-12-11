@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-12-02T08:52:24-08:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="https://matt.aimonetti.net/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2015-12-10T21:40:47-08:00</updated>
+  <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Applied Concurrency in Go]]></title>
-    <link href="http://matt.aimonetti.net/posts/2015/12/02/dotgo-applied-concurrency-in-go/"/>
+    <link href="https://matt.aimonetti.net/posts/2015/12/02/dotgo-applied-concurrency-in-go/"/>
     <updated>2015-12-02T08:20:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2015/12/02/dotgo-applied-concurrency-in-go</id>
+    <id>https://matt.aimonetti.net/posts/2015/12/02/dotgo-applied-concurrency-in-go</id>
     <content type="html"><![CDATA[<p><img src="https://farm6.staticflickr.com/5688/22350810834_20caad1e11_k_d.jpg" class=""></p>
 
 <p>Back in November I was in Paris for <a href="http://www.dotgo.eu/">dotGo</a>, one of my favorite Golang conferences.
@@ -39,16 +39,16 @@ Using an Arduino and a set of LEDs, I show how goroutines operate and how to wri
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="c55aca1f604545abbbc143ca65171ec7" data-ratio="1.77777777777778" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="c55aca1f604545abbbc143ca65171ec7" data-ratio="1.77777777777778" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Automate iTunes with JS to wake up in music]]></title>
-    <link href="http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/"/>
+    <link href="https://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/"/>
     <updated>2015-09-02T20:46:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js</id>
+    <id>https://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js</id>
     <content type="html"><![CDATA[<p>Last week, my daughter started Kindergarten. I&#8217;m very happy for her,
 especially because she&#8217;s going to an <a href="http://www.edison.smmusd.org/">awesome public school</a>.
 As someone who didn&#8217;t grow up in the US, I heard a lot of stories about the American school
@@ -116,7 +116,7 @@ From within the app, you can run your script and test / &#8220;debug&#8221; it.
 Script Editor also allows you to export your script as script, script
 bundle and app. The easiest way is to export our code as an app:</p>
 
-<p><img src="http://matt.aimonetti.net/images/jxa_app.jpg" alt="Export JS as an app" /></p>
+<p><img src="https://matt.aimonetti.net/images/jxa_app.jpg" alt="Export JS as an app" /></p>
 
 <p>Note that you can also write a script and create a <code>osascript</code> shebang,
 or even evalute your automation JS in the terminal:</p>
@@ -297,9 +297,9 @@ so are most browsers).</p>
   
   <entry>
     <title type="html"><![CDATA[First Go challenge - binary decoding]]></title>
-    <link href="http://matt.aimonetti.net/posts/2015/03/03/first-go-challenge-binary-decoding/"/>
+    <link href="https://matt.aimonetti.net/posts/2015/03/03/first-go-challenge-binary-decoding/"/>
     <updated>2015-03-03T23:24:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2015/03/03/first-go-challenge-binary-decoding</id>
+    <id>https://matt.aimonetti.net/posts/2015/03/03/first-go-challenge-binary-decoding</id>
     <content type="html"><![CDATA[<p>I&#8217;m very glad to have had the chance to be involved with the very first
 <a href="http://golang.org">Go</a> challenge. My challenge is related to something we do at <a href="https://splice.com">Splice</a>: binary decoding.</p>
 
@@ -325,7 +325,7 @@ so are most browsers).</p>
 </span><span class='line'>(5) cowbell  |----|----|--x-|----|</span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="http://matt.aimonetti.net/images/hex.png" alt="Splice challenge hex" /></p>
+<p><img src="https://matt.aimonetti.net/images/hex.png" alt="Splice challenge hex" /></p>
 
 <p>The challenge is going on for 2 weeks until March 15, a new challenge
 will be posted on April first. Prizes and conditions available on the
@@ -340,9 +340,9 @@ this challenge better.</p>
   
   <entry>
     <title type="html"><![CDATA[Understanding &amp; sharing Rails sessions]]></title>
-    <link href="http://matt.aimonetti.net/posts/2014/09/13/understanding-and-sharing-rails-sessions/"/>
+    <link href="https://matt.aimonetti.net/posts/2014/09/13/understanding-and-sharing-rails-sessions/"/>
     <updated>2014-09-13T10:15:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2014/09/13/understanding-and-sharing-rails-sessions</id>
+    <id>https://matt.aimonetti.net/posts/2014/09/13/understanding-and-sharing-rails-sessions</id>
     <content type="html"><![CDATA[<p>In September 2014, I gave this talk at <a href="http://www.baruco.org/">Baruco</a>
 in Barcelona, Spain. The talk focuses on:</p>
 
@@ -359,21 +359,21 @@ two entrepreneurs building a succesful web application and facing some serious c
 
 <h2>Video</h2>
 
-<iframe width="640" height="480" src="http://matt.aimonetti.net//www.youtube.com/embed/vC5xR5CgThM" frameborder="0" allowfullscreen></iframe>
+<iframe width="640" height="480" src="https://matt.aimonetti.net//www.youtube.com/embed/vC5xR5CgThM" frameborder="0" allowfullscreen></iframe>
 
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-slide="5" data-id="9260300033980132573d121bd1ded631" data-ratio="1.33333333333333" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-slide="5" data-id="9260300033980132573d121bd1ded631" data-ratio="1.33333333333333" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Go at Splice (Google I/O 2014)]]></title>
-    <link href="http://matt.aimonetti.net/posts/2014/06/23/go-at-splice-google-i-slash-o-2014/"/>
+    <link href="https://matt.aimonetti.net/posts/2014/06/23/go-at-splice-google-i-slash-o-2014/"/>
     <updated>2014-06-23T10:48:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2014/06/23/go-at-splice-google-i-slash-o-2014</id>
+    <id>https://matt.aimonetti.net/posts/2014/06/23/go-at-splice-google-i-slash-o-2014</id>
     <content type="html"><![CDATA[<p>The week of June 23rd was a good week for gophers in San Francisco. Go was a big part of Google I/O on Wednesday and Thursday, and on Monday Google run a Go SummerFest, a special instance of the GoSF meetup.</p>
 
 <p>I gave a talk at Go SummerFest and then later on another one during I/O. For more
@@ -381,7 +381,7 @@ information about the events, see <a href="http://blog.golang.org/io2014">this b
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="fb7887b033aa0132ef480af01cce597a" data-ratio="1.33333333333333" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="fb7887b033aa0132ef480af01cce597a" data-ratio="1.33333333333333" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 
 <p><a href="https://docs.google.com/a/golang.org/file/d/0B-nws9GU_6qVZklnNnJITlhSbXc/edit">Full screen slides</a></p>
@@ -394,16 +394,16 @@ information about the events, see <a href="http://blog.golang.org/io2014">this b
   
   <entry>
     <title type="html"><![CDATA[Go, Robots and code refactoring]]></title>
-    <link href="http://matt.aimonetti.net/posts/2014/04/28/refactoring-go-code/"/>
+    <link href="https://matt.aimonetti.net/posts/2014/04/28/refactoring-go-code/"/>
     <updated>2014-04-28T10:45:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2014/04/28/refactoring-go-code</id>
+    <id>https://matt.aimonetti.net/posts/2014/04/28/refactoring-go-code</id>
     <content type="html"><![CDATA[<p><a href="http://golang.org/">Go</a> aka golang is an amazing language but also a language that
 is really easy to learn due to its small scope.
 If you have some coding experience, you will be able to have fully working code
 in a matter of minutes otherwise you might want to read <a href="http://www.golangbootcamp.com/">my free book</a> (WIP).</p>
 
 <div style="text-align:center; padding:2em 0">
-  <a href="http://www.golangbootcamp.com/"><img src="http://matt.aimonetti.net/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
+  <a href="http://www.golangbootcamp.com/"><img src="https://matt.aimonetti.net/images/matt_aimonetti-go_bootcamp.png" alt="Go Bootcamp free book (golang)"></a>
 </div>
 
 
@@ -419,7 +419,7 @@ follows the same conventions).</p>
 by <a href="http://hybridgroup.com/">HybridGroup</a>.</p>
 
 <div style="text-align:center; padding:2em 0">
-<a href="http://gobot.io/"><img src="http://matt.aimonetti.net/images/gobotio.png" alt="Gobot"></a>
+<a href="http://gobot.io/"><img src="https://matt.aimonetti.net/images/gobotio.png" alt="Gobot"></a>
 </div>
 
 
@@ -434,7 +434,7 @@ session (featuring <a href="https://twitter.com/kytrinyx">@kytrinyx</a>,
 <a href="https://twitter.com/adzankich">@adzankich</a> )</p>
 
 <div style="text-align:center; padding:2em 0">
-  <img src="http://matt.aimonetti.net/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
+  <img src="https://matt.aimonetti.net/images/matt_aimonetti-go_refactoring.jpg" alt="Go refactoring at GopherCon">
 </div>
 
 
@@ -897,9 +897,9 @@ looking for talented engineers. Drop me a line if interested.</p>
   
   <entry>
     <title type="html"><![CDATA[Books to read in 2014]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/12/31/books-to-read-in-2014/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/12/31/books-to-read-in-2014/"/>
     <updated>2013-12-31T09:00:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/12/31/books-to-read-in-2014</id>
+    <id>https://matt.aimonetti.net/posts/2013/12/31/books-to-read-in-2014</id>
     <content type="html"><![CDATA[<p>I like to read and I have a great community on Twitter so I asked them
 what they think others and myself should read in 2014.
 Here is the compiled list of the recommended books.
@@ -1049,9 +1049,9 @@ forward to 2014!</p>
   
   <entry>
     <title type="html"><![CDATA[Sharing Rails Sessions with Non-Ruby Apps]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps/"/>
     <updated>2013-11-30T12:01:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps</id>
+    <id>https://matt.aimonetti.net/posts/2013/11/30/sharing-rails-sessions-with-non-ruby-apps</id>
     <content type="html"><![CDATA[<p>I wanted to share sessions between my Rails and Go applications. I wanted to let an authenticated Rails user make JavaScript API calls to an endpoint written in Go. How hard could it be?</p>
 
 <p>Since I own both apps, I thought it would be as simple as sharing the secret session key and re-implementing Rails crypto process in Go. It turned out to be a lot more interesting.</p>
@@ -1139,9 +1139,9 @@ problems like these ones, consider joining the <a href="https://splice.com">Spli
   
   <entry>
     <title type="html"><![CDATA[Bad code doesn't exist]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/10/14/bad-code-doesnt-exist/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/10/14/bad-code-doesnt-exist/"/>
     <updated>2013-10-14T09:08:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/10/14/bad-code-doesnt-exist</id>
+    <id>https://matt.aimonetti.net/posts/2013/10/14/bad-code-doesnt-exist</id>
     <content type="html"><![CDATA[<p>I just give a talk at <a href="http://wickedgoodruby.com/">Wicked Good Ruby Conf</a> in Boston. I&#8217;m sure the talk will be online soon, but I figured it would be interesting to discuss it a bit further in a blog post.</p>
 
 <p>The format was a bit different than usual, I had a 40 minute slot and
@@ -1167,7 +1167,7 @@ others. Most code turns emo after a little while, being able to
 understand the context, helps a lot the devision process when facing
 such code.</p>
 
-<p><img src="http://matt.aimonetti.net/images/matt_aimonetti-code_apology.jpg" alt="Bad code" /></p>
+<p><img src="https://matt.aimonetti.net/images/matt_aimonetti-code_apology.jpg" alt="Bad code" /></p>
 
 <h2>It&#8217;s all about expected outcome and context</h2>
 
@@ -1222,21 +1222,21 @@ to decide what solution to pick.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="f325aee016620131a63906e09cf22df5" data-ratio="1.33333333333333" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="f325aee016620131a63906e09cf22df5" data-ratio="1.33333333333333" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 
 <h2>Video</h2>
 
-<iframe width="640" height="480" src="http://matt.aimonetti.net//www.youtube.com/embed/VO-NvnZfMA4" frameborder="0" allowfullscreen></iframe>
+<iframe width="640" height="480" src="https://matt.aimonetti.net//www.youtube.com/embed/VO-NvnZfMA4" frameborder="0" allowfullscreen></iframe>
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[What technology should my startup use?]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/08/27/what-technology-should-my-startup-use/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/08/27/what-technology-should-my-startup-use/"/>
     <updated>2013-08-27T22:10:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/08/27/what-technology-should-my-startup-use</id>
+    <id>https://matt.aimonetti.net/posts/2013/08/27/what-technology-should-my-startup-use</id>
     <content type="html"><![CDATA[<p>Over the years many people have asked me the same question:</p>
 
 <blockquote><p>I&#8217;m starting this new project, what technology do you think I should use?</p></blockquote>
@@ -1707,9 +1707,9 @@ solid compromise.</p>
   
   <entry>
     <title type="html"><![CDATA[Golang multipart file upload example]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/07/01/golang-multipart-file-upload-example/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/07/01/golang-multipart-file-upload-example/"/>
     <updated>2013-07-01T22:28:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/07/01/golang-multipart-file-upload-example</id>
+    <id>https://matt.aimonetti.net/posts/2013/07/01/golang-multipart-file-upload-example</id>
     <content type="html"><![CDATA[<p>The Go language is one of my favorite programming languages. However,
 sometimes doing simple things can seem a bit harder than it should.
 However, most of the time, the problem is just to find out how to
@@ -2013,9 +2013,9 @@ upload.</em></p>
   
   <entry>
     <title type="html"><![CDATA[Practical guide to StatsD/Graphite monitoring]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring/"/>
     <updated>2013-06-26T10:26:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
+    <id>https://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring</id>
     <content type="html"><![CDATA[<p>Engineers love to improve things. Refactoring and optimizations
 drive us. There is just a slight problem: we often do that in a vacuum.</p>
 
@@ -2029,7 +2029,7 @@ drive us. There is just a slight problem: we often do that in a vacuum.</p>
 and cons. The point of this article isn&#8217;t to argue about which one <strong>you</strong> should use,
 but instead to give you the some practical knowledge about <a href="http://graphite.readthedocs.org/en/latest/overview.html">Graphite</a>.</p>
 
-<p><img src="http://matt.aimonetti.net/images/graphite_fullscreen_800.png" alt="Screenshot of the Graphite UI" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite_fullscreen_800.png" alt="Screenshot of the Graphite UI" /></p>
 
 <p>Graphite is used to store and render time-series data. In other words,
 you collect metrics and Graphite allows you to create pretty graphs easily.</p>
@@ -2561,7 +2561,7 @@ A 5-95 span means that we cut off the extreme outliers above 95% and below 5%.</
 <p>Here is a comparison showing how the graphs can be different for the same
 data based on what metric you use:</p>
 
-<p><img src="http://matt.aimonetti.net/images/graphite/graphite-median_vs_mean_vs_span.png" alt="Graphite comparing median vs mean vs span" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite/graphite-median_vs_mean_vs_span.png" alt="Graphite comparing median vs mean vs span" /></p>
 
 <p>Of course the span graph looks much worse than the other two, but it&#8217;s
 also more representative of the real user experience and thus more
@@ -2613,7 +2613,7 @@ A threshold is a visual representation of expectations. Say, for example, that y
 
 <p>and here&#8217;s how it would look in a graph:</p>
 
-<p><img src="http://matt.aimonetti.net/images/graphite/graphite-median_vs_mean_vs_span-with-threshold.png" alt="Graphite with a threshold" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite/graphite-median_vs_mean_vs_span-with-threshold.png" alt="Graphite with a threshold" /></p>
 
 <h3>Draw Null as Zero</h3>
 
@@ -2625,7 +2625,7 @@ the <code>Draw Null as Zero</code> box.</p>
 <p>Here is a graph tracking a webservice that isn&#8217;t getting a lot of
 traffic:</p>
 
-<p><img src="http://matt.aimonetti.net/images/graphite/nulls_not_drawn_as_zero.png" alt="graphite example" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite/nulls_not_drawn_as_zero.png" alt="graphite example" /></p>
 
 <p>You can see that the line is discontinued, that&#8217;s because the API
 doesn&#8217;t constantly receive traffic. If your data series gets only very
@@ -2657,7 +2657,7 @@ To do that, we&#8217;ll use the <code>sumSeries</code> function:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="http://matt.aimonetti.net/images/graphite/graphite-not-summarized.png" alt="RPMs not summarized" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite/graphite-not-summarized.png" alt="RPMs not summarized" /></p>
 
 <p>The graph looks pretty but it&#8217;s hard to understand what kind of request
 volume we are getting. We can summarize this data to show 1 min
@@ -2668,7 +2668,7 @@ summaries instead:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="http://matt.aimonetti.net/images/graphite/graphite-summarize.png" alt="RPMs summarize" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite/graphite-summarize.png" alt="RPMs summarize" /></p>
 
 <p>We can now see the quantity of requests per minute. You could do the same to resolve by hour, day, etc.</p>
 
@@ -2693,7 +2693,7 @@ today&#8217;s quantity of logins vs those from last weeks.</p>
 
 <p>Graphing both series in the same graph will give us that:</p>
 
-<p><img src="http://matt.aimonetti.net/images/graphite/graphite-timeshift.png" alt="graphite timeshift example" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite/graphite-timeshift.png" alt="graphite timeshift example" /></p>
 
 <p>Wow, it looks like last week we had an authentication peek for a few
 hours. Why? It would be interesting to graph our promos and sales in the same
@@ -2729,11 +2729,11 @@ second is last week&#8217;s summarized RPMs.</p>
 
 <p>Here is how the graph looks:</p>
 
-<p><img src="http://matt.aimonetti.net/images/graphite/graphite-compare-as-percent.png" alt="graphite as percent" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite/graphite-compare-as-percent.png" alt="graphite as percent" /></p>
 
 <p>Based on all the data we collect, we can now graph something like that:</p>
 
-<p><img src="http://matt.aimonetti.net/images/graphite/graphite-as-percent.png" alt="graphite as percent with multiple series" /></p>
+<p><img src="https://matt.aimonetti.net/images/graphite/graphite-as-percent.png" alt="graphite as percent with multiple series" /></p>
 
 <p>This graph is basically the same as the one above, but we used the
 overall response time as the 100% value and we graphed all the different
@@ -2813,9 +2813,9 @@ before its publication!</em></p>
   
   <entry>
     <title type="html"><![CDATA[Using Go vs Ruby for web APIs]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis/"/>
     <updated>2013-06-23T09:50:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
+    <id>https://matt.aimonetti.net/posts/2013/06/23/using-go-vs-ruby-for-web-apis</id>
     <content type="html"><![CDATA[<p>A few days ago, I was wondering if using <a href="http://golang.org/">Go</a> would be worth it when developing new web APIs.
 I obviously knew that Go would be faster than Ruby, but I wasn&#8217;t sure
 how much faster. I also wondering about the amount of work required to
@@ -2844,15 +2844,15 @@ good argument to start using some Go when it makes sense.</p>
 
 <p>I documented my experiment on <a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY">Google+</a>, click the following screenshot to read more.</p>
 
-<p><a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY"><img src="http://matt.aimonetti.net/images/matt_aimonetti-golang_vs_ruby_api_exp.png" alt="Matt Aimonetti's Go vs Ruby post on Google+" /></a></p>
+<p><a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY"><img src="https://matt.aimonetti.net/images/matt_aimonetti-golang_vs_ruby_api_exp.png" alt="Matt Aimonetti's Go vs Ruby post on Google+" /></a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Inspecting Rails 4 using Ruby 2.0]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
     <updated>2013-03-05T22:18:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
+    <id>https://matt.aimonetti.net/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
     <content type="html"><![CDATA[<p>Ruby 2.0 has a cool new feature that many people talk about:
 <a href="http://ruby-doc.org/core-2.0/TracePoint.html">TracePoint</a>.</p>
 
@@ -3032,9 +3032,9 @@ Fowler</a> Berliner by adoption:</p>
   
   <entry>
     <title type="html"><![CDATA[OmniAuth and Google Apps]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/01/30/omniauth-and-google-apps/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/01/30/omniauth-and-google-apps/"/>
     <updated>2013-01-30T19:11:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/01/30/omniauth-and-google-apps</id>
+    <id>https://matt.aimonetti.net/posts/2013/01/30/omniauth-and-google-apps</id>
     <content type="html"><![CDATA[<p>Today I struggled to get <a href="https://github.com/intridea/omniauth">OmniAuth</a> and <a href="https://developers.google.com/accounts/docs/OpenID">Google apps</a> to work properly together.
 I just wanted to add authentication to my application and restrict access to only my Google Apps domain users.
 I was hoping it would be straight forward since I could use Google&#8217;s OpenID service.</p>
@@ -3230,9 +3230,9 @@ you know two things:</p>
   
   <entry>
     <title type="html"><![CDATA[Real life concurrency in Go]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/11/27/real-life-concurrency-in-go/"/>
+    <link href="https://matt.aimonetti.net/posts/2012/11/27/real-life-concurrency-in-go/"/>
     <updated>2012-11-27T10:08:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/11/27/real-life-concurrency-in-go</id>
+    <id>https://matt.aimonetti.net/posts/2012/11/27/real-life-concurrency-in-go</id>
     <content type="html"><![CDATA[<p>The structure of a programming language reflects the challenges and solutions the
 designers decided to address. Each designer coming with his/her own background
 decides to tackle some specific issues in a novel way and/or often
@@ -3247,7 +3247,7 @@ show you the language constructs by actually writing real life code.</p>
 
 <h2>Fetching web resources concurrently</h2>
 
-<p>The following example is taken from my recent presentation <a href="http://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/">Ruby vs. the World</a>. I explored a few programming languages and
+<p>The following example is taken from my recent presentation <a href="https://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/">Ruby vs. the World</a>. I explored a few programming languages and
 showed how they changed my Ruby.</p>
 
 <p>To show how <a href="http://golang.org/">Go</a> addresses concurrency, I decided to build a
@@ -3555,9 +3555,9 @@ with a special focus on concurrency with a unix approach.</p>
   
   <entry>
     <title type="html"><![CDATA[Engineers suck at finding the right jobs]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
+    <link href="https://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs/"/>
     <updated>2012-11-14T18:53:00-08:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
+    <id>https://matt.aimonetti.net/posts/2012/11/14/engineers-suck-at-finding-right-jobs</id>
     <content type="html"><![CDATA[<p>If you are currently a software engineer you need to realize two things:</p>
 
 <ul>
@@ -3786,9 +3786,9 @@ A friend gave me a Seth Godin&#8217;s book called <a href="http://www.amazon.com
 how do the efforts compare to the returns?
 Which situation are you in:</p>
 
-<p><img src="http://matt.aimonetti.net/images/dip.jpg" alt="" /></p>
+<p><img src="https://matt.aimonetti.net/images/dip.jpg" alt="" /></p>
 
-<p><img src="http://matt.aimonetti.net/images/cliff-dip.jpg" alt="" /></p>
+<p><img src="https://matt.aimonetti.net/images/cliff-dip.jpg" alt="" /></p>
 
 <p>Think about it. <strong>Will the effort you put into your work pay off?</strong>
 If you don&#8217;t think it will, then you should quit right away.</p>
@@ -3802,7 +3802,7 @@ further from the direction you set for yourself.</p>
 <p>Trust is the key element of any relationship.
 In <a href="http://www.amazon.com/gp/product/B000UCUX0K/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B000UCUX0K&amp;linkCode=as2&amp;tag=merbist-20">The Five Dysfunctions of a Team</a>, Patrick Lencioni explains that the base of management dysfunctions is absence of trust:</p>
 
-<p><img src="http://matt.aimonetti.net/images/fivedysfunctions.gif" alt="" /></p>
+<p><img src="https://matt.aimonetti.net/images/fivedysfunctions.gif" alt="" /></p>
 
 <p>Turns out it&#8217;s the same thing for our careers. We need a team of people
 to help us define a vision/direction and keep us honest and accountable.</p>
@@ -3868,9 +3868,9 @@ to leave advice or feedback.</p>
   
   <entry>
     <title type="html"><![CDATA[RubyConf 2012 - Ruby vs. The World]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
+    <link href="https://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
     <updated>2012-11-02T20:47:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
+    <id>https://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.com/">RubyConf 2012</a> in Denver, Colorado Matt
 Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
 
@@ -3882,7 +3882,7 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on [Matt&#8217;s SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/ruby-vs-the-world) and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50941f6aeb710400020019ac/aimonetti-ruby_vs_the_world_rubyconf_2012.pdf">downloaded here</a>.</p>
@@ -3902,9 +3902,9 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
   
   <entry>
     <title type="html"><![CDATA[Aloha RubyConf - mmm..mruby or why yet another Ruby implementation]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
+    <link href="https://matt.aimonetti.net/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation/"/>
     <updated>2012-10-09T20:14:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
+    <id>https://matt.aimonetti.net/posts/2012/10/09/mmm-dot-mruby-or-why-yet-another-ruby-implementation</id>
     <content type="html"><![CDATA[<p>During <a href="http://aloharubyconf.com/">Aloha RubyConf 2012</a> in Honolulu, Hawaii Matt
 Aimonetti gave a talk entitled <strong>mmm..mruby or why yet another Ruby implementation</strong>.</p>
 
@@ -3920,7 +3920,7 @@ Ruby) and and revisiting Ruby.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50752712f8a4020002043005" data-ratio="1.2994923857868" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50752712f8a4020002043005" data-ratio="1.2994923857868" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on [Matt&#8217;s SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/mmmm-dot-mruby-everywhere-and-revisiting-ruby) and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50752712f8a4020002043005/mmmmruby_aloha_rubyconf.pdf">downloaded here</a>.</p>
@@ -3938,9 +3938,9 @@ Ruby) and and revisiting Ruby.</p>
   
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
+    <link href="https://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
     <updated>2012-10-05T15:09:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
+    <id>https://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
     <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
 Aimonetti gave a talk entitled <em>Tower of
 Babel: a tour of programming languages</em>.</p>
@@ -3951,7 +3951,7 @@ Babel: a tour of programming languages</em>.</p>
 comparing programming languages isn&#8217;t as simple as drawing a table
 comparing features.</p>
 
-<p><img src="http://matt.aimonetti.net/images/matt_aimonetti_languages_table.jpg" alt="Matt Aimonetti compares programming languages" /></p>
+<p><img src="https://matt.aimonetti.net/images/matt_aimonetti_languages_table.jpg" alt="Matt Aimonetti compares programming languages" /></p>
 
 <p>In his talk, Matt shows what he likes, dislikes, the philosophy and concrete example of how to use 7 programming
 languages:</p>
@@ -3969,7 +3969,7 @@ languages:</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on <a href="https://speakerdeck.com/u/matt_aimonetti/p/tower-of-babel-a-tour-of-programming-languages">Matt&#8217;s SpeakerDeck</a> and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50662c32244a9d000202ba53/aimonetti_pulsoconf_2012.pdf">downloaded here</a>.</p>

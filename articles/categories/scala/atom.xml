@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Scala | Matt Aimonetti]]></title>
-  <link href="http://matt.aimonetti.net/articles/categories/scala/atom.xml" rel="self"/>
-  <link href="http://matt.aimonetti.net/"/>
-  <updated>2015-12-02T08:52:24-08:00</updated>
-  <id>http://matt.aimonetti.net/</id>
+  <link href="https://matt.aimonetti.net/articles/categories/scala/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2015-12-10T21:40:47-08:00</updated>
+  <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[What technology should my startup use?]]></title>
-    <link href="http://matt.aimonetti.net/posts/2013/08/27/what-technology-should-my-startup-use/"/>
+    <link href="https://matt.aimonetti.net/posts/2013/08/27/what-technology-should-my-startup-use/"/>
     <updated>2013-08-27T22:10:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2013/08/27/what-technology-should-my-startup-use</id>
+    <id>https://matt.aimonetti.net/posts/2013/08/27/what-technology-should-my-startup-use</id>
     <content type="html"><![CDATA[<p>Over the years many people have asked me the same question:</p>
 
 <blockquote><p>I'm starting this new project, what technology do you think I should use?</p></blockquote>
@@ -488,9 +488,9 @@ solid compromise.</p>
   
   <entry>
     <title type="html"><![CDATA[RubyConf 2012 - Ruby vs. The World]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
+    <link href="https://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
     <updated>2012-11-02T20:47:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
+    <id>https://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
     <content type="html"><![CDATA[<p>During <a href="http://rubyconf.com/">RubyConf 2012</a> in Denver, Colorado Matt
 Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
 
@@ -502,7 +502,7 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on [Matt's SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/ruby-vs-the-world) and can be <a href="">downloaded here</a>.</p>
@@ -522,9 +522,9 @@ Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
   
   <entry>
     <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
-    <link href="http://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
+    <link href="https://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
     <updated>2012-10-05T15:09:00-07:00</updated>
-    <id>http://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
+    <id>https://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
     <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
 Aimonetti gave a talk entitled <em>Tower of
 Babel: a tour of programming languages</em>.</p>
@@ -553,7 +553,7 @@ languages:</p>
 
 <h2>Slides</h2>
 
-<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="http://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>The slides are available on <a href="https://speakerdeck.com/u/matt_aimonetti/p/tower-of-babel-a-tour-of-programming-languages">Matt's SpeakerDeck</a> and can be <a href="">downloaded here</a>.</p>
