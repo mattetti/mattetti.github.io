@@ -2,11 +2,11 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://matt.aimonetti.net
+url: https://matt.aimonetti.net
 title: Matt Aimonetti
 subtitle: List of projects, articles and talks by Matt
 author: Matt Aimonetti
-simple_search: http://google.com/search
+simple_search: https://google.com/search
 description: Matt Aimonetti's work, talks, presentations.
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
