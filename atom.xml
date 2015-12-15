@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="https://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="https://matt.aimonetti.net/"/>
-  <updated>2015-12-10T21:40:47-08:00</updated>
+  <updated>2015-12-15T08:50:11-08:00</updated>
   <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,99 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Audio DSP demystified: Sampling]]></title>
+    <link href="https://matt.aimonetti.net/posts/2015/12/15/audio-dsp-demystified-sampling/"/>
+    <updated>2015-12-15T08:45:00-08:00</updated>
+    <id>https://matt.aimonetti.net/posts/2015/12/15/audio-dsp-demystified-sampling</id>
+    <content type="html"><![CDATA[<p> Through this post and the following ones, I will do my best to provide you with the basic knowledge you need to
+ understand and implement digital audio signal processing.
+ The idea came from a conversation with my friend <a href="http://chadfowler.com/">Chad Fowler</a> who&#8217;s a well-known software developer,
+ leader but also a well accomplished musician. Chad was interested in learning the basics of DSP and I can only
+ assume he doesn&#8217;t have time to 42 books on the topic, white papers, PHD thesis and try to decipher complex math equations.
+ Most DSP code out there is written in C, Assembly or C++ due to the fact that latency is really problematic for real-time audio processing
+ applications (<a href="https://en.wikipedia.org/wiki/Field-programmable_gate_array">FPGAs</a> &amp; chipsets with DSP specific instructions are also used).
+ There are also a lot of great/old libraries already available for those languages.
+ But my goal here isn&#8217;t to teach how to use existing libraries, but to teach how they work so you can implement your own or make educated choices.
+I should note that I&#8217;m not an expert in the matter, I have never implemented complex real-time DSP and this series is only meant
+as an introduction to the topic.</p>
+
+<p>TL;DR intro series teaching programmers the basic audio DSP concepts in a practical manner. No DSP knowledge is expected.</p>
+
+<h2>Analog to Digital conversion</h2>
+
+<p>To be able to access and manipulate audio data via our code, an audio signal needs to be converted from analog to digital.
+This is not something you usually implement yourself, in most cases it is done at the sound card level. Sound cards do the job of converting the
+signal, in other words, they are <a href="https://en.wikipedia.org/wiki/Analog-to-digital_converter">analog to digital converters (ADC)</a>.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/ADC_Symbol.svg" alt="ADC" /></p>
+
+<p>It&#8217;s very important to understand how the conversion is done because it has direct repercussions on what we will do.</p>
+
+<p>We have a <a href="https://en.wikipedia.org/wiki/Continuous_signal">continuous signal</a> (the audio signal) and we need to convert it into numerical values.
+The numerical values needs to represent the sampled analog signal as closely as possible.
+To do that, a <a href="https://en.wikipedia.org/wiki/Discrete-time_signal">discrete signal</a> needs to be created. A discrete signal
+is a fancy name for a time series representing the sampled signal. In other words, we measure the signal at a certain frequency
+(let&#8217;s say 44,100 times a second) and each value (an integer or a floating-point we call a sample) is added to our series. (This article assumes
+we are using <a href="https://en.wikipedia.org/wiki/Pulse-code_modulation">PCM</a> representation).</p>
+
+<p><img src="http://www.radio-electronics.com/info/rf-technology-design/digital-signal-processing/waveform_sampling.gif" alt="waveform sampling illustration from http://www.radio-electronics.com/info/rf-technology-design/digital-signal-processing/dsp-basics-tutorial.php" /></p>
+
+<h3>Sampling rate</h3>
+
+<p>The amount of time per second we take a sample from our analog signal is called the <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing">sampling rate</a>#Sampling_rate).
+Common audio sampling rates are 44.1kHz, 48kHz and sometimes 96kHz.</p>
+
+<p>There is a very important explanation about why we need to sample at a value greater than 40kHz.</p>
+
+<p>The human hearing range falls into a frequency range of 20Hz to 20,000 H (that said you probably don&#8217;t hear very much above 17kHz).
+A requirement for our analog to digital conversion is that we can capture and then later on recreate an analog signal that will cover
+the entire frequency range we are interested in.</p>
+
+<p>The reason we need to sample at a rate greater than 40kHz is due to the findings of <a href="https://en.wikipedia.org/wiki/Harry_Nyquist">Harry Nyquist</a>.
+Nyquist, studied and wrote about <a href="https://en.wikipedia.org/wiki/Harry_Nyquist">conversion of continuous to discrete signals</a>.
+One of the discoveries he made is called the <a href="https://en.wikipedia.org/wiki/Nyquist_rate">Nyquist rate</a> and simply put it says
+that you need to sample at at a greater frequency than twice the bandwidth you want. Since we are trying to sample a range of 20,000Hz
+we need to sample at <code>2x20000 = 40000</code> to cover the entire frequency range.</p>
+
+<p>Fun fact, the default 44.1kHZ sampling rate comes Sony setting the standard by recording audio content on video equipment
+and wanting to have a system that was PAL/NTSC compatible (PAL runs at 25fps, NTSC at 30fps). They were able to store
+the exact same amount of 44,100 samples per seconds using different amounts of lines/frames.</p>
+
+<h3>Bit rate</h3>
+
+<p>The precision of the numerical value we use to store the sample is called the <a href="https://en.wikipedia.org/wiki/Audio_bit_depth">bit depth</a>.
+The bit depth will change the range of values we capture, take for instance the sampling example below.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Pcm.svg" alt="4 bit sampling" /></p>
+
+<p>The analog signal in red is being sampled at a 4-bit bit depth meaning that each sample is represented by an integer taking 4 bits in memory.
+4 bits give us a maximum range of 16 integer values <code>(4*4)</code> Our sample value will be between 0 and 15. 4-bit precision really isn&#8217;t enough
+to properly represent the reach dynamic range of audio signals.
+Most audio content is sampled at 16 or 24 bit (8, 20 and 32 bit depths are also sometime used). A 16-bit integer resolution
+offers a dynamic range of 96 dB (which can be improved using <a href="https://en.wikipedia.org/wiki/Dither">dithering</a> but that&#8217;s outside of the scope of this article).</p>
+
+<p>Too low of a resolution and you are missing auditive information (and getting extra noise), too high of a resolution and it&#8217;s a waste.
+32 floating-point bit depth is often used later on in the audio chain when doing complex audio processing.
+This process allows for greater precision when
+manipulating audio data and rounding can have a negative effect on the output (<a href="https://en.wikipedia.org/wiki/Digital_audio_workstation">DAWs</a>,
+synthesizers, effects&#8230;).
+The data is usually converted back to the source bit depth making things easier/transparent to the caller.</p>
+
+<p>Fun fact: The famous TR-909 drum machine only used a bit depth of 6-bit!</p>
+
+<p><img src="https://www.amazona.de/wp-content/uploads/2010/01/1_TR-909_Total.jpg" alt="TR-909" /></p>
+
+<h2>File formats: WAV &amp; AIFF</h2>
+
+<p>Now that we learned how the audio signal is being converted to a digital stream, it&#8217;s interesting to see how it&#8217;s being stored.
+The 2 main uncompressed <a href="https://en.wikipedia.org/wiki/Pulse-code_modulation">PCM</a> formats are <a href="https://en.wikipedia.org/wiki/WAV">WAV</a> and <a href="https://en.wikipedia.org/wiki/Audio_Interchange_File_Format">AIFF</a>.
+These formats store the same data slightly differently and provides valuable information of the stream content via file headers and
+data chunks. To be able to do any kind of offline processing, we need to be able to read and write such formats.
+In a future post, we will write a coder/decoder that explains how these file formats work (and get a sneak peek into lossy compression formats such as MP3).</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Applied Concurrency in Go]]></title>
@@ -3933,50 +4026,6 @@ Ruby) and and revisiting Ruby.</p>
 <h2>Presentation website</h2>
 
 <p>Matt&#8217;s presentation was filmed by <a href="http://confreaks.com">Confreaks</a> and posted <a href="http://confreaks.com/videos/1252-aloharuby2012-mmm-mruby-or-why-yet-another-ruby-implementation">here</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[PulsoConf 2012 - Tour of programming languages]]></title>
-    <link href="https://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages/"/>
-    <updated>2012-10-05T15:09:00-07:00</updated>
-    <id>https://matt.aimonetti.net/posts/2012/10/05/pulsoconf-tour-of-programming-languages</id>
-    <content type="html"><![CDATA[<p>During <a href="http://pulsoconf.co/">PulsoConf 2012</a> in Bogotá, Colombia Matt
-Aimonetti gave a talk entitled <em>Tower of
-Babel: a tour of programming languages</em>.</p>
-
-<h2>Description of the talk:</h2>
-
-<p>Programming languages affect the way one looks and solves problems. But
-comparing programming languages isn&#8217;t as simple as drawing a table
-comparing features.</p>
-
-<p><img src="https://matt.aimonetti.net/images/matt_aimonetti_languages_table.jpg" alt="Matt Aimonetti compares programming languages" /></p>
-
-<p>In his talk, Matt shows what he likes, dislikes, the philosophy and concrete example of how to use 7 programming
-languages:</p>
-
-<ul>
-<li>Ruby</li>
-<li>JavaScript</li>
-<li>CoffeeScript</li>
-<li>Objective-C</li>
-<li>Clojure</li>
-<li>Scala</li>
-<li>Go</li>
-</ul>
-
-
-<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="50662c32244a9d000202ba53" data-ratio="1.299492385786802" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
-
-
-<p>The slides are available on <a href="https://speakerdeck.com/u/matt_aimonetti/p/tower-of-babel-a-tour-of-programming-languages">Matt&#8217;s SpeakerDeck</a> and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50662c32244a9d000202ba53/aimonetti_pulsoconf_2012.pdf">downloaded here</a>.</p>
-
-<h2>Video</h2>
-
-<p>TBD</p>
 ]]></content>
   </entry>
   
