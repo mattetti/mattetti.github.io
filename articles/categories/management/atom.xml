@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: management | Matt Aimonetti]]></title>
+  <link href="https://matt.aimonetti.net/articles/categories/management/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2016-01-18T20:07:28-08:00</updated>
+  <id>https://matt.aimonetti.net/</id>
+  <author>
+    <name><![CDATA[Matt Aimonetti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to manage Slack constant interruptions – EOD emails]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/01/18/how-to-manage-slack-constant-interruptions-eod-emails/"/>
+    <updated>2016-01-18T19:29:00-08:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/01/18/how-to-manage-slack-constant-interruptions-eod-emails</id>
+    <content type="html"><![CDATA[<p>Ever since I started <a href="https://splice.com">Splice</a>, I've been really eager to experiment and adapt our process
+to be able to be as efficient as possible while still pleasant.
+Setting up a process that works is hard because it depends on the size of your company, the team members
+and the leadership style. We tried many things as we grew and lots of these things
+didn't stick, however a few did. One of those is our End of Day email aka EOD email.</p>
+
+<p>In this <a href="https://splice.com/blog/managing-slack-interruptions/">blog post about team communication</a> at Splice,
+I go into more details about synchronous vs asynchronous communication, the pros and cons and the process we explicitly defined.</p>
+
+<p>I don't know other companies using the EOD email approach yet but unless you're a one man show, I can't think of a reason not to do it.
+I also can't stress enough that you need be mindful of others focus when using communication tools such as <a href="https://slack.com/">Slack</a>.</p>
+
+<p><a href="https://splice.com/blog/managing-slack-interruptions/"><img src="https://splice.com/blog/wp-content/uploads/2016/01/You_Waste_A_Lot_Of_Time_At_Work-298x300.png" alt="Interruptions" style="
+    display: block;
+    margin: auto;
+"></a></p>
+
+]]></content>
+  </entry>
+  
+</feed>
