@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Presentation | Matt Aimonetti]]></title>
   <link href="https://matt.aimonetti.net/articles/categories/presentation/atom.xml" rel="self"/>
   <link href="https://matt.aimonetti.net/"/>
-  <updated>2016-01-18T20:07:28-08:00</updated>
+  <updated>2016-07-14T23:37:55-07:00</updated>
   <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -40,6 +40,29 @@ Using an Arduino and a set of LEDs, I show how goroutines operate and how to wri
 <h2>Slides</h2>
 
 <script async class="speakerdeck-embed" data-id="c55aca1f604545abbbc143ca65171ec7" data-ratio="1.77777777777778" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[10 years of Ruby]]></title>
+    <link href="https://matt.aimonetti.net/posts/2015/10/17/10-years-of-ruby/"/>
+    <updated>2015-10-17T23:24:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2015/10/17/10-years-of-ruby</id>
+    <content type="html"><![CDATA[<p><img src="https://www.evernote.com/shard/s2/sh/cf6c5b2f-bc44-48ec-a9f5-9ccb8b6b1e42/ae4139a8a1a09bc2/res/b99812f5-7c62-422d-81d2-dd1012aa41f8/skitch.jpg?resizeSmall&width=832" class=""></p>
+
+<p>I chose the beautiful city of Medellin, Colombia to say my final goodbye to the awesome Ruby community.
+10 years of being part of a community isn't nothing and I took time to reflect on my personal
+experience and discuss the future of the language and its community.</p>
+
+<h2>Video</h2>
+
+<iframe width="720" height="480" src="https://www.youtube.com/embed/IWIPLzjIhTI" frameborder="0" allowfullscreen></iframe>
+
+
+<h2>Slides</h2>
+
+<iframe src="https://docs.google.com/presentation/d/1BsFx5Hop8WlATQWIEoYLmlaOfCTsa65ZR9o94Lzz9Jw/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 ]]></content>
   </entry>

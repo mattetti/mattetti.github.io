@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="https://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="https://matt.aimonetti.net/"/>
-  <updated>2016-01-18T20:07:28-08:00</updated>
+  <updated>2016-07-14T23:37:55-07:00</updated>
   <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -158,6 +158,29 @@ Using an Arduino and a set of LEDs, I show how goroutines operate and how to wri
 <h2>Slides</h2>
 
 <script async class="speakerdeck-embed" data-id="c55aca1f604545abbbc143ca65171ec7" data-ratio="1.77777777777778" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[10 years of Ruby]]></title>
+    <link href="https://matt.aimonetti.net/posts/2015/10/17/10-years-of-ruby/"/>
+    <updated>2015-10-17T23:24:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2015/10/17/10-years-of-ruby</id>
+    <content type="html"><![CDATA[<p><img src="https://www.evernote.com/shard/s2/sh/cf6c5b2f-bc44-48ec-a9f5-9ccb8b6b1e42/ae4139a8a1a09bc2/res/b99812f5-7c62-422d-81d2-dd1012aa41f8/skitch.jpg?resizeSmall&width=832" class=""></p>
+
+<p>I chose the beautiful city of Medellin, Colombia to say my final goodbye to the awesome Ruby community.
+10 years of being part of a community isn&#8217;t nothing and I took time to reflect on my personal
+experience and discuss the future of the language and its community.</p>
+
+<h2>Video</h2>
+
+<iframe width="720" height="480" src="https://www.youtube.com/embed/IWIPLzjIhTI" frameborder="0" allowfullscreen></iframe>
+
+
+<h2>Slides</h2>
+
+<iframe src="https://docs.google.com/presentation/d/1BsFx5Hop8WlATQWIEoYLmlaOfCTsa65ZR9o94Lzz9Jw/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 ]]></content>
   </entry>
@@ -3981,40 +4004,6 @@ so please don&#8217;t expect me to reply to your emails within the hour.</p>
 
 <p>I finally took the time to enable the comments in this blog. Feel free
 to leave advice or feedback.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RubyConf 2012 - Ruby vs. The World]]></title>
-    <link href="https://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world/"/>
-    <updated>2012-11-02T20:47:00-07:00</updated>
-    <id>https://matt.aimonetti.net/posts/2012/11/02/rubyconf-2012-ruby-vs-the-world</id>
-    <content type="html"><![CDATA[<p>During <a href="http://rubyconf.com/">RubyConf 2012</a> in Denver, Colorado Matt
-Aimonetti gave a talk entitled <strong>Ruby Vs. The World</strong>.</p>
-
-<h2>Description of the talk:</h2>
-
-<p>Ruby is an awesome programming language, it&#8217;s so pleasing you probably haven&#8217;t seriously looked at other languages since you switched. The programming world is evolving fast, new languages are created daily, new trends are emerging. Let&#8217;s take some time to look at a few languages from a Ruby developer perspective.</p>
-
-<p><img src="https://speakerd.s3.amazonaws.com/presentations/50941f6aeb710400020019ac/slide_19.jpg" alt="Matt Aimonetti talks Scala, Clojure, Go and Ruby" /></p>
-
-<h2>Slides</h2>
-
-<script async class="speakerdeck-embed" data-id="50941f6aeb710400020019ac" data-ratio="1.2994923857868" src="https://matt.aimonetti.net//speakerdeck.com/assets/embed.js"></script>
-
-
-<p>The slides are available on [Matt&#8217;s SpeakerDeck page]https://speakerdeck.com/matt_aimonetti/ruby-vs-the-world) and can be <a href="https://speakerd.s3.amazonaws.com/presentations/50941f6aeb710400020019ac/aimonetti-ruby_vs_the_world_rubyconf_2012.pdf">downloaded here</a>.</p>
-
-<h2>Video</h2>
-
-<iframe width="640" height="360" src="http://www.youtube.com/embed/V_k3q37Tieg" frameborder="0" allowfullscreen></iframe>
-
-
-<h2>Presentation website</h2>
-
-<p>Matt&#8217;s presentation was filmed by <a href="http://confreaks.com">Confreaks</a> and posted <a href="http://confreaks.com/videos/1288-rubyconf2012-ruby-vs-the-world">here</a>.</p>
-
-<p>For more RubyConf 2012 talks, go <a href="http://confreaks.com/events/rubyconf2012">there</a>.</p>
 ]]></content>
   </entry>
   
