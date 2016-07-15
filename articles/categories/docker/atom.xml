@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Docker | Matt Aimonetti]]></title>
+  <link href="https://matt.aimonetti.net/articles/categories/docker/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2016-07-14T23:57:33-07:00</updated>
+  <id>https://matt.aimonetti.net/</id>
+  <author>
+    <name><![CDATA[Matt Aimonetti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[DockerCon 2016 Keynote]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/06/27/dockercon-2016-keynote/"/>
+    <updated>2016-06-27T23:45:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/06/27/dockercon-2016-keynote</id>
+    <content type="html"><![CDATA[<p>I was invited to take part in this year's Docker keynote to discuss how we use Docker at Splice
+and how our two companies share the same philosophy. I wrote <a href="https://blog.docker.com/2016/06/docker-for-mac-splice/">a summary blog post</a> of my talk.
+And you can read the official <a href="https://blog.docker.com/2016/06/dockercon-general-session-video/">Docker blog post about the keynote</a></p>
+
+<h2>Video</h2>
+
+<iframe width="720" height="480" src="https://www.youtube.com/embed/vE1iDPx6-Ok?start=2770" frameborder="0" allowfullscreen></iframe>
+
+]]></content>
+  </entry>
+  
+</feed>
