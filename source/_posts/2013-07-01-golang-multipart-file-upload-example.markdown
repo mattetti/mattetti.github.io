@@ -3,7 +3,7 @@ layout: post
 title: "Golang multipart file upload example"
 date: 2013-07-01 22:28
 comments: true
-categories: 
+categories:
 - blog-post
 - Golang
 - tutorial
@@ -24,7 +24,7 @@ I started testing some edge cases, I found some bugs in my code.
 Looking at Go's packages, I realized that all the tools were already
 available for me to use. I was just lacking a good example. Walking
 through the test suite I finally figured out how to write a simple
-multipart file upload example with some extra query params. 
+multipart file upload example with some extra query params.
 
 Hopefully this example will be helpful to some of you.
 
@@ -66,7 +66,9 @@ func newfileUploadRequest(uri string, params map[string]string, paramName, path 
 		return nil, err
 	}
 
-	return http.NewRequest("POST", uri, body)
+	req, err := http.NewRequest("POST", uri, body)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+	return req, err
 }
 
 func main() {
@@ -152,7 +154,7 @@ req, _ := http.NewRequest("POST", uri, body)
 ```
 
 One last thing before triggering our request, we need to set the header
-that contains the content type including the boundary being used. 
+that contains the content type including the boundary being used.
 Once again, the Go lib has us covered:
 
 ```go
@@ -199,7 +201,7 @@ Golang might not be as high level as Ruby or Python, but it's not too
 far off and it certainly comes with some great std libs.
 I know I recently caught myself writing a lot of small scripts in Go,
 something I used to do in Ruby. I think this is mainly due to the
-fact that Go is compiled, designed for concurrency, has great std libs and 
+fact that Go is compiled, designed for concurrency, has great std libs and
 is quite easy to write.
 
 _Hopefully this code sample illustrates how easy Go can be and can also
