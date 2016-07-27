@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="https://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="https://matt.aimonetti.net/"/>
-  <updated>2016-07-14T23:57:33-07:00</updated>
+  <updated>2016-07-27T11:50:22-07:00</updated>
   <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -1954,6 +1954,8 @@ multipart file upload example with some extra query params.</p>
 <span class='line-number'>66</span>
 <span class='line-number'>67</span>
 <span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">import</span> <span class="p">(</span>
@@ -1991,7 +1993,9 @@ multipart file upload example with some extra query params.</p>
 </span><span class='line'>      <span class="k">return</span> <span class="n">nil</span><span class="p">,</span> <span class="n">err</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="n">http</span><span class="p">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">http</span><span class="p">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">req</span><span class="p">.</span><span class="n">Header</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="n">writer</span><span class="p">.</span><span class="n">FormDataContentType</span><span class="p">())</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">req</span><span class="p">,</span> <span class="n">err</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
