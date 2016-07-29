@@ -41,7 +41,7 @@ header{
      }
 	}
   div#matt-aimonetti{
-    img.photo{ 
+    img.photo{
       height: 120px;
       -moz-border-radius: 7px;
       border-radius: 7px;
@@ -55,7 +55,7 @@ header{
     @media screen and (max-device-width : 320px) {
       padding-left: 20px;
     }
-  
+
     ul{
       padding-top: 10px;
       padding-left: 20px;
@@ -185,8 +185,8 @@ header{
 	}
   #cse-search-form{ float: right; }
 	.gsc-search-box, .search{
-    .gsc-branding, td.gsc-search-button, td.gsc-clear-button { 
-      display: none; 
+    .gsc-branding, td.gsc-search-button, td.gsc-clear-button {
+      display: none;
     }
     @media screen and (max-width: 468px){
       top: -15px;
@@ -252,9 +252,16 @@ header{
 			}
 			&.twitter{
 				background: image-url('twitter.png') center no-repeat #55CFF8;
-				border: 1px solid #55CFF8;
 				&:hover{
 					border: 1px solid darken(#55CFF8, 10%);
+				}
+			}
+            &.medium{
+				background: image-url('medium.png') center no-repeat rgb(111, 167, 100);
+				border: 1px solid rgb(111, 167, 100);
+                background-size: 20px;
+				&:hover{
+					border: 1px solid darken(rgb(111, 167, 100), 10%);
 				}
 			}
 			&.github{
