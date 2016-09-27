@@ -4,7 +4,7 @@
   <title><![CDATA[Matt Aimonetti]]></title>
   <link href="https://matt.aimonetti.net/atom.xml" rel="self"/>
   <link href="https://matt.aimonetti.net/"/>
-  <updated>2016-07-29T00:31:11-07:00</updated>
+  <updated>2016-09-27T12:16:08-07:00</updated>
   <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[When to hire a VP of engineering]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/09/27/when-to-hire-a-vp-of-engineering/"/>
+    <updated>2016-09-27T12:05:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/09/27/when-to-hire-a-vp-of-engineering</id>
+    <content type="html"><![CDATA[<p>As a follow up of my <a href="https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50">WTF is a CTO</a> post,
+I wrote about <a href="https://medium.com/@mattetti/when-to-a-hire-a-vp-of-engineering-5f510dfad0a2">when is the right time to hire a VP of engineering</a>.</p>
+
+<p><a href="https://medium.com/@mattetti/when-to-a-hire-a-vp-of-engineering-5f510dfad0a2">Read more here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[WTF is a CTO]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/09/13/wtf-is-a-cto/"/>
+    <updated>2016-09-13T11:58:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/09/13/wtf-is-a-cto</id>
+    <content type="html"><![CDATA[<p>I wrote about <a href="https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50#.xsc2hq4ys">what it means to be a CTO in a growing startup</a>, especially when you get to the point
+where you hire a VP of engineering. Defining the roles a &#8220;full time CTO&#8221; vs a VP of engineering is something
+I had to work on and hopefully sharing my experience will help other.</p>
+
+<p><a href="https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50#.xsc2hq4ys">Read more here</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Go is for everyone]]></title>
@@ -3025,386 +3050,6 @@ good argument to start using some Go when it makes sense.</p>
 <p>I documented my experiment on <a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY">Google+</a>, click the following screenshot to read more.</p>
 
 <p><a href="https://plus.google.com/101114877505962271216/posts/PeZk8FY3PWY"><img src="https://matt.aimonetti.net/images/matt_aimonetti-golang_vs_ruby_api_exp.png" alt="Matt Aimonetti's Go vs Ruby post on Google+" /></a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Inspecting Rails 4 using Ruby 2.0]]></title>
-    <link href="https://matt.aimonetti.net/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0/"/>
-    <updated>2013-03-05T22:18:00-08:00</updated>
-    <id>https://matt.aimonetti.net/posts/2013/03/05/inspecting-rails-4-request-dispatch-using-ruby-2-dot-0</id>
-    <content type="html"><![CDATA[<p>Ruby 2.0 has a cool new feature that many people talk about:
-<a href="http://ruby-doc.org/core-2.0/TracePoint.html">TracePoint</a>.</p>
-
-<p><code>TracePoint</code> essentially allows you to hook into Ruby&#8217;s events and
-listen for events.</p>
-
-<p>Being curious and since I just started a brand new Rails 4/Ruby 2 app, I
-decided to write a little middleware and see what Rails is up to when
-handling incoming requests.</p>
-
-<p>Here is my <a href="https://gist.github.com/mattetti/5097206">TracePoint Rack Middleware</a>.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">TracePoint</span>
-</span><span class='line'>  <span class="k">class</span> <span class="nc">Middleware</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
-</span><span class='line'>      <span class="vi">@app</span> <span class="o">=</span> <span class="n">app</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">stats</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>      <span class="n">trace</span> <span class="o">=</span> <span class="no">TracePoint</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:call</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">tp</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">stats</span><span class="o">[</span><span class="n">tp</span><span class="o">.</span><span class="n">defined_class</span><span class="o">]</span> <span class="o">||=</span> <span class="p">{}</span>
-</span><span class='line'>        <span class="n">stats</span><span class="o">[</span><span class="n">tp</span><span class="o">.</span><span class="n">defined_class</span><span class="o">][</span><span class="n">tp</span><span class="o">.</span><span class="n">method_id</span><span class="o">]</span> <span class="o">||=</span> <span class="mi">0</span>
-</span><span class='line'>        <span class="n">stats</span><span class="o">[</span><span class="n">tp</span><span class="o">.</span><span class="n">defined_class</span><span class="o">][</span><span class="n">tp</span><span class="o">.</span><span class="n">method_id</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">trace</span><span class="o">.</span><span class="n">enable</span>
-</span><span class='line'>      <span class="n">response</span> <span class="o">=</span> <span class="vi">@app</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">trace</span><span class="o">.</span><span class="n">disable</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2"> classes used&quot;</span>
-</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">stats</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="n">v</span><span class="o">.</span><span class="n">keys</span><span class="si">}</span><span class="s2">.flatten.size} methods used&quot;</span>
-</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">stats</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="n">v</span><span class="o">.</span><span class="n">values</span><span class="si">}</span><span class="s2">.flatten.sum} methods dispatched&quot;</span>
-</span><span class='line'>      <span class="n">response</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(the gist shows a modified version so I could dump to disk the json
-representation of the calls)</p>
-
-<p>I then inserted the middleware in Rails:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># in application.rb</span>
-</span><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">insert_before</span><span class="p">(</span><span class="no">ActionDispatch</span><span class="o">::</span><span class="no">Static</span><span class="p">,</span> <span class="no">TracePoint</span><span class="o">::</span><span class="no">Middleware</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I saved the output in json format for the curious: <a href="https://gist.github.com/mattetti/5097178">click here</a></p>
-
-<p>On average, in production mode, using Ruby 2.0 and Puma on my laptop, my hello world index page takes 5ms.</p>
-
-<p>To render my page, Rails uses (more or less):</p>
-
-<ul>
-<li>250 classes</li>
-<li>750 methods (not including C functions)</li>
-<li>and dispatches 2704 methods (not including calls to C functions)</li>
-</ul>
-
-
-<p>Here is a small selection of some of the methods dispatched:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="s2">&quot;String&quot;</span><span class="err">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nt">&quot;underscore&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class='line'>    <span class="nt">&quot;blank?&quot;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
-</span><span class='line'>    <span class="nt">&quot;html_safe&quot;</span><span class="p">:</span> <span class="mi">78</span>
-</span><span class='line'>  <span class="p">}</span><span class="err">,</span>
-</span><span class='line'><span class="s2">&quot;ActiveSupport::Inflector&quot;</span><span class="err">:</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nt">&quot;underscore&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;inflections&quot;</span><span class="p">:</span> <span class="mi">2</span>
-</span><span class='line'><span class="p">}</span><span class="err">,</span>
-</span><span class='line'><span class="s2">&quot;Hash&quot;</span><span class="err">:</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nt">&quot;with_indifferent_access&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;except&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;except!&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;stringify_keys&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;transform_keys&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;stringify_keys!&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;transform_keys!&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;extractable_options?&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;extract!&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;symbolize_keys&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;reverse_merge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;slice&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;symbolize_keys!&quot;</span><span class="p">:</span> <span class="mi">2</span>
-</span><span class='line'><span class="p">}</span><span class="err">,</span>
-</span><span class='line'><span class="s2">&quot;ActionView::CompiledTemplates&quot;</span><span class="err">:</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nt">&quot;_app_views_welcome_index_html_erb__4177595130715791755_70209827438920&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;_app_views_layouts_application_html_erb___652124533295419796_70209827456500&quot;</span><span class="p">:</span> <span class="mi">1</span>
-</span><span class='line'><span class="p">}</span><span class="err">,</span>
-</span><span class='line'><span class="s2">&quot;ActiveSupport::Notifications::Fanout&quot;</span><span class="err">:</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;listeners_for&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;listening?&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-</span><span class='line'>  <span class="nt">&quot;finish&quot;</span><span class="p">:</span> <span class="mi">3</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>TracePoint</code> is a great new addition and I hope to see some new crazy
-tools being developed (production dead-code analyzer, deprecation code path
-finder anyone?)</p>
-
-<p>To end, this short post, here is an interesting quote from <a href="http://chadfowler.com/">Chad
-Fowler</a> Berliner by adoption:</p>
-
-<blockquote><p>Abstractions are expensive. The cost increases exponentially as you add them to a codebase.
-<a href="https://twitter.com/chadfowler/status/308959527217270786">Chad Fowler</a></p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[OmniAuth and Google Apps]]></title>
-    <link href="https://matt.aimonetti.net/posts/2013/01/30/omniauth-and-google-apps/"/>
-    <updated>2013-01-30T19:11:00-08:00</updated>
-    <id>https://matt.aimonetti.net/posts/2013/01/30/omniauth-and-google-apps</id>
-    <content type="html"><![CDATA[<p>Today I struggled to get <a href="https://github.com/intridea/omniauth">OmniAuth</a> and <a href="https://developers.google.com/accounts/docs/OpenID">Google apps</a> to work properly together.
-I just wanted to add authentication to my application and restrict access to only my Google Apps domain users.
-I was hoping it would be straight forward since I could use Google&#8217;s OpenID service.</p>
-
-<p>Turns out it wasn&#8217;t that hard, but the lack of documentation made me
-lost a couple hours.
-I therefore updated <a href="https://github.com/intridea/omniauth/wiki">OmniAuth&#8217;s wiki</a> and wrote this quick post so hopefully you won&#8217;t waste time looking for simple details.</p>
-
-<h2>Requirements</h2>
-
-<p>You actually only need to add 2 gems to your Gemfile:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;omniauth-openid&#39;</span>
-</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;ruby-openid-apps-discovery&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now, the second gem is the one I didn&#8217;t know about.
-The gem is actually provided by <a href="https://github.com/google/ruby-openid-apps-discovery">Google itself</a>. It turns out, Google Apps use a custom discovery protocol.
-They monkey patched the popular OpenID Ruby libraries so you can just drop in
-their gem and their discovery system will magically work.</p>
-
-<h2>Setup</h2>
-
-<p>You need to require 4 files to get everything setup properly:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;omniauth-openid&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;openid&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;openid/store/filesystem&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;gapps_openid&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The first one is the omniauth extension for OpenID, the second one is
-the main Ruby OpenID library (needed so we can set our SSL cert).
-The third one allows us to store temporary data on disk instead of
-keeping it in memory (optional).
-And finally, the last one is Google&#8217;s magical gem to get their discovery
-system working.</p>
-
-<p>Because we are going to communicate via SSL, we want to make sure that
-the OpenID library uses our certs to verify the SSL communications:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">OpenID</span><span class="o">.</span><span class="n">fetcher</span><span class="o">.</span><span class="n">ca_file</span> <span class="o">=</span> <span class="s2">&quot;/absolute/path/to/ssl_cacert.pem&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(Obviously, you need to change the path to your own cert)</p>
-
-<p>We are almost done with the setup, we just need two more things:</p>
-
-<ul>
-<li>make sure you are using a session.</li>
-<li>setup OmniAuth</li>
-</ul>
-
-
-<p>I&#8217;m using Sinatra, so I&#8217;ll load the <code>Rack::Session</code> middleware before I
-set Omniauth:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Session</span><span class="o">::</span><span class="no">Cookie</span><span class="p">,</span> <span class="ss">:secret</span> <span class="o">=&gt;</span> <span class="s1">&#39;supers3cr3t&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(Rails turns that option by default, so you don&#8217;t need to worry about
-it)</p>
-
-<p>Then I can finally setup OmniAuth:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">use</span> <span class="no">OmniAuth</span><span class="o">::</span><span class="no">Builder</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">provider</span> <span class="ss">:open_id</span><span class="p">,</span>  <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin&#39;</span><span class="p">,</span>
-</span><span class='line'>                      <span class="ss">:identifier</span> <span class="o">=&gt;</span> <span class="s1">&#39;https://www.google.com/accounts/o8/site-xrds?hd=aimonetti.net&#39;</span><span class="p">,</span>
-</span><span class='line'>                      <span class="ss">:store</span> <span class="o">=&gt;</span> <span class="no">OpenID</span><span class="o">::</span><span class="no">Store</span><span class="o">::</span><span class="no">Filesystem</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;/tmp&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There are two important things to notice. First, because I set the
-provider&#8217;s name to be &#8216;admin&#8217;, the magical paths provided by OmiAuth
-will use that name (<code>/auth/admin</code>). Secondly, and more importantly, notice how I added
-the name of my Google Apps domain at the end of the identifier:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s1">&#39;https://www.google.com/accounts/o8/site-xrds?hd=&#39;</span> <span class="o">+</span> <span class="n">your_domain_name</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Sinatra</h2>
-
-<p>In Sinatra, your just need to define the routes OmniAuth would use (same
-goes for Rails, just use the router for that).</p>
-
-<p>By default, omniauth now offers you a <code>/auth/admin</code> endpoint that will
-push the user through Google Apps authentication.
-Once the authentication is over, the user will be redirected to the
-following endpoint:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Callback URL used when the authentication is done</span>
-</span><span class='line'><span class="n">post</span> <span class="s1">&#39;/auth/admin/callback&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">auth_details</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">env</span><span class="o">[</span><span class="s1">&#39;omniauth.auth&#39;</span><span class="o">]</span>
-</span><span class='line'>  <span class="n">session</span><span class="o">[</span><span class="ss">:email</span><span class="o">]</span> <span class="o">=</span> <span class="n">auth_details</span><span class="o">.</span><span class="n">info</span><span class="o">[</span><span class="s1">&#39;email&#39;</span><span class="o">]</span>
-</span><span class='line'>  <span class="n">redirect</span> <span class="s1">&#39;/auth/admin/welcome&#39;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can access the authentication details from <code>request.env['omniauth.auth']</code>
-and redirect the user to another page, like the admin landing page for
-instance.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">get</span> <span class="s1">&#39;/auth/admin/welcome&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">session</span><span class="o">[</span><span class="ss">:email</span><span class="o">]</span>
-</span><span class='line'>    <span class="n">erb</span> <span class="ss">:welcome_boss</span>
-</span><span class='line'>  <span class="k">else</span>
-</span><span class='line'>    <span class="n">redirect</span> <span class="s1">&#39;/auth/admin&#39;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>On the landing page, you need to verify that the user is logged in, in
-this case, during the previous step, we added the email of the user to
-her session. We can therefore verify the presence of that information to
-confirm the authentication status. If the user is authenticated, then we&#8217;ll render an ERB
-template otherwise we&#8217;ll redirect her back to the login page.</p>
-
-<p>We should also provide an endpoint in case the authentication failed:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">get</span> <span class="s1">&#39;/auth/failure&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">params</span><span class="o">[</span><span class="ss">:message</span><span class="o">]</span>
-</span><span class='line'>  <span class="c1"># do whatever you want here.</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Note that by default, in dev mode, Omniauth won&#8217;t redirect the user
-there. To enable this behavior, use the following snippet (works with any rack app,
-Rails, Sinatra or whatever):</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">OmniAuth</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">=</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="o">|</span><span class="n">env</span><span class="o">|</span>
-</span><span class='line'>  <span class="no">OmniAuth</span><span class="o">::</span><span class="no">FailureEndpoint</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">env</span><span class="p">)</span><span class="o">.</span><span class="n">redirect_to_failure</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Conclusion</h2>
-
-<p>Using Google Apps for authentication with OmniAuth is trivial as long
-you know two things:</p>
-
-<ul>
-<li>the identifier url: <code>'https://www.google.com/accounts/o8/site-xrds?hd=' + your_domain_name</code></li>
-<li>Google&#8217;s discovery service gem</li>
-</ul>
-
-
-<p>This blog post was written using <code>omniauth 1.1.1</code>, <code>omniauth-openid 1.0.1</code>, <code>rack-openid 1.3.1</code> and <code>ruby-openid-apps-discovery 1.2.0</code>. This might not apply to you if you come from the future :)</p>
 ]]></content>
   </entry>
   

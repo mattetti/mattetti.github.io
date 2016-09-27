@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: CTO | Matt Aimonetti]]></title>
+  <link href="https://matt.aimonetti.net/articles/categories/cto/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2016-09-27T12:16:08-07:00</updated>
+  <id>https://matt.aimonetti.net/</id>
+  <author>
+    <name><![CDATA[Matt Aimonetti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[WTF is a CTO]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/09/13/wtf-is-a-cto/"/>
+    <updated>2016-09-13T11:58:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/09/13/wtf-is-a-cto</id>
+    <content type="html"><![CDATA[<p>I wrote about <a href="https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50#.xsc2hq4ys">what it means to be a CTO in a growing startup</a>, especially when you get to the point
+where you hire a VP of engineering. Defining the roles a "full time CTO" vs a VP of engineering is something
+I had to work on and hopefully sharing my experience will help other.</p>
+
+<p><a href="https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50#.xsc2hq4ys">Read more here</a></p>
+]]></content>
+  </entry>
+  
+</feed>
