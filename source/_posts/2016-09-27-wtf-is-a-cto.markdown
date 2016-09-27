@@ -6,6 +6,7 @@ comments: true
 categories:
 - CTO
 - startup
+- Popular
 ---
 
 I wrote about [what it means to be a CTO in a growing startup](https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50#.xsc2hq4ys), especially when you get to the point
