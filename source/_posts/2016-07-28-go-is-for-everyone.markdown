@@ -5,6 +5,7 @@ date: 2016-07-28 23:45
 comments: true
 categories:
 - Go
+- popular
 ---
 
 I started writing on [Medium](https://medium.com/@mattetti/latest) which is more convenient than writing in my own blog.
