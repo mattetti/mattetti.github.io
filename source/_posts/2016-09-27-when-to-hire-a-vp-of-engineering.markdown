@@ -4,6 +4,7 @@ title: "When to hire a VP of engineering"
 date: 2016-09-27 12:05
 comments: true
 categories:
+- blog-post
 ---
 
 As a follow up of my [WTF is a CTO](https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50) post,

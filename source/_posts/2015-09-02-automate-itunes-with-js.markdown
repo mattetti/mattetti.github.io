@@ -4,6 +4,7 @@ title: "Automate iTunes with JS to wake up in music"
 date: 2015-09-02 20:46
 comments: true
 categories:
+- blog-post
 - JavaScript
 - Automation
 - JXA

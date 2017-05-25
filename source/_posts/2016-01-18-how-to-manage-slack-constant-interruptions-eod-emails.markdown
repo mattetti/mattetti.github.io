@@ -3,14 +3,15 @@ layout: post
 title: "How to manage Slack constant interruptions – EOD emails"
 date: 2016-01-18 19:29
 comments: true
-categories: 
+categories:
+- blog-post
 - management
 ---
 
 Ever since I started [Splice](https://splice.com), I've been really eager to experiment and adapt our process
 to be able to be as efficient as possible while still pleasant.
 Setting up a process that works is hard because it depends on the size of your company, the team members
-and the leadership style. We tried many things as we grew and lots of these things 
+and the leadership style. We tried many things as we grew and lots of these things
 didn't stick, however a few did. One of those is our End of Day email aka EOD email.
 
 In this [blog post about team communication](https://splice.com/blog/managing-slack-interruptions/) at Splice,

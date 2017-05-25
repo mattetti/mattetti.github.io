@@ -4,6 +4,7 @@ title: "WTF is a CTO"
 date: 2016-09-13 11:58
 comments: true
 categories:
+- blog-post
 - CTO
 - startup
 - Popular

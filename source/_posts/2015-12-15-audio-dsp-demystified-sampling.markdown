@@ -3,18 +3,19 @@ layout: post
 title: "Audio DSP demystified: Sampling"
 date: 2015-12-15 08:45
 comments: true
-categories: 
+categories:
+- blog-post
 - Audio DSP
 ---
 
- Through this post and the following ones, I will do my best to provide you with the basic knowledge you need to 
+ Through this post and the following ones, I will do my best to provide you with the basic knowledge you need to
  understand and implement digital audio signal processing.
  The idea came from a conversation with my friend [Chad Fowler](http://chadfowler.com/) who's a well-known software developer,
  leader but also a well accomplished musician. Chad was interested in learning the basics of DSP and I can only
  assume he doesn't have time to 42 books on the topic, white papers, PHD thesis and try to decipher complex math equations.
  Most DSP code out there is written in C, Assembly or C++ due to the fact that latency is really problematic for real-time audio processing
  applications ([FPGAs](https://en.wikipedia.org/wiki/Field-programmable_gate_array) & chipsets with DSP specific instructions are also used).
- There are also a lot of great/old libraries already available for those languages. 
+ There are also a lot of great/old libraries already available for those languages.
  But my goal here isn't to teach how to use existing libraries, but to teach how they work so you can implement your own or make educated choices.
 I should note that I'm not an expert in the matter, I have never implemented complex real-time DSP and this series is only meant
 as an introduction to the topic.
@@ -31,7 +32,7 @@ signal, in other words, they are [analog to digital converters (ADC)](https://en
 
 It's very important to understand how the conversion is done because it has direct repercussions on what we will do.
 
-We have a [continuous signal](https://en.wikipedia.org/wiki/Continuous_signal) (the audio signal) and we need to convert it into numerical values. 
+We have a [continuous signal](https://en.wikipedia.org/wiki/Continuous_signal) (the audio signal) and we need to convert it into numerical values.
 The numerical values needs to represent the sampled analog signal as closely as possible.
 To do that, a [discrete signal](https://en.wikipedia.org/wiki/Discrete-time_signal) needs to be created. A discrete signal
 is a fancy name for a time series representing the sampled signal. In other words, we measure the signal at a certain frequency
@@ -46,12 +47,12 @@ Common audio sampling rates are 44.1kHz, 48kHz and sometimes 96kHz.
 
 There is a very important explanation about why we need to sample at a value greater than 40kHz.
 
-The human hearing range falls into a frequency range of 20Hz to 20,000 H (that said you probably don't hear very much above 17kHz). 
+The human hearing range falls into a frequency range of 20Hz to 20,000 H (that said you probably don't hear very much above 17kHz).
 A requirement for our analog to digital conversion is that we can capture and then later on recreate an analog signal that will cover
 the entire frequency range we are interested in.
 
 The reason we need to sample at a rate greater than 40kHz is due to the findings of [Harry Nyquist](https://en.wikipedia.org/wiki/Harry_Nyquist).
-Nyquist, studied and wrote about [conversion of continuous to discrete signals](https://en.wikipedia.org/wiki/Harry_Nyquist). 
+Nyquist, studied and wrote about [conversion of continuous to discrete signals](https://en.wikipedia.org/wiki/Harry_Nyquist).
 One of the discoveries he made is called the [Nyquist rate](https://en.wikipedia.org/wiki/Nyquist_rate) and simply put it says
 that you need to sample at at a greater frequency than twice the bandwidth you want. Since we are trying to sample a range of 20,000Hz
 we need to sample at `2x20000 = 40000` to cover the entire frequency range.
@@ -67,16 +68,16 @@ The bit depth will change the range of values we capture, take for instance the 
 ![4 bit sampling](https://upload.wikimedia.org/wikipedia/commons/b/bf/Pcm.svg)
 
 The analog signal in red is being sampled at a 4-bit bit depth meaning that each sample is represented by an integer taking 4 bits in memory.
-4 bits give us a maximum range of 16 integer values `(4*4)` Our sample value will be between 0 and 15. 4-bit precision really isn't enough 
+4 bits give us a maximum range of 16 integer values `(4*4)` Our sample value will be between 0 and 15. 4-bit precision really isn't enough
 to properly represent the reach dynamic range of audio signals.
 Most audio content is sampled at 16 or 24 bit (8, 20 and 32 bit depths are also sometime used). A 16-bit integer resolution
 offers a dynamic range of 96 dB (which can be improved using [dithering](https://en.wikipedia.org/wiki/Dither) but that's outside of the scope of this article).
 
 Too low of a resolution and you are missing auditive information (and getting extra noise), too high of a resolution and it's a waste.
-32 floating-point bit depth is often used later on in the audio chain when doing complex audio processing. 
+32 floating-point bit depth is often used later on in the audio chain when doing complex audio processing.
 This process allows for greater precision when
-manipulating audio data and rounding can have a negative effect on the output ([DAWs](https://en.wikipedia.org/wiki/Digital_audio_workstation), 
-synthesizers, effects...). 
+manipulating audio data and rounding can have a negative effect on the output ([DAWs](https://en.wikipedia.org/wiki/Digital_audio_workstation),
+synthesizers, effects...).
 The data is usually converted back to the source bit depth making things easier/transparent to the caller.
 
 Fun fact: The famous TR-909 drum machine only used a bit depth of 6-bit!

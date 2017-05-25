@@ -4,6 +4,7 @@ title: "Go is for everyone"
 date: 2016-07-28 23:45
 comments: true
 categories:
+- blog-post
 - Go
 - popular
 ---
