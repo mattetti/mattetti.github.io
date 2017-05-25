@@ -4,7 +4,7 @@
   <title><![CDATA[Category: blog-post | Matt Aimonetti]]></title>
   <link href="https://matt.aimonetti.net/articles/categories/blog-post/atom.xml" rel="self"/>
   <link href="https://matt.aimonetti.net/"/>
-  <updated>2017-04-04T18:49:19-07:00</updated>
+  <updated>2017-05-24T20:50:27-07:00</updated>
   <id>https://matt.aimonetti.net/</id>
   <author>
     <name><![CDATA[Matt Aimonetti]]></name>
@@ -12,6 +12,364 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[I found compassion and hope…]]></title>
+    <link href="https://matt.aimonetti.net/posts/2017/02/27/i-found-compassion-and-hope-dot-dot-dot/"/>
+    <updated>2017-02-27T18:43:00-08:00</updated>
+    <id>https://matt.aimonetti.net/posts/2017/02/27/i-found-compassion-and-hope-dot-dot-dot</id>
+    <content type="html"><![CDATA[<p>I wrote about <a href="https://medium.com/@mattetti/found-compassion-and-hope-in-prison-f9408bf30f81">my experience going to jail for a day</a>, and how it affected me personally.</p>
+
+<p><a href="https://medium.com/@mattetti/found-compassion-and-hope-in-prison-f9408bf30f81">Read more here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[When to hire a VP of engineering]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/09/27/when-to-hire-a-vp-of-engineering/"/>
+    <updated>2016-09-27T12:05:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/09/27/when-to-hire-a-vp-of-engineering</id>
+    <content type="html"><![CDATA[<p>As a follow up of my <a href="https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50">WTF is a CTO</a> post,
+I wrote about <a href="https://medium.com/@mattetti/when-to-a-hire-a-vp-of-engineering-5f510dfad0a2">when is the right time to hire a VP of engineering</a>.</p>
+
+<p><a href="https://medium.com/@mattetti/when-to-a-hire-a-vp-of-engineering-5f510dfad0a2">Read more here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[WTF is a CTO]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/09/13/wtf-is-a-cto/"/>
+    <updated>2016-09-13T11:58:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/09/13/wtf-is-a-cto</id>
+    <content type="html"><![CDATA[<p>I wrote about <a href="https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50#.xsc2hq4ys">what it means to be a CTO in a growing startup</a>, especially when you get to the point
+where you hire a VP of engineering. Defining the roles a "full time CTO" vs a VP of engineering is something
+I had to work on and hopefully sharing my experience will help other.</p>
+
+<p><a href="https://medium.com/@mattetti/wtf-is-a-cto-24b9ad4d6e50#.xsc2hq4ys">Read more here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Go is for everyone]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/07/28/go-is-for-everyone/"/>
+    <updated>2016-07-28T23:45:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/07/28/go-is-for-everyone</id>
+    <content type="html"><![CDATA[<p>I started writing on <a href="https://medium.com/@mattetti/latest">Medium</a> which is more convenient than writing in my own blog.
+This <a href="https://medium.com/@mattetti/go-is-for-everyone-b4f84be04c43">new post</a> got quite a lot of traction.</p>
+
+<p>In this article, I'm questioning the fact that the Go community looks too elitist from the outside and hard to get into.
+This is probably mainly due to a lack of documentation targeting new developers and the fact
+that we haven't yet valued enough new developers. If you consider novices are the future of our community
+then you quickly realize it's critical to be able to properly welcome them.</p>
+
+<p>Finally, I discuss the reasons why Go is a great first programming language.</p>
+
+<p><a href="https://medium.com/@mattetti/go-is-for-everyone-b4f84be04c43#.psaed2r70">Read more here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to manage Slack constant interruptions – EOD emails]]></title>
+    <link href="https://matt.aimonetti.net/posts/2016/01/18/how-to-manage-slack-constant-interruptions-eod-emails/"/>
+    <updated>2016-01-18T19:29:00-08:00</updated>
+    <id>https://matt.aimonetti.net/posts/2016/01/18/how-to-manage-slack-constant-interruptions-eod-emails</id>
+    <content type="html"><![CDATA[<p>Ever since I started <a href="https://splice.com">Splice</a>, I've been really eager to experiment and adapt our process
+to be able to be as efficient as possible while still pleasant.
+Setting up a process that works is hard because it depends on the size of your company, the team members
+and the leadership style. We tried many things as we grew and lots of these things
+didn't stick, however a few did. One of those is our End of Day email aka EOD email.</p>
+
+<p>In this <a href="https://splice.com/blog/managing-slack-interruptions/">blog post about team communication</a> at Splice,
+I go into more details about synchronous vs asynchronous communication, the pros and cons and the process we explicitly defined.</p>
+
+<p>I don't know other companies using the EOD email approach yet but unless you're a one man show, I can't think of a reason not to do it.
+I also can't stress enough that you need be mindful of others focus when using communication tools such as <a href="https://slack.com/">Slack</a>.</p>
+
+<p><a href="https://splice.com/blog/managing-slack-interruptions/"><img src="https://splice.com/blog/wp-content/uploads/2016/01/You_Waste_A_Lot_Of_Time_At_Work-298x300.png" alt="Interruptions" style="
+    display: block;
+    margin: auto;
+"></a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Audio DSP demystified: Sampling]]></title>
+    <link href="https://matt.aimonetti.net/posts/2015/12/15/audio-dsp-demystified-sampling/"/>
+    <updated>2015-12-15T08:45:00-08:00</updated>
+    <id>https://matt.aimonetti.net/posts/2015/12/15/audio-dsp-demystified-sampling</id>
+    <content type="html"><![CDATA[<p> Through this post and the following ones, I will do my best to provide you with the basic knowledge you need to
+ understand and implement digital audio signal processing.
+ The idea came from a conversation with my friend <a href="http://chadfowler.com/">Chad Fowler</a> who's a well-known software developer,
+ leader but also a well accomplished musician. Chad was interested in learning the basics of DSP and I can only
+ assume he doesn't have time to 42 books on the topic, white papers, PHD thesis and try to decipher complex math equations.
+ Most DSP code out there is written in C, Assembly or C++ due to the fact that latency is really problematic for real-time audio processing
+ applications (<a href="https://en.wikipedia.org/wiki/Field-programmable_gate_array">FPGAs</a> &amp; chipsets with DSP specific instructions are also used).
+ There are also a lot of great/old libraries already available for those languages.
+ But my goal here isn't to teach how to use existing libraries, but to teach how they work so you can implement your own or make educated choices.
+I should note that I'm not an expert in the matter, I have never implemented complex real-time DSP and this series is only meant
+as an introduction to the topic.</p>
+
+<p>TL;DR intro series teaching programmers the basic audio DSP concepts in a practical manner. No DSP knowledge is expected.</p>
+
+<h2>Analog to Digital conversion</h2>
+
+<p>To be able to access and manipulate audio data via our code, an audio signal needs to be converted from analog to digital.
+This is not something you usually implement yourself, in most cases it is done at the sound card level. Sound cards do the job of converting the
+signal, in other words, they are <a href="https://en.wikipedia.org/wiki/Analog-to-digital_converter">analog to digital converters (ADC)</a>.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/ADC_Symbol.svg" alt="ADC" /></p>
+
+<p>It's very important to understand how the conversion is done because it has direct repercussions on what we will do.</p>
+
+<p>We have a <a href="https://en.wikipedia.org/wiki/Continuous_signal">continuous signal</a> (the audio signal) and we need to convert it into numerical values.
+The numerical values needs to represent the sampled analog signal as closely as possible.
+To do that, a <a href="https://en.wikipedia.org/wiki/Discrete-time_signal">discrete signal</a> needs to be created. A discrete signal
+is a fancy name for a time series representing the sampled signal. In other words, we measure the signal at a certain frequency
+(let's say 44,100 times a second) and each value (an integer or a floating-point we call a sample) is added to our series. (This article assumes
+we are using <a href="https://en.wikipedia.org/wiki/Pulse-code_modulation">PCM</a> representation).</p>
+
+<p><img src="http://www.radio-electronics.com/info/rf-technology-design/digital-signal-processing/waveform_sampling.gif" alt="waveform sampling illustration from http://www.radio-electronics.com/info/rf-technology-design/digital-signal-processing/dsp-basics-tutorial.php" /></p>
+
+<h3>Sampling rate</h3>
+
+<p>The amount of time per second we take a sample from our analog signal is called the <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing">sampling rate</a>#Sampling_rate).
+Common audio sampling rates are 44.1kHz, 48kHz and sometimes 96kHz.</p>
+
+<p>There is a very important explanation about why we need to sample at a value greater than 40kHz.</p>
+
+<p>The human hearing range falls into a frequency range of 20Hz to 20,000 H (that said you probably don't hear very much above 17kHz).
+A requirement for our analog to digital conversion is that we can capture and then later on recreate an analog signal that will cover
+the entire frequency range we are interested in.</p>
+
+<p>The reason we need to sample at a rate greater than 40kHz is due to the findings of <a href="https://en.wikipedia.org/wiki/Harry_Nyquist">Harry Nyquist</a>.
+Nyquist, studied and wrote about <a href="https://en.wikipedia.org/wiki/Harry_Nyquist">conversion of continuous to discrete signals</a>.
+One of the discoveries he made is called the <a href="https://en.wikipedia.org/wiki/Nyquist_rate">Nyquist rate</a> and simply put it says
+that you need to sample at at a greater frequency than twice the bandwidth you want. Since we are trying to sample a range of 20,000Hz
+we need to sample at <code>2x20000 = 40000</code> to cover the entire frequency range.</p>
+
+<p>Fun fact, the default 44.1kHZ sampling rate comes Sony setting the standard by recording audio content on video equipment
+and wanting to have a system that was PAL/NTSC compatible (PAL runs at 25fps, NTSC at 30fps). They were able to store
+the exact same amount of 44,100 samples per seconds using different amounts of lines/frames.</p>
+
+<h3>Bit rate</h3>
+
+<p>The precision of the numerical value we use to store the sample is called the <a href="https://en.wikipedia.org/wiki/Audio_bit_depth">bit depth</a>.
+The bit depth will change the range of values we capture, take for instance the sampling example below.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Pcm.svg" alt="4 bit sampling" /></p>
+
+<p>The analog signal in red is being sampled at a 4-bit bit depth meaning that each sample is represented by an integer taking 4 bits in memory.
+4 bits give us a maximum range of 16 integer values <code>(4*4)</code> Our sample value will be between 0 and 15. 4-bit precision really isn't enough
+to properly represent the reach dynamic range of audio signals.
+Most audio content is sampled at 16 or 24 bit (8, 20 and 32 bit depths are also sometime used). A 16-bit integer resolution
+offers a dynamic range of 96 dB (which can be improved using <a href="https://en.wikipedia.org/wiki/Dither">dithering</a> but that's outside of the scope of this article).</p>
+
+<p>Too low of a resolution and you are missing auditive information (and getting extra noise), too high of a resolution and it's a waste.
+32 floating-point bit depth is often used later on in the audio chain when doing complex audio processing.
+This process allows for greater precision when
+manipulating audio data and rounding can have a negative effect on the output (<a href="https://en.wikipedia.org/wiki/Digital_audio_workstation">DAWs</a>,
+synthesizers, effects...).
+The data is usually converted back to the source bit depth making things easier/transparent to the caller.</p>
+
+<p>Fun fact: The famous TR-909 drum machine only used a bit depth of 6-bit!</p>
+
+<p><img src="https://www.amazona.de/wp-content/uploads/2010/01/1_TR-909_Total.jpg" alt="TR-909" /></p>
+
+<h2>File formats: WAV &amp; AIFF</h2>
+
+<p>Now that we learned how the audio signal is being converted to a digital stream, it's interesting to see how it's being stored.
+The 2 main uncompressed <a href="https://en.wikipedia.org/wiki/Pulse-code_modulation">PCM</a> formats are <a href="https://en.wikipedia.org/wiki/WAV">WAV</a> and <a href="https://en.wikipedia.org/wiki/Audio_Interchange_File_Format">AIFF</a>.
+These formats store the same data slightly differently and provides valuable information of the stream content via file headers and
+data chunks. To be able to do any kind of offline processing, we need to be able to read and write such formats.
+In a future post, we will write a coder/decoder that explains how these file formats work (and get a sneak peek into lossy compression formats such as MP3).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Automate iTunes with JS to wake up in music]]></title>
+    <link href="https://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js/"/>
+    <updated>2015-09-02T20:46:00-07:00</updated>
+    <id>https://matt.aimonetti.net/posts/2015/09/02/automate-itunes-with-js</id>
+    <content type="html"><![CDATA[<p>Last week, my daughter started Kindergarten. I'm very happy for her,
+especially because she's going to an <a href="http://www.edison.smmusd.org/">awesome public school</a>.
+As someone who didn't grow up in the US, I heard a lot of stories about the American school
+system but one thing I didn't know is that kids start so early. My
+daughter starts at 8:10am! We had to find a way to turn our
+sleeping-in family members into morning people.</p>
+
+<p>I found a solution to help us: coding and music!</p>
+
+<p>My goal: to wake up my daughter with a custom music playlist starting a
+few minutes before I go see her.</p>
+
+<p>We have an old Mac Mini at home that I recently upgraded it to run Yosemite.
+This recent version of OS X added JavaScript as an alternative to <a href="https://en.wikipedia.org/wiki/AppleScript">AppleScript</a>.
+My goal is to write a little script that will play a given playlist and
+then I want to schedule this script to play every school morning. The
+Mac Mini is connected to an Airport Express with usb speakers located in
+my daughter's bedroom.</p>
+
+<h2>JavaScript for Automation</h2>
+
+<p>Apple has some <a href="https://developer.apple.com/library/mac/releasenotes/InterapplicationCommunication/RN-JavaScriptForAutomation/">documentation</a> about how to use JS to automate different tasks. To be honest the documentation isn't really good in comparison to their usual doc.
+Also, the technical implementation is pretty hacky/buggy but that won't
+prevent us to have a bit of fun.</p>
+
+<p>The code to start iTunes and play our playlist if very straight forward:</p>
+
+<p>```javascript
+app = Application('iTunes')
+app.activate()
+app.stop()
+playlist = app.sources["Library"].userPlaylists["morning"]
+try {</p>
+
+<pre><code>playlist.play()
+</code></pre>
+
+<p>}
+catch(err) {</p>
+
+<pre><code>console.log("The playlist probably doesn't exist", err)
+</code></pre>
+
+<p>}
+```</p>
+
+<p>As you probably guessed, this script loads iTunes and then uses its
+scripting API to load the main library and look for a playlist called
+"morning".
+I'm not proud of the ugly try/catch, but playlist is an instance of
+<code>ObjectSpecifier</code> which isn't evaluated until a method is called on it.
+You can think of it as a lazy container. The problem is that if we try
+to call <code>play()</code> on a playlist we didn't find, then an error is thrown.
+I didn't find a way to check if the underlying value is null so I had to
+catch the error.</p>
+
+<p>Once we have the above code, we have two options, put it in a script or
+convert it into an app. When developing your automation, it's highly
+recommended to use <code>Script Editor.app</code> which ships with the OS.
+From within the app, you can run your script and test / "debug" it.
+Script Editor also allows you to export your script as script, script
+bundle and app. The easiest way is to export our code as an app:</p>
+
+<p><img src="/images/jxa_app.jpg" alt="Export JS as an app" /></p>
+
+<p>Note that you can also write a script and create a <code>osascript</code> shebang,
+or even evalute your automation JS in the terminal:</p>
+
+<p><code>
+$ say "you are listening to" `osascript -l JavaScript -e 'Application("iTunes").currentTrack.name()'`
+</code></p>
+
+<p>So we have a script to start iTunes if needed and play our morning
+playlist. Now we need to schedule our app to start every school day:</p>
+
+<h2>Launchctl</h2>
+
+<p>OS X has a builtin scheduling system called <a href="http://launchd.info/">launchd</a>. It's kind of like a cron scheduler but with more options.
+Unfortunately figuring something as simple as scheduling a recurring
+script is much harder than it should. So here is my plist file:</p>
+
+<p>```xml
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict></p>
+
+<pre><code>&lt;key&gt;Label&lt;/key&gt;
+&lt;string&gt;morning.playlist.itunes&lt;/string&gt;
+&lt;key&gt;ProgramArguments&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;/usr/bin/open&lt;/string&gt;
+    &lt;string&gt;-a&lt;/string&gt;
+    &lt;string&gt;wakeup.app&lt;/string&gt;
+&lt;/array&gt;
+&lt;key&gt;RunAtLoad&lt;/key&gt;
+&lt;false/&gt;
+&lt;key&gt;StandardErrorPath&lt;/key&gt;
+&lt;string&gt;/tmp/morning.playlist.itunes.stderr&lt;/string&gt;
+&lt;key&gt;StandardOutPath&lt;/key&gt;
+&lt;string&gt;/tmp/morning.playlist.itunes.stdout&lt;/string&gt;
+&lt;key&gt;StartCalendarInterval&lt;/key&gt;
+&lt;array&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;1&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;2&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;3&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;4&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;55&lt;/integer&gt;
+        &lt;key&gt;Weekday&lt;/key&gt;
+        &lt;integer&gt;5&lt;/integer&gt;
+    &lt;/dict&gt;
+&lt;/array&gt;
+</code></pre>
+
+<p></dict>
+</plist>
+```</p>
+
+<p><a href="https://gist.github.com/mattetti/75fd52c653b9144f303e">Gist</a></p>
+
+<p>Note that I called my app <code>wakeup.app</code> and I put it in my Applications
+folder. My launch agent starts the app when it's called, but it doesn't
+do that when the system loads the service (<code>RunAtLoad</code> is set to false).
+I'm also logging out stdout and stderr to tmp files so I can debug if
+something goes wrong. Finally the schedule is defined in the <code>StartCalendarInterval</code>
+key with a daily entry Monday to Friday at 6:55am.</p>
+
+<p>Save the plist file as <code>wakeup.playlist.itunes.plist</code> and drop it in <code>~/Library/LaunchAgents/</code>
+and load it via <code>launchctl</code>:</p>
+
+<p><code>
+$ launchctl load -w ~/Library/LaunchAgents/wakeup.playlist.itunes.plist
+</code></p>
+
+<p>That's it, everything should work fine, however if you want to make sure
+it will, you might want to unload the plist, edit it so <code>RunAtLoad</code> is
+set to true and reload it. At this point, your playlist should play. If
+it doesn't, then check the log files to see what happened.
+When everything is good, unload, go back to the original version and
+reload.</p>
+
+<p>There is plenty more you can do with JS Automation for Mac, if like me
+you are listening to a lot of music while coding, you might be
+interested in knowing that <strong>Spotify</strong> and <strong>VLC</strong> are scriptable (and
+so are most browsers).</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[First Go challenge - binary decoding]]></title>
@@ -6003,544 +6361,6 @@ Index   1</p>
 <p>Talking with <a href="http://twitter.com/janl">Jan Lehnardt</a> about his experience working with O'Reilly on the <a href="http://books.couchdb.org/relax/">'CouchDB: The definitive guide'</a> book, I realized that we seem to have some shared interests. I contacted Jan's editor and we decided to start working on the MacRuby book. The book will be available later on in all the usual commercial formats and I hope people will show their support so O'Reilly will be encouraged in their choice to continue publishing CC licensed book. At the end of the day, purchasing a CC licensed book helps supporting the authors, the publishers but also all the people who can't have access to the latest technical books.</p>
 
 <p>Finally, working on a book is not an easy thing, especially when you have to write it in a language that's not yours. But I have to say that the community support has been amazing. Even <a href="http://daringfireball.net/linked/2010/05/03/macruby-aimonetti">John Gruber sent a fireball my way</a>. And since the announcement was made, I have received a lot of <a href="http://macruby.labs.oreilly.com/comments/feed?id=book">comments</a>, tweets, emails etc... It is very encouraging and it gives me the motivation needed to work on the book after a long work day.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[I did it wrong]]></title>
-    <link href="https://matt.aimonetti.net/posts/2010/03/15/i-did-it-wrong/"/>
-    <updated>2010-03-15T23:50:49-07:00</updated>
-    <id>https://matt.aimonetti.net/posts/2010/03/15/i-did-it-wrong</id>
-    <content type="html"><![CDATA[<p>The Ruby community is a well known for at least two things: <strong>being </strong><a href="http://pragprog.com/press_releases/the-passionate-programmer">passionate</a><strong> and being </strong><a href="http://www.bruisin-ales.com/beerblog/wp-content/uploads/2008/09/stoneintro.gif">arrogant</a> .
-Two characteristics that often go together but I am not going to defend or justify anything in this post, instead I will try to reflect on my own experience and will share with you my own view point.</p>
-
-<p><a href="http://merbist.com/wp-content/uploads/2010/03/doing_wrong_coaster_2.jpg"><img src="http://merbist.com/wp-content/uploads/2010/03/doing_wrong_coaster_2-225x300.jpg" alt="" /></a></p>
-
-<p>Very much like the Ruby community, I am also quite passionate and can be arrogant at times. A few months back I was in Brazil for <a href="http://www.railssummit.com.br/en/pages/home">RailsSummit</a> and I was chatting with <a href="http://twitter.com/dchelimsky">David Chelimsky</a> after a nice evening with the <a href="http://www.railssummit.com.br/en/pages/home">RailsSummit</a> attendees. I was thinking about how cool it was to have people from various non-Ruby communities to come to a Ruby community and share their experience and knowledge while observing the ways we do things with Ruby.</p>
-
-<p>David and I got to talk about technical evangelism, how <a href="http://rspec.info/">RSpec</a> became very popular, the whole <a href="http://en.wikipedia.org/wiki/Merb">Merb</a> vs <a href="http://rubyonrails.org/">Rails</a> situation which turned into Rails3, as well as <a href="http://www.macruby.org/">MacRuby</a> and <a href="http://www.apple.com/">Apple</a>. I was interested by the fact that I couldn't remember David ever saying something bad about test/unit or trying to tell others they were doing it wrong. Instead, he has always tried showing why people might be potentially interested by <a href="http://en.wikipedia.org/wiki/RSpec">RSpec</a>.</p>
-
-<p>As an early RSpec adopter, I often thought that people were wrong not to use the solution that <em><strong>I</strong></em> thought was the best. As part of the Merb 'propaganda', we spent a lot of time comparing Merb with Rails and showing why Merb might be better for you and why you were doing it wrong if you would fit in Merb's target and still use Rails.</p>
-
-<p>Even before that, I remember thinking that if you were not using Ruby, you were doing it wrong. PHP &amp; Java developers were, for me, just developers who did not know any better (and I thought that Python-ers were just too lazy to learn a "better" language that takes OOP seriously ;)).</p>
-
-<p><a href="http://merbist.com/wp-content/uploads/2010/03/doing_it_wrong_coaster.jpg"><img src="http://merbist.com/wp-content/uploads/2010/03/doing_it_wrong_coaster-300x218.jpg" alt="" /></a></p>
-
-<p>Since then, things have changed. I have gotten involved with other projects, met different people and maybe, just maybe, matured a little bit. Going back to the discussion I had with David, he pointed out to me how often people talk about a piece of technology or an idea to just quickly conclude: <strong>"it sucks"</strong> and it has got even worse lately with the '<a href="http://www.doingitwrong.com/">you're doing it wrong</a> ' meme.</p>
-
-<p>Basically, we judge people's actions without knowing them or even having a clue about the problem they are facing and we just tell them that if they don't do like us, they are wrong. If they are not using this plugin or this gem, they are doing it wrong, and if they are using this other one that sucks, they are also doing it wrong. Also, be careful, something that's hot today will probably turn out to be 'the suck' soon enough, keep up with what the cool kids tweet about ;)</p>
-
-<p>But of course, this is something human and much bigger than the Ruby community. Look at the whole SQL/NoSQL <a href="http://news.ycombinator.com/item?id=1163039">pseudo fight</a> and you will notice the same attitude. Look at the editors war, look at the OS war or even look at the TV with shows like '<a href="http://en.wikipedia.org/wiki/The%20Marriage%20Ref">Marriage Ref</a>' making money off of people wanting to prove their partner that he/she is doing it wrong. But that's also the root problem of most religion wars and even the motivation for some people to go 'invade/colonize' other countries to eventually force their world vision upon them.</p>
-
-<p>I realize the irony of writing of blog post to tell my readers that telling others that they are doing it wrong is, in itself, fundamental wrong, but maybe next time you think something sucks or is totally wrong, you might want to try to understand the motivation behind why some people decided to go this way. I know I will personally try harder.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Speed up your Rails XML responses]]></title>
-    <link href="https://matt.aimonetti.net/posts/2010/02/22/speed-up-your-rails-xml-responses/"/>
-    <updated>2010-02-22T23:25:09-08:00</updated>
-    <id>https://matt.aimonetti.net/posts/2010/02/22/speed-up-your-rails-xml-responses</id>
-    <content type="html"><![CDATA[<p>At <a href="http://www.us.playstation.com/">work</a>, we have an XML API that gets quite a lot of traffic. Last week I looked into improving its performance since we are expecting more traffic soon and want to make sure our response time is optimized.</p>
-
-<p>My first thought was to make sure we had  an optimized <a href="http://api.rubyonrails.org/classes/ActiveSupport/XmlMini.html">ActiveSupport's xmlmini backend</a>. Rails 2.3.5 fixed some issues when using <a href="http://nokogiri.org/">Nokogiri</a> as a xmlmini so I switched to my favorite Ruby XML lib:</p>
-
-<pre><code>ActiveSupport::XmlMini.backend = 'Nokogiri'
-</code></pre>
-
-<p>I run some benchmarks using ab, httperf and jmeter but the results were not that great. I was so sure that switching from <a href="http://ruby-doc.org/stdlib/libdoc/rexml/rdoc/index.html">rexml</a> to <a href="http://nokogiri.org/">nokogiri</a> would give me awesome results that I was very disappointed.</p>
-
-<p>I was about to call <a href="http://tenderlovemaking.com/">Aaron Patterson</a> (Nokogiri's author) to insult him, blame him for _why's disappearance and tell him that all his pro bono efforts were useless since my own app was not running much faster when switched to his library. As I was about to dial his number on my iPhone I had a crazy thought... maybe it was not Aaron's fault, maybe it was mine.</p>
-
-<p>So I took a break went to play some fuzzball and as I was being ridiculed by Italian coworker, Emanuele, I realized that most of our API calls were just simple HTTP requests with no XML payload, just some query params. However, we were generating a lot of XML to send back to the client and AS::XmlMini only takes care of the XML parsing, not the rendering.</p>
-
-<p>The XML rendering is done by <a href="http://onestepback.org/">Jim Weirich</a>'s pure Ruby <a href="http://builder.rubyforge.org/">builder library</a> which is vendored in Rails. Builder does a good job, but I thought that maybe a C based library might improve the speed. A coworker of mine (James Bunch) recommended to look into <a href="http://github.com/codahale/faster-builder">faster-builder</a>, a drop-in Builder replacement based on libxml. Unfortunately, the project doesn't seem to be maintained and I decided to look into using <a href="http://nokogiri.org/">Nokogiri</a> XML builder instead. (Also, faster-builder's author doesn't like me very much while Aaron knows he's one of my Ruby heroes so asking for help could be easier)</p>
-
-<p>Some people reported having tried using <a href="http://nokogiri.org/">Nokogiri</a> as a XML builder but didn't see much speed improvement. Because of the amount of magic required to render a rxml template, I was not really surprised but I decided to contact Aaron and ask him if he tried using his lib instead of builder in a Rails app. <a href="http://www.flickr.com/photos/aaronp/57241193/">Aaron</a> told me he gave it a try a while back and he helped me get my Rails app setup to render xml templates using <a href="http://nokogiri.org/">Nokogiri</a>.</p>
-
-<p>The next step was simple, create a <a href="http://github.com/mattetti/noko-vs-builder-benchmark">benchmark app</a> and benchmark Builder vs Nokogiri using various templates. Here are the results I got using Ruby 1.9.1 (the Ruby version we use in production) and two sets of templates:</p>
-
-<p><strong>Builder</strong> small template, <strong>time per request: 15.507 [ms]</strong> (mean)</p>
-
-<pre><code>$ ab -c 1 -n 200 http://127.0.0.1:3000/benchmarks/builder_small
-This is ApacheBench, Version 2.3 &lt;$Revision: 655654 $&gt;
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Licensed to The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking 127.0.0.1 (be patient)
-Completed 100 requests
-Completed 200 requests
-Finished 200 requests
-
-Server Software:        nginx/0.7.65
-Server Hostname:        127.0.0.1
-Server Port:            3000
-
-Document Path:          /benchmarks/builder_small
-Document Length:        216 bytes
-
-Concurrency Level:      1
-Time taken for tests:   3.101 seconds
-Complete requests:      200
-Failed requests:        0
-Write errors:           0
-Total transferred:      114326 bytes
-HTML transferred:       43200 bytes
-Requests per second:    64.49 [#/sec] (mean)
-Time per request:       15.507 [ms] (mean)
-Time per request:       15.507 [ms] (mean, across all concurrent requests)
-Transfer rate:          36.00 [Kbytes/sec] received
-
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:        0    0   0.0      0       0
-Processing:    11   15   8.8     12      47
-Waiting:        3   15   8.9     12      47
-Total:         11   15   8.8     12      47
-
-Percentage of the requests served within a certain time (ms)
-  50%     12
-  66%     12
-  75%     13
-  80%     13
-  90%     35
-  95%     36
-  98%     38
-  99%     41
- 100%     47 (longest request)
-</code></pre>
-
-<p><strong>Nokogiri</strong> small template, <strong>time per request: 15.354 [ms] (mean)</strong></p>
-
-<pre><code>$ ab -c 1 -n 200 http://127.0.0.1:3000/benchmarks/noko_small
-This is ApacheBench, Version 2.3 &lt;$Revision: 655654 $&gt;
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Licensed to The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking 127.0.0.1 (be patient)
-Completed 100 requests
-Completed 200 requests
-Finished 200 requests
-
-Server Software:        nginx/0.7.65
-Server Hostname:        127.0.0.1
-Server Port:            3000
-
-Document Path:          /benchmarks/noko_small
-Document Length:        238 bytes
-
-Concurrency Level:      1
-Time taken for tests:   3.071 seconds
-Complete requests:      200
-Failed requests:        0
-Write errors:           0
-Total transferred:      118717 bytes
-HTML transferred:       47600 bytes
-Requests per second:    65.13 [#/sec] (mean)
-Time per request:       15.354 [ms] (mean)
-Time per request:       15.354 [ms] (mean, across all concurrent requests)
-Transfer rate:          37.75 [Kbytes/sec] received
-
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:        0    0   0.0      0       0
-Processing:    11   15   8.6     12      39
-Waiting:       11   15   8.6     12      39
-Total:         11   15   8.6     12      39
-
-Percentage of the requests served within a certain time (ms)
-  50%     12
-  66%     12
-  75%     12
-  80%     13
-  90%     35
-  95%     36
-  98%     37
-  99%     38
- 100%     39 (longest request)
-</code></pre>
-
-<p>Running the benchmarks many times showed that Nokogiri and Builder were taking more or less the same amount of time to builder a small template.</p>
-
-<p>I then decided to try a bigger template, closer to what we have in production, here are the results:</p>
-
-<p><strong>Nokogiri</strong> longer template, <strong>time per request: 31.252 [ms] (mean)</strong></p>
-
-<pre><code>$ ab -c 1 -n 200 http://127.0.0.1:3000/benchmarks/noko
-This is ApacheBench, Version 2.3 &lt;$Revision: 655654 $&gt;
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Licensed to The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking 127.0.0.1 (be patient)
-Completed 100 requests
-Completed 200 requests
-Finished 200 requests
-
-Server Software:        nginx/0.7.65
-Server Hostname:        127.0.0.1
-Server Port:            3000
-
-Document Path:          /benchmarks/noko
-Document Length:        54398 bytes
-
-Concurrency Level:      1
-Time taken for tests:   6.250 seconds
-Complete requests:      200
-Failed requests:        0
-Write errors:           0
-Total transferred:      10951200 bytes
-HTML transferred:       10879600 bytes
-Requests per second:    32.00 [#/sec] (mean)
-Time per request:       31.252 [ms] (mean)
-Time per request:       31.252 [ms] (mean, across all concurrent requests)
-Transfer rate:          1711.00 [Kbytes/sec] received
-
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:        0    0   0.0      0       0
-Processing:    24   31  11.3     26      62
-Waiting:       23   30  11.3     24      61
-Total:         24   31  11.3     26      62
-
-Percentage of the requests served within a certain time (ms)
-  50%     26
-  66%     27
-  75%     27
-  80%     29
-  90%     54
-  95%     55
-  98%     58
-  99%     59
- 100%     62 (longest request)
-</code></pre>
-
-<p><strong>Builder</strong>, longer template, <strong>Time per request: 140.725 [ms] (mean)</strong></p>
-
-<pre><code>$ ab -c 1 -n 200 http://127.0.0.1:3000/benchmarks/builder
-This is ApacheBench, Version 2.3 &lt;$Revision: 655654 $&gt;
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Licensed to The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking 127.0.0.1 (be patient)
-Completed 100 requests
-Completed 200 requests
-Finished 200 requests
-
-Server Software:        nginx/0.7.65
-Server Hostname:        127.0.0.1
-Server Port:            3000
-
-Document Path:          /benchmarks/builder
-Document Length:        54376 bytes
-
-Concurrency Level:      1
-Time taken for tests:   28.145 seconds
-Complete requests:      200
-Failed requests:        0
-Write errors:           0
-Total transferred:      10947000 bytes
-HTML transferred:       10875200 bytes
-Requests per second:    7.11 [#/sec] (mean)
-Time per request:       140.725 [ms] (mean)
-Time per request:       140.725 [ms] (mean, across all concurrent requests)
-Transfer rate:          379.83 [Kbytes/sec] received
-
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:        0    0   0.1      0       1
-Processing:   127  141  24.6    132     331
-Waiting:      126  139  23.6    130     328
-Total:        127  141  24.6    132     331
-
-Percentage of the requests served within a certain time (ms)
-  50%    132
-  66%    138
-  75%    147
-  80%    149
-  90%    156
-  95%    169
-  98%    193
-  99%    311
- 100%    331 (longest request)
-</code></pre>
-
-<p>Wow, <a href="http://twitter.com/tenderlove">@tenderlove</a>'s Nokogori just brought us a<strong> 4.5X speed improvement for this specific template</strong>.  100ms per request is probably not a big deal for most people and I have to say that Jim did a great job with Builder. However in my specific case, 100ms on a request being called thousands of times per hour is quite important.</p>
-
-<p>(The <a href="http://github.com/mattetti/noko-vs-builder-benchmark">benchmark app is available on github</a>, feel free to fork it and benchmark your own templates)</p>
-
-<p>Who would have thought that a man like this could save the day?!</p>
-
-<p>[caption id="attachment_1737" align="alignleft" width="150" caption="Aaron 'Tenderlove' Patterson"]<a href="http://railsontherun.com/wp-content/uploads/2010/02/aaron.jpg"><img src="http://railsontherun.com/wp-content/uploads/2010/02/aaron-150x150.jpg" alt="" /></a>[/caption]</p>
-
-<p><a href="http://www.flickr.com/photos/aaronp/3824959062/"><img src="http://farm3.static.flickr.com/2470/3824959062_fb0755e665_m_d.jpg" alt="" /></a></p>
-
-<p><a href="http://www.flickr.com/photos/aaronp/57241193/"><img src="http://farm1.static.flickr.com/29/57241193_8137f2a4af_m_d.jpg" alt="" /></a></p>
-
-<p><a href="http://www.flickr.com/photos/aaronp/3132124227/"><img src="http://farm4.static.flickr.com/3289/3132124227_3ace4ec7ae_m_d.jpg" alt="" /></a></p>
-
-<p><strong><em>The moral of the story is that adding a bit of tenderlove to your Ruby code can make it perform much much better!</em></strong></p>
-
-<p><strong>Thank you Aaron 'Tenderlove' Patterson!</strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Googlecharts 1.5.1]]></title>
-    <link href="https://matt.aimonetti.net/posts/2010/02/03/googlecharts-1-5-1/"/>
-    <updated>2010-02-03T21:18:23-08:00</updated>
-    <id>https://matt.aimonetti.net/posts/2010/02/03/googlecharts-1-5-1</id>
-    <content type="html"><![CDATA[<p>To celebrate the relaunch of this site and since we are waiting for Rails 3.0 beta to be released, I figured I should share with you what I worked on the other night.</p>
-
-<p>I merged patches, refactored and released a new version of googlecharts, my Gem to create graphs using Google Chart API.</p>
-
-<p><code>sudo gem install googlecharts</code></p>
-
-<p>Here is a quick example of how the API works when dealing with a complex graph:</p>
-
-<pre><code>require 'gchart' # or require 'googlecharts' if you prefer to use the Googlecharts constant.
-title = "Player Count"
-size = "575x300"
-data = [85,107,123,131,155,172,173,189,203,222,217,233,250,239,256,267,247,261,275,295,288,305,322,307,325,347,331,346,363,382,343,359,383,352,374,393,358,379,396,416,377,398,419,380,409,426,453,432,452,465,436,460,480,440,457,474,501,457,489,507,347,373,413,402,424,448,475,488,513,475,507,530,440,476,500,518,481,512,531,367,396,423,387,415,446,478,442,469,492,463,489,508,463,491,518,549,503,526,547,493,530,549,493,520,541,564,510,535,564,492,512,537,502,530,548,491,514,538,568,524,548,568,512,533,552,577,520,545,570,516,536,555,514,536,566,521,553,579,604,541,569,595,551,581,602,549,576,606,631,589,615,650,597,624,646,672,605,626,654,584,608,631,574,597,622,559,591,614,644,580,603,629,584,615,631,558,591,618,641,314,356,395,397,429,450,421,454,477,507,458,490,560,593]
-Gchart.line(:title =&gt; title, :size =&gt; size, :data =&gt; data, :axis_with_labels =&gt; 'x,y', :line_color =&gt; '1e60cc', :axis_labels =&gt; [(1.upto(24).to_a &lt;&lt; 1)], :max_value =&gt; 700, :custom =&gt; 'chg=10,15,1,0')
-</code></pre>
-
-<p>Which provides you with the url or image tag (or downloaded file) that produces the following graph:</p>
-
-<p><img src="http://chart.apis.google.com/chart?chxl=0:|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|1&amp;chxt=x,y&amp;chco=1e60cc&amp;chg=10,15,1,0&amp;chd=s:HJKLNPPQRTTUWVWXVXYaZbcbcedeghefhfhifhjkhjlhklomopmoqmopsorsehkjlnqrtqsumqstqtvgjliknqnprprsprtwsuwruwruvxtvxrtvsuwrtvyuwytvwzuwytvxtvyuwz1vy0wz1wz130250357135z13y03x025z13z23x024bfijlnloqsorx0&amp;chtt=Player+Count&amp;cht=lc&amp;chs=575x300&amp;chxr=1,85,700" alt="Google Chart" /></p>
-
-<p>This release works great with Ruby 1.9 and <a href="http://macruby.org">MacRuby</a>, lots of bugs got fixed and some new features were added. Something a lot of people complained was that the gem was called googlecharts but that the main class was called Gchart. The problem was that I wrote my gem and called it Gchart and when I went to register the rubyforge project page, the name was already taken. In this release, I fixed this problem by allowing users to require and use the constant name they want, Gchart or Googlecharts. I also spent quite a lot of time cleaning up the old code which I was a bit ashamed of. Class variables are now removed and overall, the code should be a bit more sane.</p>
-
-<p>The source code can be found in my <a href="http://github.com/mattetti/googlecharts/">GitHub accout</a> and the documentation <a href="http://mattetti.github.com/googlecharts/">there</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How and why I joined the "suit people"]]></title>
-    <link href="https://matt.aimonetti.net/posts/2010/02/02/how-and-why-i-joined-the-suit-people/"/>
-    <updated>2010-02-02T11:19:26-08:00</updated>
-    <id>https://matt.aimonetti.net/posts/2010/02/02/how-and-why-i-joined-the-suit-people</id>
-    <content type="html"><![CDATA[<p>It is now official: I have traded my freedom &amp; home office for a job title, an Aeron chair in a cubicle and a 401K.</p>
-
-<p>I received my new employee package and, in less than a week, I will officially become a full-time employee at <a href="http://en.wikipedia.org/wiki/Sony_Computer_Entertainment_of_America"> SCEA</a> (Sony Computer Entertainment America).</p>
-
-<p>I'm going to work in the PlayStation department, working on PS3, PS2 and PSP game titles developed by <a href="http://www.naughtydog.com/">various</a> <a href="http://en.wikipedia.org/wiki/SCE_Studio_San_Diego">game</a> <a href="http://en.wikipedia.org/wiki/Sony_Computer_Entertainment_Worldwide_Studios">studios</a>.</p>
-
-<p><a href="http://merbist.com/wp-content/uploads/2010/02/sony_playstation_32.jpg"><img src="http://merbist.com/wp-content/uploads/2010/02/sony_playstation_32-300x206.jpg" alt="" /></a></p>
-
-<h3>Why 'o why?</h3>
-
-<p><em>Why leave behind a happy life of indie contracting to join corporate America?</em></p>
-
-<p>For many reasons actually:</p>
-
-<ul>
-<li><strong>A Team</strong></li>
-</ul>
-
-
-<p>Being a consultant I have been working with other independent consultants and existing teams. Nonetheless, I really miss being part of a stable team which grows together and learns from each other as we go through new projects and maintain old ones.</p>
-
-<ul>
-<li><strong>Long term plan</strong></li>
-</ul>
-
-
-<p>As a consultant, I usually start projects or "rescue" existing projects. I work on them for a little while and then move on. It's exciting and rewarding but you don't really pay the consequences of your mistakes. You usually don't have to maintain the code you wrote and you rarely deal with the mistakes <em>you</em> made.</p>
-
-<p>It sounds good, nobody likes to maintain the crappy awesome code they wrote 2 years ago and most developers love working on new stuff. But at the same time, to become a better engineer you need to learn from you mistakes and assuming responsibility for your bad decisions is part of the process.</p>
-
-<p>It might sound weird, but I'm actually excited to work on long term projects and feel some sort of ownership over the projects. Having to support games for many years means that I'd better not mess up the implementation. And if I do, I hope I'll quickly learn from my mistakes.</p>
-
-<ul>
-<li><strong>Avoiding burn out</strong></li>
-</ul>
-
-
-<p>There is no secret: when you are passionate about what you do, you have a hard time stopping and taking a break. I'm a recovering workaholic and it's really hard for me to say no when I'm presented the possibility to work on interesting projects. I love what I do and I keep writing code even after I'm done with client work.</p>
-
-<p>The problem is that this can start me on the slippery slope to isolating myself from friends, family and people who don't share the same passion. I'm really lucky that my wife is a geek and loves hanging out at conferences, looking at code and playing with my buggy prototypes. But still, I spend too much time "playing" with my computer and I just can't manage my free time wisely.</p>
-
-<p>Having a full time position will hopefully help me put boundaries and will hopefully teach me to disconnect from work.</p>
-
-<ul>
-<li><strong>Exciting projects</strong></li>
-</ul>
-
-
-<p>Hey, let's be honest, how many geeks do you know don't want to work in the video game industry? By the way, if you don't have a PS3, they are now at $299 and on top of getting an awesome console you get a blue ray player! (And no, I do not receive any bonuses or commissions for mentioning the console or promoting it in my blog. I had to pay for my own like everyone else.)</p>
-
-<h3>Corporate America? Are you going to write Java now?</h3>
-
-<p><img src="http://farm2.static.flickr.com/1412/1264424156_24f4571b10.jpg" alt="" /></p>
-
-<p>No, I'm mainly going to stick to the language I love: <strong>Ruby</strong>.
-From time to time I will probably use other languages here and there, but that usually makes me love Ruby even more. The reality is that Ruby's power and flexibility seem to be appreciated by SCEA, which makes sense when you have tight deadlines and a lot of new technologies to deal with. Ruby is a perfect match!</p>
-
-<p>As you can guess, I can't go into any detail about how and why Sony uses Ruby, but let me just say that while games are still usually written in C++, they are becoming more and more interactive and need to communicate with game servers where some logic operates. Game players also need to interact with other gamers as well as check their gaming progress online, as well as the progress of the players around them etc... Basically, outside of the game engine and the console SDK, there is a lot of potential for Ruby.</p>
-
-<p>Coming back to Corporate America, I have to say that I've known my future manager for a few years now. He's always been a fervent Ruby advocate and has introduced lots of teams to the happiness of Ruby &amp; Rails development. He's also a great developer who's contributing patches to major projects and has a bunch of cool stuff on github. To give you an idea, my job description mentions Rails, Merb, Sinatra, CouchdB, MongoDB, Redis, AWS. All these Ruby technologies are actually already used in production or are being seriously evaluated.</p>
-
-<p>I'm also really looking forward to join the existing team. I know I'm going to love working with a bunch of awesome developers coming from various backgrounds.</p>
-
-<p>Those who know me, know that I'm not a morning person. And while your typical office job is categorized as '9-5', don't feel too bad for me. I will be joining the video game product department, and morning people are rather rare in these kinds of groups ;)</p>
-
-<h3>Conclusion</h3>
-
-<p>I'm really excited about this opportunity. For me, it is proof again that the Ruby revolution took place and that the Enterprise is evolving. Of course, time will tell if I am right, but I am quite confident.</p>
-
-<p>Also, Sony is always looking for new, talented people who want to push the entertainment world to the next level. Feel free to keep in touch with me if you are interested in joining the fun.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Undo/Redo in MacRuby]]></title>
-    <link href="https://matt.aimonetti.net/posts/2010/02/02/undoredo-in-macruby/"/>
-    <updated>2010-02-02T02:19:44-08:00</updated>
-    <id>https://matt.aimonetti.net/posts/2010/02/02/undoredo-in-macruby</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MacRuby 0.5 final is out]]></title>
-    <link href="https://matt.aimonetti.net/posts/2010/01/31/macruby-0-5-final-is-out/"/>
-    <updated>2010-01-31T19:13:36-08:00</updated>
-    <id>https://matt.aimonetti.net/posts/2010/01/31/macruby-0-5-final-is-out</id>
-    <content type="html"><![CDATA[<p>After going through two betas, MacRuby 0.5 final is now released and can be downloaded by clicking on the icon below:</p>
-
-<p><a href="http://macruby.org/downloads.html"><img src="http://macruby.org/images/zip.png" alt="" />
-MacRuby 0.5</a></p>
-
-<p>Don't worry about having MacRuby and Ruby 1.8.x or 1.9 installed, MacRuby is namespaced and won't affect your current Ruby installations, just download and launch the installer. (Note: The build was compiled for SnowLeopard only)</p>
-
-<p>You can read all the <a href="http://www.macruby.org/blog/2010/01/31/macruby05.html">details of the release on the MacRuby website</a>.</p>
-
-<p>So what changed since 0.4? Too many things for me to list them here but basically 0.5 uses LLVM to compile code and make MacRuby faster and integrate better with the Obj-c runtime. However since the last beta, here is what changed:</p>
-
-<ul>
-<li><p>HotCocoa is now a separate gem</p></li>
-<li><p>improved AOT compilation</p></li>
-<li><p>Grand Central Dispatch support - use all your cores without the pain of threads. Read <a href="http://www.macruby.org/documentation/gcd.html">this post</a> for more info.</p></li>
-</ul>
-
-
-<p>0.5 is a solid release which I consider production ready, I personally wrote a few of small Cocoa apps in MacRuby and everything has been working very well. Of course, I'm also excited about the new stuff in 0.6 trunk like the debugger previewed a few weeks ago: <a href="http://merbist.com/2010/01/18/how-to-detect-cylons-with-macruby/">http://merbist.com/2010/01/18/how-to-detect-cylons-with-macruby/</a> but also some drastic changes in the primitive classes that I might cover later on.</p>
-
-<p>Finally, people are asking if the iPad will be able to run apps running in MacRuby. Unfortunately, the current answer is: no. The two issues with the IPhone/iP*d OS are the lack of Garbage Collector and support for BridgeSupport (needed to define CocoaTouch constants available from MacRuby). However, this matter is being discussed on the mailing list and progress is made by contributors (the core team primarily focusing on the desktop).</p>
-
-<p>That is going to be an exciting Ruby week as MacRuby 0.5 is now out and Rails 3 beta/RC0 is expected really soon.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How to detect Cylons with MacRuby]]></title>
-    <link href="https://matt.aimonetti.net/posts/2010/01/18/how-to-detect-cylons-with-macruby/"/>
-    <updated>2010-01-18T16:13:37-08:00</updated>
-    <id>https://matt.aimonetti.net/posts/2010/01/18/how-to-detect-cylons-with-macruby</id>
-    <content type="html"><![CDATA[<p>Over the weekend, MacRuby's trunk became version 0.6 and the bug fixing is currently done in both the 0.5 branch and trunk. Based on MacRuby's usual release cycle I would expect a 0.5 beta3 or 0.5 final to be released soon so most of the work can be focused on trunk.</p>
-
-<p>I'll let you check on the <a href="http://svn.macosforge.org/repository/ruby/MacRuby/trunk/TODO">TODO list</a> to see what was done in 0.5 and what is in the plan for 0.6.</p>
-
-<p>However, there is one feature in 0.6 that I know lots of you will just love! The good news is that Laurent already committed a very early version of his work so I figured, I should share the good news with you:</p>
-
-<h3>Introducing MacRuby's debugger!</h3>
-
-<p>If you were expecting to read: "a Cylon detector!", keep on reading.</p>
-
-<p>Again, this feature is in really early development since it's scheduled for 0.6 and 0.5 final is not out yet. But if you install MacRuby using the <a href="http://macruby.icoretech.org/">nightly builds</a> or build from trunk, you can already play with the debugger.</p>
-
-<p>Let me give you a really quick tour of the debugger.</p>
-
-<p><img src="http://img.skitch.com/20100118-qn7yuq9h2ce61yxt6kwag9pnbt.jpg" alt="BSG75Logo posted by Matt Aimonetti" /></p>
-
-<p>Let's imagine that we were given the task to debug the cylon detector written by Gaius Baltar which looks like that:</p>
-
-<pre><code>characters = %w{Adama Apollo Baltar Roslin StarBuck Six}
-
-def cylon?(character)
-  false
-end
-
-characters.each do |character|
-  if cylon?(character)
-    puts "#{character} is a Cylon!"
-  else
-    puts "#{character} is not a cylon."
-  end
-end
-</code></pre>
-
-<p>Here is what happens when I execute the script:</p>
-
-<pre><code>$ macruby cylon_detector.rb 
-Adama is not a cylon.
-Apollo is not a cylon.
-Baltar is not a cylon.
-Roslin is not a cylon.
-StarBuck is not a cylon.
-Six is not a cylon.
-</code></pre>
-
-<p>The only problem is that we all know that Six is a Cylon, the detector isn't working right so let's debug it:</p>
-
-<pre><code>$ macrubyd cylon_detector.rb
-Starting program.
-cylon_detector.rb:1&gt; b cylon_detector.rb:8 if character == 'Six'
-Added breakpoint 1.
-cylon_detector.rb:1&gt; c
-Adama is not a cylon.
-Apollo is not a cylon.
-Baltar is not a cylon.
-Roslin is not a cylon.
-StarBuck is not a cylon.
-cylon_detector.rb:8&gt; p cylon?(character)
-=&gt; false
-cylon_detector.rb:8&gt; p "This detector is broken!"
-=&gt; "This detector is broken!"
-cylon_detector.rb:8&gt; p def cylon?(character); character == 'Six'; end
-=&gt; nil
-cylon_detector.rb:8&gt; p cylon?(character)
-=&gt; true
-cylon_detector.rb:8&gt; p cylon?('Matt')
-=&gt; false
-cylon_detector.rb:8&gt; c
-Six is a Cylon!
-Program exited.
-</code></pre>
-
-<p>The first thing we do is to add a conditional breakpoint:</p>
-
-<pre><code>b cylon_detector.rb:8 if character == 'Six'
-</code></pre>
-
-<p>Basically, the debugger will add a breakpoint at line 8 which will only be active when the value of 'character' is equal to 'Six'.
-Now that the breakpoint added, we can continue the program execution and just wait until we reach the defined condition.</p>
-
-<pre><code>cylon_detector.rb:1&gt; c
-</code></pre>
-
-<p>Once we reach the breakpoint, we evaluate the result of "cylon?(character)" by using the p command. We see that the result is "false" when we know for sure that it should be true since the value of the character variable is 'Six' and she is a cylon. At this point, you might have guessed that somewhat acted as a cylon agent and I pretended to fix the problem by overwriting the "cylon?" method:</p>
-
-<pre><code>cylon_detector.rb:8&gt; p def cylon?(character); character == 'Six'; end
-</code></pre>
-
-<p>Now that the method is overwritten, I can check that Six is recognized as being a cylon:</p>
-
-<pre><code>cylon_detector.rb:8&gt; p cylon?(character)
-=&gt; true
-</code></pre>
-
-<p>and also check that I am not detected a cylon:</p>
-
-<pre><code>cylon_detector.rb:8&gt; p cylon?('Matt')
-=&gt; false
-</code></pre>
-
-<p>I can now continue the execution of the program and see that Six is detected as a Cylon!</p>
-
-<p>Of course this is just a very early version of the debugger and we will see lots of improvement in the next few weeks. Who knows someone might even create a GUI for the debugger and/or a Xcode integration.</p>
-
-<p>Anyway, the point being that MacRuby developers should expect a lot of awesome stuff coming up their way soon. (also be careful about the skin jobs around you, cylon detectors can't be trusted!)</p>
 ]]></content>
   </entry>
   
