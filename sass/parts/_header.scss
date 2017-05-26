@@ -252,9 +252,9 @@ header{
 			}
 			&.twitter{
 				background: image-url('twitter.png') center no-repeat #55CFF8;
-				&:hover{
-					border: 1px solid darken(#55CFF8, 10%);
-				}
+				// &:hover{
+					// border: 1px solid darken(#55CFF8, 10%);
+				// }
 			}
             &.medium{
 				background: image-url('medium.png') center no-repeat rgb(111, 167, 100);
