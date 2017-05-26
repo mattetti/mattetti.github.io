@@ -122,10 +122,8 @@
     if (urlParams[queryParamName]) {
       customSearchControl.execute(urlParams[queryParamName]);
     }
+    document.getElementById('gsc-i-id1').placeholder = 'Search';
   }, true);
-  window.onload = function(){
-      document.getElementById('gsc-i-id1').placeholder = 'Search';
-  }
 </script>
 <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
 <style type="text/css">
