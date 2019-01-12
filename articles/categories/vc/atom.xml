@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: VC | Matt Aimonetti]]></title>
+  <link href="https://matt.aimonetti.net/articles/categories/vc/atom.xml" rel="self"/>
+  <link href="https://matt.aimonetti.net/"/>
+  <updated>2019-01-12T15:21:14-08:00</updated>
+  <id>https://matt.aimonetti.net/</id>
+  <author>
+    <name><![CDATA[Matt Aimonetti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Being the co-founder of a VC backed startup]]></title>
+    <link href="https://matt.aimonetti.net/posts/2019/01/12/being-the-co-founder-of-a-vc-backed-startup/"/>
+    <updated>2019-01-12T15:16:00-08:00</updated>
+    <id>https://matt.aimonetti.net/posts/2019/01/12/being-the-co-founder-of-a-vc-backed-startup</id>
+    <content type="html"><![CDATA[<p>Read this article about <a href="https://medium.com/@mattetti/being-the-co-founder-of-a-vc-backed-startup-9709dab8c218">being the co-founder of a VC backed startup on Medium</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
